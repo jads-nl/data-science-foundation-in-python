@@ -445,20 +445,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1067414950.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> 
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -470,18 +456,172 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2026007545.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># load data</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">smarket</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Smarket.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">smarket</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Lag1</th>
+      <th>Lag2</th>
+      <th>Lag3</th>
+      <th>Lag4</th>
+      <th>Lag5</th>
+      <th>Volume</th>
+      <th>Today</th>
+      <th>Direction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2001</td>
+      <td>0.38</td>
+      <td>-0.19</td>
+      <td>-2.62</td>
+      <td>-1.05</td>
+      <td>5.01</td>
+      <td>1.19</td>
+      <td>0.96</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2001</td>
+      <td>0.96</td>
+      <td>0.38</td>
+      <td>-0.19</td>
+      <td>-2.62</td>
+      <td>-1.05</td>
+      <td>1.30</td>
+      <td>1.03</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2001</td>
+      <td>1.03</td>
+      <td>0.96</td>
+      <td>0.38</td>
+      <td>-0.19</td>
+      <td>-2.62</td>
+      <td>1.41</td>
+      <td>-0.62</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2001</td>
+      <td>-0.62</td>
+      <td>1.03</td>
+      <td>0.96</td>
+      <td>0.38</td>
+      <td>-0.19</td>
+      <td>1.28</td>
+      <td>0.61</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2001</td>
+      <td>0.61</td>
+      <td>-0.62</td>
+      <td>1.03</td>
+      <td>0.96</td>
+      <td>0.38</td>
+      <td>1.21</td>
+      <td>0.21</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1246</th>
+      <td>2005</td>
+      <td>0.42</td>
+      <td>0.25</td>
+      <td>-0.02</td>
+      <td>-0.58</td>
+      <td>-0.28</td>
+      <td>1.89</td>
+      <td>0.04</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1247</th>
+      <td>2005</td>
+      <td>0.04</td>
+      <td>0.42</td>
+      <td>0.25</td>
+      <td>-0.02</td>
+      <td>-0.58</td>
+      <td>1.29</td>
+      <td>-0.95</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>1248</th>
+      <td>2005</td>
+      <td>-0.95</td>
+      <td>0.04</td>
+      <td>0.42</td>
+      <td>0.25</td>
+      <td>-0.02</td>
+      <td>1.54</td>
+      <td>0.13</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1249</th>
+      <td>2005</td>
+      <td>0.13</td>
+      <td>-0.95</td>
+      <td>0.04</td>
+      <td>0.42</td>
+      <td>0.25</td>
+      <td>1.42</td>
+      <td>-0.30</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>1250</th>
+      <td>2005</td>
+      <td>-0.30</td>
+      <td>0.13</td>
+      <td>-0.95</td>
+      <td>0.04</td>
+      <td>0.42</td>
+      <td>1.38</td>
+      <td>-0.49</td>
+      <td>Down</td>
+    </tr>
+  </tbody>
+</table>
+<p>1250 rows × 9 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -490,12 +630,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2166590399.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">smarket</span><span class="o">.</span><span class="n">columns</span>
-
-<span class="ne">NameError</span>: name &#39;smarket&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Year&#39;, &#39;Lag1&#39;, &#39;Lag2&#39;, &#39;Lag3&#39;, &#39;Lag4&#39;, &#39;Lag5&#39;, &#39;Volume&#39;, &#39;Today&#39;,
+       &#39;Direction&#39;],
+      dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
@@ -507,12 +644,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2687654489.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">smarket</span><span class="o">.</span><span class="n">shape</span>
-
-<span class="ne">NameError</span>: name &#39;smarket&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1250, 9)
 </pre></div>
 </div>
 </div>
@@ -524,15 +656,171 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">37827552.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">smarket</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;smarket&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Lag1</th>
+      <th>Lag2</th>
+      <th>Lag3</th>
+      <th>Lag4</th>
+      <th>Lag5</th>
+      <th>Volume</th>
+      <th>Today</th>
+      <th>Direction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1,250.00</td>
+      <td>1,250.00</td>
+      <td>1,250.00</td>
+      <td>1,250.00</td>
+      <td>1,250.00</td>
+      <td>1,250.00</td>
+      <td>1,250.00</td>
+      <td>1,250.00</td>
+      <td>1250</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>648</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>2,003.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.01</td>
+      <td>1.48</td>
+      <td>0.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.41</td>
+      <td>1.14</td>
+      <td>1.14</td>
+      <td>1.14</td>
+      <td>1.14</td>
+      <td>1.15</td>
+      <td>0.36</td>
+      <td>1.14</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>2,001.00</td>
+      <td>-4.92</td>
+      <td>-4.92</td>
+      <td>-4.92</td>
+      <td>-4.92</td>
+      <td>-4.92</td>
+      <td>0.36</td>
+      <td>-4.92</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2,002.00</td>
+      <td>-0.64</td>
+      <td>-0.64</td>
+      <td>-0.64</td>
+      <td>-0.64</td>
+      <td>-0.64</td>
+      <td>1.26</td>
+      <td>-0.64</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2,003.00</td>
+      <td>0.04</td>
+      <td>0.04</td>
+      <td>0.04</td>
+      <td>0.04</td>
+      <td>0.04</td>
+      <td>1.42</td>
+      <td>0.04</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2,004.00</td>
+      <td>0.60</td>
+      <td>0.60</td>
+      <td>0.60</td>
+      <td>0.60</td>
+      <td>0.60</td>
+      <td>1.64</td>
+      <td>0.60</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2,005.00</td>
+      <td>5.73</td>
+      <td>5.73</td>
+      <td>5.73</td>
+      <td>5.73</td>
+      <td>5.73</td>
+      <td>3.15</td>
+      <td>5.73</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -541,12 +829,22 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2172869028.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">smarket</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">memory_usage</span><span class="o">=</span><span class="s1">&#39;deep&#39;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;smarket&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 1250 entries, 1 to 1250
+Data columns (total 9 columns):
+ #   Column     Non-Null Count  Dtype   
+---  ------     --------------  -----   
+ 0   Year       1250 non-null   int64   
+ 1   Lag1       1250 non-null   float64 
+ 2   Lag2       1250 non-null   float64 
+ 3   Lag3       1250 non-null   float64 
+ 4   Lag4       1250 non-null   float64 
+ 5   Lag5       1250 non-null   float64 
+ 6   Volume     1250 non-null   float64 
+ 7   Today      1250 non-null   float64 
+ 8   Direction  1250 non-null   category
+dtypes: category(1), float64(7), int64(1)
+memory usage: 89.3 KB
 </pre></div>
 </div>
 </div>
@@ -558,14 +856,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3510441257.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">smarket</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Direction&#39;</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;sns&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/lab_04.6_logistic_regression_lda_qda_knn_7_0.png" src="../_images/lab_04.6_logistic_regression_lda_qda_knn_7_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -575,15 +866,126 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3443607407.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">smarket</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;smarket&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Lag1</th>
+      <th>Lag2</th>
+      <th>Lag3</th>
+      <th>Lag4</th>
+      <th>Lag5</th>
+      <th>Volume</th>
+      <th>Today</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Year</th>
+      <td>1.00</td>
+      <td>0.03</td>
+      <td>0.03</td>
+      <td>0.03</td>
+      <td>0.04</td>
+      <td>0.03</td>
+      <td>0.54</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>Lag1</th>
+      <td>0.03</td>
+      <td>1.00</td>
+      <td>-0.03</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>0.04</td>
+      <td>-0.03</td>
+    </tr>
+    <tr>
+      <th>Lag2</th>
+      <td>0.03</td>
+      <td>-0.03</td>
+      <td>1.00</td>
+      <td>-0.03</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.04</td>
+      <td>-0.01</td>
+    </tr>
+    <tr>
+      <th>Lag3</th>
+      <td>0.03</td>
+      <td>-0.01</td>
+      <td>-0.03</td>
+      <td>1.00</td>
+      <td>-0.02</td>
+      <td>-0.02</td>
+      <td>-0.04</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>Lag4</th>
+      <td>0.04</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.02</td>
+      <td>1.00</td>
+      <td>-0.03</td>
+      <td>-0.05</td>
+      <td>-0.01</td>
+    </tr>
+    <tr>
+      <th>Lag5</th>
+      <td>0.03</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.02</td>
+      <td>-0.03</td>
+      <td>1.00</td>
+      <td>-0.02</td>
+      <td>-0.03</td>
+    </tr>
+    <tr>
+      <th>Volume</th>
+      <td>0.54</td>
+      <td>0.04</td>
+      <td>-0.04</td>
+      <td>-0.04</td>
+      <td>-0.05</td>
+      <td>-0.02</td>
+      <td>1.00</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>Today</th>
+      <td>0.03</td>
+      <td>-0.03</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>-0.03</td>
+      <td>0.01</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -592,14 +994,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2625357947.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">smarket</span><span class="o">.</span><span class="n">Volume</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;plt&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/lab_04.6_logistic_regression_lda_qda_knn_9_0.png" src="../_images/lab_04.6_logistic_regression_lda_qda_knn_9_0.png" />
 </div>
 </div>
 </div>
@@ -620,19 +1015,71 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3882171986.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X_sm</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">y_sm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># dummy encoding</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;statsmodels&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
+         Current function value: 2.197001
+         Iterations 4
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/tsa/tsatools.py:142: FutureWarning: In a future version of pandas all arguments of concat except for the argument &#39;objs&#39; will be keyword-only
+  x = pd.concat(x[::order], 1)
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/base/model.py:547: HessianInversionWarning: Inverting hessian failed, no bse or cov_params available
+  warnings.warn(&#39;Inverting hessian failed, no bse or cov_params &#39;
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/base/model.py:547: HessianInversionWarning: Inverting hessian failed, no bse or cov_params available
+  warnings.warn(&#39;Inverting hessian failed, no bse or cov_params &#39;
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/discrete/discrete_model.py:3500: RuntimeWarning: divide by zero encountered in double_scalars
+  return 1 - self.llf/self.llnull
+</pre></div>
 </div>
+<div class="output text_html"><table class="simpletable">
+<caption>Logit Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>          <td>Up</td>        <th>  No. Observations:  </th>  <td>  1250</td> 
+</tr>
+<tr>
+  <th>Model:</th>                 <td>Logit</td>      <th>  Df Residuals:      </th>  <td>  1243</td> 
+</tr>
+<tr>
+  <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>  <td>     6</td> 
+</tr>
+<tr>
+  <th>Date:</th>            <td>Thu, 23 Sep 2021</td> <th>  Pseudo R-squ.:     </th>  <td>   inf</td> 
+</tr>
+<tr>
+  <th>Time:</th>                <td>19:33:35</td>     <th>  Log-Likelihood:    </th> <td> -2746.3</td>
+</tr>
+<tr>
+  <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th> <td>  0.0000</td>
+</tr>
+<tr>
+  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th>  <td> 1.000</td> 
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+     <td></td>       <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>  <td>   -0.1260</td> <td>    0.241</td> <td>   -0.523</td> <td> 0.601</td> <td>   -0.598</td> <td>    0.346</td>
+</tr>
+<tr>
+  <th>Lag1</th>   <td>   -0.0731</td> <td>    0.050</td> <td>   -1.457</td> <td> 0.145</td> <td>   -0.171</td> <td>    0.025</td>
+</tr>
+<tr>
+  <th>Lag2</th>   <td>   -0.0423</td> <td>    0.050</td> <td>   -0.845</td> <td> 0.398</td> <td>   -0.140</td> <td>    0.056</td>
+</tr>
+<tr>
+  <th>Lag3</th>   <td>    0.0111</td> <td>    0.050</td> <td>    0.222</td> <td> 0.824</td> <td>   -0.087</td> <td>    0.109</td>
+</tr>
+<tr>
+  <th>Lag4</th>   <td>    0.0094</td> <td>    0.050</td> <td>    0.187</td> <td> 0.851</td> <td>   -0.089</td> <td>    0.107</td>
+</tr>
+<tr>
+  <th>Lag5</th>   <td>    0.0103</td> <td>    0.050</td> <td>    0.208</td> <td> 0.835</td> <td>   -0.087</td> <td>    0.107</td>
+</tr>
+<tr>
+  <th>Volume</th> <td>    0.1354</td> <td>    0.158</td> <td>    0.855</td> <td> 0.392</td> <td>   -0.175</td> <td>    0.446</td>
+</tr>
+</table></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -641,12 +1088,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2634759266.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">glm_fit_sm</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;glm_fit_sm&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.50708413, 0.48146788, 0.48113883, ..., 0.5392683 , 0.52611829,
+       0.51791656])
 </pre></div>
 </div>
 </div>
@@ -658,12 +1101,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">212402877.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">glm_fit_sm</span><span class="o">.</span><span class="n">pred_table</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;glm_fit_sm&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[145., 457.],
+       [141., 507.]])
 </pre></div>
 </div>
 </div>
@@ -683,20 +1122,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1477375567.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X_sk</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">y_sk</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -705,12 +1130,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3053257934.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">coef_</span>
-
-<span class="ne">NameError</span>: name &#39;glm_fit&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([-0.12600781]),
+ array([[-0.07307339, -0.04230074,  0.01108552,  0.00935968,  0.01031339,
+          0.13544567]]))
 </pre></div>
 </div>
 </div>
@@ -726,19 +1148,100 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1155350353.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># prediction summary</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_sk</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>               <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_sk</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>               <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk</span><span class="p">)},</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>prob_0</th>
+      <th>prob_1</th>
+      <th>pred_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.52</td>
+      <td>0.48</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.52</td>
+      <td>0.48</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1245</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1246</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1247</th>
+      <td>0.46</td>
+      <td>0.54</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1248</th>
+      <td>0.47</td>
+      <td>0.53</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1249</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+  </tbody>
+</table>
+<p>1250 rows × 3 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -753,19 +1256,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">470353752.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># labeled confusion matrix for predicted values</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_sk</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>145</td>
+      <td>457</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>141</td>
+      <td>507</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -775,13 +1306,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2511016544.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk</span><span class="p">))))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk</span><span class="p">))))</span>
-
-<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.5216
+Training Error: 0.47840000000000005
 </pre></div>
 </div>
 </div>
@@ -791,18 +1317,6 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># separate training and test sets</span>
 <span class="n">train</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smarket</span><span class="o">.</span><span class="n">Year</span> <span class="o">&lt;</span> <span class="mi">2005</span><span class="p">]</span>
 <span class="n">smarket_2005</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smarket</span><span class="o">.</span><span class="n">Year</span> <span class="o">&gt;=</span> <span class="mi">2005</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">975670187.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># separate training and test sets</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">train</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smarket</span><span class="o">.</span><span class="n">Year</span> <span class="o">&lt;</span> <span class="mi">2005</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">smarket_2005</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smarket</span><span class="o">.</span><span class="n">Year</span> <span class="o">&gt;=</span> <span class="mi">2005</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;smarket&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -820,20 +1334,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1144370097.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">X_sk_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">y_sk_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">X_sk_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">y_sk_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
-
-<span class="ne">NameError</span>: name &#39;train&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -846,19 +1346,100 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2298881830.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># prediction summary</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">glm_fit_t</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>               <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">glm_fit_t</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>               <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">glm_fit_t</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">)},</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>prob_0</th>
+      <th>prob_1</th>
+      <th>pred_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.47</td>
+      <td>0.53</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>0.52</td>
+      <td>0.48</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>248</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>249</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 3 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -870,18 +1451,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">263223285.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_sk_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>77</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>97</td>
+      <td>44</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -891,13 +1501,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">649365750.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">))))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">))))</span>
-
-<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.4801587301587302
+Test Error: 0.5198412698412698
 </pre></div>
 </div>
 </div>
@@ -915,20 +1520,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3105718938.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">X_sk_train_s</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">y_sk_train_s</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">X_sk_test_s</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">y_sk_test_s</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
-
-<span class="ne">NameError</span>: name &#39;train&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -941,19 +1532,100 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2094319798.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># prediction summary</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">glm_fit_t_s</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>               <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">glm_fit_t_s</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>               <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">glm_fit_t_s</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">)},</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>prob_0</th>
+      <th>prob_1</th>
+      <th>pred_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.47</td>
+      <td>0.53</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.47</td>
+      <td>0.53</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>248</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>249</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 3 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -965,18 +1637,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">878369617.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_sk_test_s</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>35</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>35</td>
+      <td>106</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -986,13 +1687,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3930278846.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test_s</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">))))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test_s</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">))))</span>
-
-<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.5595238095238095
+Test Error: 0.44047619047619047
 </pre></div>
 </div>
 </div>
@@ -1008,16 +1704,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1901396647.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># predictions for arbitrary data</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">predict_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span> <span class="s1">&#39;Lag2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">]})</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">predict_data</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.47914604, 0.49611109])
 </pre></div>
 </div>
 </div>
@@ -1041,20 +1728,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2508644362.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1063,12 +1736,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2398806576.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">priors_</span> <span class="c1"># group priors</span>
-
-<span class="ne">NameError</span>: name &#39;lda_fit&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.49198397, 0.50801603])
 </pre></div>
 </div>
 </div>
@@ -1080,12 +1748,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">4274897400.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">means_</span> <span class="c1"># group means</span>
-
-<span class="ne">NameError</span>: name &#39;lda_fit&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.04279022,  0.03389409],
+       [-0.03954635, -0.03132544]])
 </pre></div>
 </div>
 </div>
@@ -1097,12 +1761,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3843208689.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">scalings_</span> <span class="c1"># coefficients of ld</span>
-
-<span class="ne">NameError</span>: name &#39;lda_fit&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.64201904],
+       [-0.51352928]])
 </pre></div>
 </div>
 </div>
@@ -1120,18 +1780,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3089721040.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># for plotting lda, needs imporovement</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">ld_sc</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">scalings_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">scalings_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">ld</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;groups&#39;</span><span class="p">:</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;ld&#39;</span><span class="p">:</span> <span class="n">ld_sc</span><span class="p">})</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">NameError</span>: name &#39;X_train&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/lab_04.6_logistic_regression_lda_qda_knn_36_0.png" src="../_images/lab_04.6_logistic_regression_lda_qda_knn_36_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1145,19 +1794,100 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3261017782.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># prediction summary</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>               <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>               <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)},</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>prob_0</th>
+      <th>prob_1</th>
+      <th>pred_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.47</td>
+      <td>0.53</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.47</td>
+      <td>0.53</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>248</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>249</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 3 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1169,18 +1899,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1142012601.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>35</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>35</td>
+      <td>106</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="quadratic-discriminant-analysis">
@@ -1200,20 +1959,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2721448185.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">QuadraticDiscriminantAnalysis</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1222,12 +1967,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">556615618.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">priors_</span> <span class="c1"># group priors</span>
-
-<span class="ne">NameError</span>: name &#39;qda_fit&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.49198397, 0.50801603])
 </pre></div>
 </div>
 </div>
@@ -1239,12 +1979,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3024908292.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">means_</span> <span class="c1"># group means</span>
-
-<span class="ne">NameError</span>: name &#39;qda_fit&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.04279022,  0.03389409],
+       [-0.03954635, -0.03132544]])
 </pre></div>
 </div>
 </div>
@@ -1256,12 +1992,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">782404142.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">scalings_</span> <span class="c1"># coefficients of ld</span>
-
-<span class="ne">NameError</span>: name &#39;qda_fit&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([1.56294495, 1.47927279]), array([1.53455065, 1.47272326])]
 </pre></div>
 </div>
 </div>
@@ -1277,19 +2008,100 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3056273363.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># prediction summary</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>               <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>               <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)},</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>prob_0</th>
+      <th>prob_1</th>
+      <th>pred_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.46</td>
+      <td>0.54</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.47</td>
+      <td>0.53</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>248</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>249</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>0.48</td>
+      <td>0.52</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>0.49</td>
+      <td>0.51</td>
+      <td>Up</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 3 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1301,18 +2113,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3471511492.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>30</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20</td>
+      <td>121</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1322,13 +2163,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3560990775.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-
-<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.5992063492063492
+Test Error: 0.4007936507936508
 </pre></div>
 </div>
 </div>
@@ -1351,20 +2187,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1237683874.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1377,19 +2199,100 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3143807601.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># prediction summary</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span>               <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>               <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)},</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>prob_0</th>
+      <th>prob_1</th>
+      <th>pred_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>247</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>248</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>249</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>Up</td>
+    </tr>
+  </tbody>
+</table>
+<p>252 rows × 3 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1401,18 +2304,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">908740393.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>43</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>58</td>
+      <td>83</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1422,13 +2354,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3713862097.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-
-<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.5
+Test Error: 0.5
 </pre></div>
 </div>
 </div>
@@ -1437,17 +2364,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn_model_3</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">knn_fit_3</span> <span class="o">=</span> <span class="n">knn_model_3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2940619269.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">knn_model_3</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">knn_fit_3</span> <span class="o">=</span> <span class="n">knn_model_3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;KNeighborsClassifier&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1462,18 +2378,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">4125746934.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit_3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>48</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>55</td>
+      <td>86</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1483,13 +2428,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1029624968.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit_3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit_3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-
-<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.5317460317460317
+Test Error: 0.46825396825396826
 </pre></div>
 </div>
 </div>
@@ -1507,18 +2447,316 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">774121372.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># load data</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">caravan</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Caravan.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span> <span class="o">=</span> <span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">caravan</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MOSTYPE</th>
+      <th>MAANTHUI</th>
+      <th>MGEMOMV</th>
+      <th>MGEMLEEF</th>
+      <th>MOSHOOFD</th>
+      <th>MGODRK</th>
+      <th>MGODPR</th>
+      <th>MGODOV</th>
+      <th>MGODGE</th>
+      <th>MRELGE</th>
+      <th>...</th>
+      <th>APERSONG</th>
+      <th>AGEZONG</th>
+      <th>AWAOREG</th>
+      <th>ABRAND</th>
+      <th>AZEILPL</th>
+      <th>APLEZIER</th>
+      <th>AFIETS</th>
+      <th>AINBOED</th>
+      <th>ABYSTAND</th>
+      <th>Purchase</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>33</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>8</td>
+      <td>0</td>
+      <td>5</td>
+      <td>1</td>
+      <td>3</td>
+      <td>7</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>37</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>8</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+      <td>4</td>
+      <td>6</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>37</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>8</td>
+      <td>0</td>
+      <td>4</td>
+      <td>2</td>
+      <td>4</td>
+      <td>3</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
+      <td>2</td>
+      <td>4</td>
+      <td>5</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>40</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2</td>
+      <td>10</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+      <td>4</td>
+      <td>7</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>5818</th>
+      <td>36</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>8</td>
+      <td>0</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>5819</th>
+      <td>35</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+      <td>8</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+      <td>4</td>
+      <td>6</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>5820</th>
+      <td>33</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>8</td>
+      <td>0</td>
+      <td>6</td>
+      <td>0</td>
+      <td>3</td>
+      <td>5</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>5821</th>
+      <td>34</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>8</td>
+      <td>0</td>
+      <td>7</td>
+      <td>0</td>
+      <td>2</td>
+      <td>7</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>5822</th>
+      <td>33</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>8</td>
+      <td>0</td>
+      <td>6</td>
+      <td>1</td>
+      <td>2</td>
+      <td>7</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<p>5822 rows × 86 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1527,12 +2765,99 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1813165230.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">caravan</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">memory_usage</span><span class="o">=</span><span class="s1">&#39;deep&#39;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;caravan&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 5822 entries, 1 to 5822
+Data columns (total 86 columns):
+ #   Column    Non-Null Count  Dtype   
+---  ------    --------------  -----   
+ 0   MOSTYPE   5822 non-null   int64   
+ 1   MAANTHUI  5822 non-null   int64   
+ 2   MGEMOMV   5822 non-null   int64   
+ 3   MGEMLEEF  5822 non-null   int64   
+ 4   MOSHOOFD  5822 non-null   int64   
+ 5   MGODRK    5822 non-null   int64   
+ 6   MGODPR    5822 non-null   int64   
+ 7   MGODOV    5822 non-null   int64   
+ 8   MGODGE    5822 non-null   int64   
+ 9   MRELGE    5822 non-null   int64   
+ 10  MRELSA    5822 non-null   int64   
+ 11  MRELOV    5822 non-null   int64   
+ 12  MFALLEEN  5822 non-null   int64   
+ 13  MFGEKIND  5822 non-null   int64   
+ 14  MFWEKIND  5822 non-null   int64   
+ 15  MOPLHOOG  5822 non-null   int64   
+ 16  MOPLMIDD  5822 non-null   int64   
+ 17  MOPLLAAG  5822 non-null   int64   
+ 18  MBERHOOG  5822 non-null   int64   
+ 19  MBERZELF  5822 non-null   int64   
+ 20  MBERBOER  5822 non-null   int64   
+ 21  MBERMIDD  5822 non-null   int64   
+ 22  MBERARBG  5822 non-null   int64   
+ 23  MBERARBO  5822 non-null   int64   
+ 24  MSKA      5822 non-null   int64   
+ 25  MSKB1     5822 non-null   int64   
+ 26  MSKB2     5822 non-null   int64   
+ 27  MSKC      5822 non-null   int64   
+ 28  MSKD      5822 non-null   int64   
+ 29  MHHUUR    5822 non-null   int64   
+ 30  MHKOOP    5822 non-null   int64   
+ 31  MAUT1     5822 non-null   int64   
+ 32  MAUT2     5822 non-null   int64   
+ 33  MAUT0     5822 non-null   int64   
+ 34  MZFONDS   5822 non-null   int64   
+ 35  MZPART    5822 non-null   int64   
+ 36  MINKM30   5822 non-null   int64   
+ 37  MINK3045  5822 non-null   int64   
+ 38  MINK4575  5822 non-null   int64   
+ 39  MINK7512  5822 non-null   int64   
+ 40  MINK123M  5822 non-null   int64   
+ 41  MINKGEM   5822 non-null   int64   
+ 42  MKOOPKLA  5822 non-null   int64   
+ 43  PWAPART   5822 non-null   int64   
+ 44  PWABEDR   5822 non-null   int64   
+ 45  PWALAND   5822 non-null   int64   
+ 46  PPERSAUT  5822 non-null   int64   
+ 47  PBESAUT   5822 non-null   int64   
+ 48  PMOTSCO   5822 non-null   int64   
+ 49  PVRAAUT   5822 non-null   int64   
+ 50  PAANHANG  5822 non-null   int64   
+ 51  PTRACTOR  5822 non-null   int64   
+ 52  PWERKT    5822 non-null   int64   
+ 53  PBROM     5822 non-null   int64   
+ 54  PLEVEN    5822 non-null   int64   
+ 55  PPERSONG  5822 non-null   int64   
+ 56  PGEZONG   5822 non-null   int64   
+ 57  PWAOREG   5822 non-null   int64   
+ 58  PBRAND    5822 non-null   int64   
+ 59  PZEILPL   5822 non-null   int64   
+ 60  PPLEZIER  5822 non-null   int64   
+ 61  PFIETS    5822 non-null   int64   
+ 62  PINBOED   5822 non-null   int64   
+ 63  PBYSTAND  5822 non-null   int64   
+ 64  AWAPART   5822 non-null   int64   
+ 65  AWABEDR   5822 non-null   int64   
+ 66  AWALAND   5822 non-null   int64   
+ 67  APERSAUT  5822 non-null   int64   
+ 68  ABESAUT   5822 non-null   int64   
+ 69  AMOTSCO   5822 non-null   int64   
+ 70  AVRAAUT   5822 non-null   int64   
+ 71  AAANHANG  5822 non-null   int64   
+ 72  ATRACTOR  5822 non-null   int64   
+ 73  AWERKT    5822 non-null   int64   
+ 74  ABROM     5822 non-null   int64   
+ 75  ALEVEN    5822 non-null   int64   
+ 76  APERSONG  5822 non-null   int64   
+ 77  AGEZONG   5822 non-null   int64   
+ 78  AWAOREG   5822 non-null   int64   
+ 79  ABRAND    5822 non-null   int64   
+ 80  AZEILPL   5822 non-null   int64   
+ 81  APLEZIER  5822 non-null   int64   
+ 82  AFIETS    5822 non-null   int64   
+ 83  AINBOED   5822 non-null   int64   
+ 84  ABYSTAND  5822 non-null   int64   
+ 85  Purchase  5822 non-null   category
+dtypes: category(1), int64(85)
+memory usage: 3.8 MB
 </pre></div>
 </div>
 </div>
@@ -1544,12 +2869,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">823884284.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;caravan&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No     5474
+Yes     348
+Name: Purchase, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -1561,12 +2883,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">542486962.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[</span><span class="s1">&#39;Yes&#39;</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">caravan</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;caravan&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.05977327378907592
 </pre></div>
 </div>
 </div>
@@ -1589,20 +2906,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">605147971.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X</span> <span class="o">=</span> <span class="n">caravan</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">85</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">zscore</span><span class="p">)</span> <span class="c1"># standardize for KNN</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">y</span> <span class="o">=</span> <span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;scipy&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1614,18 +2917,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">908740393.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>873</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>50</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1635,13 +2967,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3713862097.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-
-<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.882
+Test Error: 0.118
 </pre></div>
 </div>
 </div>
@@ -1655,14 +2982,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3237997022.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for &#39;Yes&#39;: 0.11688311688311688
 </pre></div>
 </div>
 </div>
@@ -1677,15 +2997,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1870463088.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">knn_fit3</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
-
-<span class="ne">NameError</span>: name &#39;KNeighborsClassifier&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for &#39;Yes&#39;: 0.2
 </pre></div>
 </div>
 </div>
@@ -1700,15 +3012,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2794014015.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">knn_fit5</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit5</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
-
-<span class="ne">NameError</span>: name &#39;KNeighborsClassifier&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for &#39;Yes&#39;: 0.26666666666666666
 </pre></div>
 </div>
 </div>
@@ -1721,13 +3025,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">1062120668.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">glm_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e9</span><span class="p">)</span> <span class="c1"># Large C for no regularization</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">glm_fit</span> <span class="o">=</span> <span class="n">glm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:763: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
 
-<span class="ne">NameError</span>: name &#39;LogisticRegression&#39; is not defined
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
 </pre></div>
 </div>
 </div>
@@ -1744,19 +3049,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">3189153802.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">glm_pred_50</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;Yes&#39;</span><span class="p">})</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_50</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>935</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>59</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1765,12 +3098,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">2775313568.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_50</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
-
-<span class="ne">NameError</span>: name &#39;precision_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for &#39;Yes&#39;: 0.0
 </pre></div>
 </div>
 </div>
@@ -1787,19 +3115,47 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">4128485276.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">glm_pred_25</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.25</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;Yes&#39;</span><span class="p">})</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_25</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Predicted</th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>True</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>918</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>48</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1808,12 +3164,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1755</span><span class="o">/</span><span class="mf">4182130879.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_25</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
-
-<span class="ne">NameError</span>: name &#39;precision_score&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for &#39;Yes&#39;: 0.3235294117647059
 </pre></div>
 </div>
 </div>
