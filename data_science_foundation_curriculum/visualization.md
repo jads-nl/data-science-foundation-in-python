@@ -1,4 +1,0 @@
-# Data visualization
-
-## Why Altair
-...
