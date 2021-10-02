@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -211,7 +211,7 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../altair_intro.html">
+  <a class="reference internal" href="../visualization/introduction-to-interactive-data-visualization.html">
    Introduction
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -220,6 +220,11 @@
    </i>
   </label>
   <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_get_started.html">
+     Getting Started with Altair
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../visualization/altair_introduction.html">
      Introduction to Altair
@@ -459,7 +464,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-184.1541797729099,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-184.15417977290997,
  array([ 2.12455205e+01, -5.63859313e-01,  6.81068771e-03, -3.20383037e-05]))
 </pre></div>
 </div>
@@ -603,9 +608,28 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1859/2470884708.py:7: DeprecationWarning: Calling Family(..) with a link class as argument is deprecated.
-Use an instance of a link class instead.
-  family=sm.families.Binomial(sm.families.links.logit)).fit()
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1913</span><span class="o">/</span><span class="mf">2470884708.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">lr_sm</span> <span class="o">=</span> <span class="n">glm</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;wage_250 ~ age + age_2 + age_3 + age_4&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span>             <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span>
+<span class="ne">----&gt; </span><span class="mi">7</span>             <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">logit</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/genmod/families/family.py</span> in <span class="ni">__init__</span><span class="nt">(self, link)</span>
+<span class="g g-Whitespace">    </span><span class="mi">891</span>         <span class="c1"># overwritten by initialize if needed but always used to initialize</span>
+<span class="g g-Whitespace">    </span><span class="mi">892</span>         <span class="c1"># variance since endog is assumed/forced to be (0,1)</span>
+<span class="ne">--&gt; </span><span class="mi">893</span>         <span class="nb">super</span><span class="p">(</span><span class="n">Binomial</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="n">link</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">894</span>                                        <span class="n">variance</span><span class="o">=</span><span class="n">V</span><span class="o">.</span><span class="n">Binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">895</span> 
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/statsmodels/genmod/families/family.py</span> in <span class="ni">__init__</span><span class="nt">(self, link, variance)</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>                 <span class="s2">&quot;instance of a link class instead.&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>             <span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">83</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">warnmssg</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>             <span class="bp">self</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">link</span>
+
+<span class="ne">TypeError</span>: Calling Family(..) with a link class is not allowed. Use an instance of a link class instead.
 </pre></div>
 </div>
 </div>
@@ -625,7 +649,18 @@ Use an instance of a link class instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/lab_07.8_non_linear_modelling_9_0.png" src="../_images/lab_07.8_non_linear_modelling_9_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1913</span><span class="o">/</span><span class="mf">731032514.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                       <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;age_2&#39;</span><span class="p">,</span> <span class="s1">&#39;age_3&#39;</span><span class="p">,</span> <span class="s1">&#39;age_4&#39;</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">log_reg_pred</span> <span class="o">=</span> <span class="n">lr_sm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage_250</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;lr_sm&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -660,6 +695,10 @@ Use an instance of a link class instead.
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/utils/validation.py:1673: FutureWarning: Feature names only support names that are all strings. Got feature names with dtypes: [&#39;Interval&#39;]. An error will be raised in 1.2.
+  warnings.warn(
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(94.15839203351902, array([24.05349138, 23.664559  ,  7.6405917 ]))
 </pre></div>
 </div>
@@ -699,7 +738,7 @@ Use an instance of a link class instead.
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1859</span><span class="o">/</span><span class="mf">2771723131.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1913</span><span class="o">/</span><span class="mf">2771723131.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">GLM</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">lr_sm</span> <span class="o">=</span> <span class="n">GLM</span><span class="p">(</span><span class="n">wage_step</span><span class="o">.</span><span class="n">wage_250</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
@@ -738,7 +777,26 @@ Use an instance of a link class instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/lab_07.8_non_linear_modelling_16_0.png" src="../_images/lab_07.8_non_linear_modelling_16_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/base.py:484: FutureWarning: The feature names should match those that were passed during fit. Starting version 1.2, an error will be raised.
+Feature names unseen at fit time:
+- bs(age_grid, knots=(25, 40, 60), degree=3, include_intercept=False)[0]
+- bs(age_grid, knots=(25, 40, 60), degree=3, include_intercept=False)[1]
+- bs(age_grid, knots=(25, 40, 60), degree=3, include_intercept=False)[2]
+- bs(age_grid, knots=(25, 40, 60), degree=3, include_intercept=False)[3]
+- bs(age_grid, knots=(25, 40, 60), degree=3, include_intercept=False)[4]
+- ...
+Feature names seen at fit time, yet now missing:
+- bs(age, knots=(25, 40, 60), degree=3, include_intercept=False)[0]
+- bs(age, knots=(25, 40, 60), degree=3, include_intercept=False)[1]
+- bs(age, knots=(25, 40, 60), degree=3, include_intercept=False)[2]
+- bs(age, knots=(25, 40, 60), degree=3, include_intercept=False)[3]
+- bs(age, knots=(25, 40, 60), degree=3, include_intercept=False)[4]
+- ...
+
+  warnings.warn(message, FutureWarning)
+</pre></div>
+</div>
+<img alt="../_images/lab_07.8_non_linear_modelling_16_1.png" src="../_images/lab_07.8_non_linear_modelling_16_1.png" />
 </div>
 </div>
 <p>Cubic spline with specified degrees of freedom</p>
@@ -763,7 +821,26 @@ Use an instance of a link class instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/lab_07.8_non_linear_modelling_18_0.png" src="../_images/lab_07.8_non_linear_modelling_18_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/base.py:484: FutureWarning: The feature names should match those that were passed during fit. Starting version 1.2, an error will be raised.
+Feature names unseen at fit time:
+- bs(age_grid, df=6, include_intercept=False)[0]
+- bs(age_grid, df=6, include_intercept=False)[1]
+- bs(age_grid, df=6, include_intercept=False)[2]
+- bs(age_grid, df=6, include_intercept=False)[3]
+- bs(age_grid, df=6, include_intercept=False)[4]
+- ...
+Feature names seen at fit time, yet now missing:
+- bs(age, df=6, include_intercept=False)[0]
+- bs(age, df=6, include_intercept=False)[1]
+- bs(age, df=6, include_intercept=False)[2]
+- bs(age, df=6, include_intercept=False)[3]
+- bs(age, df=6, include_intercept=False)[4]
+- ...
+
+  warnings.warn(message, FutureWarning)
+</pre></div>
+</div>
+<img alt="../_images/lab_07.8_non_linear_modelling_18_1.png" src="../_images/lab_07.8_non_linear_modelling_18_1.png" />
 </div>
 </div>
 <p>Natural Spline</p>
@@ -788,7 +865,22 @@ Use an instance of a link class instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/lab_07.8_non_linear_modelling_20_0.png" src="../_images/lab_07.8_non_linear_modelling_20_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/base.py:484: FutureWarning: The feature names should match those that were passed during fit. Starting version 1.2, an error will be raised.
+Feature names unseen at fit time:
+- cr(age_grid, df=4)[0]
+- cr(age_grid, df=4)[1]
+- cr(age_grid, df=4)[2]
+- cr(age_grid, df=4)[3]
+Feature names seen at fit time, yet now missing:
+- cr(age, df=4)[0]
+- cr(age, df=4)[1]
+- cr(age, df=4)[2]
+- cr(age, df=4)[3]
+
+  warnings.warn(message, FutureWarning)
+</pre></div>
+</div>
+<img alt="../_images/lab_07.8_non_linear_modelling_20_1.png" src="../_images/lab_07.8_non_linear_modelling_20_1.png" />
 </div>
 </div>
 <p>Couldn’t find a way to implement smooth.spline() function in Python</p>
@@ -821,7 +913,7 @@ Use an instance of a link class instead.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(235005038308391.16,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(235005038308391.2,
  array([-2.67171792e+14, -2.67171792e+14, -2.67171792e+14, -2.67171792e+14,
          3.21667534e+13,  3.21667534e+13,  3.21667534e+13,  3.21667534e+13,
          3.21667534e+13,  1.08388672e+01,  2.32197266e+01,  3.78789062e+01,
