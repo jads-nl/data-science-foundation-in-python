@@ -1,1 +1,1 @@
-# Introduction to ISLR exercises
+# Solutions to coding exercises
