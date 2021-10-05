@@ -1,1 +1,1 @@
-# Introduction to ISRL Labs
+# Labs
