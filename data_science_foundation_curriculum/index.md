@@ -2,7 +2,7 @@
 
 A foundational data science curriculum based on the following materials avaialble in the public domain:
 
-- [Introduction to Statistical Learning with Applications in R](https://statlearning.com) by James, Witten, Hastie, Tibshirani (first edition, 2013)
+- [Introduction to Statistical Learning with Applications in R](https://statlearning.com) by James, Witten, Hastie, Tibshirani (second edition, 2021)
 - [Altair Visualization Curriculum](https://uwdata.github.io/visualization-curriculum/intro.html), developed at the University of Washington by Jeffrey Heer, Dominik Moritz, Jake VanderPlas, and Brock Craft
 - [Forecasting: Principles and Practice](https://otexts.com/fpp3/) by Rob J Hyndman and George Athanasopoulos (third edition, 2021)
 - [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/) by Christoph Molnar (2021)
