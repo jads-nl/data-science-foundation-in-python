@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6.7.1 Principal Components Regression &#8212; Data Science Foundation Curriculum</title>
+    <title>Chapter 6 - Lab 3: PCR and PLS Regression &#8212; Data Science Foundation Curriculum</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -49,10 +49,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/labs/lab_06.7_pcr_and_pls_regression.html" />
+    <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="7.8.1 Polynomial Regression and Step Functions" href="lab_07.8_non_linear_modelling.html" />
-    <link rel="prev" title="6.6.1 Ridge Regression" href="lab_06.6_ridge_regression_and_the_lasso.html" />
+    <link rel="next" title="Chapter 7: Non-linear Modeling" href="lab_07.8_non_linear_modelling.html" />
+    <link rel="prev" title="Chapter 6 - Lab 2: Ridge Regression and the Lasso" href="lab_06.6_ridge_regression_and_the_lasso.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -89,7 +91,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../index.html">
-   Introduction
+   Why this JupyterBook?
   </a>
  </li>
 </ul>
@@ -116,74 +118,74 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="lab_02.3_introduction.html">
-     2.3.1 Basic Commands
+     Chapter 2: Python Basics
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_03.6_linear_regression.html">
-     3.6.2 Simple Linear Regression
+     Chapter 3: Linear Regression
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_04.6_logistic_regression_lda_qda_knn.html">
-     4.6.1 The Stock Market Data
+     Chapter 4: Logistic Regression, LDA, QDA and KNN
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_05.3_cross_validation_and_the_bootstrap.html">
-     5.3.1 The Validation Set Approach
+     Chapter 5: Cross-Validation and the Bootstrap
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_06.5_subset_selection_methods.html">
-     6.5.1 Best Subset Selection
+     Chapter 6 - Lab 1: Subset Selection Methods
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_06.6_ridge_regression_and_the_lasso.html">
-     6.6.1 Ridge Regression
+     Chapter 6 - Lab 2: Ridge Regression and the Lasso
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     6.7.1 Principal Components Regression
+     Chapter 6 - Lab 3: PCR and PLS Regression
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_07.8_non_linear_modelling.html">
-     7.8.1 Polynomial Regression and Step Functions
+     Chapter 7: Non-linear Modeling
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_08.3_decision_trees.html">
-     8.3.1 Fitting Classification Trees
+     Chapter 8: Decision Trees
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_09.6_support_vector_machines.html">
-     9.6.1 Support Vector Classifier
+     Chapter 9: Support Vector Machines
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_10.4_principal_components_analysis.html">
-     10.4 Principal Component Analysis
+     Chapter 10 - Lab 1: Principcal Component Analysis
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_10.5_clustering.html">
-     10.5.1 K-Means Clustering
+     Chapter 10 - Lab 2: Clustering
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_10.5_NCI60_data_example.html">
-     10.6.1 PCA on the NCI60 Data
+     Chapter 10 - Lab 3: NCI60 Data Example
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../exercises.html">
-   Solutions to coding exercises
+   Exercises
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -283,6 +285,55 @@
   <a class="reference internal" href="../../fpp/examples-time-series-forecasting-with-python.html">
    Examples of time-series forecasting with Python
   </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -393,12 +444,12 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#principal-components-regression">
    6.7.1 Principal Components Regression
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#partial-least-squares">
    6.7.2 Partial Least Squares
   </a>
@@ -414,7 +465,9 @@
         
               <div>
                 
-  <p>Adapted from <a class="reference external" href="http://www.science.smith.edu/~jcrouser/SDS293/labs/">http://www.science.smith.edu/~jcrouser/SDS293/labs/</a></p>
+  <div class="section" id="chapter-6-lab-3-pcr-and-pls-regression">
+<h1>Chapter 6 - Lab 3: PCR and PLS Regression<a class="headerlink" href="#chapter-6-lab-3-pcr-and-pls-regression" title="Permalink to this headline">¶</a></h1>
+<p>Adapted from <a class="reference external" href="http://www.science.smith.edu/~jcrouser/SDS293/labs/">http://www.science.smith.edu/~jcrouser/SDS293/labs/</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports and setup</span>
@@ -454,7 +507,7 @@
 </div>
 </div>
 <div class="section" id="principal-components-regression">
-<h1>6.7.1 Principal Components Regression<a class="headerlink" href="#principal-components-regression" title="Permalink to this headline">¶</a></h1>
+<h2>6.7.1 Principal Components Regression<a class="headerlink" href="#principal-components-regression" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span> 
@@ -470,7 +523,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">3361869460.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">3361869460.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -493,7 +546,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">1590074226.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">1590074226.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
@@ -533,7 +586,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">2091420179.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">2091420179.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># 10-fold CV, with shuffle</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">k10</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -554,7 +607,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">1462835920.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">1462835920.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;pca&#39; is not defined
@@ -599,7 +652,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">1330842793.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">1330842793.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># validation set</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> 
@@ -627,7 +680,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">2936707844.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">2936707844.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">X_train_pca3</span> <span class="o">=</span> <span class="n">pca2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">))[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">]</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">X_test_pca3</span> <span class="o">=</span> <span class="n">pca2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_test</span><span class="p">))[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">]</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> 
@@ -641,7 +694,7 @@
 </div>
 </div>
 <div class="section" id="partial-least-squares">
-<h1>6.7.2 Partial Least Squares<a class="headerlink" href="#partial-least-squares" title="Permalink to this headline">¶</a></h1>
+<h2>6.7.2 Partial Least Squares<a class="headerlink" href="#partial-least-squares" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 10-fold CV, with shuffle</span>
@@ -668,7 +721,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">3202036982.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">3202036982.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># 10-fold CV, with shuffle</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">k10</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -692,7 +745,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1931</span><span class="o">/</span><span class="mf">2903624844.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2172</span><span class="o">/</span><span class="mf">2903624844.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pls</span> <span class="o">=</span> <span class="n">PLSRegression</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">pls</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> 
@@ -700,6 +753,7 @@
 
 <span class="ne">NameError</span>: name &#39;PLSRegression&#39; is not defined
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -739,7 +793,7 @@
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">6.6.1 Ridge Regression</p>
+                <p class="prevnext-title">Chapter 6 - Lab 2: Ridge Regression and the Lasso</p>
             </div>
         </a>
     </div>
@@ -747,7 +801,7 @@
         <a class="right-next" href="lab_07.8_non_linear_modelling.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">7.8.1 Polynomial Regression and Step Functions</p>
+                <p class="prevnext-title">Chapter 7: Non-linear Modeling</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
