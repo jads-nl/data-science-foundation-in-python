@@ -1,6 +1,6 @@
 ---
 name: Question issue template
-about: Template for submitting questions pertaining to the content of the book.
+about: Ask a question about the content of the book
 title: ''
 labels: ''
 assignees: ''
