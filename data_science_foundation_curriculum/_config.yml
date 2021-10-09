@@ -8,9 +8,12 @@ logo: jads-logo.png
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: auto
+  execute_notebooks: cache
   allow_errors: true
-  timeout: 120
+  timeout: 1200
+  exclude_patterns:
+    - 'nlp-dutch-restaurant-reviews.ipynb'
+    - 'nlp-pipeline-example.ipynb'
 
 launch_buttons:
   colab_url: "https://colab.research.google.com"
@@ -31,3 +34,5 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  baseurl: "https://jads-nl.github.io/data-science-foundation-curriculum"
+  favicon: "favicon-32x32.png"
