@@ -6,7 +6,7 @@ This foundational data science curriculum is based on the following textbooks an
 
 - [Introduction to Statistical Learning with Applications in R, Second Edition (ISLRv2)](https://statlearning.com) by James, Witten, Hastie, Tibshirani (2021).
 - [Altair Visualization Curriculum](https://uwdata.github.io/visualization-curriculum/intro.html), developed at the University of Washington by Jeffrey Heer, Dominik Moritz, Jake VanderPlas, and Brock Craft.
-- [Forecasting: Principles and Practice, Third Edition (fpp3)](https://otexts.com/fpp3/) by Rob J Hyndman and George Athanasopoulos (third edition, 2021).
+- [Forecasting: Principles and Practice, Third Edition (fpp3)](https://otexts.com/fpp3/) by Rob J Hyndman and George Athanasopoulos (2021).
 - [Advanced NLP with spaCy](https://course.spacy.io/en/).
 - [Interpretable Machine Learning (IML)](https://christophm.github.io/interpretable-ml-book/) by Christoph Molnar (2021).
 
