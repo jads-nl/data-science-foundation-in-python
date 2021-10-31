@@ -1,0 +1,1767 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 5.5 &#8212; Data Science Foundation Curriculum</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/exercises/chapter5/exercise5.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Exercise 5.6" href="exercise6.html" />
+    <link rel="prev" title="Exercise 5.4" href="exercise4.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/jads-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science Foundation Curriculum</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../index.html">
+   Why this JupyterBook?
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Statistical Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../introduction.html">
+   Introduction to ISLRv2
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../labs.html">
+   Labs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_02.3_introduction.html">
+     Chapter 2: Python Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_03.6_linear_regression.html">
+     Chapter 3: Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_04.6_logistic_regression_lda_qda_knn.html">
+     Chapter 4: Logistic Regression, LDA, QDA and KNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_05.3_cross_validation_and_the_bootstrap.html">
+     Chapter 5: Cross-Validation and the Bootstrap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.5_subset_selection_methods.html">
+     Chapter 6 - Lab 1: Subset Selection Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.6_ridge_regression_and_the_lasso.html">
+     Chapter 6 - Lab 2: Ridge Regression and the Lasso
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.7_pcr_and_pls_regression.html">
+     Chapter 6 - Lab 3: PCR and PLS Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_07.8_non_linear_modelling.html">
+     Chapter 7: Non-linear Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_08.3_decision_trees.html">
+     Chapter 8: Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_09.6_support_vector_machines.html">
+     Chapter 9: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.4_principal_components_analysis.html">
+     Chapter 10 - Lab 1: Principcal Component Analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_clustering.html">
+     Chapter 10 - Lab 2: Clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_NCI60_data_example.html">
+     Chapter 10 - Lab 3: NCI60 Data Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../exercises.html">
+   Exercises
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter2/index.html">
+     Chapter 2
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise1.html">
+       Exercise 2.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise2.html">
+       Exercise 2.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise3.html">
+       Exercise 2.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise4.html">
+       Exercise 2.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise5.html">
+       Exercise 2.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise6.html">
+       Exercise 2.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise7.html">
+       Exercise 2.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise8.html">
+       Exercise 2.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise9.html">
+       Exercise 2.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise10.html">
+       Exercise 2.10
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter3/index.html">
+     Chapter 3
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise1.html">
+       Exercise 3.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise2.html">
+       Exercise 3.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise3.html">
+       Exercise 3.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise4.html">
+       Exercise 3.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise5.html">
+       Exercise 3.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise6.html">
+       Exercise 3.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise7.html">
+       Exercise 3.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise8.html">
+       Exercise 3.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise9.html">
+       Exercise 3.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise10.html">
+       Exercise 3.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise11.html">
+       Exercise 3.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise12.html">
+       Exercise 3.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise13.html">
+       Exercise 3.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise14.html">
+       Exercise 3.14
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise15.html">
+       Exercise 3.15
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter4/index.html">
+     Chapter 4
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise1.html">
+       Exercise 4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise2.html">
+       Exercise 4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise3.html">
+       Exercise 4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise4.html">
+       Exercise 4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise5.html">
+       Exercise 4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise6.html">
+       Exercise 4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise7.html">
+       Exercise 4.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise8.html">
+       Exercise 4.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise9.html">
+       Exercise 4.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise10.html">
+       Exercise 4.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise11.html">
+       Exercise 4.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise12.html">
+       Exercise 4.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise13.html">
+       Exercise 4.13
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="index.html">
+     Chapter 5
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise1.html">
+       Exercise 5.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise2.html">
+       Exercise 5.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise3.html">
+       Problem 5.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise4.html">
+       Exercise 5.4
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Exercise 5.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise6.html">
+       Exercise 5.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise7.html">
+       Exercise 5.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise8.html">
+       Exercise 5.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise9.html">
+       Exercise 5.9
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter6/index.html">
+     Chapter 6
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise1.html">
+       Exercise 6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise2.html">
+       Exercise 6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise3.html">
+       Exercise 6.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise4.html">
+       Exercise 6.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise5.html">
+       Exercise 6.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise6.html">
+       Exercise 6.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise7.html">
+       Exercise 6.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise8.html">
+       Exercise 6.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise9.html">
+       Exercise 6.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise10.html">
+       Exercise 6.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise11.html">
+       Exercise 6.11
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter7/index.html">
+     Chapter 7
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise1.html">
+       Exercise 7.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise2.html">
+       Exercise 7.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise3.html">
+       Exercise 7.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise4.html">
+       Exercise 7.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise5.html">
+       Exercise 7.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise6.html">
+       Exercise 7.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise7.html">
+       Exercise 7.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise8.html">
+       Exercise 7.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise9.html">
+       Exercise 7.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise10.html">
+       Exercise 7.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise11.html">
+       Exercise 7.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise12.html">
+       Exercise 7.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter8/index.html">
+     Chapter 8
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise1.html">
+       Exercise 8.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise2.html">
+       Exercise 8.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise3.html">
+       Exercise 8.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise4.html">
+       Exercise 8.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise5.html">
+       Exercise 8.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise6.html">
+       Exercise 8.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise7.html">
+       Exercise 8.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise8.html">
+       Exercise 8.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise9.html">
+       Exercise 8.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise10.html">
+       Exercise 8.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise11.html">
+       Exercise 8.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise12.html">
+       Exercise 8.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter9/index.html">
+     Chapter 9
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise1.html">
+       Exercise 9.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise2.html">
+       Exercise 9.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise3.html">
+       Exercise 9.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise4.html">
+       Exercise 9.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise5.html">
+       Exercise 9.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise6.html">
+       Exercise 9.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise7.html">
+       Exercise 9.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise8.html">
+       Exercise 9.8
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter12/index.html">
+     Chapter 12
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise1.html">
+       Exercise 12.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise2.html">
+       Exercise 12.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise3.html">
+       Exercise 12.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise4.html">
+       Exercise 12.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise5.html">
+       Exercise 12.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise6.html">
+       Exercise 12.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise7.html">
+       Exercise 12.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise8.html">
+       Exercise 10.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise9.html">
+       Exercise 12.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise10.html">
+       Exercise 12.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise11.html">
+       Exercise 12.11
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Data visualization with Altair
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../visualization/introduction-to-interactive-data-visualization.html">
+   Introduction to data visualization with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../visualization/altair_get_started.html">
+   Getting Started with Altair
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_introduction.html">
+     Introduction to Altair
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_marks_encoding.html">
+     Data Types, Graphical Marks, and Visual Encoding Channels
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_data_transformation.html">
+     Data Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_scales_axes_legends.html">
+     Scales, Axes, and Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_view_composition.html">
+     Multi-View Composition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_interaction.html">
+     Interaction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_cartographic.html">
+     Cartographic Visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_debugging.html">
+     Altair Debugging Guide
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Interpretable Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../iml/introduction.html">
+   Introduction to IML
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_partial_dependence.html">
+     Partial Dependence and Individual Conditional Expectation Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance.html">
+     Permutation Importance vs Random Forest Feature Importance (MDI)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance_multicollinear.html">
+     Permutation Importance with Multicollinear or Correlated Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/interpreting-machine-learning-models.html">
+     IML with Pima Indians and the Titanic datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Principles of time-series forecasting
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/introduction.html">
+   Introduction to FPP3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/examples-time-series-forecasting-with-python.html">
+   Examples of time-series forecasting with Python
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/islr/exercises/chapter5/exercise5.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/exercises/chapter5/exercise5.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a">
+   (a)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#b">
+   (b)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#i">
+   i.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ii">
+   ii.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#iii">
+   iii.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#iv">
+   iv.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#c">
+   (c)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d">
+   (d)
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercise-5-5">
+<h1>Exercise 5.5<a class="headerlink" href="#exercise-5-5" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">patsy</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="c1"># statsmodels issue: https://github.com/statsmodels/statsmodels/issues/3931</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">chisqprob</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">chisq</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">chisq</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/Default.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;default_yes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</pre></div>
+</div>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>default</th>
+      <th>student</th>
+      <th>balance</th>
+      <th>income</th>
+      <th>default_yes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>No</td>
+      <td>No</td>
+      <td>729.526495</td>
+      <td>44361.625074</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>No</td>
+      <td>Yes</td>
+      <td>817.180407</td>
+      <td>12106.134700</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>No</td>
+      <td>No</td>
+      <td>1073.549164</td>
+      <td>31767.138947</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>No</td>
+      <td>No</td>
+      <td>529.250605</td>
+      <td>35704.493935</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>No</td>
+      <td>No</td>
+      <td>785.655883</td>
+      <td>38463.495879</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 10000 entries, 1 to 10000
+Data columns (total 5 columns):
+default        10000 non-null object
+student        10000 non-null object
+balance        10000 non-null float64
+income         10000 non-null float64
+default_yes    10000 non-null int64
+dtypes: float64(2), int64(1), object(2)
+memory usage: 468.8+ KB
+</pre></div>
+</div>
+<div class="section" id="a">
+<h2>(a)<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h2>
+<p>We are looking for LogisticRegression without regularization. In sklearn this is not implemented, but we can use l2 regularization and set C, the inverese strenght, to a very high number, effectively removing the regularization. We also compare the coefficients to the ones obtained from statsmodel LogisticRegression which has no regularization, and we verify that the coefficient estimates match.</p>
+<p>Another parameter we have to consider is the tolerance. In this case, the default 1e-4 is not enough to reach convergence, so we increased it until it did.</p>
+<p>Below we that the coefficients obtained with sklearn agree with those from statsmodels.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;income&#39;</span><span class="p">,</span> <span class="s1">&#39;balance&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;default_yes&#39;</span><span class="p">]</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array([[  2.07267113e-05,   5.64079143e-03]])
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="s1">&#39;default_yes ~ income + balance&#39;</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
+         Current function value: 0.078948
+         Iterations 10
+</pre></div>
+</div>
+<table class="simpletable">
+<caption>Logit Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>default_yes</td>   <th>  No. Observations:  </th>   <td> 10000</td>  
+</tr>
+<tr>
+  <th>Model:</th>               <td>Logit</td>      <th>  Df Residuals:      </th>   <td>  9997</td>  
+</tr>
+<tr>
+  <th>Method:</th>               <td>MLE</td>       <th>  Df Model:          </th>   <td>     2</td>  
+</tr>
+<tr>
+  <th>Date:</th>          <td>Fri, 05 Jan 2018</td> <th>  Pseudo R-squ.:     </th>   <td>0.4594</td>  
+</tr>
+<tr>
+  <th>Time:</th>              <td>16:05:52</td>     <th>  Log-Likelihood:    </th>  <td> -789.48</td> 
+</tr>
+<tr>
+  <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th>  <td> -1460.3</td> 
+</tr>
+<tr>
+  <th> </th>                      <td> </td>        <th>  LLR p-value:       </th> <td>4.541e-292</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+      <td></td>         <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th> <td>  -11.5405</td> <td>    0.435</td> <td>  -26.544</td> <td> 0.000</td> <td>  -12.393</td> <td>  -10.688</td>
+</tr>
+<tr>
+  <th>income</th>    <td> 2.081e-05</td> <td> 4.99e-06</td> <td>    4.174</td> <td> 0.000</td> <td>  1.1e-05</td> <td> 3.06e-05</td>
+</tr>
+<tr>
+  <th>balance</th>   <td>    0.0056</td> <td>    0.000</td> <td>   24.835</td> <td> 0.000</td> <td>    0.005</td> <td>    0.006</td>
+</tr>
+</table>
+</div>
+<div class="section" id="b">
+<h2>(b)<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="i">
+<h2>i.<a class="headerlink" href="#i" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ii">
+<h2>ii.<a class="headerlink" href="#ii" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array([[  1.62553551e-05,   5.83500517e-03]])
+</pre></div>
+</div>
+</div>
+<div class="section" id="iii">
+<h2>iii.<a class="headerlink" href="#iii" title="Permalink to this headline">¶</a></h2>
+<p>Let’s try to plot this region and boundary. For more info on how to draw the boundary for logistic regression, here’s <a class="reference external" href="https://stackoverflow.com/a/28257799">two</a> <a class="reference external" href="https://stackoverflow.com/a/22356551">answers</a> by Michael Waskom, the creator of seaborn, and you can also see Jake VanderPlas’ <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/04.04-density-and-contour-plots.html">book</a> for an introduction to contour plots in general.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">80000</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">:</span><span class="mi">3000</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>                    <span class="c1"># https://www.quora.com/Can-anybody-elaborate-the-use-of-c_-in-numpy</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">grid</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">contour</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdBu&quot;</span><span class="p">,</span>    <span class="c1"># 25 levels</span>
+                     <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax_c</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+<span class="n">ax_c</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;P(default)&quot;</span><span class="p">)</span>
+<span class="n">ax_c</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">.75</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">],</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;balance&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> 
+          <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdBu&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+          <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;income&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;balance&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/05_05_16_0.png" /></p>
+</div>
+<div class="section" id="iv">
+<h2>iv.<a class="headerlink" href="#iv" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0.025000000000000022
+</pre></div>
+</div>
+<p>So our general test error is 2.5%.</p>
+<p>But from the figure above, it seems that the error rates are very different depending on whether we are considering a positive or a negative.
+Let’s have a look at the <a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix">confusion matrix</a> as well (page 145 of ISLR).
+The function show_confusion_matrix() we use below is from <a class="reference external" href="http://notmatthancock.github.io/2015/10/28/confusion-matrix.html">this blog post</a> by Matt Hancock (with a slight modification).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_confusion_matrix</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">class_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    C: ndarray, shape (2,2) as given by scikit-learn confusion_matrix function</span>
+<span class="sd">    class_labels: list of strings, default simply labels 0 and 1.</span>
+
+<span class="sd">    Draws confusion matrix with associated metrics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    
+    <span class="k">assert</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;Confusion matrix should be from binary classification only.&quot;</span>
+    
+    <span class="c1"># true negative, false positive, etc...</span>
+    <span class="n">tn</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
+
+    <span class="n">NP</span> <span class="o">=</span> <span class="n">fn</span><span class="o">+</span><span class="n">tp</span> <span class="c1"># Num positive examples</span>
+    <span class="n">NN</span> <span class="o">=</span> <span class="n">tn</span><span class="o">+</span><span class="n">fp</span> <span class="c1"># Num negative examples</span>
+    <span class="n">N</span>  <span class="o">=</span> <span class="n">NP</span><span class="o">+</span><span class="n">NN</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+    <span class="n">ax</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>
+
+    <span class="c1"># Draw the grid boxes</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="s1">&#39;-k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],[</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span> <span class="s1">&#39;-k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],</span> <span class="s1">&#39;-k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],</span> <span class="s1">&#39;-k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Set xlabels</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted Label&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">class_labels</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>
+    <span class="c1"># These coordinate might require some tinkering. Ditto for y, below.</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="mf">0.34</span><span class="p">,</span><span class="mf">1.06</span><span class="p">)</span>
+
+    <span class="c1"># Set ylabels</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;True Label&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">class_labels</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.09</span><span class="p">,</span><span class="mf">0.65</span><span class="p">)</span>
+
+
+    <span class="c1"># Fill in initial metrics: tp, tn, etc...</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;True Neg: </span><span class="si">%d</span><span class="se">\n</span><span class="s1">(Num Neg: </span><span class="si">%d</span><span class="s1">)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">tn</span><span class="p">,</span><span class="n">NN</span><span class="p">),</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;False Neg: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">fn</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;False Pos: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">fp</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;True Pos: </span><span class="si">%d</span><span class="se">\n</span><span class="s1">(Num Pos: </span><span class="si">%d</span><span class="s1">)&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span><span class="n">NP</span><span class="p">),</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+    <span class="c1"># Fill in secondary metrics: accuracy, true pos rate, etc...</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;False Pos Rate: </span><span class="si">%.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">fp</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp</span><span class="o">+</span><span class="n">tn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)),</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;True Pos Rate: </span><span class="si">%.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span><span class="o">+</span><span class="n">fn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)),</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span>
+            <span class="s1">&#39;Accuracy: </span><span class="si">%.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">((</span><span class="n">tp</span><span class="o">+</span><span class="n">tn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="p">),</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span>
+            <span class="s1">&#39;Neg Pre Val: </span><span class="si">%.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">fn</span><span class="o">/</span><span class="p">(</span><span class="n">fn</span><span class="o">+</span><span class="n">tn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)),</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span>
+            <span class="s1">&#39;Pos Pred Val: </span><span class="si">%.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">tp</span><span class="o">/</span><span class="p">(</span><span class="n">tp</span><span class="o">+</span><span class="n">fp</span><span class="o">+</span><span class="mf">0.</span><span class="p">)),</span>
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=1&#39;</span><span class="p">))</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">show_confusion_matrix</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;No Default&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/05_05_21_0.png" /></p>
+<p>Recall the definitions used in the <a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix">confusion matrix</a> above:</p>
+<ul class="simple">
+<li><p>P - condition positive (the number of real positive cases in the data)</p></li>
+<li><p>N - condition negative (the number of real negative cases in the data)</p></li>
+<li><p>TP - true positive (hit)</p></li>
+<li><p>TN - true negative (correct rejection)</p></li>
+<li><p>FP - false positive (false alarm, Type I error)</p></li>
+<li><p>FN - false negative (miss, Type II error)</p></li>
+<li><p>True positive rate, TPR = <span class="math notranslate nohighlight">\(\frac{TP}{P} = \frac{TP}{TP + FN}\)</span></p></li>
+<li><p>False positive rate, FPR = <span class="math notranslate nohighlight">\(\frac{FP}{N} = \frac{FP}{FP + TN}\)</span></p></li>
+<li><p>Positive predictive value, PPV = <span class="math notranslate nohighlight">\(\frac{TP}{TP + FP}\)</span></p></li>
+<li><p>Negative predictive value, NPV = <span class="math notranslate nohighlight">\(\frac{TN}{TN + FN}\)</span></p></li>
+<li><p>Accuracy, ACC = <span class="math notranslate nohighlight">\(\frac{TP + TN}{P+N} = \frac{TP+TN}{TP+TN+FP+FN}\)</span></p></li>
+</ul>
+<p>So, our true positive rate (or sensitivity, recall or hit rate) is 0.3648, our false positive rate (or fall-out) is 0.0050, our positive predictive value (or precision) is 0.7073, our negative predictive value is 0.9795, and our accuracy is 0.9750.</p>
+</div>
+<div class="section" id="c">
+<h2>(c)<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<p>Let’s keep a vector of the confusion matrices, and compute the different errors for each validation set.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="n">C</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tpr</span><span class="p">,</span> <span class="n">fpr</span><span class="p">,</span> <span class="n">ppv</span><span class="p">,</span> <span class="n">npv</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="p">([]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C</span><span class="p">:</span>
+    <span class="n">tn</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">tpr</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span><span class="o">+</span><span class="n">fn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)))</span>
+    <span class="n">fpr</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">fp</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp</span><span class="o">+</span><span class="n">tn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)))</span>
+    <span class="n">ppv</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tp</span><span class="o">/</span><span class="p">(</span><span class="n">tp</span><span class="o">+</span><span class="n">fp</span><span class="o">+</span><span class="mf">0.</span><span class="p">)))</span>
+    <span class="n">npv</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">fn</span><span class="o">/</span><span class="p">(</span><span class="n">fn</span><span class="o">+</span><span class="n">tn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)))</span>
+    <span class="n">acc</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">tp</span><span class="o">+</span><span class="n">tn</span><span class="o">+</span><span class="mf">0.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">tn</span><span class="o">+</span><span class="n">fp</span><span class="o">+</span><span class="n">fn</span><span class="o">+</span><span class="n">tp</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">line</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="s1">&#39;</span><span class="si">{:06.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, Average: &#39;</span> <span class="o">+</span><span class="s1">&#39;</span><span class="si">{:06.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;TPR: &#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="n">tpr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FPR: &#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="n">fpr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PPV: &#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="n">ppv</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NPV: &#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="n">npv</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ACC: &#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">(</span><span class="n">acc</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TPR: 
+0.3648 0.3452 0.3030 0.3293, Average: 0.3356
+FPR: 
+0.0050 0.0029 0.0041 0.0029, Average: 0.0037
+PPV: 
+0.7073 0.8056 0.7143 0.7941, Average: 0.7553
+NPV: 
+0.9795 0.9777 0.9767 0.9777, Average: 0.9779
+ACC: 
+0.9750 0.9752 0.9730 0.9752, Average: 0.9746
+</pre></div>
+</div>
+<p>The values above indicate that some quantities vary more than others when we change the validation set. In particular, the positive predicted value (PPV) varies from 0.71 to 0.81. The PPV is the ratio of the true positives over the sum of the true positives and false positives. In other words, it’s a ratio involving the quantities above the boundary in the region above. And since both these quantities vary significantly in this case, the variance of the PPV is expected. The accuracy on the other handle is much more robust across different validation sets, for the opposite reason. The quantities involved in its computation do not vary as much. The denominator is a constant, and the numerator, TP + TN, is somewhat stable, since TP and TN would on average vary in opposite directions.</p>
+</div>
+<div class="section" id="d">
+<h2>(d)<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;student_yes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;student&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+</pre></div>
+</div>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>default</th>
+      <th>student</th>
+      <th>balance</th>
+      <th>income</th>
+      <th>default_yes</th>
+      <th>student_yes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>No</td>
+      <td>No</td>
+      <td>729.526495</td>
+      <td>44361.625074</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>No</td>
+      <td>Yes</td>
+      <td>817.180407</td>
+      <td>12106.134700</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>No</td>
+      <td>No</td>
+      <td>1073.549164</td>
+      <td>31767.138947</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>No</td>
+      <td>No</td>
+      <td>529.250605</td>
+      <td>35704.493935</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>No</td>
+      <td>No</td>
+      <td>785.655883</td>
+      <td>38463.495879</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;income&#39;</span><span class="p">,</span><span class="s1">&#39;balance&#39;</span><span class="p">,</span><span class="s1">&#39;student_yes&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;default_yes&#39;</span><span class="p">]</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="s1">&#39;default_yes ~ income + balance + student_yes&#39;</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">train</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
+         Current function value: 0.076250
+         Iterations 10
+</pre></div>
+</div>
+<table class="simpletable">
+<caption>Logit Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>default_yes</td>   <th>  No. Observations:  </th>   <td>  7500</td>  
+</tr>
+<tr>
+  <th>Model:</th>               <td>Logit</td>      <th>  Df Residuals:      </th>   <td>  7496</td>  
+</tr>
+<tr>
+  <th>Method:</th>               <td>MLE</td>       <th>  Df Model:          </th>   <td>     3</td>  
+</tr>
+<tr>
+  <th>Date:</th>          <td>Fri, 05 Jan 2018</td> <th>  Pseudo R-squ.:     </th>   <td>0.4799</td>  
+</tr>
+<tr>
+  <th>Time:</th>              <td>16:07:39</td>     <th>  Log-Likelihood:    </th>  <td> -571.88</td> 
+</tr>
+<tr>
+  <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th>  <td> -1099.5</td> 
+</tr>
+<tr>
+  <th> </th>                      <td> </td>        <th>  LLR p-value:       </th> <td>1.954e-228</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+       <td></td>          <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>   <td>  -10.9255</td> <td>    0.579</td> <td>  -18.873</td> <td> 0.000</td> <td>  -12.060</td> <td>   -9.791</td>
+</tr>
+<tr>
+  <th>income</th>      <td>-6.764e-06</td> <td>  9.4e-06</td> <td>   -0.720</td> <td> 0.472</td> <td>-2.52e-05</td> <td> 1.17e-05</td>
+</tr>
+<tr>
+  <th>balance</th>     <td>    0.0061</td> <td>    0.000</td> <td>   21.174</td> <td> 0.000</td> <td>    0.006</td> <td>    0.007</td>
+</tr>
+<tr>
+  <th>student_yes</th> <td>   -1.0870</td> <td>    0.274</td> <td>   -3.961</td> <td> 0.000</td> <td>   -1.625</td> <td>   -0.549</td>
+</tr>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">show_confusion_matrix</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;No Default&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/05_05_35_0.png" /></p>
+<p>So compared to the values above without the student dummy variable, it seems that adding the student variable does not help in any of the metrics since they are worse or very similar (although we should consider the variance, in a more careful analysis).</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./islr/exercises/chapter5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="exercise4.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Exercise 5.4</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="exercise6.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Exercise 5.6</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Daniel Kapitan<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

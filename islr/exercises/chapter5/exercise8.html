@@ -1,0 +1,1471 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 5.8 &#8212; Data Science Foundation Curriculum</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/exercises/chapter5/exercise8.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Exercise 5.9" href="exercise9.html" />
+    <link rel="prev" title="Exercise 5.7" href="exercise7.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/jads-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science Foundation Curriculum</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../index.html">
+   Why this JupyterBook?
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Statistical Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../introduction.html">
+   Introduction to ISLRv2
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../labs.html">
+   Labs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_02.3_introduction.html">
+     Chapter 2: Python Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_03.6_linear_regression.html">
+     Chapter 3: Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_04.6_logistic_regression_lda_qda_knn.html">
+     Chapter 4: Logistic Regression, LDA, QDA and KNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_05.3_cross_validation_and_the_bootstrap.html">
+     Chapter 5: Cross-Validation and the Bootstrap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.5_subset_selection_methods.html">
+     Chapter 6 - Lab 1: Subset Selection Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.6_ridge_regression_and_the_lasso.html">
+     Chapter 6 - Lab 2: Ridge Regression and the Lasso
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.7_pcr_and_pls_regression.html">
+     Chapter 6 - Lab 3: PCR and PLS Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_07.8_non_linear_modelling.html">
+     Chapter 7: Non-linear Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_08.3_decision_trees.html">
+     Chapter 8: Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_09.6_support_vector_machines.html">
+     Chapter 9: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.4_principal_components_analysis.html">
+     Chapter 10 - Lab 1: Principcal Component Analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_clustering.html">
+     Chapter 10 - Lab 2: Clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_NCI60_data_example.html">
+     Chapter 10 - Lab 3: NCI60 Data Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../exercises.html">
+   Exercises
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter2/index.html">
+     Chapter 2
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise1.html">
+       Exercise 2.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise2.html">
+       Exercise 2.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise3.html">
+       Exercise 2.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise4.html">
+       Exercise 2.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise5.html">
+       Exercise 2.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise6.html">
+       Exercise 2.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise7.html">
+       Exercise 2.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise8.html">
+       Exercise 2.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise9.html">
+       Exercise 2.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise10.html">
+       Exercise 2.10
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter3/index.html">
+     Chapter 3
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise1.html">
+       Exercise 3.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise2.html">
+       Exercise 3.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise3.html">
+       Exercise 3.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise4.html">
+       Exercise 3.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise5.html">
+       Exercise 3.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise6.html">
+       Exercise 3.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise7.html">
+       Exercise 3.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise8.html">
+       Exercise 3.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise9.html">
+       Exercise 3.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise10.html">
+       Exercise 3.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise11.html">
+       Exercise 3.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise12.html">
+       Exercise 3.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise13.html">
+       Exercise 3.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise14.html">
+       Exercise 3.14
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise15.html">
+       Exercise 3.15
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter4/index.html">
+     Chapter 4
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise1.html">
+       Exercise 4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise2.html">
+       Exercise 4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise3.html">
+       Exercise 4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise4.html">
+       Exercise 4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise5.html">
+       Exercise 4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise6.html">
+       Exercise 4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise7.html">
+       Exercise 4.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise8.html">
+       Exercise 4.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise9.html">
+       Exercise 4.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise10.html">
+       Exercise 4.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise11.html">
+       Exercise 4.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise12.html">
+       Exercise 4.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise13.html">
+       Exercise 4.13
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="index.html">
+     Chapter 5
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise1.html">
+       Exercise 5.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise2.html">
+       Exercise 5.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise3.html">
+       Problem 5.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise4.html">
+       Exercise 5.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise5.html">
+       Exercise 5.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise6.html">
+       Exercise 5.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise7.html">
+       Exercise 5.7
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Exercise 5.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise9.html">
+       Exercise 5.9
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter6/index.html">
+     Chapter 6
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise1.html">
+       Exercise 6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise2.html">
+       Exercise 6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise3.html">
+       Exercise 6.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise4.html">
+       Exercise 6.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise5.html">
+       Exercise 6.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise6.html">
+       Exercise 6.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise7.html">
+       Exercise 6.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise8.html">
+       Exercise 6.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise9.html">
+       Exercise 6.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise10.html">
+       Exercise 6.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise11.html">
+       Exercise 6.11
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter7/index.html">
+     Chapter 7
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise1.html">
+       Exercise 7.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise2.html">
+       Exercise 7.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise3.html">
+       Exercise 7.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise4.html">
+       Exercise 7.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise5.html">
+       Exercise 7.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise6.html">
+       Exercise 7.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise7.html">
+       Exercise 7.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise8.html">
+       Exercise 7.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise9.html">
+       Exercise 7.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise10.html">
+       Exercise 7.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise11.html">
+       Exercise 7.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise12.html">
+       Exercise 7.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter8/index.html">
+     Chapter 8
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise1.html">
+       Exercise 8.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise2.html">
+       Exercise 8.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise3.html">
+       Exercise 8.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise4.html">
+       Exercise 8.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise5.html">
+       Exercise 8.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise6.html">
+       Exercise 8.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise7.html">
+       Exercise 8.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise8.html">
+       Exercise 8.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise9.html">
+       Exercise 8.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise10.html">
+       Exercise 8.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise11.html">
+       Exercise 8.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise12.html">
+       Exercise 8.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter9/index.html">
+     Chapter 9
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise1.html">
+       Exercise 9.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise2.html">
+       Exercise 9.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise3.html">
+       Exercise 9.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise4.html">
+       Exercise 9.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise5.html">
+       Exercise 9.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise6.html">
+       Exercise 9.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise7.html">
+       Exercise 9.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise8.html">
+       Exercise 9.8
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter12/index.html">
+     Chapter 12
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise1.html">
+       Exercise 12.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise2.html">
+       Exercise 12.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise3.html">
+       Exercise 12.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise4.html">
+       Exercise 12.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise5.html">
+       Exercise 12.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise6.html">
+       Exercise 12.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise7.html">
+       Exercise 12.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise8.html">
+       Exercise 10.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise9.html">
+       Exercise 12.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise10.html">
+       Exercise 12.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise11.html">
+       Exercise 12.11
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Data visualization with Altair
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../visualization/introduction-to-interactive-data-visualization.html">
+   Introduction to data visualization with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../visualization/altair_get_started.html">
+   Getting Started with Altair
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_introduction.html">
+     Introduction to Altair
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_marks_encoding.html">
+     Data Types, Graphical Marks, and Visual Encoding Channels
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_data_transformation.html">
+     Data Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_scales_axes_legends.html">
+     Scales, Axes, and Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_view_composition.html">
+     Multi-View Composition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_interaction.html">
+     Interaction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_cartographic.html">
+     Cartographic Visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_debugging.html">
+     Altair Debugging Guide
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Interpretable Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../iml/introduction.html">
+   Introduction to IML
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_partial_dependence.html">
+     Partial Dependence and Individual Conditional Expectation Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance.html">
+     Permutation Importance vs Random Forest Feature Importance (MDI)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance_multicollinear.html">
+     Permutation Importance with Multicollinear or Correlated Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/interpreting-machine-learning-models.html">
+     IML with Pima Indians and the Titanic datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Principles of time-series forecasting
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/introduction.html">
+   Introduction to FPP3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/examples-time-series-forecasting-with-python.html">
+   Examples of time-series forecasting with Python
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/islr/exercises/chapter5/exercise8.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/exercises/chapter5/exercise8.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Exercise 5.8
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a">
+   (a)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#b">
+   (b)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#c">
+   (c)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d">
+   (d)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#e">
+   (e)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#f">
+   (f)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercise-5-8">
+<h1>Exercise 5.8<a class="headerlink" href="#exercise-5-8" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeaveOneOut</span>  <span class="c1"># To use cross-validation in (c); only available after scikit v0.17.1</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>  <span class="c1"># To fit models using least squares</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="a">
+<h1>(a)<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Random numbers generated by Python are different from those generated by R, as mentioned in Exercise 3.11</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># By default np.random.normal considers a standard normal, so we just have to define the size</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">epsilon</span>
+</pre></div>
+</div>
+<p><b>n</b> = number of observations = 100</p>
+<p><b>p</b> = number of predictors = 2 (X and X^2)</p>
+<p>Model in equation form:
+$<span class="math notranslate nohighlight">\(Y = X - 2 X^{2} + \epsilon\)</span>$</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="b">
+<h1>(b)<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/05_08_6_0.png" /></p>
+<p><b>Comments</b>:</p>
+<ul class="simple">
+<li><p>Quadratic plot</p></li>
+<li><p>Convex function with negative concavity</p></li>
+<li><p>X from about -2 to 2</p></li>
+<li><p>Y from about -10 to 2</p></li>
+</ul>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="c">
+<h1>(c)<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set new random seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create LOOCV object</span>
+<span class="n">loo</span> <span class="o">=</span> <span class="n">LeaveOneOut</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Organize data into a dataframe (easier to handle)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initiate variables</span>
+<span class="n">min_deg</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Minimum degree of the polynomial equations considered</span>
+<span class="n">max_deg</span> <span class="o">=</span> <span class="mi">4</span><span class="o">+</span><span class="mi">1</span>  <span class="c1"># Maximum degree of the polynomial equations considered</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Compute mean squared error (MSE) for the different polynomial equations.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_deg</span><span class="p">,</span> <span class="n">max_deg</span><span class="p">):</span>
+    <span class="c1"># Leave-one-out cross validation </span>
+    <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">loo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="n">train</span><span class="p">]</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="n">train</span><span class="p">]</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="n">test</span><span class="p">]</span>
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="n">test</span><span class="p">]</span>
+        
+        <span class="c1"># Pipeline</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span> <span class="o">=</span> <span class="n">i</span><span class="p">)),</span>
+                      <span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">y_train</span><span class="p">)</span>
+        
+        <span class="c1"># MSE</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]))</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model </span><span class="si">%i</span><span class="s1"> (MSE): </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/disciplina/anaconda3/envs/islp/lib/python3.6/site-packages/scipy/linalg/basic.py:1226: RuntimeWarning: internal gelsd driver lwork query error, required iwork dimension not returned. This is likely the result of LAPACK bug 0038, fixed in LAPACK 3.2.2 (released July 21, 2010). Falling back to &#39;gelss&#39; driver.
+  warnings.warn(mesg, RuntimeWarning)
+
+
+Model 1 (MSE): 8.292212
+Model 2 (MSE): 1.017096
+Model 3 (MSE): 1.046553
+Model 4 (MSE): 1.057493
+</pre></div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="d">
+<h1>(d)<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set new random seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute MSE as in (c)</span>
+<span class="n">min_deg</span> <span class="o">=</span> <span class="mi">1</span>  
+<span class="n">max_deg</span> <span class="o">=</span> <span class="mi">4</span><span class="o">+</span><span class="mi">1</span> 
+<span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_deg</span><span class="p">,</span> <span class="n">max_deg</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">loo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="n">train</span><span class="p">]</span>
+        <span class="n">y_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="n">train</span><span class="p">]</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="n">test</span><span class="p">]</span>
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="n">test</span><span class="p">]</span>
+        
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span> <span class="o">=</span> <span class="n">i</span><span class="p">)),</span>
+                      <span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">y_train</span><span class="p">)</span>
+        
+        <span class="n">score</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]))</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model </span><span class="si">%i</span><span class="s1"> (MSE): </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Model 1 (MSE): 8.292212
+Model 2 (MSE): 1.017096
+Model 3 (MSE): 1.046553
+Model 4 (MSE): 1.057493
+</pre></div>
+</div>
+<p>The results are <b>exactly the same</b> because we only remove one observation from the training set. Thus, there is no random effect resulting from the observations used for the test set. LOOCV will always be the same, no matter the random seed.</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="e">
+<h1>(e)<a class="headerlink" href="#e" title="Permalink to this headline">¶</a></h1>
+<p>The model that had the smallest LOOCV error was <b>model (ii)</b>. This was an expected result because model (ii) has the same form as y (second order polynomial).</p>
+<p><b>Comment:</b> If we used <em>np.random.seed(0)</em> instead of <em>np.random.seed(1)</em> or <em>np.random.seed(10)</em>, the answer to the problem would be different. Using <em>seed(0)</em>, the epsilon values are proportional higher to the remaining values in the y equation. Thus, its influence is greater and the random effect prevails over the second order parameters y. We didn’t try what happens for other seed values, but there may be other seed values that produce a similar effect to <em>seed(0)</em>.</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="f">
+<h1>(f)<a class="headerlink" href="#f" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Models with polynomial features</span>
+<span class="n">min_deg</span> <span class="o">=</span> <span class="mi">1</span>  
+<span class="n">max_deg</span> <span class="o">=</span> <span class="mi">4</span><span class="o">+</span><span class="mi">1</span> 
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_deg</span><span class="p">,</span> <span class="n">max_deg</span><span class="p">):</span>
+    <span class="n">pol</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span> <span class="o">=</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">X_pol</span> <span class="o">=</span> <span class="n">pol</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X_pol</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>  
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.088
+Model:                            OLS   Adj. R-squared:                  0.079
+Method:                 Least Squares   F-statistic:                     9.460
+Date:                Fri, 05 Jan 2018   Prob (F-statistic):            0.00272
+Time:                        17:15:28   Log-Likelihood:                -242.69
+No. Observations:                 100   AIC:                             489.4
+Df Residuals:                      98   BIC:                             494.6
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -1.7609      0.280     -6.278      0.000      -2.317      -1.204
+x1             0.9134      0.297      3.076      0.003       0.324       1.503
+==============================================================================
+Omnibus:                       40.887   Durbin-Watson:                   1.957
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               83.786
+Skew:                          -1.645   Prob(JB):                     6.40e-19
+Kurtosis:                       6.048   Cond. No.                         1.19
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.882
+Model:                            OLS   Adj. R-squared:                  0.880
+Method:                 Least Squares   F-statistic:                     362.9
+Date:                Fri, 05 Jan 2018   Prob (F-statistic):           9.26e-46
+Time:                        17:15:28   Log-Likelihood:                -140.40
+No. Observations:                 100   AIC:                             286.8
+Df Residuals:                      97   BIC:                             294.6
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.0216      0.122     -0.177      0.860      -0.264       0.221
+x1             1.2132      0.108     11.238      0.000       0.999       1.428
+x2            -2.0014      0.078    -25.561      0.000      -2.157      -1.846
+==============================================================================
+Omnibus:                        0.094   Durbin-Watson:                   2.221
+Prob(Omnibus):                  0.954   Jarque-Bera (JB):                0.009
+Skew:                          -0.022   Prob(JB):                        0.995
+Kurtosis:                       2.987   Cond. No.                         2.26
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.883
+Model:                            OLS   Adj. R-squared:                  0.880
+Method:                 Least Squares   F-statistic:                     242.1
+Date:                Fri, 05 Jan 2018   Prob (F-statistic):           1.26e-44
+Time:                        17:15:28   Log-Likelihood:                -139.91
+No. Observations:                 100   AIC:                             287.8
+Df Residuals:                      96   BIC:                             298.2
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.0046      0.125      0.037      0.971      -0.244       0.253
+x1             1.0639      0.189      5.636      0.000       0.689       1.439
+x2            -2.0215      0.081    -24.938      0.000      -2.182      -1.861
+x3             0.0550      0.057      0.965      0.337      -0.058       0.168
+==============================================================================
+Omnibus:                        0.034   Durbin-Watson:                   2.253
+Prob(Omnibus):                  0.983   Jarque-Bera (JB):                0.050
+Skew:                           0.032   Prob(JB):                        0.975
+Kurtosis:                       2.911   Cond. No.                         6.55
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.885
+Model:                            OLS   Adj. R-squared:                  0.880
+Method:                 Least Squares   F-statistic:                     182.4
+Date:                Fri, 05 Jan 2018   Prob (F-statistic):           1.13e-43
+Time:                        17:15:28   Log-Likelihood:                -139.24
+No. Observations:                 100   AIC:                             288.5
+Df Residuals:                      95   BIC:                             301.5
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.0866      0.144      0.600      0.550      -0.200       0.373
+x1             1.0834      0.189      5.724      0.000       0.708       1.459
+x2            -2.2455      0.214    -10.505      0.000      -2.670      -1.821
+x3             0.0436      0.058      0.755      0.452      -0.071       0.158
+x4             0.0482      0.043      1.132      0.260      -0.036       0.133
+==============================================================================
+Omnibus:                        0.102   Durbin-Watson:                   2.214
+Prob(Omnibus):                  0.950   Jarque-Bera (JB):                0.117
+Skew:                           0.069   Prob(JB):                        0.943
+Kurtosis:                       2.906   Cond. No.                         17.5
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+<p>To answer to the question, we should pay attention to the t-statistic value of each coefficient.</p>
+<p>As we can see, when we have a second order polynomial, both x1 and x2 have high t-statistic values. When we have a third order polynomial, x2 has the highest t-statistic, followed by x1 and then by x3. Finally, when we have a fourth order polynomial, x2 is the variable with the highest t-statistic, followed by x1, x4 and x3.</p>
+<p>We can conclude that x2 and x1 are variables with relevance for the presented models. These results agree with the conclusions drawn based on the cross-validation results, showing that the first and second order terms are the most significant.</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/6161">https://github.com/scikit-learn/scikit-learn/issues/6161</a> (scikit.model_selection only available after 0.17.1)</p></li>
+<li><p><a class="reference external" href="http://scikit-learn.org/stable/install.html">http://scikit-learn.org/stable/install.html</a> (to install scikit)</p></li>
+<li><p><a class="reference external" href="http://stats.stackexchange.com/questions/58739/polynomial-regression-using-scikit-learn">http://stats.stackexchange.com/questions/58739/polynomial-regression-using-scikit-learn</a> (polynomial linear regression)</p></li>
+<li><p><a class="reference external" href="http://stackoverflow.com/questions/29241056/the-use-of-python-numpy-newaxis">http://stackoverflow.com/questions/29241056/the-use-of-python-numpy-newaxis</a>  (use of np.newaxis)</p></li>
+<li><p><a class="reference external" href="http://scikit-learn.org/stable/modules/linear_model.html#polynomial-regression-extending-linear-models-with-basis-functions">http://scikit-learn.org/stable/modules/linear_model.html#polynomial-regression-extending-linear-models-with-basis-functions</a>  (about the use of pipeline)</p></li>
+</ul>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./islr/exercises/chapter5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="exercise7.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Exercise 5.7</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="exercise9.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Exercise 5.9</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Daniel Kapitan<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

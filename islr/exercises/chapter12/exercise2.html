@@ -1,0 +1,1274 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 12.2 &#8212; Data Science Foundation Curriculum</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/exercises/chapter12/exercise2.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Exercise 12.3" href="exercise3.html" />
+    <link rel="prev" title="Exercise 12.1" href="exercise1.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/jads-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science Foundation Curriculum</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../index.html">
+   Why this JupyterBook?
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Statistical Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../introduction.html">
+   Introduction to ISLRv2
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../labs.html">
+   Labs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_02.3_introduction.html">
+     Chapter 2: Python Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_03.6_linear_regression.html">
+     Chapter 3: Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_04.6_logistic_regression_lda_qda_knn.html">
+     Chapter 4: Logistic Regression, LDA, QDA and KNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_05.3_cross_validation_and_the_bootstrap.html">
+     Chapter 5: Cross-Validation and the Bootstrap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.5_subset_selection_methods.html">
+     Chapter 6 - Lab 1: Subset Selection Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.6_ridge_regression_and_the_lasso.html">
+     Chapter 6 - Lab 2: Ridge Regression and the Lasso
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.7_pcr_and_pls_regression.html">
+     Chapter 6 - Lab 3: PCR and PLS Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_07.8_non_linear_modelling.html">
+     Chapter 7: Non-linear Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_08.3_decision_trees.html">
+     Chapter 8: Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_09.6_support_vector_machines.html">
+     Chapter 9: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.4_principal_components_analysis.html">
+     Chapter 10 - Lab 1: Principcal Component Analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_clustering.html">
+     Chapter 10 - Lab 2: Clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_NCI60_data_example.html">
+     Chapter 10 - Lab 3: NCI60 Data Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../exercises.html">
+   Exercises
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter2/index.html">
+     Chapter 2
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise1.html">
+       Exercise 2.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise2.html">
+       Exercise 2.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise3.html">
+       Exercise 2.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise4.html">
+       Exercise 2.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise5.html">
+       Exercise 2.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise6.html">
+       Exercise 2.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise7.html">
+       Exercise 2.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise8.html">
+       Exercise 2.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise9.html">
+       Exercise 2.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise10.html">
+       Exercise 2.10
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter3/index.html">
+     Chapter 3
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise1.html">
+       Exercise 3.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise2.html">
+       Exercise 3.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise3.html">
+       Exercise 3.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise4.html">
+       Exercise 3.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise5.html">
+       Exercise 3.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise6.html">
+       Exercise 3.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise7.html">
+       Exercise 3.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise8.html">
+       Exercise 3.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise9.html">
+       Exercise 3.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise10.html">
+       Exercise 3.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise11.html">
+       Exercise 3.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise12.html">
+       Exercise 3.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise13.html">
+       Exercise 3.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise14.html">
+       Exercise 3.14
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter3/exercise15.html">
+       Exercise 3.15
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter4/index.html">
+     Chapter 4
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise1.html">
+       Exercise 4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise2.html">
+       Exercise 4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise3.html">
+       Exercise 4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise4.html">
+       Exercise 4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise5.html">
+       Exercise 4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise6.html">
+       Exercise 4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise7.html">
+       Exercise 4.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise8.html">
+       Exercise 4.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise9.html">
+       Exercise 4.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise10.html">
+       Exercise 4.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise11.html">
+       Exercise 4.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise12.html">
+       Exercise 4.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise13.html">
+       Exercise 4.13
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter5/index.html">
+     Chapter 5
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise1.html">
+       Exercise 5.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise2.html">
+       Exercise 5.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise3.html">
+       Problem 5.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise4.html">
+       Exercise 5.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise5.html">
+       Exercise 5.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise6.html">
+       Exercise 5.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise7.html">
+       Exercise 5.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise8.html">
+       Exercise 5.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise9.html">
+       Exercise 5.9
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter6/index.html">
+     Chapter 6
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise1.html">
+       Exercise 6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise2.html">
+       Exercise 6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise3.html">
+       Exercise 6.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise4.html">
+       Exercise 6.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise5.html">
+       Exercise 6.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise6.html">
+       Exercise 6.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise7.html">
+       Exercise 6.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise8.html">
+       Exercise 6.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise9.html">
+       Exercise 6.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise10.html">
+       Exercise 6.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise11.html">
+       Exercise 6.11
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter7/index.html">
+     Chapter 7
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise1.html">
+       Exercise 7.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise2.html">
+       Exercise 7.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise3.html">
+       Exercise 7.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise4.html">
+       Exercise 7.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise5.html">
+       Exercise 7.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise6.html">
+       Exercise 7.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise7.html">
+       Exercise 7.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise8.html">
+       Exercise 7.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise9.html">
+       Exercise 7.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise10.html">
+       Exercise 7.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise11.html">
+       Exercise 7.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise12.html">
+       Exercise 7.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter8/index.html">
+     Chapter 8
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise1.html">
+       Exercise 8.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise2.html">
+       Exercise 8.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise3.html">
+       Exercise 8.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise4.html">
+       Exercise 8.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise5.html">
+       Exercise 8.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise6.html">
+       Exercise 8.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise7.html">
+       Exercise 8.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise8.html">
+       Exercise 8.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise9.html">
+       Exercise 8.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise10.html">
+       Exercise 8.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise11.html">
+       Exercise 8.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise12.html">
+       Exercise 8.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter9/index.html">
+     Chapter 9
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise1.html">
+       Exercise 9.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise2.html">
+       Exercise 9.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise3.html">
+       Exercise 9.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise4.html">
+       Exercise 9.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise5.html">
+       Exercise 9.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise6.html">
+       Exercise 9.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise7.html">
+       Exercise 9.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise8.html">
+       Exercise 9.8
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="index.html">
+     Chapter 12
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise1.html">
+       Exercise 12.1
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Exercise 12.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise3.html">
+       Exercise 12.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise4.html">
+       Exercise 12.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise5.html">
+       Exercise 12.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise6.html">
+       Exercise 12.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise7.html">
+       Exercise 12.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise8.html">
+       Exercise 10.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise9.html">
+       Exercise 12.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise10.html">
+       Exercise 12.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise11.html">
+       Exercise 12.11
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Data visualization with Altair
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../visualization/introduction-to-interactive-data-visualization.html">
+   Introduction to data visualization with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../visualization/altair_get_started.html">
+   Getting Started with Altair
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_introduction.html">
+     Introduction to Altair
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_marks_encoding.html">
+     Data Types, Graphical Marks, and Visual Encoding Channels
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_data_transformation.html">
+     Data Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_scales_axes_legends.html">
+     Scales, Axes, and Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_view_composition.html">
+     Multi-View Composition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_interaction.html">
+     Interaction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_cartographic.html">
+     Cartographic Visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_debugging.html">
+     Altair Debugging Guide
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Interpretable Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../iml/introduction.html">
+   Introduction to IML
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_partial_dependence.html">
+     Partial Dependence and Individual Conditional Expectation Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance.html">
+     Permutation Importance vs Random Forest Feature Importance (MDI)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance_multicollinear.html">
+     Permutation Importance with Multicollinear or Correlated Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/interpreting-machine-learning-models.html">
+     IML with Pima Indians and the Titanic datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Principles of time-series forecasting
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/introduction.html">
+   Introduction to FPP3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/examples-time-series-forecasting-with-python.html">
+   Examples of time-series forecasting with Python
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/islr/exercises/chapter12/exercise2.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/exercises/chapter12/exercise2.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a">
+   (a)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#b">
+   (b)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#c">
+   (c)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d">
+   (d)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#e">
+   (e)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercise-12-2">
+<h1>Exercise 12.2<a class="headerlink" href="#exercise-12-2" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="kn">import</span> <span class="n">dendrogram</span><span class="p">,</span> <span class="n">linkage</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+<div class="section" id="a">
+<h2>(a)<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dissimilarity matrix</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">The Dissimilarity matrix is a matrix that express the similarity pair to pair between to sets. It&#39;s square, and symmetric. The diagonal</span>
+<span class="sd">members are defined as zero, meaning that zero is the measure of dissimilarity between an element and itself. Thus, the information the </span>
+<span class="sd">matrix holds can be seen as a triangular matrix.</span>
+
+<span class="sd">Source: https://en.wikibooks.org/wiki/Data_Mining_Algorithms_In_R/Clustering/Dissimilarity_Matrix_Calculation</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">disMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Linkage matrix</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">To solve this problem, we can use SciPy, in particular the function &#39;scipy.cluster.hierarchy.linkage&#39;. However, in contrast to R&#39;s &#39;hclust&#39;,</span>
+<span class="sd">&#39;linkage&#39; is not able to deal directly with dissimilarity matrices. It&#39;s inputs must be a 1d compressed distance matrix or a 2d array of</span>
+<span class="sd">observation vectors.</span>
+<span class="sd">Since we don&#39;t have a 2d array of observations (samples x features), we must use the 1d compressed distance matrix. The 1d compressed matrix</span>
+<span class="sd">has the distances between all the possible combinations of observations ((0,1), (0,2), (0,3), (1,2), (1,3), and (2,3)). Distances can be </span>
+<span class="sd">seen as a dissimilarity measure, as they express how different the observations are. Accordingly, to solve the exercise we just need to </span>
+<span class="sd">transform the dissimilarity matrix into a 1d compressed distance matrix and use it in the &#39;linkage&#39; function. This can be done using the</span>
+<span class="sd">&#39;triu_indices&#39; function, which returns the indices for the upper-triangle of an (n, m) array (remember that the dissimilarity matrix is a </span>
+<span class="sd">triangluar matrix).</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">disMat</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">linkage</span><span class="p">(</span><span class="n">disMat</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;complete&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot dendrogram</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Hierarchical clustering dendrogram&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">)</span>
+
+<span class="n">dendrogram</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">leaf_rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">leaf_font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/12_02_5_0.png" /></p>
+</div>
+<div class="section" id="b">
+<h2>(b)<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Linkage matrix</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">linkage</span><span class="p">(</span><span class="n">disMat</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;single&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot dendrogram</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Hierarchical clustering dendrogram&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Observations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">)</span>
+
+<span class="n">dendrogram</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">leaf_rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">leaf_font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/12_02_8_0.png" /></p>
+</div>
+<div class="section" id="c">
+<h2>(c)<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<p>In <b>Cluster A</b> we would have observations <b>0</b> and <b>1</b>, while in <b>Cluster B</b> we would have observations <b>2</b> and <b>3</b>.</p>
+</div>
+<div class="section" id="d">
+<h2>(d)<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h2>
+<p>In <b>Cluster A</b> we would have observation <b>3</b>, while in <b>Cluster B</b> we would have observations <b>2</b>, <b>0</b> and <b>1</b>.</p>
+</div>
+<div class="section" id="e">
+<h2>(e)<a class="headerlink" href="#e" title="Permalink to this headline">¶</a></h2>
+<p>This question is just about graphical manipulation. Although in R it is easy to do this manipulation, we didn’t find an equivalent way to do it in Python. Since the answer to this question doesn’t add significant value in terms of clusters knowledge, we didn’t decided not to solve it.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/">https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/</a> (nice tutorial about using SciPy for hierarchical clustering and dendograms)</p></li>
+<li><p><a class="reference external" href="https://en.wikibooks.org/wiki/Data_Mining_Algorithms_In_R/Clustering/Dissimilarity_Matrix_Calculation">https://en.wikibooks.org/wiki/Data_Mining_Algorithms_In_R/Clustering/Dissimilarity_Matrix_Calculation</a> (Dissimilarity matrix definition)</p></li>
+<li><p><a class="reference external" href="http://stackoverflow.com/questions/13079563/how-does-condensed-distance-matrix-work-pdist">http://stackoverflow.com/questions/13079563/how-does-condensed-distance-matrix-work-pdist</a> (condensed distance matrix explanation)</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./islr/exercises/chapter12"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="exercise1.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Exercise 12.1</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="exercise3.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Exercise 12.3</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Daniel Kapitan<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

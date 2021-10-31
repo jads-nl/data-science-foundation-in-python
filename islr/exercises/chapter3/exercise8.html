@@ -1,0 +1,1787 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 3.8 &#8212; Data Science Foundation Curriculum</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/exercises/chapter3/exercise8.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Exercise 3.9" href="exercise9.html" />
+    <link rel="prev" title="Exercise 3.7" href="exercise7.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/jads-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science Foundation Curriculum</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../index.html">
+   Why this JupyterBook?
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Statistical Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../introduction.html">
+   Introduction to ISLRv2
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../labs.html">
+   Labs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_02.3_introduction.html">
+     Chapter 2: Python Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_03.6_linear_regression.html">
+     Chapter 3: Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_04.6_logistic_regression_lda_qda_knn.html">
+     Chapter 4: Logistic Regression, LDA, QDA and KNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_05.3_cross_validation_and_the_bootstrap.html">
+     Chapter 5: Cross-Validation and the Bootstrap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.5_subset_selection_methods.html">
+     Chapter 6 - Lab 1: Subset Selection Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.6_ridge_regression_and_the_lasso.html">
+     Chapter 6 - Lab 2: Ridge Regression and the Lasso
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_06.7_pcr_and_pls_regression.html">
+     Chapter 6 - Lab 3: PCR and PLS Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_07.8_non_linear_modelling.html">
+     Chapter 7: Non-linear Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_08.3_decision_trees.html">
+     Chapter 8: Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_09.6_support_vector_machines.html">
+     Chapter 9: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.4_principal_components_analysis.html">
+     Chapter 10 - Lab 1: Principcal Component Analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_clustering.html">
+     Chapter 10 - Lab 2: Clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../labs/lab_10.5_NCI60_data_example.html">
+     Chapter 10 - Lab 3: NCI60 Data Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../exercises.html">
+   Exercises
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter2/index.html">
+     Chapter 2
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise1.html">
+       Exercise 2.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise2.html">
+       Exercise 2.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise3.html">
+       Exercise 2.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise4.html">
+       Exercise 2.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise5.html">
+       Exercise 2.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise6.html">
+       Exercise 2.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise7.html">
+       Exercise 2.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise8.html">
+       Exercise 2.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise9.html">
+       Exercise 2.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter2/exercise10.html">
+       Exercise 2.10
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="index.html">
+     Chapter 3
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise1.html">
+       Exercise 3.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise2.html">
+       Exercise 3.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise3.html">
+       Exercise 3.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise4.html">
+       Exercise 3.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise5.html">
+       Exercise 3.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise6.html">
+       Exercise 3.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise7.html">
+       Exercise 3.7
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Exercise 3.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise9.html">
+       Exercise 3.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise10.html">
+       Exercise 3.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise11.html">
+       Exercise 3.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise12.html">
+       Exercise 3.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise13.html">
+       Exercise 3.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise14.html">
+       Exercise 3.14
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="exercise15.html">
+       Exercise 3.15
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter4/index.html">
+     Chapter 4
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise1.html">
+       Exercise 4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise2.html">
+       Exercise 4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise3.html">
+       Exercise 4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise4.html">
+       Exercise 4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise5.html">
+       Exercise 4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise6.html">
+       Exercise 4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise7.html">
+       Exercise 4.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise8.html">
+       Exercise 4.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise9.html">
+       Exercise 4.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise10.html">
+       Exercise 4.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise11.html">
+       Exercise 4.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise12.html">
+       Exercise 4.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter4/exercise13.html">
+       Exercise 4.13
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter5/index.html">
+     Chapter 5
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise1.html">
+       Exercise 5.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise2.html">
+       Exercise 5.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise3.html">
+       Problem 5.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise4.html">
+       Exercise 5.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise5.html">
+       Exercise 5.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise6.html">
+       Exercise 5.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise7.html">
+       Exercise 5.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise8.html">
+       Exercise 5.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter5/exercise9.html">
+       Exercise 5.9
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter6/index.html">
+     Chapter 6
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise1.html">
+       Exercise 6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise2.html">
+       Exercise 6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise3.html">
+       Exercise 6.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise4.html">
+       Exercise 6.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise5.html">
+       Exercise 6.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise6.html">
+       Exercise 6.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise7.html">
+       Exercise 6.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise8.html">
+       Exercise 6.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise9.html">
+       Exercise 6.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise10.html">
+       Exercise 6.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter6/exercise11.html">
+       Exercise 6.11
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter7/index.html">
+     Chapter 7
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise1.html">
+       Exercise 7.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise2.html">
+       Exercise 7.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise3.html">
+       Exercise 7.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise4.html">
+       Exercise 7.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise5.html">
+       Exercise 7.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise6.html">
+       Exercise 7.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise7.html">
+       Exercise 7.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise8.html">
+       Exercise 7.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise9.html">
+       Exercise 7.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise10.html">
+       Exercise 7.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise11.html">
+       Exercise 7.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter7/exercise12.html">
+       Exercise 7.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter8/index.html">
+     Chapter 8
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise1.html">
+       Exercise 8.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise2.html">
+       Exercise 8.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise3.html">
+       Exercise 8.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise4.html">
+       Exercise 8.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise5.html">
+       Exercise 8.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise6.html">
+       Exercise 8.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise7.html">
+       Exercise 8.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise8.html">
+       Exercise 8.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise9.html">
+       Exercise 8.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise10.html">
+       Exercise 8.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise11.html">
+       Exercise 8.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter8/exercise12.html">
+       Exercise 8.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter9/index.html">
+     Chapter 9
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise1.html">
+       Exercise 9.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise2.html">
+       Exercise 9.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise3.html">
+       Exercise 9.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise4.html">
+       Exercise 9.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise5.html">
+       Exercise 9.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise6.html">
+       Exercise 9.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise7.html">
+       Exercise 9.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter9/exercise8.html">
+       Exercise 9.8
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../chapter12/index.html">
+     Chapter 12
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise1.html">
+       Exercise 12.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise2.html">
+       Exercise 12.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise3.html">
+       Exercise 12.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise4.html">
+       Exercise 12.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise5.html">
+       Exercise 12.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise6.html">
+       Exercise 12.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise7.html">
+       Exercise 12.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise8.html">
+       Exercise 10.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise9.html">
+       Exercise 12.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise10.html">
+       Exercise 12.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../chapter12/exercise11.html">
+       Exercise 12.11
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Data visualization with Altair
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../visualization/introduction-to-interactive-data-visualization.html">
+   Introduction to data visualization with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../visualization/altair_get_started.html">
+   Getting Started with Altair
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_introduction.html">
+     Introduction to Altair
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_marks_encoding.html">
+     Data Types, Graphical Marks, and Visual Encoding Channels
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_data_transformation.html">
+     Data Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_scales_axes_legends.html">
+     Scales, Axes, and Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_view_composition.html">
+     Multi-View Composition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_interaction.html">
+     Interaction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_cartographic.html">
+     Cartographic Visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../visualization/altair_debugging.html">
+     Altair Debugging Guide
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Interpretable Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../iml/introduction.html">
+   Introduction to IML
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_partial_dependence.html">
+     Partial Dependence and Individual Conditional Expectation Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance.html">
+     Permutation Importance vs Random Forest Feature Importance (MDI)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/plot_permutation_importance_multicollinear.html">
+     Permutation Importance with Multicollinear or Correlated Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../iml/interpreting-machine-learning-models.html">
+     IML with Pima Indians and the Titanic datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Principles of time-series forecasting
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/introduction.html">
+   Introduction to FPP3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../fpp/examples-time-series-forecasting-with-python.html">
+   Examples of time-series forecasting with Python
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/islr/exercises/chapter3/exercise8.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/exercises/chapter3/exercise8.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a">
+   (a)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#i">
+     i.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ii">
+     ii
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iii">
+     iii
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iv">
+     iv
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#b">
+   (b)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#c">
+   (c)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#residuals-against-fitted-values">
+     Residuals against fitted values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#normal-q-q-plot">
+     Normal Q-Q plot
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scale-location-plot-of-sqrt-residuals-against-fitted-values">
+     Scale-Location plot of sqrt(|residuals|) against fitted values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#residuals-against-leverages">
+     Residuals against leverages
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercise-3-8">
+<h1>Exercise 3.8<a class="headerlink" href="#exercise-3-8" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>  <span class="c1"># Statsmodels is a Python module for statistics</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/auto.csv&#39;</span><span class="p">)</span> <span class="c1"># import dataset</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># just to have a look</span>
+</pre></div>
+</div>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.dataframe thead th {
+    text-align: left;
+}
+
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+</pre></div>
+</div>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mpg</th>
+      <th>cylinders</th>
+      <th>displacement</th>
+      <th>horsepower</th>
+      <th>weight</th>
+      <th>acceleration</th>
+      <th>year</th>
+      <th>origin</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>18.0</td>
+      <td>8</td>
+      <td>307.0</td>
+      <td>130</td>
+      <td>3504</td>
+      <td>12.0</td>
+      <td>70</td>
+      <td>1</td>
+      <td>chevrolet chevelle malibu</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>15.0</td>
+      <td>8</td>
+      <td>350.0</td>
+      <td>165</td>
+      <td>3693</td>
+      <td>11.5</td>
+      <td>70</td>
+      <td>1</td>
+      <td>buick skylark 320</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>18.0</td>
+      <td>8</td>
+      <td>318.0</td>
+      <td>150</td>
+      <td>3436</td>
+      <td>11.0</td>
+      <td>70</td>
+      <td>1</td>
+      <td>plymouth satellite</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>16.0</td>
+      <td>8</td>
+      <td>304.0</td>
+      <td>150</td>
+      <td>3433</td>
+      <td>12.0</td>
+      <td>70</td>
+      <td>1</td>
+      <td>amc rebel sst</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17.0</td>
+      <td>8</td>
+      <td>302.0</td>
+      <td>140</td>
+      <td>3449</td>
+      <td>10.5</td>
+      <td>70</td>
+      <td>1</td>
+      <td>ford torino</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="section" id="a">
+<h2>(a)<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># prepare data for modelling (training set)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;horsepower&#39;</span><span class="p">]</span> <span class="c1"># horsepower as predictor</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span>        <span class="c1"># mpg as response</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># just to check</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0    130
+1    165
+2    150
+3    150
+4    140
+Name: horsepower, dtype: object
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># just to check</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0    18.0
+1    15.0
+2    18.0
+3    16.0
+4    17.0
+Name: mpg, dtype: float64
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1"># check for data quality (missing data, errors, etc.)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array([&#39;130&#39;, &#39;165&#39;, &#39;150&#39;, &#39;140&#39;, &#39;198&#39;, &#39;220&#39;, &#39;215&#39;, &#39;225&#39;, &#39;190&#39;,
+       &#39;170&#39;, &#39;160&#39;, &#39;95&#39;, &#39;97&#39;, &#39;85&#39;, &#39;88&#39;, &#39;46&#39;, &#39;87&#39;, &#39;90&#39;, &#39;113&#39;,
+       &#39;200&#39;, &#39;210&#39;, &#39;193&#39;, &#39;?&#39;, &#39;100&#39;, &#39;105&#39;, &#39;175&#39;, &#39;153&#39;, &#39;180&#39;, &#39;110&#39;,
+       &#39;72&#39;, &#39;86&#39;, &#39;70&#39;, &#39;76&#39;, &#39;65&#39;, &#39;69&#39;, &#39;60&#39;, &#39;80&#39;, &#39;54&#39;, &#39;208&#39;, &#39;155&#39;,
+       &#39;112&#39;, &#39;92&#39;, &#39;145&#39;, &#39;137&#39;, &#39;158&#39;, &#39;167&#39;, &#39;94&#39;, &#39;107&#39;, &#39;230&#39;, &#39;49&#39;,
+       &#39;75&#39;, &#39;91&#39;, &#39;122&#39;, &#39;67&#39;, &#39;83&#39;, &#39;78&#39;, &#39;52&#39;, &#39;61&#39;, &#39;93&#39;, &#39;148&#39;, &#39;129&#39;,
+       &#39;96&#39;, &#39;71&#39;, &#39;98&#39;, &#39;115&#39;, &#39;53&#39;, &#39;81&#39;, &#39;79&#39;, &#39;120&#39;, &#39;152&#39;, &#39;102&#39;,
+       &#39;108&#39;, &#39;68&#39;, &#39;58&#39;, &#39;149&#39;, &#39;89&#39;, &#39;63&#39;, &#39;48&#39;, &#39;66&#39;, &#39;139&#39;, &#39;103&#39;,
+       &#39;125&#39;, &#39;133&#39;, &#39;138&#39;, &#39;135&#39;, &#39;142&#39;, &#39;77&#39;, &#39;62&#39;, &#39;132&#39;, &#39;84&#39;, &#39;64&#39;,
+       &#39;74&#39;, &#39;116&#39;, &#39;82&#39;], dtype=object)
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>There is a strange value: <strong>‘?’</strong></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># handling with &#39;?&#39; observations (delete them)</span>
+<span class="n">droplist</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">X_train</span> <span class="o">==</span> <span class="s1">&#39;?&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span> <span class="c1"># get index of observations with &#39;?&#39; value</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">droplist</span><span class="p">)</span>         <span class="c1"># drop those observations</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">droplist</span><span class="p">)</span>         <span class="c1"># ensure dimensional compatibility between variables</span>
+<span class="n">X_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>                         <span class="c1"># test</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array([&#39;130&#39;, &#39;165&#39;, &#39;150&#39;, &#39;140&#39;, &#39;198&#39;, &#39;220&#39;, &#39;215&#39;, &#39;225&#39;, &#39;190&#39;,
+       &#39;170&#39;, &#39;160&#39;, &#39;95&#39;, &#39;97&#39;, &#39;85&#39;, &#39;88&#39;, &#39;46&#39;, &#39;87&#39;, &#39;90&#39;, &#39;113&#39;,
+       &#39;200&#39;, &#39;210&#39;, &#39;193&#39;, &#39;100&#39;, &#39;105&#39;, &#39;175&#39;, &#39;153&#39;, &#39;180&#39;, &#39;110&#39;, &#39;72&#39;,
+       &#39;86&#39;, &#39;70&#39;, &#39;76&#39;, &#39;65&#39;, &#39;69&#39;, &#39;60&#39;, &#39;80&#39;, &#39;54&#39;, &#39;208&#39;, &#39;155&#39;, &#39;112&#39;,
+       &#39;92&#39;, &#39;145&#39;, &#39;137&#39;, &#39;158&#39;, &#39;167&#39;, &#39;94&#39;, &#39;107&#39;, &#39;230&#39;, &#39;49&#39;, &#39;75&#39;,
+       &#39;91&#39;, &#39;122&#39;, &#39;67&#39;, &#39;83&#39;, &#39;78&#39;, &#39;52&#39;, &#39;61&#39;, &#39;93&#39;, &#39;148&#39;, &#39;129&#39;, &#39;96&#39;,
+       &#39;71&#39;, &#39;98&#39;, &#39;115&#39;, &#39;53&#39;, &#39;81&#39;, &#39;79&#39;, &#39;120&#39;, &#39;152&#39;, &#39;102&#39;, &#39;108&#39;,
+       &#39;68&#39;, &#39;58&#39;, &#39;149&#39;, &#39;89&#39;, &#39;63&#39;, &#39;48&#39;, &#39;66&#39;, &#39;139&#39;, &#39;103&#39;, &#39;125&#39;,
+       &#39;133&#39;, &#39;138&#39;, &#39;135&#39;, &#39;142&#39;, &#39;77&#39;, &#39;62&#39;, &#39;132&#39;, &#39;84&#39;, &#39;64&#39;, &#39;74&#39;,
+       &#39;116&#39;, &#39;82&#39;], dtype=object)
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1"># check for data quality (missing data, errors, etc.)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array([ 18. ,  15. ,  16. ,  17. ,  14. ,  24. ,  22. ,  21. ,  27. ,
+        26. ,  25. ,  10. ,  11. ,   9. ,  28. ,  19. ,  12. ,  13. ,
+        23. ,  30. ,  31. ,  35. ,  20. ,  29. ,  32. ,  33. ,  17.5,
+        15.5,  14.5,  22.5,  24.5,  18.5,  29.5,  26.5,  16.5,  31.5,
+        36. ,  25.5,  33.5,  20.5,  30.5,  21.5,  43.1,  36.1,  32.8,
+        39.4,  19.9,  19.4,  20.2,  19.2,  25.1,  20.6,  20.8,  18.6,
+        18.1,  17.7,  27.5,  27.2,  30.9,  21.1,  23.2,  23.8,  23.9,
+        20.3,  21.6,  16.2,  19.8,  22.3,  17.6,  18.2,  16.9,  31.9,
+        34.1,  35.7,  27.4,  25.4,  34.2,  34.5,  31.8,  37.3,  28.4,
+        28.8,  26.8,  41.5,  38.1,  32.1,  37.2,  26.4,  24.3,  19.1,
+        34.3,  29.8,  31.3,  37. ,  32.2,  46.6,  27.9,  40.8,  44.3,
+        43.4,  36.4,  44.6,  33.8,  32.7,  23.7,  32.4,  26.6,  25.8,
+        23.5,  39.1,  39. ,  35.1,  32.3,  37.7,  34.7,  34.4,  29.9,
+        33.7,  32.9,  31.6,  28.1,  30.7,  24.2,  22.4,  34. ,  38. ,  44. ])
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create dataframe to use statsmodel</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;horsepower&#39;</span><span class="p">:</span><span class="n">X_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">),</span> <span class="s1">&#39;mpg&#39;</span><span class="p">:</span><span class="n">y_train</span><span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.dataframe thead th {
+    text-align: left;
+}
+
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+</pre></div>
+</div>
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>horsepower</th>
+      <th>mpg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>130.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>165.0</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>150.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>150.0</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>140.0</td>
+      <td>17.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/03_08_13_0.png" /></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># using statsmodel for linear regression (http://statsmodels.sourceforge.net/)</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;mpg ~ horsepower&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                    mpg   R-squared:                       0.606
+Model:                            OLS   Adj. R-squared:                  0.605
+Method:                 Least Squares   F-statistic:                     599.7
+Date:                Fri, 08 Dec 2017   Prob (F-statistic):           7.03e-81
+Time:                        09:48:30   Log-Likelihood:                -1178.7
+No. Observations:                 392   AIC:                             2361.
+Df Residuals:                     390   BIC:                             2369.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     39.9359      0.717     55.660      0.000      38.525      41.347
+horsepower    -0.1578      0.006    -24.489      0.000      -0.171      -0.145
+==============================================================================
+Omnibus:                       16.432   Durbin-Watson:                   0.920
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               17.305
+Skew:                           0.492   Prob(JB):                     0.000175
+Kurtosis:                       3.299   Cond. No.                         322.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+<div class="section" id="i">
+<h3>i.<a class="headerlink" href="#i" title="Permalink to this headline">¶</a></h3>
+<p>Yes, there is a relationship between the predictor and the response. We can reject the null hypothesis that the regression coefficients are zero, since the F-statistic is much larger than 1 and the p-value is close to zero.</p>
+</div>
+<div class="section" id="ii">
+<h3>ii<a class="headerlink" href="#ii" title="Permalink to this headline">¶</a></h3>
+<p>Since the R-squared value is just about 0.606, we can say that approximately 60% of the variance in mpg is explained by horsepower.</p>
+</div>
+<div class="section" id="iii">
+<h3>iii<a class="headerlink" href="#iii" title="Permalink to this headline">¶</a></h3>
+<p>The relationship is negative because the coefficient corresponding to horsepower is equal to -0.1578.</p>
+</div>
+<div class="section" id="iv">
+<h3>iv<a class="headerlink" href="#iv" title="Permalink to this headline">¶</a></h3>
+<p>This exercise is a bit trickier to do in Python, since there’s no standard out-of-the-box function for it (please let us know if you could find one). If we were solving this exercise in R, we would just need to use the functions confint() and predict() (see bottom of page 111 of ISLR).</p>
+<p>On page 82 of ISLR, they describe the qualitative difference between a confidence and a prediction interval. However, the text does not explain how to calculate the intervals.
+For a good description and derivation on how to calculate these intervals see Casella and Berger [1], section 11.3.5 (“Estimation and Prediction at a Specified x=x0”).
+The distinction between the two types of interval is also well laid out in the answer [2], adapted from section 4.1 of Faraway [3].</p>
+<p>The answer is calculated below.
+The predicted ‘mpg’ is equal to 24.46708, with a 95% confidence interval of (23.97308, 24.96108) and a 95% prediction interval of (14.80940, 34.12476).
+These are the same values as calculated with the R functions confint() and predict().</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># this code follows Chapter 11 of Casella and Berger [1]</span>
+<span class="c1"># below we comment the lines with the page numbers of the text where the corresponding formulas appear</span>
+
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">t</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="k">def</span> <span class="nf">interval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">.05</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x_bar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">y_bar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">S_xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x_bar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>         <span class="c1"># page 541</span>
+    <span class="n">S_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x_bar</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y_bar</span><span class="p">))</span>  <span class="c1"># page 541</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">S_xy</span><span class="o">/</span><span class="n">S_xx</span>                       <span class="c1"># page 542</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">y_bar</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">x_bar</span>                 <span class="c1"># page 542</span>
+    <span class="n">S2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>     <span class="c1"># page 552</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">S2</span><span class="p">)</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">w_conf</span> <span class="o">=</span> <span class="n">ts</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="p">(</span><span class="n">x0</span><span class="o">-</span><span class="n">x_bar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">S_xx</span><span class="p">)</span>      <span class="c1"># page 558</span>
+    <span class="n">w_pred</span> <span class="o">=</span> <span class="n">ts</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="p">(</span><span class="n">x0</span><span class="o">-</span><span class="n">x_bar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">S_xx</span><span class="p">)</span>  <span class="c1"># page 559</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;                fit </span><span class="se">\t</span><span class="s2"> lwr </span><span class="se">\t</span><span class="s2">  upr&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confidence </span><span class="si">%3.5f</span><span class="s2"> </span><span class="si">%3.5f</span><span class="s2"> </span><span class="si">%3.5f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">x0</span> <span class="o">-</span> <span class="n">w_conf</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w_conf</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;prediction </span><span class="si">%3.5f</span><span class="s2"> </span><span class="si">%3.5f</span><span class="s2"> </span><span class="si">%3.5f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">x0</span> <span class="o">-</span> <span class="n">w_pred</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w_pred</span><span class="p">))</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;horsepower&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="mi">98</span>    
+    
+<span class="n">interval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                fit 	 lwr 	  upr
+confidence 24.46708 23.97308 24.96108
+prediction 24.46708 14.80940 34.12476
+</pre></div>
+</div>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p>[1] Casella, George, and Roger L. Berger. Statistical inference. Vol. 2. Pacific Grove, CA: Duxbury, 2002. <a class="reference external" href="https://smile.amazon.com/Statistical-Inference-George-Casella/dp/0534243126">amazon</a></p>
+<p>[2] <a class="reference external" href="https://stats.stackexchange.com/a/271232">https://stats.stackexchange.com/a/271232</a></p>
+<p>[3] Faraway, Julian J. Linear models with R. CRC press, 2014.  <a class="reference external" href="https://smile.amazon.com/Linear-Models-Chapman-Statistical-Science/dp/1439887330">amazon</a></p>
+</div>
+</div>
+<div class="section" id="b">
+<h2>(b)<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#to get both plots in the same figure </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">),</span> <span class="n">y_train</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">),</span> <span class="n">res</span><span class="o">.</span><span class="n">fittedvalues</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/03_08_26_0.png" /></p>
+</div>
+<div class="section" id="c">
+<h2>(c)<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<p>In R [4], by default, plot() on a fit produces 4 plots:</p>
+<ul class="simple">
+<li><p>a plot of residuals against fitted values,</p></li>
+<li><p>a Scale-Location plot of sqrt(| residuals |) against fitted values,</p></li>
+<li><p>a Normal Q-Q plot,</p></li>
+<li><p>a plot of residuals against leverages.</p></li>
+</ul>
+<p>Below, we plot each of these 4 plots. We used the code published by Emre Can [5] with a few adaptations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="kn">import</span> <span class="n">ProbPlot</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="n">model_f</span> <span class="o">=</span> <span class="s1">&#39;mpg ~ horsepower&#39;</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">model_f</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># fitted values (need a constant term for intercept)</span>
+<span class="n">model_fitted_y</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">fittedvalues</span>
+
+<span class="c1"># model residuals</span>
+<span class="n">model_residuals</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">resid</span>
+
+<span class="c1"># normalized residuals</span>
+<span class="n">model_norm_residuals</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">get_influence</span><span class="p">()</span><span class="o">.</span><span class="n">resid_studentized_internal</span>
+
+<span class="c1"># absolute squared normalized residuals</span>
+<span class="n">model_norm_residuals_abs_sqrt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">model_norm_residuals</span><span class="p">))</span>
+
+<span class="c1"># absolute residuals</span>
+<span class="n">model_abs_resid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">model_residuals</span><span class="p">)</span>
+
+<span class="c1"># leverage, from statsmodels internals</span>
+<span class="n">model_leverage</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">get_influence</span><span class="p">()</span><span class="o">.</span><span class="n">hat_matrix_diag</span>
+
+<span class="c1"># cook&#39;s distance, from statsmodels internals</span>
+<span class="n">model_cooks</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">get_influence</span><span class="p">()</span><span class="o">.</span><span class="n">cooks_distance</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="residuals-against-fitted-values">
+<h3>Residuals against fitted values<a class="headerlink" href="#residuals-against-fitted-values" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_lm_1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_lm_1</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plot_lm_1</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plot_lm_1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span><span class="n">model_fitted_y</span><span class="p">,</span> <span class="s1">&#39;mpg&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+                                  <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                  <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+                                  <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;lw&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">})</span>
+
+<span class="n">plot_lm_1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Residuals vs Fitted&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Fitted values&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># annotations</span>
+<span class="n">abs_resid</span> <span class="o">=</span> <span class="n">model_abs_resid</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">abs_resid_top_3</span> <span class="o">=</span> <span class="n">abs_resid</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">abs_resid_top_3</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">plot_lm_1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> 
+                               <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">model_fitted_y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+                                   <span class="n">model_residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/03_08_31_0.png" /></p>
+<p>The red line is a smooth fit to the residuals which helps to spot any trends.
+We can clearly see a strong non-linearity indicated by the curve of the red line.
+Figure 3.9 of the text also comments on this and shows the same plot for a quadratical fit, where the this trend is now almost non-existant.
+The funnel shape of the plotted residuals indicates that we are in the presence of heteroscedasticity.</p>
+</div>
+<div class="section" id="normal-q-q-plot">
+<h3>Normal Q-Q plot<a class="headerlink" href="#normal-q-q-plot" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">QQ</span> <span class="o">=</span> <span class="n">ProbPlot</span><span class="p">(</span><span class="n">model_norm_residuals</span><span class="p">)</span>
+<span class="n">plot_lm_2</span> <span class="o">=</span> <span class="n">QQ</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="s1">&#39;45&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#4C72B0&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plot_lm_2</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plot_lm_2</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plot_lm_2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Normal Q-Q&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Theoretical Quantiles&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Standardized Residuals&#39;</span><span class="p">);</span>
+
+<span class="c1"># annotations</span>
+<span class="n">abs_norm_resid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">model_norm_residuals</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">abs_norm_resid_top_3</span> <span class="o">=</span> <span class="n">abs_norm_resid</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">abs_norm_resid_top_3</span><span class="p">):</span>
+    <span class="n">plot_lm_2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> 
+                               <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">QQ</span><span class="o">.</span><span class="n">theoretical_quantiles</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="n">r</span><span class="p">],</span>
+                                   <span class="n">model_norm_residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/03_08_34_0.png" /></p>
+<p>The qq-plot indicates that the assumption of normality does hold, since we can fit a straight line quite well, although there seems to be a slight left skew.</p>
+<p>The links below provide nice explanations and intuitions of the concept of qq-plots and pp-plots and how to interpret them.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stats.stackexchange.com/questions/52212/qq-plot-does-not-match-histogram/52221#52221">https://stats.stackexchange.com/questions/52212/qq-plot-does-not-match-histogram/52221#52221</a></p></li>
+<li><p><a class="reference external" href="https://stats.stackexchange.com/questions/101274/how-to-interpret-a-qq-plot">https://stats.stackexchange.com/questions/101274/how-to-interpret-a-qq-plot</a></p></li>
+<li><p><a class="reference external" href="https://xiongge.shinyapps.io/QQplots/">https://xiongge.shinyapps.io/QQplots/</a></p></li>
+<li><p><a class="reference external" href="https://stats.stackexchange.com/questions/92141/pp-plots-vs-qq-plots/100383#100383">https://stats.stackexchange.com/questions/92141/pp-plots-vs-qq-plots/100383#100383</a></p></li>
+</ul>
+</div>
+<div class="section" id="scale-location-plot-of-sqrt-residuals-against-fitted-values">
+<h3>Scale-Location plot of sqrt(|residuals|) against fitted values<a class="headerlink" href="#scale-location-plot-of-sqrt-residuals-against-fitted-values" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_lm_3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plot_lm_3</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plot_lm_3</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">model_fitted_y</span><span class="p">,</span> <span class="n">model_norm_residuals_abs_sqrt</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">model_fitted_y</span><span class="p">,</span> <span class="n">model_norm_residuals_abs_sqrt</span><span class="p">,</span> 
+            <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+            <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+            <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;lw&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">})</span>
+
+<span class="n">plot_lm_3</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Scale-Location&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_3</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Fitted values&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_3</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\sqrt{|Standardized Residuals|}$&#39;</span><span class="p">);</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">abs_norm_resid_top_3</span><span class="p">:</span>
+    <span class="n">plot_lm_3</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> 
+                               <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">model_fitted_y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+                                   <span class="n">model_norm_residuals_abs_sqrt</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/03_08_37_0.png" /></p>
+<p>This plot is similar to the first one - it plots the residuals against the fitted values, although here they are all made positive and normalized.
+It is clear from the plot that the assumption of homoscedasticity is not held.</p>
+<p>“The third plot is a scale-location plot (square rooted standardized residual vs. predicted value). This is useful for checking the assumption of homoscedasticity. In this particular plot we are checking to see if there is a pattern in the residuals.”</p>
+<p>(source: <a class="reference external" href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R5_Correlation-Regression/R5_Correlation-Regression7.html">http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R5_Correlation-Regression/R5_Correlation-Regression7.html</a>)</p>
+</div>
+<div class="section" id="residuals-against-leverages">
+<h3>Residuals against leverages<a class="headerlink" href="#residuals-against-leverages" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_lm_4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plot_lm_4</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plot_lm_4</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">model_leverage</span><span class="p">,</span> <span class="n">model_norm_residuals</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">model_leverage</span><span class="p">,</span> <span class="n">model_norm_residuals</span><span class="p">,</span> 
+            <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+            <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+            <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;lw&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">})</span>
+
+<span class="n">plot_lm_4</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">)</span>
+<span class="n">plot_lm_4</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plot_lm_4</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Residuals vs Leverage&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_4</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Leverage&#39;</span><span class="p">)</span>
+<span class="n">plot_lm_4</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Standardized Residuals&#39;</span><span class="p">)</span>
+
+<span class="c1"># annotations</span>
+<span class="n">leverage_top_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">model_cooks</span><span class="p">),</span> <span class="mi">0</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">leverage_top_3</span><span class="p">:</span>
+    <span class="n">plot_lm_4</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> 
+                               <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">model_leverage</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+                                   <span class="n">model_norm_residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    
+<span class="c1"># shenanigans for cook&#39;s distance contours</span>
+<span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">x_range</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x_range</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">formula</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">params</span><span class="p">)</span> <span class="c1"># number of model parameters</span>
+
+<span class="n">graph</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="n">x</span><span class="p">),</span> 
+      <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.200</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> 
+      <span class="s1">&#39;Cook</span><span class="se">\&#39;</span><span class="s1">s distance = .5&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span> <span class="c1"># 0.5 line</span>
+
+<span class="n">graph</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="n">x</span><span class="p">),</span> 
+      <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.200</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="s1">&#39;Cook</span><span class="se">\&#39;</span><span class="s1">s distance = 1&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span> <span class="c1"># 1 line</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../../../_images/03_08_40_0.png" /></p>
+<p>The higher leverage points concentrate on the upper half of this plot, which indicates a deviation from normality.
+On the other hand, from the plot we can see that every point has a Cook’s distance well below 1, which indicates that no point has much individual influence on the fit.</p>
+<p>“The fourth plot is of “Cook’s distance”, which is a measure of the influence of each observation on the regression coefficients. The Cook’s distance statistic is a measure, for each observation in turn, of the extent of change in model estimates when that particular observation is omitted. Any observation for which the Cook’s distance is close to 1 or more, or that is substantially larger than other Cook’s distances (highly influential data points), requires investigation.”</p>
+<p>(source: <a class="reference external" href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R5_Correlation-Regression/R5_Correlation-Regression7.html">http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/R/R5_Correlation-Regression/R5_Correlation-Regression7.html</a>)</p>
+</div>
+<div class="section" id="id1">
+<h3>References<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>[4] <a class="reference external" href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.lm.html">https://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.lm.html</a></p>
+<p>[5] <a class="reference external" href="https://emredjan.github.io/blog/2017/07/11/emulating-r-plots-in-python/">https://emredjan.github.io/blog/2017/07/11/emulating-r-plots-in-python/</a></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./islr/exercises/chapter3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="exercise7.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Exercise 3.7</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="exercise9.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Exercise 3.9</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Daniel Kapitan<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
