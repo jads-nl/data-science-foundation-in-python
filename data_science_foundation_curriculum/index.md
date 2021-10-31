@@ -6,9 +6,9 @@ This foundational data science curriculum is based on the following textbooks an
 
 - [Introduction to Statistical Learning with Applications in R, Second Edition (ISLRv2)](https://statlearning.com) by James, Witten, Hastie, Tibshirani (2021).
 - [Altair Visualization Curriculum](https://uwdata.github.io/visualization-curriculum/intro.html), developed at the University of Washington by Jeffrey Heer, Dominik Moritz, Jake VanderPlas, and Brock Craft.
+- [Interpretable Machine Learning (IML)](https://christophm.github.io/interpretable-ml-book/) by Christoph Molnar (2021).
 - [Forecasting: Principles and Practice, Third Edition (fpp3)](https://otexts.com/fpp3/) by Rob J Hyndman and George Athanasopoulos (2021).
 - [Advanced NLP with spaCy](https://course.spacy.io/en/).
-- [Interpretable Machine Learning (IML)](https://christophm.github.io/interpretable-ml-book/) by Christoph Molnar (2021).
 
 Since three of these use R (ISLRv2, fpp3 and IML), and we have chosen Python as our primary language for instruction, the main contribution of this JupyterBook is to provide a wide set of Python-based notebooks with exercises and examples. Besides my own work, I have integrated various respositories, blog posts etc. which I found useful and fitting within this curriculum. Attributions and links are provided in each section separately.
 
