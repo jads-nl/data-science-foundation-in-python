@@ -1,3 +1,3 @@
 # Exercises
 
-Example solutions in Python to the exercises are provided in the following section.
+Example solutions to the exercises are provided in the following section.
