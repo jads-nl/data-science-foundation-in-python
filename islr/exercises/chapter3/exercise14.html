@@ -1071,62 +1071,57 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Exercise 3.14
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#a">
    (a)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#b">
    (b)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#c">
    (c)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#d">
    (d)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#e">
    (e)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#f">
    (f)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#g">
    (g)
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#models-analysis">
      Models analysis
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#outliers-and-high-leverage-points-analysis">
      Outliers and high leverage points analysis
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#references">
-     References
-    </a>
-   </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
  </li>
 </ul>
 
@@ -1153,9 +1148,8 @@
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="a">
-<h1>(a)<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="a">
+<h2>(a)<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># Python and R random generators give different values</span>
 <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">x2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
@@ -1170,8 +1164,8 @@
 Y = \beta_0 + \beta_1  X_1 + \beta_2  X_2 + \epsilon = 2 + 2 X_1 + 0.3 X_2 + \epsilon.
 \]</div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="b">
-<h1>(b)<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="b">
+<h2>(b)<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get correlations</span>
 <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">)</span>
 </pre></div>
@@ -1187,8 +1181,8 @@ Y = \beta_0 + \beta_1  X_1 + \beta_2  X_2 + \epsilon = 2 + 2 X_1 + 0.3 X_2 + \ep
 </div>
 <p><img alt="png" src="../../../_images/03_14_8_0.png" /></p>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="c">
-<h1>(c)<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="c">
+<h2>(c)<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define data</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x1&#39;</span><span class="p">:</span><span class="n">x1</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">:</span><span class="n">x2</span><span class="p">})</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># No constant is added by the model unless we&#39;re using formulas, so we have to add it</span>
@@ -1335,8 +1329,8 @@ Warnings:
 </pre></div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="d">
-<h1>(d)<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="d">
+<h2>(d)<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x1&#39;</span><span class="p">:</span><span class="n">x1</span><span class="p">})</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
@@ -1374,8 +1368,8 @@ Warnings:
 </div>
 <p>The coefficient value <b>increased</b> to 2.4468 and the <b>null hypothesis can be rejected and the alternative hypothesis accepted</b> because p-value is zero. It can be said that this results are in line with our expectations from (c).</p>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="e">
-<h1>(e)<a class="headerlink" href="#e" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="e">
+<h2>(e)<a class="headerlink" href="#e" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x2&#39;</span><span class="p">:</span><span class="n">x2</span><span class="p">})</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
@@ -1414,15 +1408,15 @@ Warnings:
 <p>The coefficient value <b>increased</b> to 3.6070 and the <b>null hypothesis can be rejected and the alternative hypothesis accepted</b> because p-value is zero.</p>
 <p>These results are significantly different from (c). In (c) the coefficient associated with <span class="math notranslate nohighlight">\(x_2\)</span> had a lower value and the p-value suggested that the null hypothesis couldn’t be rejected (coefficient value could be zero). Now, the coefficient value is higher (even higher than the coefficient value resulting from the case where only <span class="math notranslate nohighlight">\(x_1\)</span> is used) and the null hypothesis can be rejected and the alternative hypothesis accepted.</p>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="f">
-<h1>(f)<a class="headerlink" href="#f" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="f">
+<h2>(f)<a class="headerlink" href="#f" title="Permalink to this headline">¶</a></h2>
 <p>The results <b>do not contradict</b>.
 What’s happening here is a <b>collinearity</b> phenomenon.
 As suggested by the high correlation values and by the scatter plot (and, of course, from the generation of Y), we can linearly predict <span class="math notranslate nohighlight">\(x_1\)</span> from <span class="math notranslate nohighlight">\(x_2\)</span> (and vice-versa) with a substantial degree of accuracy. This is a clue of collinearity that is confirmed by the regression model. When both variables are combined in the same linear model, one of them loses explanatory power because the variance it explains is already being explained by the other variable. Accordingly, if considered individually, both variables lead to the rejection of the null hypothesis but, if considered together, one of the variables is dismissable.</p>
 <p>Finally, the values of the coefficients agree with what we know from the underlying model. If one writes <span class="math notranslate nohighlight">\(X2\)</span> in terms of <span class="math notranslate nohighlight">\(X1\)</span>, substitutes it in the model and adds both coefficients of <span class="math notranslate nohighlight">\(X1\)</span>, we get 2.15. This value is well within the confidence interval calculated in (d), namely [1.892; 3.001]. Likewise, for <span class="math notranslate nohighlight">\(X2\)</span> the expected value of the coefficient is 4.3 which is inside the [2.600; 4.614] interval calculated in (e).</p>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="g">
-<h1>(g)<a class="headerlink" href="#g" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="g">
+<h2>(g)<a class="headerlink" href="#g" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add observation </span>
 <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># To x1</span>
 <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>  <span class="c1"># To x2</span>
@@ -1434,7 +1428,7 @@ As suggested by the high correlation values and by the scatter plot (and, of cou
 </pre></div>
 </div>
 <div class="section" id="models-analysis">
-<h2>Models analysis<a class="headerlink" href="#models-analysis" title="Permalink to this headline">¶</a></h2>
+<h3>Models analysis<a class="headerlink" href="#models-analysis" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model (c)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x1&#39;</span><span class="p">:</span><span class="n">x1</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">:</span><span class="n">x2</span><span class="p">})</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># No constant is added by the model unless we&#39;re using formulas, so we have to add it</span>
@@ -1555,7 +1549,7 @@ Warnings:
 </ul>
 </div>
 <div class="section" id="outliers-and-high-leverage-points-analysis">
-<h2>Outliers and high leverage points analysis<a class="headerlink" href="#outliers-and-high-leverage-points-analysis" title="Permalink to this headline">¶</a></h2>
+<h3>Outliers and high leverage points analysis<a class="headerlink" href="#outliers-and-high-leverage-points-analysis" title="Permalink to this headline">¶</a></h3>
 <p><b>Outliers</b></p>
 <p>An outlier is a point for which <span class="math notranslate nohighlight">\(y_i\)</span> is far from the expected range predicted by the fit of the model. This raises the question of whether it is representative of the population.</p>
 <p>Outliers can be identified from a univariate, bivariate, or multivariate perspective based on the number of variables (characteristics) considered. We should use as many perspectives as possible, looking for a consistent pattern across them to identify outliers.</p>
@@ -1604,6 +1598,7 @@ value is outside of the normal range of the observations. With a single predicto
 </ul>
 <p><b>In summary:</b> the observation added influences significantly the model, in particular if we consider the regression model that includes <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>. In this case, <span class="math notranslate nohighlight">\(x_2\)</span> passed from a neglected variable to a significant variable. This means that even being just 1  observation in 100, this observation reduced the existing phenomenon of collinearity. Also, the R-squared of the model reduced, which signifies a decrease in the model predicition capacity.</p>
 <p>According to the scatter plots, the observation added seems to be both an outlier and and an high leverage point. This conclusion can be taken from the visual observation of the observation added when confronted with the remaining observations. The added observations shows an unusual combination of predictor values, extreme predictor values and a substantial different behaviour when compared with other observations in several cases.</p>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>

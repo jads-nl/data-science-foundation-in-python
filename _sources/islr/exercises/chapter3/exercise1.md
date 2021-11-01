@@ -25,7 +25,7 @@ As can been seen on Table 3.4 (and below with Python), for all the variables the
 
 This means that we can conclude that **there is a relationship between TV and Sales, and between Radio and Sales**. Also rejecting $\beta_0=0$, allows us to conclude that **in the absence of TV, Radio and Newspaper, Sales are non-zero**. Not being able to reject the null hypothesis $\beta_{Newspaper}=0$, suggests that there is indeed **no relationship between Newspaper and Sales, in the presence of TV and Radio**.
 
-### Additional comment
+## Additional comment
 
 At a 5% p-value, there would be a 19% chance of having one appear as significant out of 3 variables, even if there was no relationship for all of them. 
 

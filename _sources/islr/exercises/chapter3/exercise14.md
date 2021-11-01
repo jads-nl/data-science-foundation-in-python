@@ -15,7 +15,7 @@ from sklearn.linear_model import LinearRegression
 %matplotlib inline
 ```
 
-# (a)
+## (a)
 
 
 ```python
@@ -34,7 +34,7 @@ Y = \beta_0 + \beta_1  X_1 + \beta_2  X_2 + \epsilon = 2 + 2 X_1 + 0.3 X_2 + \ep
 $$
 
 
-# (b)
+## (b)
 
 
 ```python
@@ -62,7 +62,7 @@ plt.scatter(x1,x2);
 ![png](03_14_files/03_14_8_0.png)
 
 
-# (c)
+## (c)
 
 
 ```python
@@ -232,7 +232,7 @@ mod.coef_
 
 
 
-# (d)
+## (d)
 
 
 ```python
@@ -273,7 +273,7 @@ print(results.summary())
 
 The coefficient value <b>increased</b> to 2.4468 and the <b>null hypothesis can be rejected and the alternative hypothesis accepted</b> because p-value is zero. It can be said that this results are in line with our expectations from (c).
 
-# (e)
+## (e)
 
 
 ```python
@@ -316,7 +316,7 @@ The coefficient value <b>increased</b> to 3.6070 and the <b>null hypothesis can 
 
 These results are significantly different from (c). In (c) the coefficient associated with $x_2$ had a lower value and the p-value suggested that the null hypothesis couldn't be rejected (coefficient value could be zero). Now, the coefficient value is higher (even higher than the coefficient value resulting from the case where only $x_1$ is used) and the null hypothesis can be rejected and the alternative hypothesis accepted.
 
-# (f)
+## (f)
 
 The results <b>do not contradict</b>.
 What's happening here is a <b>collinearity</b> phenomenon.
@@ -324,7 +324,7 @@ As suggested by the high correlation values and by the scatter plot (and, of cou
 
 Finally, the values of the coefficients agree with what we know from the underlying model. If one writes $X2$ in terms of $X1$, substitutes it in the model and adds both coefficients of $X1$, we get 2.15. This value is well within the confidence interval calculated in (d), namely [1.892; 3.001]. Likewise, for $X2$ the expected value of the coefficient is 4.3 which is inside the [2.600; 4.614] interval calculated in (e).
 
-# (g)
+## (g)
 
 
 ```python
