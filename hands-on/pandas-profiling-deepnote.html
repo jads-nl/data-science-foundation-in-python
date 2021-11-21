@@ -1,0 +1,1700 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; Data Science Foundation Curriculum</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/hands-on/pandas-profiling-deepnote.html" />
+    <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/jads-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science Foundation Curriculum</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   Why this JupyterBook?
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Statistical Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../islr/introduction.html">
+   Introduction to ISLRv2
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../islr/labs.html">
+   Labs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_02.3_introduction.html">
+     Lab 2.3: Introduction to Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_03.6_linear_regression.html">
+     Lab 3.6: Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_04.7_classification_methods.html">
+     Lab 4.7: Classification Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_05.3_cross_validation_and_the_bootstrap.html">
+     Lab 5.3: Cross-Validation and the Bootstrap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_06.5.1_subset_selection_methods.html">
+     Lab 6.5.1: Subset Selection Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_06.5.2_ridge_regression_and_the_lasso.html">
+     Lab 6.5.2: Ridge Regression and the Lasso
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_06.5.3_pcr_and_pls_regression.html">
+     Lab 6.5.3: PCR and PLS Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_07.8_non_linear_modelling.html">
+     Lab 7.8: Non-linear Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_08.3_decision_trees.html">
+     Lab 8.3: Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_09.6_support_vector_machines.html">
+     Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_12.5_unsupervised_learning.html">
+     Lab 12.5: Unsupervised Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../islr/exercises.html">
+   Exercises
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter2/index.html">
+     Chapter 2
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise1.html">
+       Exercise 2.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise2.html">
+       Exercise 2.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise3.html">
+       Exercise 2.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise4.html">
+       Exercise 2.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise5.html">
+       Exercise 2.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise6.html">
+       Exercise 2.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise7.html">
+       Exercise 2.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise8.html">
+       Exercise 2.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise9.html">
+       Exercise 2.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise10.html">
+       Exercise 2.10
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter3/index.html">
+     Chapter 3
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise1.html">
+       Exercise 3.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise2.html">
+       Exercise 3.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise3.html">
+       Exercise 3.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise4.html">
+       Exercise 3.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise5.html">
+       Exercise 3.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise6.html">
+       Exercise 3.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise7.html">
+       Exercise 3.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise8.html">
+       Exercise 3.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise9.html">
+       Exercise 3.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise10.html">
+       Exercise 3.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise11.html">
+       Exercise 3.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise12.html">
+       Exercise 3.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise13.html">
+       Exercise 3.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise14.html">
+       Exercise 3.14
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise15.html">
+       Exercise 3.15
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter4/index.html">
+     Chapter 4
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise1.html">
+       Exercise 4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise2.html">
+       Exercise 4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise3.html">
+       Exercise 4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise4.html">
+       Exercise 4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise5.html">
+       Exercise 4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise6.html">
+       Exercise 4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise7.html">
+       Exercise 4.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise8.html">
+       Exercise 4.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise9.html">
+       Exercise 4.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise10.html">
+       Exercise 10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise11.html">
+       Exercise 11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise12.html">
+       Exercise 12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise13.html">
+       Exercise 4.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise14.html">
+       Exercise 4.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise15.html">
+       Exercise 4.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise16.html">
+       Exercise 4.16
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter5/index.html">
+     Chapter 5
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise1.html">
+       Exercise 5.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise2.html">
+       Exercise 5.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise3.html">
+       Problem 5.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise4.html">
+       Exercise 5.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise5.html">
+       Exercise 5.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise6.html">
+       Exercise 5.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise7.html">
+       Exercise 5.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise8.html">
+       Exercise 5.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise9.html">
+       Exercise 5.9
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter6/index.html">
+     Chapter 6
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise1.html">
+       Exercise 6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise2.html">
+       Exercise 6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise3.html">
+       Exercise 6.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise4.html">
+       Exercise 6.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise5.html">
+       Exercise 6.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise6.html">
+       Exercise 6.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise7.html">
+       Exercise 6.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise8.html">
+       Exercise 6.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise9.html">
+       Exercise 6.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise10.html">
+       Exercise 6.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise11.html">
+       Exercise 6.11
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter7/index.html">
+     Chapter 7
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise1.html">
+       Exercise 7.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise2.html">
+       Exercise 7.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise3.html">
+       Exercise 7.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise4.html">
+       Exercise 7.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise5.html">
+       Exercise 7.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise6.html">
+       Exercise 7.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise7.html">
+       Exercise 7.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise8.html">
+       Exercise 7.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise9.html">
+       Exercise 7.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise10.html">
+       Exercise 7.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise11.html">
+       Exercise 7.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise12.html">
+       Exercise 7.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter8/index.html">
+     Chapter 8
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise1.html">
+       Exercise 8.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise2.html">
+       Exercise 8.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise3.html">
+       Exercise 8.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise4.html">
+       Exercise 8.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise5.html">
+       Exercise 8.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise6.html">
+       Exercise 8.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise7.html">
+       Exercise 8.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise8.html">
+       Exercise 8.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise9.html">
+       Exercise 8.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise10.html">
+       Exercise 8.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise11.html">
+       Exercise 8.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise12.html">
+       Exercise 8.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter9/index.html">
+     Chapter 9
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise1.html">
+       Exercise 9.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise2.html">
+       Exercise 9.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise3.html">
+       Exercise 9.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise4.html">
+       Exercise 9.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise5.html">
+       Exercise 9.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise6.html">
+       Exercise 9.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise7.html">
+       Exercise 9.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise8.html">
+       Exercise 9.8
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter12/index.html">
+     Chapter 12
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise1.html">
+       Exercise 12.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise2.html">
+       Exercise 12.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise3.html">
+       Exercise 12.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise4.html">
+       Exercise 12.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise5.html">
+       Exercise 12.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise6.html">
+       Exercise 12.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise7.html">
+       Exercise 12.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise8.html">
+       Exercise 10.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise9.html">
+       Exercise 12.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise10.html">
+       Exercise 12.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise11.html">
+       Exercise 12.11
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Data visualization with Altair
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/introduction-to-interactive-data-visualization.html">
+   Introduction to data visualization with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../visualization/altair_get_started.html">
+   Getting Started with Altair
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_introduction.html">
+     Introduction to Altair
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_marks_encoding.html">
+     Data Types, Graphical Marks, and Visual Encoding Channels
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_data_transformation.html">
+     Data Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_scales_axes_legends.html">
+     Scales, Axes, and Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_view_composition.html">
+     Multi-View Composition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_interaction.html">
+     Interaction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_cartographic.html">
+     Cartographic Visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_debugging.html">
+     Altair Debugging Guide
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpretable Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../iml/introduction.html">
+   Introduction to IML
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/plot_partial_dependence.html">
+     Partial Dependence and Individual Conditional Expectation Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/plot_permutation_importance.html">
+     Permutation Importance vs Random Forest Feature Importance (MDI)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/plot_permutation_importance_multicollinear.html">
+     Permutation Importance with Multicollinear or Correlated Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/interpreting-machine-learning-models.html">
+     IML with Pima Indians and the Titanic datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Principles of time-series forecasting
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../fpp/introduction.html">
+   Introduction to FPP3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../fpp/examples-time-series-forecasting-with-python.html">
+   Examples of time-series forecasting with Python
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/hands-on/pandas-profiling-deepnote.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhands-on/pandas-profiling-deepnote.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run this once if you haven&#39;t included these libraries in requirements.txt yet</span>
+<span class="o">!</span>pip install pandas pandas-profiling<span class="o">[</span>notebook<span class="o">]</span> fastparquet
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (1.3.4)
+Requirement already satisfied: pandas-profiling[notebook] in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (3.1.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting fastparquet
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading fastparquet-0.7.1-cp38-cp38-manylinux2010_x86_64.whl (1.3 MB)
+?25l
+
+     |▎                               | 10 kB 41.9 MB/s eta 0:00:01
+     |▌                               | 20 kB 21.6 MB/s eta 0:00:01
+     |▊                               | 30 kB 12.2 MB/s eta 0:00:01
+     |█                               | 40 kB 5.5 MB/s eta 0:00:01 
+     |█▎                              | 51 kB 6.6 MB/s eta 0:00:01 
+     |█▌                              | 61 kB 7.1 MB/s eta 0:00:01 
+     |█▉                              | 71 kB 6.7 MB/s eta 0:00:01 
+     |██                              | 81 kB 7.6 MB/s eta 0:00:01 
+     |██▎                             | 92 kB 5.9 MB/s eta 0:00:01 
+     |██▋                             | 102 kB 6.4 MB/s eta 0:00:01
+     |██▉                             | 112 kB 6.4 MB/s eta 0:00:01
+     |███                             | 122 kB 6.4 MB/s eta 0:00:01
+     |███▍                            | 133 kB 6.4 MB/s eta 0:00:01
+     |███▋                            | 143 kB 6.4 MB/s eta 0:00:01
+     |███▉                            | 153 kB 6.4 MB/s eta 0:00:01
+     |████▏                           | 163 kB 6.4 MB/s eta 0:00:01
+     |████▍                           | 174 kB 6.4 MB/s eta 0:00:01
+     |████▋                           | 184 kB 6.4 MB/s eta 0:00:01
+     |█████                           | 194 kB 6.4 MB/s eta 0:00:01
+     |█████▏                          | 204 kB 6.4 MB/s eta 0:00:01
+     |█████▍                          | 215 kB 6.4 MB/s eta 0:00:01
+     |█████▋                          | 225 kB 6.4 MB/s eta 0:00:01
+     |██████                          | 235 kB 6.4 MB/s eta 0:00:01
+     |██████▏                         | 245 kB 6.4 MB/s eta 0:00:01
+     |██████▍                         | 256 kB 6.4 MB/s eta 0:00:01
+     |██████▊                         | 266 kB 6.4 MB/s eta 0:00:01
+     |███████                         | 276 kB 6.4 MB/s eta 0:00:01
+     |███████▏                        | 286 kB 6.4 MB/s eta 0:00:01
+     |███████▌                        | 296 kB 6.4 MB/s eta 0:00:01
+     |███████▊                        | 307 kB 6.4 MB/s eta 0:00:01
+     |████████                        | 317 kB 6.4 MB/s eta 0:00:01
+     |████████▎                       | 327 kB 6.4 MB/s eta 0:00:01
+     |████████▌                       | 337 kB 6.4 MB/s eta 0:00:01
+     |████████▊                       | 348 kB 6.4 MB/s eta 0:00:01
+     |█████████                       | 358 kB 6.4 MB/s eta 0:00:01
+     |█████████▎                      | 368 kB 6.4 MB/s eta 0:00:01
+     |█████████▌                      | 378 kB 6.4 MB/s eta 0:00:01
+     |█████████▉                      | 389 kB 6.4 MB/s eta 0:00:01
+     |██████████                      | 399 kB 6.4 MB/s eta 0:00:01
+     |██████████▎                     | 409 kB 6.4 MB/s eta 0:00:01
+     |██████████▌                     | 419 kB 6.4 MB/s eta 0:00:01
+     |██████████▉                     | 430 kB 6.4 MB/s eta 0:00:01
+     |███████████                     | 440 kB 6.4 MB/s eta 0:00:01
+     |███████████▎                    | 450 kB 6.4 MB/s eta 0:00:01
+     |███████████▋                    | 460 kB 6.4 MB/s eta 0:00:01
+     |███████████▉                    | 471 kB 6.4 MB/s eta 0:00:01
+     |████████████                    | 481 kB 6.4 MB/s eta 0:00:01
+     |████████████▍                   | 491 kB 6.4 MB/s eta 0:00:01
+     |████████████▋                   | 501 kB 6.4 MB/s eta 0:00:01
+     |████████████▉                   | 512 kB 6.4 MB/s eta 0:00:01
+     |█████████████▏                  | 522 kB 6.4 MB/s eta 0:00:01
+     |█████████████▍                  | 532 kB 6.4 MB/s eta 0:00:01
+     |█████████████▋                  | 542 kB 6.4 MB/s eta 0:00:01
+     |██████████████                  | 552 kB 6.4 MB/s eta 0:00:01
+     |██████████████▏                 | 563 kB 6.4 MB/s eta 0:00:01
+     |██████████████▍                 | 573 kB 6.4 MB/s eta 0:00:01
+     |██████████████▊                 | 583 kB 6.4 MB/s eta 0:00:01
+     |███████████████                 | 593 kB 6.4 MB/s eta 0:00:01
+     |███████████████▏                | 604 kB 6.4 MB/s eta 0:00:01
+     |███████████████▍                | 614 kB 6.4 MB/s eta 0:00:01
+     |███████████████▊                | 624 kB 6.4 MB/s eta 0:00:01
+     |████████████████                | 634 kB 6.4 MB/s eta 0:00:01
+     |████████████████▏               | 645 kB 6.4 MB/s eta 0:00:01
+     |████████████████▌               | 655 kB 6.4 MB/s eta 0:00:01
+     |████████████████▊               | 665 kB 6.4 MB/s eta 0:00:01
+     |█████████████████               | 675 kB 6.4 MB/s eta 0:00:01
+     |█████████████████▎              | 686 kB 6.4 MB/s eta 0:00:01
+     |█████████████████▌              | 696 kB 6.4 MB/s eta 0:00:01
+     |█████████████████▊              | 706 kB 6.4 MB/s eta 0:00:01
+     |██████████████████              | 716 kB 6.4 MB/s eta 0:00:01
+     |██████████████████▎             | 727 kB 6.4 MB/s eta 0:00:01
+     |██████████████████▌             | 737 kB 6.4 MB/s eta 0:00:01
+     |██████████████████▉             | 747 kB 6.4 MB/s eta 0:00:01
+     |███████████████████             | 757 kB 6.4 MB/s eta 0:00:01
+     |███████████████████▎            | 768 kB 6.4 MB/s eta 0:00:01
+     |███████████████████▋            | 778 kB 6.4 MB/s eta 0:00:01
+     |███████████████████▉            | 788 kB 6.4 MB/s eta 0:00:01
+     |████████████████████            | 798 kB 6.4 MB/s eta 0:00:01
+     |████████████████████▎           | 808 kB 6.4 MB/s eta 0:00:01
+     |████████████████████▋           | 819 kB 6.4 MB/s eta 0:00:01
+     |████████████████████▉           | 829 kB 6.4 MB/s eta 0:00:01
+     |█████████████████████           | 839 kB 6.4 MB/s eta 0:00:01
+     |█████████████████████▍          | 849 kB 6.4 MB/s eta 0:00:01
+     |█████████████████████▋          | 860 kB 6.4 MB/s eta 0:00:01
+     |█████████████████████▉          | 870 kB 6.4 MB/s eta 0:00:01
+     |██████████████████████▏         | 880 kB 6.4 MB/s eta 0:00:01
+     |██████████████████████▍         | 890 kB 6.4 MB/s eta 0:00:01
+     |██████████████████████▋         | 901 kB 6.4 MB/s eta 0:00:01
+     |███████████████████████         | 911 kB 6.4 MB/s eta 0:00:01
+     |███████████████████████▏        | 921 kB 6.4 MB/s eta 0:00:01
+     |███████████████████████▍        | 931 kB 6.4 MB/s eta 0:00:01
+     |███████████████████████▊        | 942 kB 6.4 MB/s eta 0:00:01
+     |████████████████████████        | 952 kB 6.4 MB/s eta 0:00:01
+     |████████████████████████▏       | 962 kB 6.4 MB/s eta 0:00:01
+     |████████████████████████▌       | 972 kB 6.4 MB/s eta 0:00:01
+     |████████████████████████▊       | 983 kB 6.4 MB/s eta 0:00:01
+     |█████████████████████████       | 993 kB 6.4 MB/s eta 0:00:01
+     |█████████████████████████▎      | 1.0 MB 6.4 MB/s eta 0:00:01
+     |█████████████████████████▌      | 1.0 MB 6.4 MB/s eta 0:00:01
+     |█████████████████████████▊      | 1.0 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████      | 1.0 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████▎     | 1.0 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████▌     | 1.1 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████▊     | 1.1 MB 6.4 MB/s eta 0:00:01
+     |███████████████████████████     | 1.1 MB 6.4 MB/s eta 0:00:01
+     |███████████████████████████▎    | 1.1 MB 6.4 MB/s eta 0:00:01
+     |███████████████████████████▌    | 1.1 MB 6.4 MB/s eta 0:00:01
+     |███████████████████████████▉    | 1.1 MB 6.4 MB/s eta 0:00:01
+     |████████████████████████████    | 1.1 MB 6.4 MB/s eta 0:00:01
+     |████████████████████████████▎   | 1.1 MB 6.4 MB/s eta 0:00:01
+     |████████████████████████████▋   | 1.1 MB 6.4 MB/s eta 0:00:01
+     |████████████████████████████▉   | 1.1 MB 6.4 MB/s eta 0:00:01
+     |█████████████████████████████   | 1.2 MB 6.4 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 1.2 MB 6.4 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 1.2 MB 6.4 MB/s eta 0:00:01
+     |█████████████████████████████▉  | 1.2 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 1.2 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████████▍ | 1.2 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 1.2 MB 6.4 MB/s eta 0:00:01
+     |██████████████████████████████▉ | 1.2 MB 6.4 MB/s eta 0:00:01
+     |███████████████████████████████▏| 1.2 MB 6.4 MB/s eta 0:00:01
+     |███████████████████████████████▍| 1.2 MB 6.4 MB/s eta 0:00:01
+     |███████████████████████████████▋| 1.3 MB 6.4 MB/s eta 0:00:01
+     |████████████████████████████████| 1.3 MB 6.4 MB/s eta 0:00:01
+     |████████████████████████████████| 1.3 MB 6.4 MB/s            
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hRequirement already satisfied: pytz&gt;=2017.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas) (2021.3)
+Requirement already satisfied: numpy&gt;=1.17.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas) (1.20.3)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas) (2.8.2)
+Requirement already satisfied: multimethod&gt;=1.4 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (1.6)
+Requirement already satisfied: phik&gt;=0.11.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (0.12.0)
+Requirement already satisfied: missingno&gt;=0.4.2 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (0.5.0)
+Requirement already satisfied: requests&gt;=2.24.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (2.26.0)
+Requirement already satisfied: pydantic&gt;=1.8.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (1.8.2)
+Requirement already satisfied: jinja2&gt;=2.11.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (3.0.3)
+Requirement already satisfied: visions[type_image_path]==0.7.4 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (0.7.4)
+Requirement already satisfied: scipy&gt;=1.4.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (1.7.2)
+Requirement already satisfied: seaborn&gt;=0.10.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (0.11.2)
+Requirement already satisfied: joblib~=1.0.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (1.0.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: PyYAML&gt;=5.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (6.0)
+Requirement already satisfied: tangled-up-in-unicode==0.1.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (0.1.0)
+Requirement already satisfied: htmlmin&gt;=0.1.12 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (0.1.12)
+Requirement already satisfied: markupsafe~=2.0.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (2.0.1)
+Requirement already satisfied: tqdm&gt;=4.48.2 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (4.62.3)
+Requirement already satisfied: matplotlib&gt;=3.2.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (3.5.0)
+Requirement already satisfied: jupyter-core&gt;=4.6.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (4.9.1)
+Requirement already satisfied: ipywidgets&gt;=7.5.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (7.6.5)
+Requirement already satisfied: jupyter-client&gt;=6.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling[notebook]) (7.0.6)
+Requirement already satisfied: attrs&gt;=19.3.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from visions[type_image_path]==0.7.4-&gt;pandas-profiling[notebook]) (21.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: networkx&gt;=2.4 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from visions[type_image_path]==0.7.4-&gt;pandas-profiling[notebook]) (2.6.3)
+Requirement already satisfied: Pillow in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from visions[type_image_path]==0.7.4-&gt;pandas-profiling[notebook]) (8.4.0)
+Requirement already satisfied: imagehash in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from visions[type_image_path]==0.7.4-&gt;pandas-profiling[notebook]) (4.2.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting fsspec
+  Downloading fsspec-2021.11.0-py3-none-any.whl (132 kB)
+?25l
+
+     |██▌                             | 10 kB 62.5 MB/s eta 0:00:01
+     |█████                           | 20 kB 72.3 MB/s eta 0:00:01
+     |███████▍                        | 30 kB 86.7 MB/s eta 0:00:01
+     |██████████                      | 40 kB 95.8 MB/s eta 0:00:01
+     |████████████▍                   | 51 kB 100.7 MB/s eta 0:00:01
+     |██████████████▉                 | 61 kB 107.0 MB/s eta 0:00:01
+     |█████████████████▎              | 71 kB 109.5 MB/s eta 0:00:01
+     |███████████████████▉            | 81 kB 113.9 MB/s eta 0:00:01
+     |██████████████████████▎         | 92 kB 116.1 MB/s eta 0:00:01
+     |████████████████████████▊       | 102 kB 117.6 MB/s eta 0:00:01
+     |███████████████████████████▏    | 112 kB 117.6 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 122 kB 117.6 MB/s eta 0:00:01
+     |████████████████████████████████| 132 kB 117.6 MB/s            
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting cramjam&gt;=2.3.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading cramjam-2.5.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.6 MB)
+?25l
+
+     |▏                               | 10 kB 55.6 MB/s eta 0:00:01
+     |▍                               | 20 kB 65.8 MB/s eta 0:00:01
+     |▋                               | 30 kB 79.7 MB/s eta 0:00:01
+     |▉                               | 40 kB 86.6 MB/s eta 0:00:01
+     |█                               | 51 kB 90.6 MB/s eta 0:00:01
+     |█▏                              | 61 kB 97.2 MB/s eta 0:00:01
+     |█▍                              | 71 kB 100.3 MB/s eta 0:00:01
+     |█▋                              | 81 kB 105.0 MB/s eta 0:00:01
+     |█▉                              | 92 kB 107.0 MB/s eta 0:00:01
+     |██                              | 102 kB 108.4 MB/s eta 0:00:01
+     |██▏                             | 112 kB 108.4 MB/s eta 0:00:01
+     |██▍                             | 122 kB 108.4 MB/s eta 0:00:01
+     |██▋                             | 133 kB 108.4 MB/s eta 0:00:01
+     |██▉                             | 143 kB 108.4 MB/s eta 0:00:01
+     |███                             | 153 kB 108.4 MB/s eta 0:00:01
+     |███▏                            | 163 kB 108.4 MB/s eta 0:00:01
+     |███▍                            | 174 kB 108.4 MB/s eta 0:00:01
+     |███▋                            | 184 kB 108.4 MB/s eta 0:00:01
+     |███▉                            | 194 kB 108.4 MB/s eta 0:00:01
+     |████                            | 204 kB 108.4 MB/s eta 0:00:01
+     |████▏                           | 215 kB 108.4 MB/s eta 0:00:01
+     |████▍                           | 225 kB 108.4 MB/s eta 0:00:01
+     |████▋                           | 235 kB 108.4 MB/s eta 0:00:01
+     |████▉                           | 245 kB 108.4 MB/s eta 0:00:01
+     |█████                           | 256 kB 108.4 MB/s eta 0:00:01
+     |█████▏                          | 266 kB 108.4 MB/s eta 0:00:01
+     |█████▍                          | 276 kB 108.4 MB/s eta 0:00:01
+     |█████▋                          | 286 kB 108.4 MB/s eta 0:00:01
+     |█████▉                          | 296 kB 108.4 MB/s eta 0:00:01
+     |██████                          | 307 kB 108.4 MB/s eta 0:00:01
+     |██████▏                         | 317 kB 108.4 MB/s eta 0:00:01
+     |██████▍                         | 327 kB 108.4 MB/s eta 0:00:01
+     |██████▋                         | 337 kB 108.4 MB/s eta 0:00:01
+     |██████▉                         | 348 kB 108.4 MB/s eta 0:00:01
+     |███████                         | 358 kB 108.4 MB/s eta 0:00:01
+     |███████▏                        | 368 kB 108.4 MB/s eta 0:00:01
+     |███████▍                        | 378 kB 108.4 MB/s eta 0:00:01
+     |███████▋                        | 389 kB 108.4 MB/s eta 0:00:01
+     |███████▉                        | 399 kB 108.4 MB/s eta 0:00:01
+     |████████                        | 409 kB 108.4 MB/s eta 0:00:01
+     |████████▏                       | 419 kB 108.4 MB/s eta 0:00:01
+     |████████▍                       | 430 kB 108.4 MB/s eta 0:00:01
+     |████████▋                       | 440 kB 108.4 MB/s eta 0:00:01
+     |████████▉                       | 450 kB 108.4 MB/s eta 0:00:01
+     |█████████                       | 460 kB 108.4 MB/s eta 0:00:01
+     |█████████▏                      | 471 kB 108.4 MB/s eta 0:00:01
+     |█████████▍                      | 481 kB 108.4 MB/s eta 0:00:01
+     |█████████▋                      | 491 kB 108.4 MB/s eta 0:00:01
+     |█████████▉                      | 501 kB 108.4 MB/s eta 0:00:01
+     |██████████                      | 512 kB 108.4 MB/s eta 0:00:01
+     |██████████▏                     | 522 kB 108.4 MB/s eta 0:00:01
+     |██████████▍                     | 532 kB 108.4 MB/s eta 0:00:01
+     |██████████▋                     | 542 kB 108.4 MB/s eta 0:00:01
+     |██████████▉                     | 552 kB 108.4 MB/s eta 0:00:01
+     |███████████                     | 563 kB 108.4 MB/s eta 0:00:01
+     |███████████▏                    | 573 kB 108.4 MB/s eta 0:00:01
+     |███████████▍                    | 583 kB 108.4 MB/s eta 0:00:01
+     |███████████▋                    | 593 kB 108.4 MB/s eta 0:00:01
+     |███████████▉                    | 604 kB 108.4 MB/s eta 0:00:01
+     |████████████                    | 614 kB 108.4 MB/s eta 0:00:01
+     |████████████▏                   | 624 kB 108.4 MB/s eta 0:00:01
+     |████████████▍                   | 634 kB 108.4 MB/s eta 0:00:01
+     |████████████▋                   | 645 kB 108.4 MB/s eta 0:00:01
+     |████████████▉                   | 655 kB 108.4 MB/s eta 0:00:01
+     |█████████████                   | 665 kB 108.4 MB/s eta 0:00:01
+     |█████████████▏                  | 675 kB 108.4 MB/s eta 0:00:01
+     |█████████████▍                  | 686 kB 108.4 MB/s eta 0:00:01
+     |█████████████▋                  | 696 kB 108.4 MB/s eta 0:00:01
+     |█████████████▉                  | 706 kB 108.4 MB/s eta 0:00:01
+     |██████████████                  | 716 kB 108.4 MB/s eta 0:00:01
+     |██████████████▏                 | 727 kB 108.4 MB/s eta 0:00:01
+     |██████████████▍                 | 737 kB 108.4 MB/s eta 0:00:01
+     |██████████████▋                 | 747 kB 108.4 MB/s eta 0:00:01
+     |██████████████▉                 | 757 kB 108.4 MB/s eta 0:00:01
+     |███████████████                 | 768 kB 108.4 MB/s eta 0:00:01
+     |███████████████▏                | 778 kB 108.4 MB/s eta 0:00:01
+     |███████████████▍                | 788 kB 108.4 MB/s eta 0:00:01
+     |███████████████▋                | 798 kB 108.4 MB/s eta 0:00:01
+     |███████████████▉                | 808 kB 108.4 MB/s eta 0:00:01
+     |████████████████                | 819 kB 108.4 MB/s eta 0:00:01
+     |████████████████▏               | 829 kB 108.4 MB/s eta 0:00:01
+     |████████████████▍               | 839 kB 108.4 MB/s eta 0:00:01
+     |████████████████▋               | 849 kB 108.4 MB/s eta 0:00:01
+     |████████████████▉               | 860 kB 108.4 MB/s eta 0:00:01
+     |█████████████████               | 870 kB 108.4 MB/s eta 0:00:01
+     |█████████████████▏              | 880 kB 108.4 MB/s eta 0:00:01
+     |█████████████████▍              | 890 kB 108.4 MB/s eta 0:00:01
+     |█████████████████▋              | 901 kB 108.4 MB/s eta 0:00:01
+     |█████████████████▉              | 911 kB 108.4 MB/s eta 0:00:01
+     |██████████████████              | 921 kB 108.4 MB/s eta 0:00:01
+     |██████████████████▏             | 931 kB 108.4 MB/s eta 0:00:01
+     |██████████████████▍             | 942 kB 108.4 MB/s eta 0:00:01
+     |██████████████████▋             | 952 kB 108.4 MB/s eta 0:00:01
+     |██████████████████▉             | 962 kB 108.4 MB/s eta 0:00:01
+     |███████████████████             | 972 kB 108.4 MB/s eta 0:00:01
+     |███████████████████▏            | 983 kB 108.4 MB/s eta 0:00:01
+     |███████████████████▍            | 993 kB 108.4 MB/s eta 0:00:01
+     |███████████████████▋            | 1.0 MB 108.4 MB/s eta 0:00:01
+     |███████████████████▉            | 1.0 MB 108.4 MB/s eta 0:00:01
+     |████████████████████            | 1.0 MB 108.4 MB/s eta 0:00:01
+     |████████████████████▏           | 1.0 MB 108.4 MB/s eta 0:00:01
+     |████████████████████▍           | 1.0 MB 108.4 MB/s eta 0:00:01
+     |████████████████████▋           | 1.1 MB 108.4 MB/s eta 0:00:01
+     |████████████████████▉           | 1.1 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████           | 1.1 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████▏          | 1.1 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████▍          | 1.1 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████▋          | 1.1 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████▉          | 1.1 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████          | 1.1 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████▏         | 1.1 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████▍         | 1.1 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████▋         | 1.2 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████▊         | 1.2 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████         | 1.2 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████▏        | 1.2 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████▍        | 1.2 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████▋        | 1.2 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████▊        | 1.2 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████        | 1.2 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████▏       | 1.2 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████▍       | 1.2 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████▋       | 1.3 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████▊       | 1.3 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████       | 1.3 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████▏      | 1.3 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████▍      | 1.3 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████▋      | 1.3 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████▊      | 1.3 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████      | 1.3 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████▏     | 1.3 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████▍     | 1.4 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████▋     | 1.4 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████▊     | 1.4 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████     | 1.4 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████▏    | 1.4 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████▍    | 1.4 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████▋    | 1.4 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████▊    | 1.4 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████████    | 1.4 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████████▏   | 1.4 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████████▍   | 1.5 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████████▋   | 1.5 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████████▊   | 1.5 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████████   | 1.5 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████████▏  | 1.5 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 1.5 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 1.5 MB 108.4 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 1.5 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████████  | 1.5 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 1.5 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████████▍ | 1.6 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 1.6 MB 108.4 MB/s eta 0:00:01
+     |██████████████████████████████▊ | 1.6 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████████ | 1.6 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████████▏| 1.6 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████████▍| 1.6 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████████▋| 1.6 MB 108.4 MB/s eta 0:00:01
+     |███████████████████████████████▊| 1.6 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████████████| 1.6 MB 108.4 MB/s eta 0:00:01
+     |████████████████████████████████| 1.6 MB 108.4 MB/s            
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting thrift&gt;=0.11.0
+  Downloading thrift-0.15.0.tar.gz (59 kB)
+?25l
+
+     |█████▌                          | 10 kB 67.5 MB/s eta 0:00:01
+     |███████████                     | 20 kB 78.7 MB/s eta 0:00:01
+     |████████████████▌               | 30 kB 92.8 MB/s eta 0:00:01
+     |██████████████████████          | 40 kB 99.9 MB/s eta 0:00:01
+     |███████████████████████████▋    | 51 kB 104.7 MB/s eta 0:00:01
+     |████████████████████████████████| 59 kB 30.0 MB/s             
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h  Preparing metadata (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> \
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25hRequirement already satisfied: ipython&gt;=4.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (7.29.0)
+Requirement already satisfied: jupyterlab-widgets&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (1.0.2)
+Requirement already satisfied: ipython-genutils~=0.2.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.2.0)
+Requirement already satisfied: ipykernel&gt;=4.5.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (6.5.1)
+Requirement already satisfied: widgetsnbextension~=3.5.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (3.5.2)
+Requirement already satisfied: nbformat&gt;=4.2.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (5.1.3)
+Requirement already satisfied: traitlets&gt;=4.3.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (5.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pyzmq&gt;=13 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from jupyter-client&gt;=6.0.0-&gt;pandas-profiling[notebook]) (22.3.0)
+Requirement already satisfied: nest-asyncio&gt;=1.5 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from jupyter-client&gt;=6.0.0-&gt;pandas-profiling[notebook]) (1.5.1)
+Requirement already satisfied: entrypoints in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from jupyter-client&gt;=6.0.0-&gt;pandas-profiling[notebook]) (0.3)
+Requirement already satisfied: tornado&gt;=4.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from jupyter-client&gt;=6.0.0-&gt;pandas-profiling[notebook]) (6.1)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling[notebook]) (1.3.2)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling[notebook]) (3.0.6)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling[notebook]) (0.11.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling[notebook]) (4.28.1)
+Requirement already satisfied: setuptools-scm&gt;=4 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling[notebook]) (6.3.2)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling[notebook]) (21.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: typing-extensions&gt;=3.7.4.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pydantic&gt;=1.8.1-&gt;pandas-profiling[notebook]) (4.0.0)
+Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from python-dateutil&gt;=2.7.3-&gt;pandas) (1.16.0)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling[notebook]) (2.0.7)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling[notebook]) (1.26.7)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling[notebook]) (3.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling[notebook]) (2021.10.8)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: debugpy&lt;2.0,&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (1.5.1)
+Requirement already satisfied: matplotlib-inline&lt;0.2.0,&gt;=0.1.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.1.3)
+Requirement already satisfied: setuptools&gt;=18.5 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (56.0.0)
+Requirement already satisfied: pickleshare in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.7.5)
+Requirement already satisfied: decorator in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (5.1.0)
+Requirement already satisfied: jedi&gt;=0.16 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.18.1)
+Requirement already satisfied: pygments in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (2.10.0)
+Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (3.0.22)
+Requirement already satisfied: pexpect&gt;4.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (4.8.0)
+Requirement already satisfied: backcall in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: jsonschema!=2.5.0,&gt;=2.4 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbformat&gt;=4.2.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (3.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: tomli&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from setuptools-scm&gt;=4-&gt;matplotlib&gt;=3.2.0-&gt;pandas-profiling[notebook]) (1.2.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: notebook&gt;=4.4.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (6.4.6)
+Requirement already satisfied: PyWavelets in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from imagehash-&gt;visions[type_image_path]==0.7.4-&gt;pandas-profiling[notebook]) (1.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: parso&lt;0.9.0,&gt;=0.8.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from jedi&gt;=0.16-&gt;ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.8.2)
+Requirement already satisfied: pyrsistent&gt;=0.14.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from jsonschema!=2.5.0,&gt;=2.4-&gt;nbformat&gt;=4.2.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.18.0)
+Requirement already satisfied: Send2Trash&gt;=1.8.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (1.8.0)
+Requirement already satisfied: nbconvert in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (6.3.0)
+Requirement already satisfied: argon2-cffi in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (21.1.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: prometheus-client in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.12.0)
+Requirement already satisfied: terminado&gt;=0.8.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.12.1)
+Requirement already satisfied: ptyprocess&gt;=0.5 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pexpect&gt;4.3-&gt;ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.7.0)
+Requirement already satisfied: wcwidth in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0-&gt;ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.2.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: cffi&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from argon2-cffi-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (1.15.0)
+Requirement already satisfied: jupyterlab-pygments in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.1.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandocfilters&gt;=1.4.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (1.5.0)
+Requirement already satisfied: mistune&lt;2,&gt;=0.8.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.8.4)
+Requirement already satisfied: testpath in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.5.0)
+Requirement already satisfied: defusedxml in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.7.1)
+Requirement already satisfied: bleach in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (4.1.0)
+Requirement already satisfied: nbclient&lt;0.6.0,&gt;=0.5.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.5.9)
+Requirement already satisfied: pycparser in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from cffi&gt;=1.0.0-&gt;argon2-cffi-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (2.21)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: webencodings in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from bleach-&gt;nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.5.0-&gt;ipywidgets&gt;=7.5.1-&gt;pandas-profiling[notebook]) (0.5.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: thrift
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for thrift (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> \
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> /
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> -
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> \
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25h  Created wheel for thrift: filename=thrift-0.15.0-cp38-cp38-linux_x86_64.whl size=413816 sha256=ac0fb74219c7f632f729a99d47ccf8b558f368da9c45492e5e1515e7c1d685b2
+  Stored in directory: /home/runner/.cache/pip/wheels/4c/b5/5b/10af165d7e0895afdfe25ad487422ae8ada6ea422b0dc444ab
+Successfully built thrift
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: thrift, fsspec, cramjam, fastparquet
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed cramjam-2.5.0 fastparquet-0.7.1 fsspec-2021.11.0 thrift-0.15.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas_profiling</span> <span class="kn">import</span> <span class="n">ProfileReport</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span> <span class="s2">&quot;https://github.com/jads-nl/discover-projects/blob/main/ames-housing/AmesHousing.csv?raw=true&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this doesn&#39;t work in Deepnote: Cell output is too big.</span>
+<span class="c1"># df.profile_report()</span>
+<span class="c1"># profile.to_notebook_iframe()</span>
+
+<span class="c1"># generate profile and save to file</span>
+<span class="n">profile</span> <span class="o">=</span> <span class="n">ProfileReport</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">explorative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Ames Housing Data Set Profile&quot;</span><span class="p">)</span>
+<span class="n">profile</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;ames.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "348431a11a9d438b8f46ca07abba30dc", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/model/correlations.py:55: UserWarning: There was an attempt to calculate the cramers correlation, but this failed.
+To hide this warning, disable the calculation
+(using `df.profile_report(correlations={&quot;cramers&quot;: {&quot;calculate&quot;: False}})`
+If this is problematic for your use case, please report this as an issue:
+https://github.com/pandas-profiling/pandas-profiling/issues
+(include the error message: &#39;No data; `observed` has size 0.&#39;)
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/missingno/missingno.py:250: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax1.set_xticklabels(ax1.get_xticklabels(), rotation=45, ha=&#39;right&#39;, fontsize=fontsize)
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/model/missing.py:89: UserWarning: There was an attempt to generate the Count missing values diagrams, but this failed.
+To hide this warning, disable the calculation
+(using `df.profile_report(missing_diagrams={&quot;Count&quot;: False}`)
+If this is problematic for your use case, please report this as an issue:
+https://github.com/pandas-profiling/pandas-profiling/issues
+(include the error message: &#39;The number of FixedLocator locations (7), usually from a call to set_ticks, does not match the number of ticklabels (82).&#39;)
+  warnings.warn(
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "fd2e6c8bf87e4c28bfcb3083772caf00", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3c07ebdf49d6495880ff450d551a0985", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "34e10ec6d2464f8ab285983e1c82abd3", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<p>Download and open the file in Google Chrome or Firefox. Wait for the file to load completely, after which navigation will work.</p>
+<a style='text-decoration:none;line-height:16px;display:flex;color:#5B5B62;padding:10px;justify-content:end;' href='https://deepnote.com?utm_source=created-in-deepnote-cell&projectId=c2b81cdf-bbde-419b-844b-a10c406c3e76' target="_blank">
+<img alt='Created in deepnote.com' style='display:inline;max-height:16px;margin:0px;margin-right:7.5px;' src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU0LjEgKDc2NDkwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5Hcm91cCAzPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IkxhbmRpbmciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJBcnRib2FyZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyMzUuMDAwMDAwLCAtNzkuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjM1LjAwMDAwMCwgNzkuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aC0yMCIgZmlsbD0iIzAyNjVCNCIgcG9pbnRzPSIyLjM3NjIzNzYyIDgwIDM4LjA0NzY2NjcgODAgNTcuODIxNzgyMiA3My44MDU3NTkyIDU3LjgyMTc4MjIgMzIuNzU5MjczOSAzOS4xNDAyMjc4IDMxLjY4MzE2ODMiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zNS4wMDc3MTgsODAgQzQyLjkwNjIwMDcsNzYuNDU0OTM1OCA0Ny41NjQ5MTY3LDcxLjU0MjI2NzEgNDguOTgzODY2LDY1LjI2MTk5MzkgQzUxLjExMjI4OTksNTUuODQxNTg0MiA0MS42NzcxNzk1LDQ5LjIxMjIyODQgMjUuNjIzOTg0Niw0OS4yMTIyMjg0IEMyNS40ODQ5Mjg5LDQ5LjEyNjg0NDggMjkuODI2MTI5Niw0My4yODM4MjQ4IDM4LjY0NzU4NjksMzEuNjgzMTY4MyBMNzIuODcxMjg3MSwzMi41NTQ0MjUgTDY1LjI4MDk3Myw2Ny42NzYzNDIxIEw1MS4xMTIyODk5LDc3LjM3NjE0NCBMMzUuMDA3NzE4LDgwIFoiIGlkPSJQYXRoLTIyIiBmaWxsPSIjMDAyODY4Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCwzNy43MzA0NDA1IEwyNy4xMTQ1MzcsMC4yNTcxMTE0MzYgQzYyLjM3MTUxMjMsLTEuOTkwNzE3MDEgODAsMTAuNTAwMzkyNyA4MCwzNy43MzA0NDA1IEM4MCw2NC45NjA0ODgyIDY0Ljc3NjUwMzgsNzkuMDUwMzQxNCAzNC4zMjk1MTEzLDgwIEM0Ny4wNTUzNDg5LDc3LjU2NzA4MDggNTMuNDE4MjY3Nyw3MC4zMTM2MTAzIDUzLjQxODI2NzcsNTguMjM5NTg4NSBDNTMuNDE4MjY3Nyw0MC4xMjg1NTU3IDM2LjMwMzk1NDQsMzcuNzMwNDQwNSAyNS4yMjc0MTcsMzcuNzMwNDQwNSBDMTcuODQzMDU4NiwzNy43MzA0NDA1IDkuNDMzOTE5NjYsMzcuNzMwNDQwNSAwLDM3LjczMDQ0MDUgWiIgaWQ9IlBhdGgtMTkiIGZpbGw9IiMzNzkzRUYiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+' > </img>
+Created in <span style='font-weight:600;margin-left:4px;'>Deepnote</span></a>
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"0332707d7fa04441b3fae376eb8a1eef": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_3212566a3ea84d6689ad4b133a2fb9fe", "placeholder": "\u200b", "style": "IPY_MODEL_2c0d7ec9049246af88b31d1bd921a1fb", "value": "Generate report structure: 100%"}}, "03784af821c84bab9e9d22041c8c3e57": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "241e645559664c3591b4e2c854ddea9a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "29e54cc705ef4b54b85529243d50f41d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2a521656a194463db26c3d8b50941fff": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "2c0d7ec9049246af88b31d1bd921a1fb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "2e15f9658780419a9050cc2dbd2941ec": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "2ee2f7b8c27d4e88b82519f4abee48d6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "3212566a3ea84d6689ad4b133a2fb9fe": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "348431a11a9d438b8f46ca07abba30dc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_dd56f0097cab48938ae6c4cdb504ce2e", "IPY_MODEL_ece474108a574ad69106c001e650b525", "IPY_MODEL_f5dd7fdb93f6473fab2d606e56f5890d"], "layout": "IPY_MODEL_55c05d14dc614a8589246dd53273d99d"}}, "34e10ec6d2464f8ab285983e1c82abd3": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_8794d2ac7a1541d1a99e9d7b67e2a795", "IPY_MODEL_7e1f7b3de0df46008b256263c834e932", "IPY_MODEL_edd3ef47d0784220af31cf69e5fd1f83"], "layout": "IPY_MODEL_29e54cc705ef4b54b85529243d50f41d"}}, "3c07ebdf49d6495880ff450d551a0985": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_d0fb05715f864e4c8857c3a7ccfa856e", "IPY_MODEL_686eec706c8f4d65b7e9c9e4170de4ed", "IPY_MODEL_e62b0c74af6347b4b276fcc060c06a7f"], "layout": "IPY_MODEL_fa06a7aa3d234c8499e4d298a6a7020f"}}, "40ad6be9aa714c68871b8b3c79185744": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "4e31dafc4dbc48bc90c2e2b4364745c5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "55c05d14dc614a8589246dd53273d99d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "581156283e724316a98e6714308eae64": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "686eec706c8f4d65b7e9c9e4170de4ed": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_7059380d79124a85b088f3b687d78fcb", "max": 1.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_9af5c28ed37b4daf868daccbe0f3ba33", "value": 1.0}}, "7059380d79124a85b088f3b687d78fcb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "76843619e9064533a46d1c03fa61d2b8": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "7b52f8c6fb234ce0946f78bff68a223a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "7e1f7b3de0df46008b256263c834e932": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_2ee2f7b8c27d4e88b82519f4abee48d6", "max": 1.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_7b52f8c6fb234ce0946f78bff68a223a", "value": 1.0}}, "8794d2ac7a1541d1a99e9d7b67e2a795": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_241e645559664c3591b4e2c854ddea9a", "placeholder": "\u200b", "style": "IPY_MODEL_bfb6cb3b570e4cf1974561e446f8a798", "value": "Export report to file: 100%"}}, "8fcf25a37b0f48cbbc49b07158638372": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_bc5db2a5cc1d45c584164bb0d24026c7", "max": 1.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_2e15f9658780419a9050cc2dbd2941ec", "value": 1.0}}, "9af5c28ed37b4daf868daccbe0f3ba33": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "a61b541773ef471b9678ee556657fa38": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "b8ff2e8a8d874a86a2a99af5800547a0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_40ad6be9aa714c68871b8b3c79185744", "placeholder": "\u200b", "style": "IPY_MODEL_bb4a53cdefa747f1a5ec9aad0a297cca", "value": " 1/1 [00:17&lt;00:00, 17.73s/it]"}}, "bb4a53cdefa747f1a5ec9aad0a297cca": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "bb99969a30884b628bd5a9247966b837": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "bc5db2a5cc1d45c584164bb0d24026c7": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "bfb6cb3b570e4cf1974561e446f8a798": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "c9467c9e794b4a578cfdcfe38044f551": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d0fb05715f864e4c8857c3a7ccfa856e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_581156283e724316a98e6714308eae64", "placeholder": "\u200b", "style": "IPY_MODEL_a61b541773ef471b9678ee556657fa38", "value": "Render HTML: 100%"}}, "d594a544d7ee4d7899fafb734c366a55": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "db6670c0622848659b87bb56a2d6ce1a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "dd56f0097cab48938ae6c4cdb504ce2e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_4e31dafc4dbc48bc90c2e2b4364745c5", "placeholder": "\u200b", "style": "IPY_MODEL_03784af821c84bab9e9d22041c8c3e57", "value": "Summarize dataset: 100%"}}, "e1cafc3475bb4d11962b4b3bd8f82017": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "e62b0c74af6347b4b276fcc060c06a7f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_fa6885beaebf474ba7f5e0d37767973f", "placeholder": "\u200b", "style": "IPY_MODEL_bb99969a30884b628bd5a9247966b837", "value": " 1/1 [00:30&lt;00:00, 30.25s/it]"}}, "ece474108a574ad69106c001e650b525": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_c9467c9e794b4a578cfdcfe38044f551", "max": 5.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_2a521656a194463db26c3d8b50941fff", "value": 5.0}}, "edd3ef47d0784220af31cf69e5fd1f83": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_db6670c0622848659b87bb56a2d6ce1a", "placeholder": "\u200b", "style": "IPY_MODEL_e1cafc3475bb4d11962b4b3bd8f82017", "value": " 1/1 [00:00&lt;00:00,  3.56it/s]"}}, "f5dd7fdb93f6473fab2d606e56f5890d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_f82d2788190c46d7a8d66a0ba323330c", "placeholder": "\u200b", "style": "IPY_MODEL_d594a544d7ee4d7899fafb734c366a55", "value": " 1121/1121 [02:09&lt;00:00,  2.40it/s, Completed]"}}, "f82d2788190c46d7a8d66a0ba323330c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fa06a7aa3d234c8499e4d298a6a7020f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fa6885beaebf474ba7f5e0d37767973f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fd2e6c8bf87e4c28bfcb3083772caf00": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_0332707d7fa04441b3fae376eb8a1eef", "IPY_MODEL_8fcf25a37b0f48cbbc49b07158638372", "IPY_MODEL_b8ff2e8a8d874a86a2a99af5800547a0"], "layout": "IPY_MODEL_76843619e9064533a46d1c03fa61d2b8"}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./hands-on"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Daniel Kapitan<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

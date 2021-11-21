@@ -1,0 +1,3218 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes: &#8212; Data Science Foundation Curriculum</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/hands-on/pandas-profiling-google-colab.html" />
+    <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/jads-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science Foundation Curriculum</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   Why this JupyterBook?
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Statistical Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../islr/introduction.html">
+   Introduction to ISLRv2
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../islr/labs.html">
+   Labs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_02.3_introduction.html">
+     Lab 2.3: Introduction to Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_03.6_linear_regression.html">
+     Lab 3.6: Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_04.7_classification_methods.html">
+     Lab 4.7: Classification Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_05.3_cross_validation_and_the_bootstrap.html">
+     Lab 5.3: Cross-Validation and the Bootstrap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_06.5.1_subset_selection_methods.html">
+     Lab 6.5.1: Subset Selection Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_06.5.2_ridge_regression_and_the_lasso.html">
+     Lab 6.5.2: Ridge Regression and the Lasso
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_06.5.3_pcr_and_pls_regression.html">
+     Lab 6.5.3: PCR and PLS Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_07.8_non_linear_modelling.html">
+     Lab 7.8: Non-linear Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_08.3_decision_trees.html">
+     Lab 8.3: Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_09.6_support_vector_machines.html">
+     Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_12.5_unsupervised_learning.html">
+     Lab 12.5: Unsupervised Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../islr/exercises.html">
+   Exercises
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter2/index.html">
+     Chapter 2
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise1.html">
+       Exercise 2.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise2.html">
+       Exercise 2.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise3.html">
+       Exercise 2.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise4.html">
+       Exercise 2.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise5.html">
+       Exercise 2.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise6.html">
+       Exercise 2.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise7.html">
+       Exercise 2.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise8.html">
+       Exercise 2.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise9.html">
+       Exercise 2.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter2/exercise10.html">
+       Exercise 2.10
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter3/index.html">
+     Chapter 3
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise1.html">
+       Exercise 3.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise2.html">
+       Exercise 3.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise3.html">
+       Exercise 3.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise4.html">
+       Exercise 3.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise5.html">
+       Exercise 3.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise6.html">
+       Exercise 3.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise7.html">
+       Exercise 3.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise8.html">
+       Exercise 3.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise9.html">
+       Exercise 3.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise10.html">
+       Exercise 3.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise11.html">
+       Exercise 3.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise12.html">
+       Exercise 3.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise13.html">
+       Exercise 3.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise14.html">
+       Exercise 3.14
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter3/exercise15.html">
+       Exercise 3.15
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter4/index.html">
+     Chapter 4
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise1.html">
+       Exercise 4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise2.html">
+       Exercise 4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise3.html">
+       Exercise 4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise4.html">
+       Exercise 4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise5.html">
+       Exercise 4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise6.html">
+       Exercise 4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise7.html">
+       Exercise 4.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise8.html">
+       Exercise 4.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise9.html">
+       Exercise 4.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise10.html">
+       Exercise 10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise11.html">
+       Exercise 11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise12.html">
+       Exercise 12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise13.html">
+       Exercise 4.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise14.html">
+       Exercise 4.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise15.html">
+       Exercise 4.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter4/exercise16.html">
+       Exercise 4.16
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter5/index.html">
+     Chapter 5
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise1.html">
+       Exercise 5.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise2.html">
+       Exercise 5.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise3.html">
+       Problem 5.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise4.html">
+       Exercise 5.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise5.html">
+       Exercise 5.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise6.html">
+       Exercise 5.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise7.html">
+       Exercise 5.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise8.html">
+       Exercise 5.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter5/exercise9.html">
+       Exercise 5.9
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter6/index.html">
+     Chapter 6
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise1.html">
+       Exercise 6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise2.html">
+       Exercise 6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise3.html">
+       Exercise 6.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise4.html">
+       Exercise 6.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise5.html">
+       Exercise 6.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise6.html">
+       Exercise 6.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise7.html">
+       Exercise 6.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise8.html">
+       Exercise 6.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise9.html">
+       Exercise 6.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise10.html">
+       Exercise 6.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter6/exercise11.html">
+       Exercise 6.11
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter7/index.html">
+     Chapter 7
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise1.html">
+       Exercise 7.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise2.html">
+       Exercise 7.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise3.html">
+       Exercise 7.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise4.html">
+       Exercise 7.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise5.html">
+       Exercise 7.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise6.html">
+       Exercise 7.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise7.html">
+       Exercise 7.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise8.html">
+       Exercise 7.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise9.html">
+       Exercise 7.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise10.html">
+       Exercise 7.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise11.html">
+       Exercise 7.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter7/exercise12.html">
+       Exercise 7.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter8/index.html">
+     Chapter 8
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise1.html">
+       Exercise 8.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise2.html">
+       Exercise 8.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise3.html">
+       Exercise 8.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise4.html">
+       Exercise 8.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise5.html">
+       Exercise 8.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise6.html">
+       Exercise 8.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise7.html">
+       Exercise 8.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise8.html">
+       Exercise 8.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise9.html">
+       Exercise 8.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise10.html">
+       Exercise 8.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise11.html">
+       Exercise 8.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter8/exercise12.html">
+       Exercise 8.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter9/index.html">
+     Chapter 9
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise1.html">
+       Exercise 9.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise2.html">
+       Exercise 9.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise3.html">
+       Exercise 9.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise4.html">
+       Exercise 9.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise5.html">
+       Exercise 9.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise6.html">
+       Exercise 9.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise7.html">
+       Exercise 9.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter9/exercise8.html">
+       Exercise 9.8
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../islr/exercises/chapter12/index.html">
+     Chapter 12
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise1.html">
+       Exercise 12.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise2.html">
+       Exercise 12.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise3.html">
+       Exercise 12.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise4.html">
+       Exercise 12.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise5.html">
+       Exercise 12.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise6.html">
+       Exercise 12.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise7.html">
+       Exercise 12.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise8.html">
+       Exercise 10.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise9.html">
+       Exercise 12.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise10.html">
+       Exercise 12.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../islr/exercises/chapter12/exercise11.html">
+       Exercise 12.11
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Data visualization with Altair
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/introduction-to-interactive-data-visualization.html">
+   Introduction to data visualization with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../visualization/altair_get_started.html">
+   Getting Started with Altair
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_introduction.html">
+     Introduction to Altair
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_marks_encoding.html">
+     Data Types, Graphical Marks, and Visual Encoding Channels
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_data_transformation.html">
+     Data Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_scales_axes_legends.html">
+     Scales, Axes, and Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_view_composition.html">
+     Multi-View Composition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_interaction.html">
+     Interaction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_cartographic.html">
+     Cartographic Visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/altair_debugging.html">
+     Altair Debugging Guide
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpretable Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../iml/introduction.html">
+   Introduction to IML
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/plot_partial_dependence.html">
+     Partial Dependence and Individual Conditional Expectation Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/plot_permutation_importance.html">
+     Permutation Importance vs Random Forest Feature Importance (MDI)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/plot_permutation_importance_multicollinear.html">
+     Permutation Importance with Multicollinear or Correlated Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../iml/interpreting-machine-learning-models.html">
+     IML with Pima Indians and the Titanic datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Principles of time-series forecasting
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../fpp/introduction.html">
+   Introduction to FPP3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../fpp/examples-time-series-forecasting-with-python.html">
+   Examples of time-series forecasting with Python
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/hands-on/pandas-profiling-google-colab.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhands-on/pandas-profiling-google-colab.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/hands-on/pandas-profiling-google-colab.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/hands-on/pandas-profiling-google-colab.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="notes">
+<h1>Notes:<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h1>
+<p>embedding the pandas report did not work for me, I generate a file that you can find in the file browser in Collab under PandasProfile.html</p>
+<p>I also needed to run it once, and then do Runtime -&gt; Restart and Run All to not end up with an error</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">()</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup Pandas Profiling for exploration</span>
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install -U pandas-profiling
+<span class="o">!</span>jupyter nbextension <span class="nb">enable</span> --py widgetsnbextension
+
+<span class="kn">import</span> <span class="nn">pandas_profiling</span>
+<span class="kn">from</span> <span class="nn">pandas_profiling.utils.cache</span> <span class="kn">import</span> <span class="n">cache_file</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pandas-profiling
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pandas_profiling-3.1.0-py2.py3-none-any.whl (261 kB)
+?25l
+
+     |█▎                              | 10 kB 41.9 MB/s eta 0:00:01
+     |██▌                             | 20 kB 19.3 MB/s eta 0:00:01
+     |███▊                            | 30 kB 12.0 MB/s eta 0:00:01
+     |█████                           | 40 kB 5.5 MB/s eta 0:00:01 
+     |██████▎                         | 51 kB 6.6 MB/s eta 0:00:01 
+     |███████▌                        | 61 kB 6.7 MB/s eta 0:00:01 
+     |████████▉                       | 71 kB 6.6 MB/s eta 0:00:01 
+     |██████████                      | 81 kB 7.5 MB/s eta 0:00:01 
+     |███████████▎                    | 92 kB 8.1 MB/s eta 0:00:01 
+     |████████████▌                   | 102 kB 6.3 MB/s eta 0:00:01
+     |█████████████▉                  | 112 kB 6.3 MB/s eta 0:00:01
+     |███████████████                 | 122 kB 6.3 MB/s eta 0:00:01
+     |████████████████▎               | 133 kB 6.3 MB/s eta 0:00:01
+     |█████████████████▋              | 143 kB 6.3 MB/s eta 0:00:01
+     |██████████████████▉             | 153 kB 6.3 MB/s eta 0:00:01
+     |████████████████████            | 163 kB 6.3 MB/s eta 0:00:01
+     |█████████████████████▎          | 174 kB 6.3 MB/s eta 0:00:01
+     |██████████████████████▋         | 184 kB 6.3 MB/s eta 0:00:01
+     |███████████████████████▉        | 194 kB 6.3 MB/s eta 0:00:01
+     |█████████████████████████       | 204 kB 6.3 MB/s eta 0:00:01
+     |██████████████████████████▍     | 215 kB 6.3 MB/s eta 0:00:01
+     |███████████████████████████▋    | 225 kB 6.3 MB/s eta 0:00:01
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     |████████████████████████████▉   | 235 kB 6.3 MB/s eta 0:00:01
+     |██████████████████████████████  | 245 kB 6.3 MB/s eta 0:00:01
+     |███████████████████████████████▍| 256 kB 6.3 MB/s eta 0:00:01
+     |████████████████████████████████| 261 kB 6.3 MB/s            
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting htmlmin&gt;=0.1.12
+  Downloading htmlmin-0.1.12.tar.gz (19 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Preparing metadata (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting phik&gt;=0.11.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading phik-0.12.0-cp38-cp38-manylinux2010_x86_64.whl (676 kB)
+?25l
+
+     |▌                               | 10 kB 53.2 MB/s eta 0:00:01
+     |█                               | 20 kB 61.0 MB/s eta 0:00:01
+     |█▌                              | 30 kB 74.8 MB/s eta 0:00:01
+     |██                              | 40 kB 83.9 MB/s eta 0:00:01
+     |██▍                             | 51 kB 88.8 MB/s eta 0:00:01
+     |███                             | 61 kB 92.3 MB/s eta 0:00:01
+     |███▍                            | 71 kB 96.0 MB/s eta 0:00:01
+     |███▉                            | 81 kB 99.9 MB/s eta 0:00:01
+     |████▍                           | 92 kB 102.3 MB/s eta 0:00:01
+     |████▉                           | 102 kB 104.4 MB/s eta 0:00:01
+     |█████▎                          | 112 kB 104.4 MB/s eta 0:00:01
+     |█████▉                          | 122 kB 104.4 MB/s eta 0:00:01
+     |██████▎                         | 133 kB 104.4 MB/s eta 0:00:01
+     |██████▉                         | 143 kB 104.4 MB/s eta 0:00:01
+     |███████▎                        | 153 kB 104.4 MB/s eta 0:00:01
+     |███████▊                        | 163 kB 104.4 MB/s eta 0:00:01
+     |████████▎                       | 174 kB 104.4 MB/s eta 0:00:01
+     |████████▊                       | 184 kB 104.4 MB/s eta 0:00:01
+     |█████████▏                      | 194 kB 104.4 MB/s eta 0:00:01
+     |█████████▊                      | 204 kB 104.4 MB/s eta 0:00:01
+     |██████████▏                     | 215 kB 104.4 MB/s eta 0:00:01
+     |██████████▋                     | 225 kB 104.4 MB/s eta 0:00:01
+     |███████████▏                    | 235 kB 104.4 MB/s eta 0:00:01
+     |███████████▋                    | 245 kB 104.4 MB/s eta 0:00:01
+     |████████████▏                   | 256 kB 104.4 MB/s eta 0:00:01
+     |████████████▋                   | 266 kB 104.4 MB/s eta 0:00:01
+     |█████████████                   | 276 kB 104.4 MB/s eta 0:00:01
+     |█████████████▋                  | 286 kB 104.4 MB/s eta 0:00:01
+     |██████████████                  | 296 kB 104.4 MB/s eta 0:00:01
+     |██████████████▌                 | 307 kB 104.4 MB/s eta 0:00:01
+     |███████████████                 | 317 kB 104.4 MB/s eta 0:00:01
+     |███████████████▌                | 327 kB 104.4 MB/s eta 0:00:01
+     |████████████████                | 337 kB 104.4 MB/s eta 0:00:01
+     |████████████████▌               | 348 kB 104.4 MB/s eta 0:00:01
+     |█████████████████               | 358 kB 104.4 MB/s eta 0:00:01
+     |█████████████████▌              | 368 kB 104.4 MB/s eta 0:00:01
+     |██████████████████              | 378 kB 104.4 MB/s eta 0:00:01
+     |██████████████████▍             | 389 kB 104.4 MB/s eta 0:00:01
+     |███████████████████             | 399 kB 104.4 MB/s eta 0:00:01
+     |███████████████████▍            | 409 kB 104.4 MB/s eta 0:00:01
+     |███████████████████▉            | 419 kB 104.4 MB/s eta 0:00:01
+     |████████████████████▍           | 430 kB 104.4 MB/s eta 0:00:01
+     |████████████████████▉           | 440 kB 104.4 MB/s eta 0:00:01
+     |█████████████████████▎          | 450 kB 104.4 MB/s eta 0:00:01
+     |█████████████████████▉          | 460 kB 104.4 MB/s eta 0:00:01
+     |██████████████████████▎         | 471 kB 104.4 MB/s eta 0:00:01
+     |██████████████████████▊         | 481 kB 104.4 MB/s eta 0:00:01
+     |███████████████████████▎        | 491 kB 104.4 MB/s eta 0:00:01
+     |███████████████████████▊        | 501 kB 104.4 MB/s eta 0:00:01
+     |████████████████████████▎       | 512 kB 104.4 MB/s eta 0:00:01
+     |████████████████████████▊       | 522 kB 104.4 MB/s eta 0:00:01
+     |█████████████████████████▏      | 532 kB 104.4 MB/s eta 0:00:01
+     |█████████████████████████▊      | 542 kB 104.4 MB/s eta 0:00:01
+     |██████████████████████████▏     | 552 kB 104.4 MB/s eta 0:00:01
+     |██████████████████████████▋     | 563 kB 104.4 MB/s eta 0:00:01
+     |███████████████████████████▏    | 573 kB 104.4 MB/s eta 0:00:01
+     |███████████████████████████▋    | 583 kB 104.4 MB/s eta 0:00:01
+     |████████████████████████████    | 593 kB 104.4 MB/s eta 0:00:01
+     |████████████████████████████▋   | 604 kB 104.4 MB/s eta 0:00:01
+     |█████████████████████████████   | 614 kB 104.4 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 624 kB 104.4 MB/s eta 0:00:01
+     |██████████████████████████████  | 634 kB 104.4 MB/s eta 0:00:01
+     |██████████████████████████████▌ | 645 kB 104.4 MB/s eta 0:00:01
+     |███████████████████████████████ | 655 kB 104.4 MB/s eta 0:00:01
+     |███████████████████████████████▌| 665 kB 104.4 MB/s eta 0:00:01
+     |████████████████████████████████| 675 kB 104.4 MB/s eta 0:00:01
+     |████████████████████████████████| 676 kB 104.4 MB/s            
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting multimethod&gt;=1.4
+  Downloading multimethod-1.6-py3-none-any.whl (9.4 kB)
+Requirement already satisfied: tqdm&gt;=4.48.2 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (4.62.3)
+Requirement already satisfied: jinja2&gt;=2.11.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (3.0.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting matplotlib&gt;=3.2.0
+  Using cached matplotlib-3.5.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl (11.3 MB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&gt;=1.16.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (1.20.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting tangled-up-in-unicode==0.1.0
+  Downloading tangled_up_in_unicode-0.1.0-py3-none-any.whl (3.1 MB)
+?25l
+
+     |                                | 10 kB 54.2 MB/s eta 0:00:01
+     |▏                               | 20 kB 61.0 MB/s eta 0:00:01
+     |▎                               | 30 kB 71.2 MB/s eta 0:00:01
+     |▍                               | 40 kB 79.7 MB/s eta 0:00:01
+     |▌                               | 51 kB 84.4 MB/s eta 0:00:01
+     |▋                               | 61 kB 90.9 MB/s eta 0:00:01
+     |▊                               | 71 kB 94.6 MB/s eta 0:00:01
+     |▉                               | 81 kB 98.8 MB/s eta 0:00:01
+     |█                               | 92 kB 101.3 MB/s eta 0:00:01
+     |█                               | 102 kB 102.6 MB/s eta 0:00:01
+     |█▏                              | 112 kB 102.6 MB/s eta 0:00:01
+     |█▎                              | 122 kB 102.6 MB/s eta 0:00:01
+     |█▍                              | 133 kB 102.6 MB/s eta 0:00:01
+     |█▌                              | 143 kB 102.6 MB/s eta 0:00:01
+     |█▋                              | 153 kB 102.6 MB/s eta 0:00:01
+     |█▊                              | 163 kB 102.6 MB/s eta 0:00:01
+     |█▊                              | 174 kB 102.6 MB/s eta 0:00:01
+     |█▉                              | 184 kB 102.6 MB/s eta 0:00:01
+     |██                              | 194 kB 102.6 MB/s eta 0:00:01
+     |██                              | 204 kB 102.6 MB/s eta 0:00:01
+     |██▏                             | 215 kB 102.6 MB/s eta 0:00:01
+     |██▎                             | 225 kB 102.6 MB/s eta 0:00:01
+     |██▍                             | 235 kB 102.6 MB/s eta 0:00:01
+     |██▌                             | 245 kB 102.6 MB/s eta 0:00:01
+     |██▋                             | 256 kB 102.6 MB/s eta 0:00:01
+     |██▊                             | 266 kB 102.6 MB/s eta 0:00:01
+     |██▉                             | 276 kB 102.6 MB/s eta 0:00:01
+     |███                             | 286 kB 102.6 MB/s eta 0:00:01
+     |███                             | 296 kB 102.6 MB/s eta 0:00:01
+     |███▏                            | 307 kB 102.6 MB/s eta 0:00:01
+     |███▎                            | 317 kB 102.6 MB/s eta 0:00:01
+     |███▍                            | 327 kB 102.6 MB/s eta 0:00:01
+     |███▌                            | 337 kB 102.6 MB/s eta 0:00:01
+     |███▌                            | 348 kB 102.6 MB/s eta 0:00:01
+     |███▋                            | 358 kB 102.6 MB/s eta 0:00:01
+     |███▊                            | 368 kB 102.6 MB/s eta 0:00:01
+     |███▉                            | 378 kB 102.6 MB/s eta 0:00:01
+     |████                            | 389 kB 102.6 MB/s eta 0:00:01
+     |████                            | 399 kB 102.6 MB/s eta 0:00:01
+     |████▏                           | 409 kB 102.6 MB/s eta 0:00:01
+     |████▎                           | 419 kB 102.6 MB/s eta 0:00:01
+     |████▍                           | 430 kB 102.6 MB/s eta 0:00:01
+     |████▌                           | 440 kB 102.6 MB/s eta 0:00:01
+     |████▋                           | 450 kB 102.6 MB/s eta 0:00:01
+     |████▊                           | 460 kB 102.6 MB/s eta 0:00:01
+     |████▉                           | 471 kB 102.6 MB/s eta 0:00:01
+     |█████                           | 481 kB 102.6 MB/s eta 0:00:01
+     |█████                           | 491 kB 102.6 MB/s eta 0:00:01
+     |█████▏                          | 501 kB 102.6 MB/s eta 0:00:01
+     |█████▎                          | 512 kB 102.6 MB/s eta 0:00:01
+     |█████▎                          | 522 kB 102.6 MB/s eta 0:00:01
+     |█████▍                          | 532 kB 102.6 MB/s eta 0:00:01
+     |█████▌                          | 542 kB 102.6 MB/s eta 0:00:01
+     |█████▋                          | 552 kB 102.6 MB/s eta 0:00:01
+     |█████▊                          | 563 kB 102.6 MB/s eta 0:00:01
+     |█████▉                          | 573 kB 102.6 MB/s eta 0:00:01
+     |██████                          | 583 kB 102.6 MB/s eta 0:00:01
+     |██████                          | 593 kB 102.6 MB/s eta 0:00:01
+     |██████▏                         | 604 kB 102.6 MB/s eta 0:00:01
+     |██████▎                         | 614 kB 102.6 MB/s eta 0:00:01
+     |██████▍                         | 624 kB 102.6 MB/s eta 0:00:01
+     |██████▌                         | 634 kB 102.6 MB/s eta 0:00:01
+     |██████▋                         | 645 kB 102.6 MB/s eta 0:00:01
+     |██████▊                         | 655 kB 102.6 MB/s eta 0:00:01
+     |██████▉                         | 665 kB 102.6 MB/s eta 0:00:01
+     |███████                         | 675 kB 102.6 MB/s eta 0:00:01
+     |███████                         | 686 kB 102.6 MB/s eta 0:00:01
+     |███████                         | 696 kB 102.6 MB/s eta 0:00:01
+     |███████▏                        | 706 kB 102.6 MB/s eta 0:00:01
+     |███████▎                        | 716 kB 102.6 MB/s eta 0:00:01
+     |███████▍                        | 727 kB 102.6 MB/s eta 0:00:01
+     |███████▌                        | 737 kB 102.6 MB/s eta 0:00:01
+     |███████▋                        | 747 kB 102.6 MB/s eta 0:00:01
+     |███████▊                        | 757 kB 102.6 MB/s eta 0:00:01
+     |███████▉                        | 768 kB 102.6 MB/s eta 0:00:01
+     |████████                        | 778 kB 102.6 MB/s eta 0:00:01
+     |████████                        | 788 kB 102.6 MB/s eta 0:00:01
+     |████████▏                       | 798 kB 102.6 MB/s eta 0:00:01
+     |████████▎                       | 808 kB 102.6 MB/s eta 0:00:01
+     |████████▍                       | 819 kB 102.6 MB/s eta 0:00:01
+     |████████▌                       | 829 kB 102.6 MB/s eta 0:00:01
+     |████████▋                       | 839 kB 102.6 MB/s eta 0:00:01
+     |████████▊                       | 849 kB 102.6 MB/s eta 0:00:01
+     |████████▊                       | 860 kB 102.6 MB/s eta 0:00:01
+     |████████▉                       | 870 kB 102.6 MB/s eta 0:00:01
+     |█████████                       | 880 kB 102.6 MB/s eta 0:00:01
+     |█████████                       | 890 kB 102.6 MB/s eta 0:00:01
+     |█████████▏                      | 901 kB 102.6 MB/s eta 0:00:01
+     |█████████▎                      | 911 kB 102.6 MB/s eta 0:00:01
+     |█████████▍                      | 921 kB 102.6 MB/s eta 0:00:01
+     |█████████▌                      | 931 kB 102.6 MB/s eta 0:00:01
+     |█████████▋                      | 942 kB 102.6 MB/s eta 0:00:01
+     |█████████▊                      | 952 kB 102.6 MB/s eta 0:00:01
+     |█████████▉                      | 962 kB 102.6 MB/s eta 0:00:01
+     |██████████                      | 972 kB 102.6 MB/s eta 0:00:01
+     |██████████                      | 983 kB 102.6 MB/s eta 0:00:01
+     |██████████▏                     | 993 kB 102.6 MB/s eta 0:00:01
+     |██████████▎                     | 1.0 MB 102.6 MB/s eta 0:00:01
+     |██████████▍                     | 1.0 MB 102.6 MB/s eta 0:00:01
+     |██████████▌                     | 1.0 MB 102.6 MB/s eta 0:00:01
+     |██████████▌                     | 1.0 MB 102.6 MB/s eta 0:00:01
+     |██████████▋                     | 1.0 MB 102.6 MB/s eta 0:00:01
+     |██████████▊                     | 1.1 MB 102.6 MB/s eta 0:00:01
+     |██████████▉                     | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████                     | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████                     | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████▏                    | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████▎                    | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████▍                    | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████▌                    | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████▋                    | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████▊                    | 1.1 MB 102.6 MB/s eta 0:00:01
+     |███████████▉                    | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████                    | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████                    | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▏                   | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▎                   | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▎                   | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▍                   | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▌                   | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▋                   | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▊                   | 1.2 MB 102.6 MB/s eta 0:00:01
+     |████████████▉                   | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████                   | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████                   | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████▏                  | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████▎                  | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████▍                  | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████▌                  | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████▋                  | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████▊                  | 1.3 MB 102.6 MB/s eta 0:00:01
+     |█████████████▉                  | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████                  | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████                  | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████                  | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████▏                 | 1.4 MB 102.6 MB/s eta 0:00:01
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     |██████████████▎                 | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████▍                 | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████▌                 | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████▋                 | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████▊                 | 1.4 MB 102.6 MB/s eta 0:00:01
+     |██████████████▉                 | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████                 | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████                 | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▏                | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▎                | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▍                | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▌                | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▋                | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▊                | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▉                | 1.5 MB 102.6 MB/s eta 0:00:01
+     |███████████████▉                | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████                | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████                | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████▏               | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████▎               | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████▍               | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████▌               | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████▋               | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████▊               | 1.6 MB 102.6 MB/s eta 0:00:01
+     |████████████████▉               | 1.6 MB 102.6 MB/s eta 0:00:01
+     |█████████████████               | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████               | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▏              | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▎              | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▍              | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▌              | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▌              | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▋              | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▊              | 1.7 MB 102.6 MB/s eta 0:00:01
+     |█████████████████▉              | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████              | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████              | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████▏             | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████▎             | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████▍             | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████▌             | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████▋             | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████▊             | 1.8 MB 102.6 MB/s eta 0:00:01
+     |██████████████████▉             | 1.8 MB 102.6 MB/s eta 0:00:01
+     |███████████████████             | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████             | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▏            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▎            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▎            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▍            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▌            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▋            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▊            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |███████████████████▉            | 1.9 MB 102.6 MB/s eta 0:00:01
+     |████████████████████            | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████            | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████▏           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████▎           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████▍           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████▌           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████▋           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████▊           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |████████████████████▉           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████           | 2.0 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████           | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████           | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████▏          | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████▎          | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████▍          | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████▌          | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████▋          | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████▊          | 2.1 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████▉          | 2.1 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████          | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████          | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▏         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▎         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▍         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▌         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▋         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▊         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▉         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████▉         | 2.2 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████         | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████         | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████▏        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████▎        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████▍        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████▌        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████▋        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████▊        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████▉        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████        | 2.3 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████        | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▏       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▎       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▍       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▌       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▋       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▋       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▊       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████▉       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████       | 2.4 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████       | 2.5 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████▏      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████▎      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████▍      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████▌      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████▋      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████▊      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████▉      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████      | 2.5 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▏     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▎     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▎     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▍     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▌     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▋     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▊     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████▉     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████     | 2.6 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████     | 2.7 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████▏    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████▎    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████▍    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████▌    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████▋    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████▊    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████▉    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████    | 2.7 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████    | 2.8 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████▏   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████▎   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████▍   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████▌   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████▋   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████▊   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████▉   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████   | 2.8 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▏  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▎  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▌  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▉  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |█████████████████████████████▉  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████  | 2.9 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████▎ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████▍ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████▌ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████▊ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |██████████████████████████████▉ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████ | 3.0 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▏| 3.1 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▎| 3.1 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▍| 3.1 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▌| 3.1 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▋| 3.1 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▋| 3.1 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▊| 3.1 MB 102.6 MB/s eta 0:00:01
+     |███████████████████████████████▉| 3.1 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████████| 3.1 MB 102.6 MB/s eta 0:00:01
+     |████████████████████████████████| 3.1 MB 102.6 MB/s            
+?25hRequirement already satisfied: seaborn&gt;=0.10.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (0.11.2)
+Requirement already satisfied: pydantic&gt;=1.8.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (1.8.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting missingno&gt;=0.4.2
+  Downloading missingno-0.5.0-py3-none-any.whl (8.8 kB)
+Requirement already satisfied: requests&gt;=2.24.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (2.26.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting visions[type_image_path]==0.7.4
+  Downloading visions-0.7.4-py3-none-any.whl (102 kB)
+?25l
+
+     |███▏                            | 10 kB 53.7 MB/s eta 0:00:01
+     |██████▍                         | 20 kB 65.0 MB/s eta 0:00:01
+     |█████████▋                      | 30 kB 79.0 MB/s eta 0:00:01
+     |████████████▉                   | 40 kB 87.9 MB/s eta 0:00:01
+     |████████████████                | 51 kB 94.2 MB/s eta 0:00:01
+     |███████████████████▏            | 61 kB 100.8 MB/s eta 0:00:01
+     |██████████████████████▍         | 71 kB 104.4 MB/s eta 0:00:01
+     |█████████████████████████▋      | 81 kB 109.2 MB/s eta 0:00:01
+     |████████████████████████████▉   | 92 kB 111.7 MB/s eta 0:00:01
+     |████████████████████████████████| 102 kB 46.3 MB/s            
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting joblib~=1.0.1
+  Downloading joblib-1.0.1-py3-none-any.whl (303 kB)
+?25l
+
+     |█                               | 10 kB 61.7 MB/s eta 0:00:01
+     |██▏                             | 20 kB 73.6 MB/s eta 0:00:01
+     |███▎                            | 30 kB 87.5 MB/s eta 0:00:01
+     |████▎                           | 40 kB 95.7 MB/s eta 0:00:01
+     |█████▍                          | 51 kB 100.9 MB/s eta 0:00:01
+     |██████▌                         | 61 kB 107.2 MB/s eta 0:00:01
+     |███████▋                        | 71 kB 111.0 MB/s eta 0:00:01
+     |████████▋                       | 81 kB 115.8 MB/s eta 0:00:01
+     |█████████▊                      | 92 kB 117.3 MB/s eta 0:00:01
+     |██████████▉                     | 102 kB 118.9 MB/s eta 0:00:01
+     |████████████                    | 112 kB 118.9 MB/s eta 0:00:01
+     |█████████████                   | 122 kB 118.9 MB/s eta 0:00:01
+     |██████████████                  | 133 kB 118.9 MB/s eta 0:00:01
+     |███████████████▏                | 143 kB 118.9 MB/s eta 0:00:01
+     |████████████████▏               | 153 kB 118.9 MB/s eta 0:00:01
+     |█████████████████▎              | 163 kB 118.9 MB/s eta 0:00:01
+     |██████████████████▍             | 174 kB 118.9 MB/s eta 0:00:01
+     |███████████████████▌            | 184 kB 118.9 MB/s eta 0:00:01
+     |████████████████████▌           | 194 kB 118.9 MB/s eta 0:00:01
+     |█████████████████████▋          | 204 kB 118.9 MB/s eta 0:00:01
+     |██████████████████████▊         | 215 kB 118.9 MB/s eta 0:00:01
+     |███████████████████████▉        | 225 kB 118.9 MB/s eta 0:00:01
+     |████████████████████████▉       | 235 kB 118.9 MB/s eta 0:00:01
+     |██████████████████████████      | 245 kB 118.9 MB/s eta 0:00:01
+     |███████████████████████████     | 256 kB 118.9 MB/s eta 0:00:01
+     |████████████████████████████    | 266 kB 118.9 MB/s eta 0:00:01
+     |█████████████████████████████▏  | 276 kB 118.9 MB/s eta 0:00:01
+     |██████████████████████████████▎ | 286 kB 118.9 MB/s eta 0:00:01
+     |███████████████████████████████▍| 296 kB 118.9 MB/s eta 0:00:01
+     |████████████████████████████████| 303 kB 118.9 MB/s            
+?25hRequirement already satisfied: PyYAML&gt;=5.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (6.0)
+Requirement already satisfied: pandas!=1.0.0,!=1.0.1,!=1.0.2,!=1.1.0,&gt;=0.25.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (1.3.4)
+Requirement already satisfied: markupsafe~=2.0.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (2.0.1)
+Requirement already satisfied: scipy&gt;=1.4.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas-profiling) (1.7.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: networkx&gt;=2.4 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from visions[type_image_path]==0.7.4-&gt;pandas-profiling) (2.6.3)
+Requirement already satisfied: attrs&gt;=19.3.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from visions[type_image_path]==0.7.4-&gt;pandas-profiling) (21.2.0)
+Requirement already satisfied: Pillow in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from visions[type_image_path]==0.7.4-&gt;pandas-profiling) (8.4.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting imagehash
+  Downloading ImageHash-4.2.1.tar.gz (812 kB)
+?25l
+
+     |▍                               | 10 kB 52.5 MB/s eta 0:00:01
+     |▉                               | 20 kB 63.5 MB/s eta 0:00:01
+     |█▏                              | 30 kB 76.6 MB/s eta 0:00:01
+     |█▋                              | 40 kB 83.1 MB/s eta 0:00:01
+     |██                              | 51 kB 87.5 MB/s eta 0:00:01
+     |██▍                             | 61 kB 94.0 MB/s eta 0:00:01
+     |██▉                             | 71 kB 97.8 MB/s eta 0:00:01
+     |███▎                            | 81 kB 102.2 MB/s eta 0:00:01
+     |███▋                            | 92 kB 104.7 MB/s eta 0:00:01
+     |████                            | 102 kB 107.2 MB/s eta 0:00:01
+     |████▍                           | 112 kB 107.2 MB/s eta 0:00:01
+     |████▉                           | 122 kB 107.2 MB/s eta 0:00:01
+     |█████▎                          | 133 kB 107.2 MB/s eta 0:00:01
+     |█████▋                          | 143 kB 107.2 MB/s eta 0:00:01
+     |██████                          | 153 kB 107.2 MB/s eta 0:00:01
+     |██████▌                         | 163 kB 107.2 MB/s eta 0:00:01
+     |██████▉                         | 174 kB 107.2 MB/s eta 0:00:01
+     |███████▎                        | 184 kB 107.2 MB/s eta 0:00:01
+     |███████▋                        | 194 kB 107.2 MB/s eta 0:00:01
+     |████████                        | 204 kB 107.2 MB/s eta 0:00:01
+     |████████▌                       | 215 kB 107.2 MB/s eta 0:00:01
+     |████████▉                       | 225 kB 107.2 MB/s eta 0:00:01
+     |█████████▎                      | 235 kB 107.2 MB/s eta 0:00:01
+     |█████████▊                      | 245 kB 107.2 MB/s eta 0:00:01
+     |██████████                      | 256 kB 107.2 MB/s eta 0:00:01
+     |██████████▌                     | 266 kB 107.2 MB/s eta 0:00:01
+     |██████████▉                     | 276 kB 107.2 MB/s eta 0:00:01
+     |███████████▎                    | 286 kB 107.2 MB/s eta 0:00:01
+     |███████████▊                    | 296 kB 107.2 MB/s eta 0:00:01
+     |████████████                    | 307 kB 107.2 MB/s eta 0:00:01
+     |████████████▌                   | 317 kB 107.2 MB/s eta 0:00:01
+     |█████████████                   | 327 kB 107.2 MB/s eta 0:00:01
+     |█████████████▎                  | 337 kB 107.2 MB/s eta 0:00:01
+     |█████████████▊                  | 348 kB 107.2 MB/s eta 0:00:01
+     |██████████████▏                 | 358 kB 107.2 MB/s eta 0:00:01
+     |██████████████▌                 | 368 kB 107.2 MB/s eta 0:00:01
+     |███████████████                 | 378 kB 107.2 MB/s eta 0:00:01
+     |███████████████▎                | 389 kB 107.2 MB/s eta 0:00:01
+     |███████████████▊                | 399 kB 107.2 MB/s eta 0:00:01
+     |████████████████▏               | 409 kB 107.2 MB/s eta 0:00:01
+     |████████████████▌               | 419 kB 107.2 MB/s eta 0:00:01
+     |█████████████████               | 430 kB 107.2 MB/s eta 0:00:01
+     |█████████████████▍              | 440 kB 107.2 MB/s eta 0:00:01
+     |█████████████████▊              | 450 kB 107.2 MB/s eta 0:00:01
+     |██████████████████▏             | 460 kB 107.2 MB/s eta 0:00:01
+     |██████████████████▌             | 471 kB 107.2 MB/s eta 0:00:01
+     |███████████████████             | 481 kB 107.2 MB/s eta 0:00:01
+     |███████████████████▍            | 491 kB 107.2 MB/s eta 0:00:01
+     |███████████████████▊            | 501 kB 107.2 MB/s eta 0:00:01
+     |████████████████████▏           | 512 kB 107.2 MB/s eta 0:00:01
+     |████████████████████▋           | 522 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████           | 532 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████▍          | 542 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████▊          | 552 kB 107.2 MB/s eta 0:00:01
+     |██████████████████████▏         | 563 kB 107.2 MB/s eta 0:00:01
+     |██████████████████████▋         | 573 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████         | 583 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████▍        | 593 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████▉        | 604 kB 107.2 MB/s eta 0:00:01
+     |████████████████████████▏       | 614 kB 107.2 MB/s eta 0:00:01
+     |████████████████████████▋       | 624 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████████       | 634 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████████▍      | 645 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████████▉      | 655 kB 107.2 MB/s eta 0:00:01
+     |██████████████████████████▏     | 665 kB 107.2 MB/s eta 0:00:01
+     |██████████████████████████▋     | 675 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████████     | 686 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████████▍    | 696 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████████▉    | 706 kB 107.2 MB/s eta 0:00:01
+     |████████████████████████████▎   | 716 kB 107.2 MB/s eta 0:00:01
+     |████████████████████████████▋   | 727 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████████████   | 737 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 747 kB 107.2 MB/s eta 0:00:01
+     |█████████████████████████████▉  | 757 kB 107.2 MB/s eta 0:00:01
+     |██████████████████████████████▎ | 768 kB 107.2 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 778 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████████████ | 788 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████████████▌| 798 kB 107.2 MB/s eta 0:00:01
+     |███████████████████████████████▉| 808 kB 107.2 MB/s eta 0:00:01
+     |████████████████████████████████| 812 kB 107.2 MB/s            
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h  Preparing metadata (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25hRequirement already satisfied: pyparsing&gt;=2.2.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling) (3.0.6)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling) (21.3)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling) (0.11.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling) (2.8.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting setuptools-scm&gt;=4
+  Using cached setuptools_scm-6.3.2-py3-none-any.whl (33 kB)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from matplotlib&gt;=3.2.0-&gt;pandas-profiling) (1.3.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting fonttools&gt;=4.22.0
+  Using cached fonttools-4.28.1-py3-none-any.whl (873 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2017.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pandas!=1.0.0,!=1.0.1,!=1.0.2,!=1.1.0,&gt;=0.25.3-&gt;pandas-profiling) (2021.3)
+Requirement already satisfied: typing-extensions&gt;=3.7.4.3 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from pydantic&gt;=1.8.1-&gt;pandas-profiling) (4.0.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling) (3.3)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling) (1.26.7)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling) (2.0.7)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from requests&gt;=2.24.0-&gt;pandas-profiling) (2021.10.8)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=3.2.0-&gt;pandas-profiling) (1.16.0)
+Requirement already satisfied: tomli&gt;=1.0.0 in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from setuptools-scm&gt;=4-&gt;matplotlib&gt;=3.2.0-&gt;pandas-profiling) (1.2.2)
+Requirement already satisfied: setuptools in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from setuptools-scm&gt;=4-&gt;matplotlib&gt;=3.2.0-&gt;pandas-profiling) (56.0.0)
+Requirement already satisfied: PyWavelets in /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages (from imagehash-&gt;visions[type_image_path]==0.7.4-&gt;pandas-profiling) (1.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: htmlmin, imagehash
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for htmlmin (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25h  Created wheel for htmlmin: filename=htmlmin-0.1.12-py3-none-any.whl size=27085 sha256=94c35d20a3e4df4e8708dacb5a64aee88c2ce50997e84fb49b75ac50c15131a5
+  Stored in directory: /home/runner/.cache/pip/wheels/23/14/6e/4be5bfeeb027f4939a01764b48edd5996acf574b0913fe5243
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for imagehash (setup.py) ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+?25h  Created wheel for imagehash: filename=ImageHash-4.2.1-py2.py3-none-any.whl size=295197 sha256=30e5f07413d128abafcee08dd38858f8caeb7a1dc0834d90df2c29c3cf1bcc74
+  Stored in directory: /home/runner/.cache/pip/wheels/48/a1/7f/096c1269d6bf78d4768180602579b35a1e8cb1250bb4b40c74
+Successfully built htmlmin imagehash
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: setuptools-scm, fonttools, tangled-up-in-unicode, multimethod, matplotlib, visions, joblib, imagehash, phik, missingno, htmlmin, pandas-profiling
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: matplotlib
+    Found existing installation: matplotlib 3.1.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Uninstalling matplotlib-3.1.1:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled matplotlib-3.1.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: joblib
+    Found existing installation: joblib 1.1.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Uninstalling joblib-1.1.0:
+      Successfully uninstalled joblib-1.1.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.</span>
+<span class=" -Color -Color-Red">pdpbox 0.2.1 requires matplotlib==3.1.1, but you have matplotlib 3.5.0 which is incompatible.</span>
+Successfully installed fonttools-4.28.1 htmlmin-0.1.12 imagehash-4.2.1 joblib-1.0.1 matplotlib-3.5.0 missingno-0.5.0 multimethod-1.6 pandas-profiling-3.1.0 phik-0.12.0 setuptools-scm-6.3.2 tangled-up-in-unicode-0.1.0 visions-0.7.4
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Enabling notebook extension jupyter-js-widgets/extension...
+      - Validating: <span class=" -Color -Color-Green">OK</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/jads-nl/discover-projects/main/ames-housing/AmesHousing.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span> 
+<span class="c1"># Use Order as row index and remove PID as it is also a unique id and we do not need it</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Order&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PID&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[autoreload of matplotlib.cbook.deprecation failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 317, in update_class
+    update_instances(old, new)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 280, in update_instances
+    ref.__class__ = new
+TypeError: __class__ assignment: &#39;MatplotlibDeprecationWarning&#39; object layout differs from &#39;MatplotlibDeprecationWarning&#39;
+]
+[autoreload of matplotlib.cbook failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: connect() requires a code object with 0 free vars, not 4
+]
+[autoreload of matplotlib.colors failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.rcsetup failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: validate_anylist() requires a code object with 2 free vars, not 3
+]
+[autoreload of matplotlib failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/__init__.py&quot;, line 1452, in &lt;module&gt;
+    from matplotlib.cm import _colormaps as colormaps
+ImportError: cannot import name &#39;_colormaps&#39; from &#39;matplotlib.cm&#39; (/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/cm.py)
+]
+[autoreload of matplotlib.transforms failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __copy__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.markers failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: set_fillstyle() requires a code object with 0 free vars, not 2
+]
+[autoreload of matplotlib.lines failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/lines.py&quot;, line 211, in &lt;module&gt;
+    class Line2D(Artist):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/lines.py&quot;, line 1290, in Line2D
+    def set_dash_joinstyle(self, s):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+KeyError: &#39;JoinStyle&#39;
+]
+[autoreload of matplotlib.collections failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/collections.py&quot;, line 34, in &lt;module&gt;
+    class Collection(artist.Artist, cm.ScalarMappable):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/collections.py&quot;, line 78, in Collection
+    def __init__(self,
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+KeyError: &#39;CapStyle&#39;
+]
+[autoreload of matplotlib.ticker failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: set_view_interval() requires a code object with 0 free vars, not 2
+]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[autoreload of matplotlib.font_manager failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: win32InstalledFonts() requires a code object with 0 free vars, not 2
+]
+[autoreload of matplotlib.bezier failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: find_bezier_t_intersecting_with_closedpath() requires a code object with 4 free vars, not 0
+]
+[autoreload of matplotlib.patches failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/patches.py&quot;, line 34, in &lt;module&gt;
+    class Patch(artist.Artist):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/patches.py&quot;, line 478, in Patch
+    def set_capstyle(self, s):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+KeyError: &#39;CapStyle&#39;
+]
+[autoreload of matplotlib.dviread failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.mathtext failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.textpath failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: get_text_path() requires a code object with 3 free vars, not 0
+]
+[autoreload of matplotlib.text failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.blocking_input failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.contour failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: get_rotation() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.tight_layout failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: auto_adjust_subplotpars() requires a code object with 0 free vars, not 2
+]
+[autoreload of matplotlib.gridspec failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.colorbar failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: set_ticks() requires a code object with 0 free vars, not 10
+]
+[autoreload of matplotlib.backend_tools failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 317, in update_class
+    update_instances(old, new)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 280, in update_instances
+    ref.__class__ = new
+TypeError: __class__ assignment: &#39;Cursors&#39; object layout differs from &#39;Cursors&#39;
+]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[autoreload of matplotlib.widgets failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.backend_bases failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/backend_bases.py&quot;, line 732, in &lt;module&gt;
+    class GraphicsContextBase:
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/backend_bases.py&quot;, line 892, in GraphicsContextBase
+    def set_capstyle(self, cs):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+KeyError: &#39;CapStyle&#39;
+]
+[autoreload of matplotlib.image failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: format_cursor_data() requires a code object with 1 free vars, not 0
+]
+[autoreload of matplotlib.style.core failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/style/core.py&quot;, line 221, in &lt;module&gt;
+    _base_library = read_style_directory(BASE_LIBRARY_PATH)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/style/core.py&quot;, line 198, in read_style_directory
+    styles[path.stem] = rc_params_from_file(
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/__init__.py&quot;, line 987, in rc_params_from_file
+TypeError: expected string or bytes-like object
+]
+[autoreload of matplotlib.units failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: is_numlike() requires a code object with 0 free vars, not 2
+]
+[autoreload of matplotlib.dates failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.offsetbox failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: set_figure() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.container failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[autoreload of matplotlib.legend_handler failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.legend failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/legend.py&quot;, line 36, in &lt;module&gt;
+    from matplotlib.patches import (Patch, Rectangle, Shadow, FancyBboxPatch,
+ImportError: cannot import name &#39;StepPatch&#39; from &#39;matplotlib.patches&#39; (/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/patches.py)
+]
+[autoreload of matplotlib.quiver failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 61, in __missing__
+    cls, = [cls for cls in _recursive_subclasses(Artist)
+ValueError: not enough values to unpack (expected 1, got 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/quiver.py&quot;, line 31, in &lt;module&gt;
+    _quiver_doc = &quot;&quot;&quot;
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 64, in __missing__
+    raise KeyError(key) from e
+KeyError: &#39;PolyCollection:kwdoc&#39;
+]
+[autoreload of matplotlib.streamplot failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: get_integrator() requires a code object with 0 free vars, not 2
+]
+[autoreload of matplotlib.table failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.tri.tricontour failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.tri.trifinder failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.tri.triinterpolate failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.tri.trirefine failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.scale failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 1 free vars, not 0
+]
+[autoreload of matplotlib.axis failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.spines failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 61, in __missing__
+    cls, = [cls for cls in _recursive_subclasses(Artist)
+ValueError: not enough values to unpack (expected 1, got 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/spines.py&quot;, line 14, in &lt;module&gt;
+    class Spine(mpatches.Patch):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/spines.py&quot;, line 35, in Spine
+    def __init__(self, axes, spine_type, path, **kwargs):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+KeyError: &#39;Patch:kwdoc&#39;
+]
+[autoreload of matplotlib.axes._base failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 61, in __missing__
+    cls, = [cls for cls in _recursive_subclasses(Artist)
+ValueError: not enough values to unpack (expected 1, got 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/axes/_base.py&quot;, line 542, in &lt;module&gt;
+    class _AxesBase(martist.Artist):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/axes/_base.py&quot;, line 3188, in _AxesBase
+    def grid(self, visible=None, which=&#39;major&#39;, axis=&#39;both&#39;, **kwargs):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+KeyError: &#39;Line2D:kwdoc&#39;
+]
+[autoreload of matplotlib.axes._axes failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/axes/_axes.py&quot;, line 47, in &lt;module&gt;
+    class Axes(_AxesBase):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/axes/_axes.py&quot;, line 187, in Axes
+    def legend(self, *args, **kwargs):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+KeyError: &#39;_legend_kw_doc&#39;
+]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[autoreload of matplotlib.axes._subplots failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: get_geometry() requires a code object with 0 free vars, not 2
+]
+[autoreload of matplotlib.projections.geo failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: cla() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.projections.polar failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 410, in superreload
+    update_generic(old_obj, new_obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 302, in update_class
+    if update_generic(old_obj, new_obj): continue
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 347, in update_generic
+    update(a, b)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 266, in update_function
+    setattr(old, name, getattr(new, name))
+ValueError: __init__() requires a code object with 0 free vars, not 1
+]
+[autoreload of matplotlib.projections failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/projections/__init__.py&quot;, line 58, in &lt;module&gt;
+    from mpl_toolkits.mplot3d import Axes3D
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/mpl_toolkits/mplot3d/__init__.py&quot;, line 1, in &lt;module&gt;
+    from .axes3d import Axes3D
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/mpl_toolkits/mplot3d/axes3d.py&quot;, line 46, in &lt;module&gt;
+    class Axes3D(Axes):
+AttributeError: type object &#39;Axes&#39; has no attribute &#39;_shared_axes&#39;
+]
+[autoreload of matplotlib.figure failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/figure.py&quot;, line 28, in &lt;module&gt;
+    from matplotlib.backend_bases import (
+ImportError: cannot import name &#39;_get_renderer&#39; from &#39;matplotlib.backend_bases&#39; (/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/backend_bases.py)
+]
+[autoreload of matplotlib.backends.backend_agg failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/backends/backend_agg.py&quot;, line 37, in &lt;module&gt;
+    from matplotlib.backend_bases import (
+ImportError: cannot import name &#39;_check_savefig_extra_args&#39; from &#39;matplotlib.backend_bases&#39; (/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/backend_bases.py)
+]
+[autoreload of matplotlib.pyplot failed: Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 61, in __missing__
+    cls, = [cls for cls in _recursive_subclasses(Artist)
+ValueError: not enough values to unpack (expected 1, got 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 245, in check
+    superreload(m, reload, self.old_objects)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/IPython/extensions/autoreload.py&quot;, line 394, in superreload
+    module = reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/imp.py&quot;, line 314, in reload
+    return importlib.reload(module)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py&quot;, line 169, in reload
+    _bootstrap._exec(spec, module)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 604, in _exec
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 843, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/pyplot.py&quot;, line 975, in &lt;module&gt;
+    def axes(arg=None, **kwargs):
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 84, in __call__
+    super().__call__(obj)
+  File &quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/docstring.py&quot;, line 38, in __call__
+    func.__doc__ = inspect.cleandoc(func.__doc__) % self.params
+KeyError: &#39;Axes:kwdoc&#39;
+]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MS SubClass</th>
+      <th>MS Zoning</th>
+      <th>Lot Frontage</th>
+      <th>Lot Area</th>
+      <th>Street</th>
+      <th>Alley</th>
+      <th>Lot Shape</th>
+      <th>Land Contour</th>
+      <th>Utilities</th>
+      <th>Lot Config</th>
+      <th>...</th>
+      <th>Pool Area</th>
+      <th>Pool QC</th>
+      <th>Fence</th>
+      <th>Misc Feature</th>
+      <th>Misc Val</th>
+      <th>Mo Sold</th>
+      <th>Yr Sold</th>
+      <th>Sale Type</th>
+      <th>Sale Condition</th>
+      <th>SalePrice</th>
+    </tr>
+    <tr>
+      <th>Order</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>20</td>
+      <td>RL</td>
+      <td>141.0</td>
+      <td>31770</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>IR1</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Corner</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>5</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>215000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20</td>
+      <td>RH</td>
+      <td>80.0</td>
+      <td>11622</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>Reg</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Inside</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>MnPrv</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>6</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>105000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20</td>
+      <td>RL</td>
+      <td>81.0</td>
+      <td>14267</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>IR1</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Corner</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Gar2</td>
+      <td>12500</td>
+      <td>6</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>172000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20</td>
+      <td>RL</td>
+      <td>93.0</td>
+      <td>11160</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>Reg</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Corner</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>4</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>244000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>60</td>
+      <td>RL</td>
+      <td>74.0</td>
+      <td>13830</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>IR1</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Inside</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>MnPrv</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2010</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>189900</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2926</th>
+      <td>80</td>
+      <td>RL</td>
+      <td>37.0</td>
+      <td>7937</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>IR1</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>CulDSac</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>GdPrv</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2006</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>142500</td>
+    </tr>
+    <tr>
+      <th>2927</th>
+      <td>20</td>
+      <td>RL</td>
+      <td>NaN</td>
+      <td>8885</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>IR1</td>
+      <td>Low</td>
+      <td>AllPub</td>
+      <td>Inside</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>MnPrv</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>6</td>
+      <td>2006</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>131000</td>
+    </tr>
+    <tr>
+      <th>2928</th>
+      <td>85</td>
+      <td>RL</td>
+      <td>62.0</td>
+      <td>10441</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>Reg</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Inside</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>MnPrv</td>
+      <td>Shed</td>
+      <td>700</td>
+      <td>7</td>
+      <td>2006</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>132000</td>
+    </tr>
+    <tr>
+      <th>2929</th>
+      <td>20</td>
+      <td>RL</td>
+      <td>77.0</td>
+      <td>10010</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>Reg</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Inside</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>4</td>
+      <td>2006</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>170000</td>
+    </tr>
+    <tr>
+      <th>2930</th>
+      <td>60</td>
+      <td>RL</td>
+      <td>74.0</td>
+      <td>9627</td>
+      <td>Pave</td>
+      <td>NaN</td>
+      <td>Reg</td>
+      <td>Lvl</td>
+      <td>AllPub</td>
+      <td>Inside</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>11</td>
+      <td>2006</td>
+      <td>WD</td>
+      <td>Normal</td>
+      <td>188000</td>
+    </tr>
+  </tbody>
+</table>
+<p>2930 rows × 80 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create and export a report with pandas profile. This takes some time</span>
+<span class="n">profile_report</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">profile_report</span><span class="p">(</span>
+    <span class="n">explorative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">html</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;full_width&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}}</span>
+<span class="p">)</span>
+<span class="c1"># Export to file for download since iframe and widgets do not seem to work</span>
+<span class="c1"># Note: comment out to save time everytime you run the notebook</span>
+<span class="n">profile_report</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="s2">&quot;PandasProfile.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "fcdae538d2d64460a6a567e4d5511e6b", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/model/correlations.py:55: UserWarning: There was an attempt to calculate the cramers correlation, but this failed.
+To hide this warning, disable the calculation
+(using `df.profile_report(correlations={&quot;cramers&quot;: {&quot;calculate&quot;: False}})`
+If this is problematic for your use case, please report this as an issue:
+https://github.com/pandas-profiling/pandas-profiling/issues
+(include the error message: &#39;No data; `observed` has size 0.&#39;)
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3853</span><span class="o">/</span><span class="mf">1665831920.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Export to file for download since iframe and widgets do not seem to work</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Note: comment out to save time everytime you run the notebook</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">profile_report</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="s2">&quot;PandasProfile.html&quot;</span><span class="p">)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/profile_report.py</span> in <span class="ni">to_file</span><span class="nt">(self, output_file, silent)</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span>                 <span class="n">create_html_assets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">output_file</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span> 
+<span class="ne">--&gt; </span><span class="mi">257</span>             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span> 
+<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="k">if</span> <span class="n">output_file</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="s2">&quot;.html&quot;</span><span class="p">:</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/profile_report.py</span> in <span class="ni">to_html</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span> 
+<span class="g g-Whitespace">    </span><span class="mi">367</span>         <span class="sd">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">368</span><span class="sd">         return self.html</span>
+<span class="g g-Whitespace">    </span><span class="mi">369</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span><span class="sd">     def to_json(self) -&gt; str:</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/profile_report.py</span> in <span class="ni">html</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span><span class="sd">     def html(self) -&gt; str:</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span><span class="sd">         if self._html is None:</span>
+<span class="ne">--&gt; </span><span class="mi">185</span><span class="sd">             self._html = self._render_html()</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span><span class="sd">         return self._html</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span><span class="sd"> </span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/profile_report.py</span> in <span class="ni">_render_html</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span><span class="sd">         from pandas_profiling.report.presentation.flavours import HTMLReport</span>
+<span class="g g-Whitespace">    </span><span class="mi">286</span><span class="sd"> </span>
+<span class="ne">--&gt; </span><span class="mi">287</span><span class="sd">         report = self.report</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="sd">         with tqdm(</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/profile_report.py</span> in <span class="ni">report</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span><span class="sd">     def report(self) -&gt; Root:</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span><span class="sd">         if self._report is None:</span>
+<span class="ne">--&gt; </span><span class="mi">179</span><span class="sd">             self._report = get_report_structure(self.config, self.description_set)</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span><span class="sd">         return self._report</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span><span class="sd"> </span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/profile_report.py</span> in <span class="ni">description_set</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span><span class="sd">     def description_set(self) -&gt; Dict[str, Any]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span><span class="sd">         if self._description_set is None:</span>
+<span class="ne">--&gt; </span><span class="mi">161</span><span class="sd">             self._description_set = describe_df(</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="sd">                 self.config,</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span><span class="sd">                 self.df,</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/model/describe.py</span> in <span class="ni">describe</span><span class="nt">(config, df, summarizer, typeset, sample)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span><span class="sd">         }</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span><span class="sd">         for x, y in scatter_tasks:</span>
+<span class="ne">--&gt; </span><span class="mi">115</span><span class="sd">             scatter_matrix[x][y] = progress(</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span><span class="sd">                 get_scatter_plot, pbar, f&quot;scatter {x}, {y}&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span><span class="sd">             )(config, df, x, y, interval_columns)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/utils/progress_bar.py</span> in <span class="ni">inner</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span><span class="sd">     def inner(*args, **kwargs) -&gt; Any:</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span><span class="sd">         bar.set_postfix_str(message)</span>
+<span class="ne">---&gt; </span><span class="mi">11</span><span class="sd">         ret = fn(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span><span class="sd">         bar.update()</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span><span class="sd">         return ret</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/model/pairwise.py</span> in <span class="ni">get_scatter_plot</span><span class="nt">(config, df, x, y, continuous_variables)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd">         else:</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd">             df_temp = df[[x, y]].dropna()</span>
+<span class="ne">---&gt; </span><span class="mi">31</span><span class="sd">         return scatter_pairwise(config, df_temp[x], df_temp[y], x, y)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span><span class="sd">     else:</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span><span class="sd">         return &quot;&quot;</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/contextlib.py</span> in <span class="ni">inner</span><span class="nt">(*args, **kwds)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span><span class="sd">         @wraps(func)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span><span class="sd">         def inner(*args, **kwds):</span>
+<span class="ne">---&gt; </span><span class="mi">74</span><span class="sd">             with self._recreate_cm():</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="sd">                 return func(*args, **kwds)</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span><span class="sd">         return inner</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/contextlib.py</span> in <span class="ni">__enter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span><span class="sd">         del self.args, self.kwds, self.func</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span><span class="sd">         try:</span>
+<span class="ne">--&gt; </span><span class="mi">113</span><span class="sd">             return next(self.gen)</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span><span class="sd">         except StopIteration:</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span><span class="sd">             raise RuntimeError(&quot;generator didn&#39;t yield&quot;) from None</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas_profiling/visualisation/context.py</span> in <span class="ni">manage_matplotlib_context</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span><span class="sd"> def manage_matplotlib_context() -&gt; Any:</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span><span class="sd">     &quot;&quot;&quot;</span><span class="n">Return</span> <span class="n">a</span> <span class="n">context</span> <span class="n">manager</span> <span class="k">for</span> <span class="n">temporarily</span> <span class="n">changing</span> <span class="n">matplotlib</span> <span class="n">unit</span> <span class="n">registries</span> <span class="ow">and</span> <span class="n">rcParams</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">17</span><span class="s2">     originalRcParams = matplotlib.rcParams.copy()</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span><span class="s2"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="s2">     # Credits for this style go to the ggplot and seaborn packages.</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/__init__.py</span> in <span class="ni">copy</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">870</span><span class="s2">     return config</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span><span class="s2"> </span>
+<span class="ne">--&gt; </span><span class="mi">872</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">873</span><span class="s2"> # When constructing the global instances, we need to perform certain updates</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span><span class="s2"> # by explicitly calling the superclass (dict.update, dict.items) to avoid</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/__init__.py</span> in <span class="ni">&lt;dictcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">    </span><span class="mi">870</span><span class="s2">     return config</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span><span class="s2"> </span>
+<span class="ne">--&gt; </span><span class="mi">872</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">873</span><span class="s2"> # When constructing the global instances, we need to perform certain updates</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span><span class="s2"> # by explicitly calling the superclass (dict.update, dict.items) to avoid</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/__init__.py</span> in <span class="ni">__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">847</span><span class="s2">     use_default_template : bool</span>
+<span class="g g-Whitespace">    </span><span class="mi">848</span><span class="s2">         If True, initialize with default parameters before updating with those</span>
+<span class="ne">--&gt; </span><span class="mi">849</span><span class="s2">         in the given file. If False, the configuration class only contains the</span>
+<span class="nn">    850         parameters specified</span> in <span class="ni">the file. </span><span class="nt">(Useful for updating dicts.)</span>
+<span class="g g-Whitespace">    </span><span class="mi">851</span><span class="s2">     &quot;&quot;&quot;</span>
+
+<span class="ne">AttributeError</span>: module &#39;matplotlib.cbook&#39; has no attribute &#39;_suppress_matplotlib_deprecation_warning&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<a style='text-decoration:none;line-height:16px;display:flex;color:#5B5B62;padding:10px;justify-content:end;' href='https://deepnote.com?utm_source=created-in-deepnote-cell&projectId=c2b81cdf-bbde-419b-844b-a10c406c3e76' target="_blank">
+<img alt='Created in deepnote.com' style='display:inline;max-height:16px;margin:0px;margin-right:7.5px;' src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iODBweCIgaGVpZ2h0PSI4MHB4IiB2aWV3Qm94PSIwIDAgODAgODAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU0LjEgKDc2NDkwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5Hcm91cCAzPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IkxhbmRpbmciIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJBcnRib2FyZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEyMzUuMDAwMDAwLCAtNzkuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjM1LjAwMDAwMCwgNzkuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aC0yMCIgZmlsbD0iIzAyNjVCNCIgcG9pbnRzPSIyLjM3NjIzNzYyIDgwIDM4LjA0NzY2NjcgODAgNTcuODIxNzgyMiA3My44MDU3NTkyIDU3LjgyMTc4MjIgMzIuNzU5MjczOSAzOS4xNDAyMjc4IDMxLjY4MzE2ODMiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zNS4wMDc3MTgsODAgQzQyLjkwNjIwMDcsNzYuNDU0OTM1OCA0Ny41NjQ5MTY3LDcxLjU0MjI2NzEgNDguOTgzODY2LDY1LjI2MTk5MzkgQzUxLjExMjI4OTksNTUuODQxNTg0MiA0MS42NzcxNzk1LDQ5LjIxMjIyODQgMjUuNjIzOTg0Niw0OS4yMTIyMjg0IEMyNS40ODQ5Mjg5LDQ5LjEyNjg0NDggMjkuODI2MTI5Niw0My4yODM4MjQ4IDM4LjY0NzU4NjksMzEuNjgzMTY4MyBMNzIuODcxMjg3MSwzMi41NTQ0MjUgTDY1LjI4MDk3Myw2Ny42NzYzNDIxIEw1MS4xMTIyODk5LDc3LjM3NjE0NCBMMzUuMDA3NzE4LDgwIFoiIGlkPSJQYXRoLTIyIiBmaWxsPSIjMDAyODY4Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCwzNy43MzA0NDA1IEwyNy4xMTQ1MzcsMC4yNTcxMTE0MzYgQzYyLjM3MTUxMjMsLTEuOTkwNzE3MDEgODAsMTAuNTAwMzkyNyA4MCwzNy43MzA0NDA1IEM4MCw2NC45NjA0ODgyIDY0Ljc3NjUwMzgsNzkuMDUwMzQxNCAzNC4zMjk1MTEzLDgwIEM0Ny4wNTUzNDg5LDc3LjU2NzA4MDggNTMuNDE4MjY3Nyw3MC4zMTM2MTAzIDUzLjQxODI2NzcsNTguMjM5NTg4NSBDNTMuNDE4MjY3Nyw0MC4xMjg1NTU3IDM2LjMwMzk1NDQsMzcuNzMwNDQwNSAyNS4yMjc0MTcsMzcuNzMwNDQwNSBDMTcuODQzMDU4NiwzNy43MzA0NDA1IDkuNDMzOTE5NjYsMzcuNzMwNDQwNSAwLDM3LjczMDQ0MDUgWiIgaWQ9IlBhdGgtMTkiIGZpbGw9IiMzNzkzRUYiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+' > </img>
+Created in <span style='font-weight:600;margin-left:4px;'>Deepnote</span></a></div>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"1aec0d17075848c3817c05125f2b531c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_9b04fa21caed4e74af6486afd4cb0592", "placeholder": "\u200b", "style": "IPY_MODEL_b2e3af9754f44fc989485dc3e4f898f8", "value": " 87/1053 [00:18&lt;10:45,  1.50it/s, scatter Order, Order]"}}, "60254b75946543f0874dd3e6b51a5d8a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "danger", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_c733bd4fb7344bffa165e3f3355aa1c5", "max": 5.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_f1999c92fba545e7bc45df52e938d865", "value": 5.0}}, "9b04fa21caed4e74af6486afd4cb0592": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b2e3af9754f44fc989485dc3e4f898f8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "c733bd4fb7344bffa165e3f3355aa1c5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c7741d8ae232489fbcdc8418087b7824": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c7fe6e61b19348ff9cb4d62baceefd46": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_c7741d8ae232489fbcdc8418087b7824", "placeholder": "\u200b", "style": "IPY_MODEL_f9aff37b9134462ab6ee91b19a6cc8a4", "value": "Summarize dataset:   8%"}}, "e2698d42f75942288ffdb0e777be05a2": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "f1999c92fba545e7bc45df52e938d865": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "f9aff37b9134462ab6ee91b19a6cc8a4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "fcdae538d2d64460a6a567e4d5511e6b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_c7fe6e61b19348ff9cb4d62baceefd46", "IPY_MODEL_60254b75946543f0874dd3e6b51a5d8a", "IPY_MODEL_1aec0d17075848c3817c05125f2b531c"], "layout": "IPY_MODEL_e2698d42f75942288ffdb0e777be05a2"}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./hands-on"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Daniel Kapitan<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

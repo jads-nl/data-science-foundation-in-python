@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lab 5.3: Cross-Validation and the Bootstrap &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -42,6 +42,8 @@
     <script src="../../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -56,7 +58,10 @@
     <link rel="next" title="Lab 6.5.1: Subset Selection Methods" href="lab_06.5.1_subset_selection_methods.html" />
     <link rel="prev" title="Lab 4.7: Classification Methods" href="lab_04.7_classification_methods.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -95,7 +100,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -814,7 +819,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Data visualization with Altair
  </span>
@@ -878,7 +883,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Interpretable Machine Learning
  </span>
@@ -917,7 +922,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Principles of time-series forecasting
  </span>
@@ -934,7 +939,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Natural language processing with spaCy
  </span>
@@ -1202,7 +1207,7 @@
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lm1 MSE: 25.5738781896844
 lm2 MSE: 22.218020050032855
-lm3 MSE: 22.667675435534864
+lm3 MSE: 22.66767543553441
 </pre></div>
 </div>
 </div>
@@ -1322,10 +1327,10 @@ lm3 MSE: 22.667675435534864
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lm1_MSE&#39;: 24.231513517929226,
- &#39;lm2_MSE&#39;: 19.248213124489677,
- &#39;lm3_MSE&#39;: 19.33498406402931,
- &#39;lm4_MSE&#39;: 19.424430310242773,
- &#39;lm5_MSE&#39;: 19.033212486158803}
+ &#39;lm2_MSE&#39;: 19.24821312448967,
+ &#39;lm3_MSE&#39;: 19.33498406402935,
+ &#39;lm4_MSE&#39;: 19.424430310283245,
+ &#39;lm5_MSE&#39;: 19.033212854447466}
 </pre></div>
 </div>
 </div>
@@ -1387,10 +1392,10 @@ lm3 MSE: 22.667675435534864
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lm1_MSE&#39;: 24.199808197692477,
- &#39;lm2_MSE&#39;: 19.22863661426802,
- &#39;lm3_MSE&#39;: 19.266265346631794,
- &#39;lm4_MSE&#39;: 19.351092272926934,
- &#39;lm5_MSE&#39;: 19.02323339651178}
+ &#39;lm2_MSE&#39;: 19.228636614268016,
+ &#39;lm3_MSE&#39;: 19.266265346631812,
+ &#39;lm4_MSE&#39;: 19.351092272905742,
+ &#39;lm5_MSE&#39;: 19.023233058241956}
 </pre></div>
 </div>
 </div>
@@ -1438,7 +1443,7 @@ lm3 MSE: 22.667675435534864
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6242493523364091
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4823946432612564
 </pre></div>
 </div>
 </div>
@@ -1462,8 +1467,8 @@ lm3 MSE: 22.667675435534864
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bootstrapped alpha: 0.5760617206162051
-SE: 0.09152308853612143
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bootstrapped alpha: 0.5857407114646965
+SE: 0.09368634522505702
 </pre></div>
 </div>
 </div>
@@ -1495,7 +1500,7 @@ SE: 0.09152308853612143
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40.259732521417675, array([-0.15926317]))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(39.78711780910716, array([-0.15853373]))
 </pre></div>
 </div>
 </div>
@@ -1523,8 +1528,8 @@ SE: 0.09152308853612143
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 39.97724796174343 0.8119438130787361
-t2 bs estimate &amp; se: -0.15837043902621065 0.007517125396191495
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 40.002919527997435 0.8282889956321474
+t2 bs estimate &amp; se: -0.15803685898472788 0.007677372971013023
 </pre></div>
 </div>
 </div>
@@ -1594,9 +1599,9 @@ t2 bs estimate &amp; se: -0.15837043902621065 0.007517125396191495
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 56.99743460109917 2.095174915692443
-t2 bs estimate &amp; se: -0.4648796734451098 0.03268320208764908
-t3 bs estimate &amp; se: 0.0012373543084605006 0.00012060958380946477
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 57.09525151661488 2.113994338080534
+t2 bs estimate &amp; se: -0.4674075008186799 0.03372783223124474
+t3 bs estimate &amp; se: 0.0012303208861632812 0.0001213681673746468
 </pre></div>
 </div>
 </div>
@@ -1652,31 +1657,22 @@ t3 bs estimate &amp; se: 0.0012373543084605006 0.00012060958380946477
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="lab_04.7_classification_methods.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Lab 4.7: Classification Methods</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="lab_04.7_classification_methods.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lab 4.7: Classification Methods</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="lab_06.5.1_subset_selection_methods.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lab 6.5.1: Subset Selection Methods</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="lab_06.5.1_subset_selection_methods.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Lab 6.5.1: Subset Selection Methods</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -1697,8 +1693,7 @@ t3 bs estimate &amp; se: 0.0012373543084605006 0.00012060958380946477
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>
