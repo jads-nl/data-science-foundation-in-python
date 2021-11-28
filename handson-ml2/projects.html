@@ -954,7 +954,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="original/math_linear_algebra.html">
-     Math primer - Linear Algebra**
+     Math primer - Linear Algebra
     </a>
    </li>
    <li class="toctree-l2">
@@ -1317,7 +1317,7 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="discover-projects">
 <h1>Discover projects<a class="headerlink" href="#discover-projects" title="Permalink to this headline">¶</a></h1>
-<p>The best way to learn how to apply the theory, is to get your hands dirty on one of the <a class="reference external" href="https://github.com/jads-nl/discover-projects">discover projects</a>. The aim of these projects is to get hands-on experience in building a model following the CRISP-DM framework. Examples and started notebooks are provided in the following section.</p>
+<p>The best way to learn how to apply the theory, is to get your hands dirty on one of the <a class="reference external" href="https://github.com/jads-nl/discover-projects">discover projects</a>. The aim of these projects is to get hands-on experience in building a model following the CRISP-DM framework. Examples and starter notebooks are provided in the following section.</p>
 <div class="section" id="machine-learning-project-checklist">
 <h2>Machine learning project checklist<a class="headerlink" href="#machine-learning-project-checklist" title="Permalink to this headline">¶</a></h2>
 <p>This checklist can guide you through your discover project. There are eight main steps, which closely follow the CRISP-DM process:</p>
@@ -1351,7 +1351,6 @@
 </div>
 <div class="section" id="get-the-data">
 <h3>2.  Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h3>
-<p>Note: automate as much as possible so you can easily get fresh data.</p>
 <ol class="simple">
 <li><p>List the data you need and how much you need.</p></li>
 <li><p>Find and document where you can get that data.</p></li>
@@ -1365,10 +1364,12 @@
 <li><p>Check the size and type of data (time series, sample, geographical, etc.).</p></li>
 <li><p>Sample a test set, put it aside, and never look at it (no data snooping!).</p></li>
 </ol>
+<blockquote>
+<div><p>Automate as much as possible so you can easily get fresh data.</p>
+</div></blockquote>
 </div>
 <div class="section" id="explore-the-data">
 <h3>3. Explore the data<a class="headerlink" href="#explore-the-data" title="Permalink to this headline">¶</a></h3>
-<p>Note: try to get insights from a field expert for these steps.</p>
 <ol class="simple">
 <li><p>Create a copy of the data for exploration (sampling it down to a manageable size if necessary).</p></li>
 <li><p>Create a Jupyter notebook to keep record of your data exploration.</p></li>
@@ -1376,7 +1377,7 @@
 <ul class="simple">
 <li><p>Name</p></li>
 <li><p>Type (categorical, int/float, bounded/unbounded, text, structured, etc.)</p></li>
-<li></li>
+<li><p>Percentage of missing values</p></li>
 <li><p>Noisiness and type of noise (stochastic, outliers, rounding errors, etc.)</p></li>
 <li><p>Possibly useful for the task?</p></li>
 <li><p>Type of distribution (Gaussian, uniform, logarithmic, etc.)</p></li>
@@ -1390,6 +1391,9 @@
 <li><p>Identify extra data that would be useful (go back to “Get the Data” on page 502).</p></li>
 <li><p>Document what you have learned.</p></li>
 </ol>
+<blockquote>
+<div><p>Try to get insights from a field expert for these steps.</p>
+</div></blockquote>
 </div>
 <div class="section" id="prepare-the-data">
 <h3>4. Prepare the data<a class="headerlink" href="#prepare-the-data" title="Permalink to this headline">¶</a></h3>
@@ -1431,11 +1435,6 @@
 </div>
 <div class="section" id="short-list-promising-models">
 <h3>5. Short-list promising models<a class="headerlink" href="#short-list-promising-models" title="Permalink to this headline">¶</a></h3>
-<p>Notes:</p>
-<ul class="simple">
-<li><p>If the data is huge, you may want to sample smaller training sets so you can train many different models in a reasonable time (be aware that this penalizes complex models such as large neural nets or Random Forests).</p></li>
-<li><p>Once again, try to automate these steps as much as possible.</p></li>
-</ul>
 <ol class="simple">
 <li><p>Train many quick and dirty models from different categories (e.g., linear, naive, Bayes, SVM, Random Forests, neural net, etc.) using standard parameters.</p></li>
 <li><p>Measure and compare their performance.</p>
@@ -1453,14 +1452,13 @@
 <li><p>Have one or two more quick iterations of the five previous steps.</p></li>
 <li><p>Short-list the top three to five most promising models, preferring models that make different types of errors.</p></li>
 </ol>
+<blockquote>
+<div><p>If the data is huge, you may want to sample smaller training sets so you can train many different models in a reasonable time (be aware that this penalizes complex models such as large neural nets or Random Forests).
+Once again, try to automate these steps as much as possible.</p>
+</div></blockquote>
 </div>
 <div class="section" id="fine-tune-the-system">
 <h3>6. Fine-Tune the System<a class="headerlink" href="#fine-tune-the-system" title="Permalink to this headline">¶</a></h3>
-<p>Notes:</p>
-<ul class="simple">
-<li><p>You will want to use as much data as possible for this step, especially as you move toward the end of fine-tuning.</p></li>
-<li><p>As always automate what you can.</p></li>
-</ul>
 <ol class="simple">
 <li><p>Fine-tune the hyperparameters using cross-validation.</p>
 <ul class="simple">
@@ -1471,6 +1469,9 @@
 <li><p>Try Ensemble methods. Combining your best models will often perform better than running them invdividually.</p></li>
 <li><p>Once you are confident about your final model, measure its performance on the test set to estimate the generalization error.</p></li>
 </ol>
+<blockquote>
+<div><p>You will want to use as much data as possible for this step, especially as you move toward the end of fine-tuning. As always automate what you can.</p>
+</div></blockquote>
 <blockquote>
 <div><p>Don’t tweak your model after measuring the generalization error: you would just start overfitting the test set.</p>
 </div></blockquote>

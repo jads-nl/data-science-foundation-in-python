@@ -1,6 +1,6 @@
 # Discover projects
 
-The best way to learn how to apply the theory, is to get your hands dirty on one of the [discover projects](https://github.com/jads-nl/discover-projects). The aim of these projects is to get hands-on experience in building a model following the CRISP-DM framework. Examples and started notebooks are provided in the following section.
+The best way to learn how to apply the theory, is to get your hands dirty on one of the [discover projects](https://github.com/jads-nl/discover-projects). The aim of these projects is to get hands-on experience in building a model following the CRISP-DM framework. Examples and starter notebooks are provided in the following section.
 
 ## Machine learning project checklist
 
@@ -17,14 +17,15 @@ This checklist can guide you through your discover project. There are eight main
 
 Obviously, you should feel free to adapt this checklist to your needs.  
 
-### 1. Frame the problem and look at the big picture  
-1. Define the objective in business terms.  
-2. How will your solution be used?  
-3. What are the current solutions/workarounds (if any)?  
-4. How should you frame this problem (supervised/unsupervised, online/offline, etc.)  
-5. How should performance be measured?  
-6. Is the performance measure aligned with the business objective?  
-7. What would be the minimum performance needed to reach the business objective?  
+### 1. Frame the problem and look at the big picture
+
+1. Define the objective in business terms.
+2. How will your solution be used?
+3. What are the current solutions/workarounds (if any)?
+4. How should you frame this problem (supervised/unsupervised, online/offline, etc.)
+5. How should performance be measured?
+6. Is the performance measure aligned with the business objective?
+7. What would be the minimum performance needed to reach the business objective?
 8. What are comparable problems? Can you reuse experience or tools?  
 9. Is human expertise available?  
 10. How would you solve the problem manually?  
@@ -32,7 +33,6 @@ Obviously, you should feel free to adapt this checklist to your needs.
 12. Verify assumptions if possible.  
 
 ### 2.  Get the data   
-Note: automate as much as possible so you can easily get fresh data.  
 
 1. List the data you need and how much you need.  
 2. Find and document where you can get that data.  
@@ -44,17 +44,19 @@ Note: automate as much as possible so you can easily get fresh data.
 8. Convert the data to a format you can easily manipulate (without changing the data itself).  
 9. Ensure sensitive information is deleted or protected (e.g., anonymized). 
 10. Check the size and type of data (time series, sample, geographical, etc.).  
-11. Sample a test set, put it aside, and never look at it (no data snooping!).    
+11. Sample a test set, put it aside, and never look at it (no data snooping!).
+
+> Automate as much as possible so you can easily get fresh data.  
+
 
 ### 3. Explore the data  
-Note: try to get insights from a field expert for these steps.  
-
+ 
 1. Create a copy of the data for exploration (sampling it down to a manageable size if necessary).
 2. Create a Jupyter notebook to keep record of your data exploration.  
 3. Study each attribute and its characteristics:  
     - Name  
     - Type (categorical, int/float, bounded/unbounded, text, structured, etc.)
-    - % of missing values  
+    - Percentage of missing values  
     - Noisiness and type of noise (stochastic, outliers, rounding errors, etc.)
     - Possibly useful for the task?  
     - Type of distribution (Gaussian, uniform, logarithmic, etc.)
@@ -64,7 +66,10 @@ Note: try to get insights from a field expert for these steps.
 7. Study how you would solve the problem manually.  
 8. Identify the promising transformations you may want to apply.  
 9. Identify extra data that would be useful (go back to "Get the Data" on page 502).  
-10. Document what you have learned.  
+10. Document what you have learned.
+
+> Try to get insights from a field expert for these steps.  
+
 
 ### 4. Prepare the data  
 Notes:    
@@ -89,9 +94,6 @@ Notes:
 4. Feature scaling: standardize or normalize features.  
 
 ### 5. Short-list promising models  
-Notes: 
-- If the data is huge, you may want to sample smaller training sets so you can train many different models in a reasonable time (be aware that this penalizes complex models such as large neural nets or Random Forests).  
-- Once again, try to automate these steps as much as possible.    
 
 1. Train many quick and dirty models from different categories (e.g., linear, naive, Bayes, SVM, Random Forests, neural net, etc.) using standard parameters.  
 2. Measure and compare their performance.  
@@ -101,18 +103,20 @@ Notes:
     - What data would a human have used to avoid these errors?  
 5. Have a quick round of feature selection and engineering.  
 6. Have one or two more quick iterations of the five previous steps.  
-7. Short-list the top three to five most promising models, preferring models that make different types of errors.  
+7. Short-list the top three to five most promising models, preferring models that make different types of errors.
 
-### 6. Fine-Tune the System  
-Notes:  
-- You will want to use as much data as possible for this step, especially as you move toward the end of fine-tuning.   
-- As always automate what you can.    
+> If the data is huge, you may want to sample smaller training sets so you can train many different models in a reasonable time (be aware that this penalizes complex models such as large neural nets or Random Forests). 
+> Once again, try to automate these steps as much as possible.    
+
+### 6. Fine-Tune the System    
 
 1. Fine-tune the hyperparameters using cross-validation.  
     - Treat your data transformation choices as hyperparameters, especially when you are not sure about them (e.g., should I replace missing values with zero or the median value? Or just drop the rows?).  
     - Unless there are very few hyperparamter values to explore, prefer random search over grid search. If training is very long, you may prefer a Bayesian optimization approach (e.g., using a Gaussian process priors, as described by Jasper Snoek, Hugo Larochelle, and Ryan Adams ([https://goo.gl/PEFfGr](https://goo.gl/PEFfGr)))  
 2. Try Ensemble methods. Combining your best models will often perform better than running them invdividually.  
 3. Once you are confident about your final model, measure its performance on the test set to estimate the generalization error.
+
+> You will want to use as much data as possible for this step, especially as you move toward the end of fine-tuning. As always automate what you can.  
 
 > Don't tweak your model after measuring the generalization error: you would just start overfitting the test set.  
   
