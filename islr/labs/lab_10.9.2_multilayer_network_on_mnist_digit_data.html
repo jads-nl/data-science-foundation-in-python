@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Lab 12.5: Unsupervised Learning" href="lab_12.5_unsupervised_learning.html" />
+    <link rel="next" title="Lab 10.9.3: Convolutional Neural Networks" href="lab_10.9.3_convolutional_neural_networks.html" />
     <link rel="prev" title="Lab 9.6: Support Vector Machines" href="lab_09.6_support_vector_machines.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -176,6 +176,11 @@
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Lab 10.9.2: A Multilayer Network on the MNIST Digit Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_10.9.3_convolutional_neural_networks.html">
+     Lab 10.9.3: Convolutional Neural Networks
     </a>
    </li>
    <li class="toctree-l2">
@@ -1393,7 +1398,7 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>In this article we’ll build a simple neural network and train it to recognize handwritten digits using the MNIST dataset. Training a <em>classifier</em> on the MNIST dataset is regarded as the <em>hello world</em> of image recognition. To follow along here, you should have a basic understanding of the <a class="reference external" href="https://en.wikipedia.org/wiki/Multilayer_perceptron">Multilayer Perceptron</a> class of neural networks.</p>
 <p>MNIST contains 70,000 images of handwritten digits: 60,000 for training and 10,000 for testing. The images are grayscale, 28x28 pixels, and centered to reduce preprocessing and get started quicker.</p>
-<p><a class="reference external" href="https://keras.io">Keras</a> is a high-level neural network API focused on user friendliness, fast prototyping, modularity and extensibility. It works with deep learning frameworks like <span class="xref myst">Tensorflow</span>, <a class="reference external" href="http://deeplearning.net/software/theano/">Theano</a> and <a class="reference external" href="https://github.com/Microsoft/CNTK">CNTK</a>, so we can get right into building and training a neural network without a lot of fuss.</p>
+<p><a class="reference external" href="https://keras.io">Keras</a> is a high-level neural network API focused on user friendliness, fast prototyping, modularity and extensibility. It works with deep learning frameworks like <a class="reference external" href="https://tensorflow.org">Tensorflow</a>, <a class="reference external" href="http://deeplearning.net/software/theano/">Theano</a> and <a class="reference external" href="https://github.com/Microsoft/CNTK">CNTK</a>, so we can get right into building and training a neural network without a lot of fuss.</p>
 </div>
 <div class="section" id="setting-up-and-preparing-the-data">
 <h2>Setting up and preparing the data<a class="headerlink" href="#setting-up-and-preparing-the-data" title="Permalink to this headline">¶</a></h2>
@@ -1414,7 +1419,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="c1"># %matplotlib inline</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;gtk3agg&#39;</span><span class="p">)</span>
 
 <span class="c1"># let&#39;s keep our keras backend tensorflow quiet</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -1433,21 +1438,98 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.8.12</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">backends</span><span class="o">/</span><span class="n">backend_cairo</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">16</span>     <span class="kn">import</span> <span class="nn">cairo</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="k">if</span> <span class="n">cairo</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
 
-   16384/11490434 [..............................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 4579328/11490434 [==========&gt;...................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-11493376/11490434 [==============================] - 0s 0us/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-11501568/11490434 [==============================] - 0s 0us/step
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;cairo&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.8.12</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">backends</span><span class="o">/</span><span class="n">backend_cairo</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">22</span>         <span class="kn">import</span> <span class="nn">cairocffi</span> <span class="k">as</span> <span class="nn">cairo</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;cairocffi&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.8.12</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">backends</span><span class="o">/</span><span class="n">backend_gtk3agg</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">----&gt; </span><span class="mi">5</span>     <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">backend_cairo</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.8.12</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">backends</span><span class="o">/</span><span class="n">backend_cairo</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">24</span>         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>             <span class="s2">&quot;cairo backend requires that pycairo&gt;=1.11.0 or cairocffi &quot;</span>
+
+<span class="ne">ImportError</span>: cairo backend requires that pycairo&gt;=1.11.0 or cairocffi is installed
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">3891033962.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;gtk3agg&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># let&#39;s keep our keras backend tensorflow quiet</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/__init__.py</span> in <span class="ni">use</span><span class="nt">(backend, force)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1142</span>                 <span class="c1"># user does not have the libraries to support their</span>
+<span class="g g-Whitespace">   </span><span class="mi">1143</span>                 <span class="c1"># chosen backend installed.</span>
+<span class="ne">-&gt; </span><span class="mi">1144</span>                 <span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1145</span>             <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1146</span>                 <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/pyplot.py</span> in <span class="ni">switch_backend</span><span class="nt">(newbackend)</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="n">backend_name</span> <span class="o">=</span> <span class="n">cbook</span><span class="o">.</span><span class="n">_backend_module_name</span><span class="p">(</span><span class="n">newbackend</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span> 
+<span class="ne">--&gt; </span><span class="mi">267</span>     <span class="k">class</span> <span class="nc">backend_mod</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">backend_bases</span><span class="o">.</span><span class="n">_Backend</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">backend_name</span><span class="p">)))</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span> 
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/matplotlib/pyplot.py</span> in <span class="ni">backend_mod</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span> 
+<span class="g g-Whitespace">    </span><span class="mi">267</span>     <span class="k">class</span> <span class="nc">backend_mod</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">backend_bases</span><span class="o">.</span><span class="n">_Backend</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">268</span>         <span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">backend_name</span><span class="p">)))</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span> 
+<span class="g g-Whitespace">    </span><span class="mi">270</span>     <span class="n">required_framework</span> <span class="o">=</span> <span class="n">_get_required_interactive_framework</span><span class="p">(</span><span class="n">backend_mod</span><span class="p">)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/__init__.py</span> in <span class="ni">import_module</span><span class="nt">(name, package)</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span>                 <span class="k">break</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>             <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">127</span>     <span class="k">return</span> <span class="n">_bootstrap</span><span class="o">.</span><span class="n">_gcd_import</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">level</span><span class="p">:],</span> <span class="n">package</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span> 
+<span class="g g-Whitespace">    </span><span class="mi">129</span> 
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_gcd_import</span><span class="nt">(name, package, level)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_find_and_load</span><span class="nt">(name, import_)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_load_unlocked</span><span class="nt">(spec)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/_bootstrap_external.py</span> in <span class="ni">exec_module</span><span class="nt">(self, module)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/importlib/_bootstrap.py</span> in <span class="ni">_call_with_frames_removed</span><span class="nt">(f, *args, **kwds)</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.8.12</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">backends</span><span class="o">/</span><span class="n">backend_gtk3agg</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">backend_cairo</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="ne">----&gt; </span><span class="mi">7</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;backend Gtk3Agg requires cairo&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">backend_agg</span><span class="p">,</span> <span class="n">backend_gtk3</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">.backend_cairo</span> <span class="kn">import</span> <span class="n">cairo</span>
+
+<span class="ne">ImportError</span>: backend Gtk3Agg requires cairo
 </pre></div>
 </div>
 </div>
@@ -1463,12 +1545,23 @@
   <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Digit: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
   <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
   <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
-<span class="n">fig</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_5_0.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_5_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">3187459407.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>   <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>   <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="ne">----&gt; </span><span class="mi">5</span>   <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>   <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Digit: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>   <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="ne">NameError</span>: name &#39;X_train&#39; is not defined
+</pre></div>
+</div>
 <img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_5_1.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_5_1.png" />
 </div>
 </div>
@@ -1484,12 +1577,23 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">784</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Pixel Value Distribution&quot;</span><span class="p">)</span>
-<span class="n">fig</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_7_0.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_7_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">1577449043.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Digit: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+
+<span class="ne">NameError</span>: name &#39;X_train&#39; is not defined
+</pre></div>
+</div>
 <img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_7_1.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_7_1.png" />
 </div>
 </div>
@@ -1521,12 +1625,16 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>X_train shape (60000, 28, 28)
-y_train shape (60000,)
-X_test shape (10000, 28, 28)
-y_test shape (10000,)
-Train matrix shape (60000, 784)
-Test matrix shape (10000, 784)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">3829798392.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># let&#39;s print the shape before we reshape and normalize</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X_train shape&quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y_train shape&quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X_test shape&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y_test shape&quot;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;X_train&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1539,7 +1647,12 @@ Test matrix shape (10000, 784)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=uint8), array([5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949]))
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">939237367.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;y_train&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1557,8 +1670,16 @@ Test matrix shape (10000, 784)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape before one-hot encoding:  (60000,)
-Shape after one-hot encoding:  (60000, 10)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">602808052.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># one-hot encoding using keras&#39; numpy-related utilities</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">n_classes</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape before one-hot encoding: &quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">Y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;y_train&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1591,6 +1712,20 @@ Shape after one-hot encoding:  (60000, 10)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">1488369515.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># building a linear stack of layers with the sequential model</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">784</span><span class="p">,)))</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;Sequential&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p><img alt="" src="../../_images/lab_10.9.2.png" /></p>
 </div>
@@ -1603,6 +1738,17 @@ Shape after one-hot encoding:  (60000, 10)
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compiling the sequential model</span>
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">3753931674.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># compiling the sequential model</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;model&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1627,129 +1773,11 @@ Shape after one-hot encoding:  (60000, 10)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.3361 - accuracy: 0.9007 - val_loss: 0.1400 - val_accuracy: 0.9581 - 2s/epoch - 5ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.1392 - accuracy: 0.9581 - val_loss: 0.0915 - val_accuracy: 0.9719 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0996 - accuracy: 0.9697 - val_loss: 0.0822 - val_accuracy: 0.9740 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0796 - accuracy: 0.9746 - val_loss: 0.0759 - val_accuracy: 0.9764 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0645 - accuracy: 0.9802 - val_loss: 0.0680 - val_accuracy: 0.9791 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0570 - accuracy: 0.9822 - val_loss: 0.0684 - val_accuracy: 0.9800 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0503 - accuracy: 0.9839 - val_loss: 0.0640 - val_accuracy: 0.9805 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0472 - accuracy: 0.9849 - val_loss: 0.0596 - val_accuracy: 0.9821 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0414 - accuracy: 0.9867 - val_loss: 0.0641 - val_accuracy: 0.9823 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0349 - accuracy: 0.9884 - val_loss: 0.0722 - val_accuracy: 0.9794 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0350 - accuracy: 0.9885 - val_loss: 0.0671 - val_accuracy: 0.9802 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0298 - accuracy: 0.9897 - val_loss: 0.0663 - val_accuracy: 0.9817 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0300 - accuracy: 0.9901 - val_loss: 0.0588 - val_accuracy: 0.9833 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0267 - accuracy: 0.9913 - val_loss: 0.0563 - val_accuracy: 0.9848 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0267 - accuracy: 0.9907 - val_loss: 0.0632 - val_accuracy: 0.9833 - 2s/epoch - 5ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0233 - accuracy: 0.9923 - val_loss: 0.0722 - val_accuracy: 0.9823 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0220 - accuracy: 0.9925 - val_loss: 0.0695 - val_accuracy: 0.9841 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0199 - accuracy: 0.9932 - val_loss: 0.0682 - val_accuracy: 0.9846 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0227 - accuracy: 0.9923 - val_loss: 0.0643 - val_accuracy: 0.9832 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/20
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0205 - accuracy: 0.9929 - val_loss: 0.0656 - val_accuracy: 0.9828 - 2s/epoch - 4ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saved trained model at keras_mnist.h5
-CPU times: user 59.5 s, sys: 3.38 s, total: 1min 2s
-Wall time: 39.5 s
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">timed</span> <span class="n">exec</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+
+<span class="ne">NameError</span>: name &#39;model&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1780,7 +1808,18 @@ Wall time: 39.5 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_21_0.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_21_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">1046730046.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model accuracy&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;history&#39; is not defined
+</pre></div>
+</div>
 <img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_21_1.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_21_1.png" />
 </div>
 </div>
@@ -1800,11 +1839,16 @@ Wall time: 39.5 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 1s - loss: 0.0656 - accuracy: 0.9828 - 555ms/epoch - 2ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Loss 0.06556711345911026
-Test Accuracy 0.9828000068664551
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">1652865897.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">mnist_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;keras_mnist.h5&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">mnist_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Loss&quot;</span><span class="p">,</span> <span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Accuracy&quot;</span><span class="p">,</span> <span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="ne">NameError</span>: name &#39;load_model&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1853,12 +1897,18 @@ Test Accuracy 0.9828000068664551
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9828  classified correctly
-172  classified incorrectly
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_3943</span><span class="o">/</span><span class="mf">503877101.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># load the model and create predictions on the test set</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">mnist_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;./keras_mnist.h5&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">predicted_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mnist_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># see which we predicted correctly and which not</span>
+
+<span class="ne">NameError</span>: name &#39;load_model&#39; is not defined
 </pre></div>
 </div>
-<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_1.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_1.png" />
-<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_2.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_2.png" />
 </div>
 </div>
 <p>As we can see, the wrong predictions are quite forgiveable since they’re in some cases even hard to recognize for the human reader.</p>
@@ -1899,10 +1949,10 @@ Test Accuracy 0.9828000068664551
             <p class="prev-next-title">Lab 9.6: Support Vector Machines</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="lab_12.5_unsupervised_learning.html" title="next page">
+    <a class='right-next' id="next-link" href="lab_10.9.3_convolutional_neural_networks.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab 12.5: Unsupervised Learning</p>
+        <p class="prev-next-title">Lab 10.9.3: Convolutional Neural Networks</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

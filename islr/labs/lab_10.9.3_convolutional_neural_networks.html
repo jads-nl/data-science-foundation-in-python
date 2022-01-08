@@ -1,0 +1,1750 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 10.9.3: Convolutional Neural Networks &#8212; Data Science Foundation Curriculum</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/labs/lab_10.9.3_convolutional_neural_networks.html" />
+    <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Lab 12.5: Unsupervised Learning" href="lab_12.5_unsupervised_learning.html" />
+    <link rel="prev" title="Lab 10.9.2: A Multilayer Network on the MNIST Digit Data" href="lab_10.9.2_multilayer_network_on_mnist_digit_data.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/jads-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science Foundation Curriculum</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../index.html">
+   Why this JupyterBook?
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Statistical Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction.html">
+   Introduction to ISLRv2
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../labs.html">
+   Labs
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_02.3_introduction.html">
+     Lab 2.3: Introduction to Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_03.6_linear_regression.html">
+     Lab 3.6: Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_04.7_classification_methods.html">
+     Lab 4.7: Classification Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_05.3_cross_validation_and_the_bootstrap.html">
+     Lab 5.3: Cross-Validation and the Bootstrap
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_06.5.1_subset_selection_methods.html">
+     Lab 6.5.1: Subset Selection Methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_06.5.2_ridge_regression_and_the_lasso.html">
+     Lab 6.5.2: Ridge Regression and the Lasso
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_06.5.3_pcr_and_pls_regression.html">
+     Lab 6.5.3: PCR and PLS Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_07.8_non_linear_modelling.html">
+     Lab 7.8: Non-linear Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_08.3_decision_trees.html">
+     Lab 8.3: Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_09.6_support_vector_machines.html">
+     Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_10.9.2_multilayer_network_on_mnist_digit_data.html">
+     Lab 10.9.2: A Multilayer Network on the MNIST Digit Data
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Lab 10.9.3: Convolutional Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_12.5_unsupervised_learning.html">
+     Lab 12.5: Unsupervised Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../exercises.html">
+   Exercises
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter2/index.html">
+     Chapter 2
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise1.html">
+       Exercise 2.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise2.html">
+       Exercise 2.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise3.html">
+       Exercise 2.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise4.html">
+       Exercise 2.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise5.html">
+       Exercise 2.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise6.html">
+       Exercise 2.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise7.html">
+       Exercise 2.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise8.html">
+       Exercise 2.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise9.html">
+       Exercise 2.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter2/exercise10.html">
+       Exercise 2.10
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter3/index.html">
+     Chapter 3
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise1.html">
+       Exercise 3.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise2.html">
+       Exercise 3.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise3.html">
+       Exercise 3.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise4.html">
+       Exercise 3.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise5.html">
+       Exercise 3.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise6.html">
+       Exercise 3.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise7.html">
+       Exercise 3.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise8.html">
+       Exercise 3.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise9.html">
+       Exercise 3.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise10.html">
+       Exercise 3.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise11.html">
+       Exercise 3.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise12.html">
+       Exercise 3.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise13.html">
+       Exercise 3.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise14.html">
+       Exercise 3.14
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter3/exercise15.html">
+       Exercise 3.15
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter4/index.html">
+     Chapter 4
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise1.html">
+       Exercise 4.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise2.html">
+       Exercise 4.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise3.html">
+       Exercise 4.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise4.html">
+       Exercise 4.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise5.html">
+       Exercise 4.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise6.html">
+       Exercise 4.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise7.html">
+       Exercise 4.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise8.html">
+       Exercise 4.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise9.html">
+       Exercise 4.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise10.html">
+       Exercise 10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise11.html">
+       Exercise 11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise12.html">
+       Exercise 12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise13.html">
+       Exercise 4.13
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise14.html">
+       Exercise 4.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise15.html">
+       Exercise 4.12
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter4/exercise16.html">
+       Exercise 4.16
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter5/index.html">
+     Chapter 5
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise1.html">
+       Exercise 5.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise2.html">
+       Exercise 5.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise3.html">
+       Problem 5.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise4.html">
+       Exercise 5.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise5.html">
+       Exercise 5.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise6.html">
+       Exercise 5.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise7.html">
+       Exercise 5.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise8.html">
+       Exercise 5.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter5/exercise9.html">
+       Exercise 5.9
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter6/index.html">
+     Chapter 6
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise1.html">
+       Exercise 6.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise2.html">
+       Exercise 6.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise3.html">
+       Exercise 6.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise4.html">
+       Exercise 6.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise5.html">
+       Exercise 6.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise6.html">
+       Exercise 6.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise7.html">
+       Exercise 6.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise8.html">
+       Exercise 6.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise9.html">
+       Exercise 6.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise10.html">
+       Exercise 6.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter6/exercise11.html">
+       Exercise 6.11
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter7/index.html">
+     Chapter 7
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise1.html">
+       Exercise 7.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise2.html">
+       Exercise 7.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise3.html">
+       Exercise 7.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise4.html">
+       Exercise 7.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise5.html">
+       Exercise 7.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise6.html">
+       Exercise 7.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise7.html">
+       Exercise 7.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise8.html">
+       Exercise 7.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise9.html">
+       Exercise 7.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise10.html">
+       Exercise 7.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise11.html">
+       Exercise 7.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter7/exercise12.html">
+       Exercise 7.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter8/index.html">
+     Chapter 8
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise1.html">
+       Exercise 8.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise2.html">
+       Exercise 8.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise3.html">
+       Exercise 8.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise4.html">
+       Exercise 8.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise5.html">
+       Exercise 8.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise6.html">
+       Exercise 8.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise7.html">
+       Exercise 8.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise8.html">
+       Exercise 8.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise9.html">
+       Exercise 8.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise10.html">
+       Exercise 8.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise11.html">
+       Exercise 8.11
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter8/exercise12.html">
+       Exercise 8.12
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter9/index.html">
+     Chapter 9
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise1.html">
+       Exercise 9.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise2.html">
+       Exercise 9.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise3.html">
+       Exercise 9.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise4.html">
+       Exercise 9.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise5.html">
+       Exercise 9.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise6.html">
+       Exercise 9.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise7.html">
+       Exercise 9.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter9/exercise8.html">
+       Exercise 9.8
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../exercises/chapter12/index.html">
+     Chapter 12
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise1.html">
+       Exercise 12.1
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise2.html">
+       Exercise 12.2
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise3.html">
+       Exercise 12.3
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise4.html">
+       Exercise 12.4
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise5.html">
+       Exercise 12.5
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise6.html">
+       Exercise 12.6
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise7.html">
+       Exercise 12.7
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise8.html">
+       Exercise 10.8
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise9.html">
+       Exercise 12.9
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise10.html">
+       Exercise 12.10
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../exercises/chapter12/exercise11.html">
+       Exercise 12.11
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Hands-on Machine Learning in Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../handson-ml2/introduction.html">
+   Hands-on Machine Learning with Aurélien Géron
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/01_the_machine_learning_landscape.html">
+     Chapter 1 – The Machine Learning landscape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/02_end_to_end_machine_learning_project.html">
+     Chapter 2 – End-to-end Machine Learning project
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/03_classification.html">
+     Chapter 3 – Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/04_training_linear_models.html">
+     Chapter 4 – Training Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/05_support_vector_machines.html">
+     Chapter 5 – Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/06_decision_trees.html">
+     Chapter 6 – Decision Trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/07_ensemble_learning_and_random_forests.html">
+     Chapter 7 – Ensemble Learning and Random Forests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/08_dimensionality_reduction.html">
+     Chapter 8 – Dimensionality Reduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/09_unsupervised_learning.html">
+     Chapter 9 – Unsupervised Learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/10_neural_nets_with_keras.html">
+     Chapter 10 – Introduction to Artificial Neural Networks with Keras
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/11_training_deep_neural_networks.html">
+     Chapter 11 – Training Deep Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/12_custom_models_and_training_with_tensorflow.html">
+     Chapter 12 – Custom Models and Training with TensorFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/13_loading_and_preprocessing_data.html">
+     Chapter 13 – Loading and Preprocessing Data with TensorFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/14_deep_computer_vision_with_cnns.html">
+     Chapter 14 – Deep Computer Vision Using Convolutional Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/15_processing_sequences_using_rnns_and_cnns.html">
+     Chapter 15 – Processing Sequences Using RNNs and CNNs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/16_nlp_with_rnns_and_attention.html">
+     Chapter 16 – Natural Language Processing with RNNs and Attention**
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/17_autoencoders_and_gans.html">
+     Chapter 17 – Autoencoders and GANs**
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/18_reinforcement_learning.html">
+     Chapter 18 – Reinforcement Learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/19_training_and_deploying_at_scale.html">
+     Chapter 19 – Training and Deploying TensorFlow Models at Scale
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../handson-ml2/extra.html">
+   Miscellaneous tips &amp; tricks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/extra/overfitting.html">
+     Overfitting vs. underfitting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
+     Effective Python and idiomatic pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/math_linear_algebra.html">
+     Math primer - Linear Algebra
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/math_differential_calculus.html">
+     Math primer - Differential Calculus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/extra_autodiff.html">
+     Implementation of autodiff techniques
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/original/extra_gradient_descent_comparison.html">
+     Comparison of Batch, Mini-Batch and Stochastic Gradient Descent
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../handson-ml2/projects.html">
+   Discover projects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/extra/pandas-profiling.html">
+     Pandas profiling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/extra/ames-housing.html">
+     Ames Housing case - examples of possible solutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../handson-ml2/extra/pima-indians-diabetes.html">
+     Pima Indians Diabetes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Data visualization with Altair
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../visualization/introduction-to-interactive-data-visualization.html">
+   Introduction to data visualization with Python
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../visualization/altair_get_started.html">
+   Getting Started with Altair
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_introduction.html">
+     Introduction to Altair
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_marks_encoding.html">
+     Data Types, Graphical Marks, and Visual Encoding Channels
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_data_transformation.html">
+     Data Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_scales_axes_legends.html">
+     Scales, Axes, and Legends
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_view_composition.html">
+     Multi-View Composition
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_interaction.html">
+     Interaction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_cartographic.html">
+     Cartographic Visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/altair_debugging.html">
+     Altair Debugging Guide
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpretable Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../iml/introduction.html">
+   Introduction to IML
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../iml/plot_partial_dependence.html">
+     Partial Dependence and Individual Conditional Expectation Plots
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../iml/plot_permutation_importance.html">
+     Permutation Importance vs Random Forest Feature Importance (MDI)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../iml/plot_permutation_importance_multicollinear.html">
+     Permutation Importance with Multicollinear or Correlated Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../iml/interpreting-machine-learning-models.html">
+     IML with Pima Indians and the Titanic datasets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Principles of time-series forecasting
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../fpp/introduction.html">
+   Introduction to FPP3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../fpp/examples-time-series-forecasting-with-python.html">
+   Examples of time-series forecasting with Python
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Natural language processing with spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../nlp/introduction.html">
+   Introduction to NLP with spaCy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
+   Dutch restaurant reviews
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+  <label for="toctree-checkbox-17">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/nlp-dutch-restaurant-reviews.html">
+     Analyzing Dutch restaurant reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/prepare-restoreviews-dataset.html">
+     Fetch and prepare reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
+     Predict detractors from reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/language-detection-with-character-quadgrams.html">
+     Extra: language detection with character quadgrams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../nlp/nlp-model-sizes.html">
+     Extra: plot of transformer model sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/islr/labs/lab_10.9.3_convolutional_neural_networks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/labs/lab_10.9.3_convolutional_neural_networks.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/islr/labs/lab_10.9.3_convolutional_neural_networks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/islr/labs/lab_10.9.3_convolutional_neural_networks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attribution">
+   Attribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-preparation">
+   Data preparation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-the-network">
+   Building the network
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compiling-and-training-the-model">
+   Compiling and training the Model
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Lab 10.9.3: Convolutional Neural Networks</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attribution">
+   Attribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-preparation">
+   Data preparation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-the-network">
+   Building the network
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compiling-and-training-the-model">
+   Compiling and training the Model
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="lab-10-9-3-convolutional-neural-networks">
+<h1>Lab 10.9.3: Convolutional Neural Networks<a class="headerlink" href="#lab-10-9-3-convolutional-neural-networks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="attribution">
+<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
+<p>This notebook follows lab 10.9.3 from ISLRv2. The R-code has been ported to Python by Daniel Kapitan (08-01-2022).</p>
+</div>
+<div class="section" id="data-preparation">
+<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
+<p>In this section we fit a CNN to the <a class="reference external" href="https://keras.io/api/datasets/cifar100/">CIFAR100 data</a>, which is available in the <a class="reference external" href="https://keras.io">Keras</a> package. It is arranged in a similar fashion as the MNIST data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports for array-handling and plotting</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># let&#39;s keep our keras backend tensorflow quiet</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;3&#39;</span>
+
+<span class="c1"># keras imports for the dataset and building our neural network</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">cifar100</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.losses</span> <span class="kn">import</span> <span class="n">sparse_categorical_crossentropy</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">load_model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+
+<span class="c1"># load the data</span>
+<span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">cifar100</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">label_mode</span><span class="o">=</span><span class="s1">&#39;fine&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train matrix shape&quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test matrix shape&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Range of values train matrix: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> ... </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train matrix shape (50000, 32, 32, 3)
+Test matrix shape (10000, 32, 32, 3)
+Range of values train matrix: 0 ... 255
+</pre></div>
+</div>
+</div>
+</div>
+<p>The array of 50,000 training images has four dimesnions: each three-color image is represented as a set of three channels, each of which consists of <span class="math notranslate nohighlight">\(32 \times 32\)</span> eight-bit pixels. We standardize as we dit for the digits, but keep the array structure. We one-hot encode the response factors to produce a 100-column binary matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+
+<span class="c1"># one-hot encoding using keras&#39; numpy-related utilities</span>
+<span class="n">n_classes</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape before one-hot encoding: &quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape after one-hot encoding: &quot;</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape before one-hot encoding:  (50000, 1)
+Shape after one-hot encoding:  (50000, 100)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Before we start, we look at some of the training images. The file <code class="docutils literal notranslate"><span class="pre">cifar100_meta</span></code> contains the label names.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./cifar100_meta&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="s1">&#39;fine_label_names&#39;</span><span class="p">][</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;coarse_label_names&#39;: [&#39;aquatic_mammals&#39;, &#39;fish&#39;, &#39;flowers&#39;, &#39;food_containers&#39;,
+                        &#39;fruit_and_vegetables&#39;, &#39;household_electrical_devices&#39;,
+                        &#39;household_furniture&#39;, &#39;insects&#39;, &#39;large_carnivores&#39;,
+                        &#39;large_man-made_outdoor_things&#39;,
+                        &#39;large_natural_outdoor_scenes&#39;,
+                        &#39;large_omnivores_and_herbivores&#39;, &#39;medium_mammals&#39;,
+                        &#39;non-insect_invertebrates&#39;, &#39;people&#39;, &#39;reptiles&#39;,
+                        &#39;small_mammals&#39;, &#39;trees&#39;, &#39;vehicles_1&#39;, &#39;vehicles_2&#39;],
+ &#39;fine_label_names&#39;: [&#39;apple&#39;, &#39;aquarium_fish&#39;, &#39;baby&#39;, &#39;bear&#39;, &#39;beaver&#39;, &#39;bed&#39;,
+                      &#39;bee&#39;, &#39;beetle&#39;, &#39;bicycle&#39;, &#39;bottle&#39;, &#39;bowl&#39;, &#39;boy&#39;,
+                      &#39;bridge&#39;, &#39;bus&#39;, &#39;butterfly&#39;, &#39;camel&#39;, &#39;can&#39;, &#39;castle&#39;,
+                      &#39;caterpillar&#39;, &#39;cattle&#39;, &#39;chair&#39;, &#39;chimpanzee&#39;, &#39;clock&#39;,
+                      &#39;cloud&#39;, &#39;cockroach&#39;, &#39;couch&#39;, &#39;crab&#39;, &#39;crocodile&#39;, &#39;cup&#39;,
+                      &#39;dinosaur&#39;, &#39;dolphin&#39;, &#39;elephant&#39;, &#39;flatfish&#39;, &#39;forest&#39;,
+                      &#39;fox&#39;, &#39;girl&#39;, &#39;hamster&#39;, &#39;house&#39;, &#39;kangaroo&#39;, &#39;keyboard&#39;,
+                      &#39;lamp&#39;, &#39;lawn_mower&#39;, &#39;leopard&#39;, &#39;lion&#39;, &#39;lizard&#39;,
+                      &#39;lobster&#39;, &#39;man&#39;, &#39;maple_tree&#39;, &#39;motorcycle&#39;, &#39;mountain&#39;,
+                      &#39;mouse&#39;, &#39;mushroom&#39;, &#39;oak_tree&#39;, &#39;orange&#39;, &#39;orchid&#39;,
+                      &#39;otter&#39;, &#39;palm_tree&#39;, &#39;pear&#39;, &#39;pickup_truck&#39;, &#39;pine_tree&#39;,
+                      &#39;plain&#39;, &#39;plate&#39;, &#39;poppy&#39;, &#39;porcupine&#39;, &#39;possum&#39;,
+                      &#39;rabbit&#39;, &#39;raccoon&#39;, &#39;ray&#39;, &#39;road&#39;, &#39;rocket&#39;, &#39;rose&#39;,
+                      &#39;sea&#39;, &#39;seal&#39;, &#39;shark&#39;, &#39;shrew&#39;, &#39;skunk&#39;, &#39;skyscraper&#39;,
+                      &#39;snail&#39;, &#39;snake&#39;, &#39;spider&#39;, &#39;squirrel&#39;, &#39;streetcar&#39;,
+                      &#39;sunflower&#39;, &#39;sweet_pepper&#39;, &#39;table&#39;, &#39;tank&#39;, &#39;telephone&#39;,
+                      &#39;television&#39;, &#39;tiger&#39;, &#39;tractor&#39;, &#39;train&#39;, &#39;trout&#39;,
+                      &#39;tulip&#39;, &#39;turtle&#39;, &#39;wardrobe&#39;, &#39;whale&#39;, &#39;willow_tree&#39;,
+                      &#39;wolf&#39;, &#39;woman&#39;, &#39;worm&#39;]}
+</pre></div>
+</div>
+<img alt="../../_images/lab_10.9.3_convolutional_neural_networks_5_1.png" src="../../_images/lab_10.9.3_convolutional_neural_networks_5_1.png" />
+<img alt="../../_images/lab_10.9.3_convolutional_neural_networks_5_2.png" src="../../_images/lab_10.9.3_convolutional_neural_networks_5_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="building-the-network">
+<h2>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">¶</a></h2>
+<p>Here we specify a moderately-sized CNN for demonstration purposes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># building a linear stack of layers with the sequential model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 32, 32, 32)        896       
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 16, 16, 32)       0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, 16, 16, 64)        18496     
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 8, 8, 64)         0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 8, 8, 128)         73856     
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 4, 4, 128)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, 4, 4, 256)         295168    
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 2, 2, 256)        0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 1024)              0         
+                                                                 
+ dropout (Dropout)           (None, 1024)              0         
+                                                                 
+ dense (Dense)               (None, 512)               524800    
+                                                                 
+ dense_1 (Dense)             (None, 100)               51300     
+                                                                 
+=================================================================
+Total params: 964,516
+Trainable params: 964,516
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that we used the <code class="docutils literal notranslate"><span class="pre">padding</span> <span class="pre">=</span> <span class="pre">same</span></code> argument to <code class="docutils literal notranslate"><span class="pre">Conv2D()</span></code>, which ensures that the output channels have the same dimension as the input channels. There are 32 channels in the first hidden layer, in contrast to the three channels in the input layer. We use a <span class="math notranslate nohighlight">\(3 \times 3\)</span> convolution filter for each channel in all the layers. Each convolution is followed by a max-pooling layer over <span class="math notranslate nohighlight">\(2 \times 2\)</span> blocks. By studying the summary, we can see that the channels halve in both dimensions after each of the max-pooling operations. After the last of these we have a layer with 256 channels of dimension <span class="math notranslate nohighlight">\(2 \times 2\)</span>. These are then flattened to a dense layer of size 1,024: in other words, each of the <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrics is turned into a 4-vector, and put side-by-side in one layer. This is followed by a dropout regularization layer, then another dense layers of size 512, which finally reaches the softmax output layer.</p>
+</div>
+<div class="section" id="compiling-and-training-the-model">
+<h2>Compiling and training the Model<a class="headerlink" href="#compiling-and-training-the-model" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we specify the fitting algorithm, and fit the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># compiling the sequential model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+
+<span class="c1"># training the model and saving metrics in history</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span>
+          <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="c1"># save the model</span>
+<span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;keras_cifar100.h5&#39;</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved trained model at </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/30
+313/313 - 21s - loss: 4.1577 - accuracy: 0.0587 - val_loss: 3.6969 - val_accuracy: 0.1263 - 21s/epoch - 67ms/step
+Epoch 2/30
+313/313 - 19s - loss: 3.4891 - accuracy: 0.1631 - val_loss: 3.2034 - val_accuracy: 0.2149 - 19s/epoch - 62ms/step
+Epoch 3/30
+313/313 - 19s - loss: 3.1219 - accuracy: 0.2277 - val_loss: 2.9499 - val_accuracy: 0.2644 - 19s/epoch - 62ms/step
+Epoch 4/30
+313/313 - 19s - loss: 2.8791 - accuracy: 0.2764 - val_loss: 2.8735 - val_accuracy: 0.2773 - 19s/epoch - 62ms/step
+Epoch 5/30
+313/313 - 20s - loss: 2.6941 - accuracy: 0.3103 - val_loss: 2.6603 - val_accuracy: 0.3256 - 20s/epoch - 63ms/step
+Epoch 6/30
+313/313 - 20s - loss: 2.5200 - accuracy: 0.3456 - val_loss: 2.5317 - val_accuracy: 0.3535 - 20s/epoch - 63ms/step
+Epoch 7/30
+313/313 - 20s - loss: 2.3977 - accuracy: 0.3730 - val_loss: 2.4579 - val_accuracy: 0.3686 - 20s/epoch - 63ms/step
+Epoch 8/30
+313/313 - 20s - loss: 2.2714 - accuracy: 0.4001 - val_loss: 2.4374 - val_accuracy: 0.3701 - 20s/epoch - 64ms/step
+Epoch 9/30
+313/313 - 21s - loss: 2.1526 - accuracy: 0.4245 - val_loss: 2.3649 - val_accuracy: 0.3920 - 21s/epoch - 66ms/step
+Epoch 10/30
+313/313 - 20s - loss: 2.0608 - accuracy: 0.4448 - val_loss: 2.3010 - val_accuracy: 0.4018 - 20s/epoch - 65ms/step
+Epoch 11/30
+313/313 - 20s - loss: 1.9553 - accuracy: 0.4674 - val_loss: 2.2965 - val_accuracy: 0.4080 - 20s/epoch - 65ms/step
+Epoch 12/30
+313/313 - 20s - loss: 1.8735 - accuracy: 0.4835 - val_loss: 2.2814 - val_accuracy: 0.4081 - 20s/epoch - 65ms/step
+Epoch 13/30
+313/313 - 21s - loss: 1.7963 - accuracy: 0.5051 - val_loss: 2.2483 - val_accuracy: 0.4177 - 21s/epoch - 66ms/step
+Epoch 14/30
+313/313 - 21s - loss: 1.7115 - accuracy: 0.5200 - val_loss: 2.2871 - val_accuracy: 0.4062 - 21s/epoch - 67ms/step
+Epoch 15/30
+313/313 - 23s - loss: 1.6400 - accuracy: 0.5350 - val_loss: 2.2901 - val_accuracy: 0.4246 - 23s/epoch - 73ms/step
+Epoch 16/30
+313/313 - 26s - loss: 1.5634 - accuracy: 0.5555 - val_loss: 2.2349 - val_accuracy: 0.4314 - 26s/epoch - 82ms/step
+Epoch 17/30
+313/313 - 25s - loss: 1.5039 - accuracy: 0.5687 - val_loss: 2.2831 - val_accuracy: 0.4282 - 25s/epoch - 81ms/step
+Epoch 18/30
+313/313 - 21s - loss: 1.4523 - accuracy: 0.5812 - val_loss: 2.2258 - val_accuracy: 0.4397 - 21s/epoch - 67ms/step
+Epoch 19/30
+313/313 - 22s - loss: 1.3887 - accuracy: 0.5977 - val_loss: 2.2423 - val_accuracy: 0.4326 - 22s/epoch - 70ms/step
+Epoch 20/30
+313/313 - 21s - loss: 1.3253 - accuracy: 0.6099 - val_loss: 2.2678 - val_accuracy: 0.4352 - 21s/epoch - 66ms/step
+Epoch 21/30
+313/313 - 21s - loss: 1.2870 - accuracy: 0.6217 - val_loss: 2.2687 - val_accuracy: 0.4380 - 21s/epoch - 67ms/step
+Epoch 22/30
+313/313 - 21s - loss: 1.2291 - accuracy: 0.6373 - val_loss: 2.2967 - val_accuracy: 0.4377 - 21s/epoch - 66ms/step
+Epoch 23/30
+313/313 - 21s - loss: 1.1952 - accuracy: 0.6441 - val_loss: 2.3206 - val_accuracy: 0.4387 - 21s/epoch - 66ms/step
+Epoch 24/30
+313/313 - 21s - loss: 1.1655 - accuracy: 0.6496 - val_loss: 2.3227 - val_accuracy: 0.4366 - 21s/epoch - 68ms/step
+Epoch 25/30
+313/313 - 21s - loss: 1.1147 - accuracy: 0.6628 - val_loss: 2.3840 - val_accuracy: 0.4410 - 21s/epoch - 66ms/step
+Epoch 26/30
+313/313 - 21s - loss: 1.0828 - accuracy: 0.6734 - val_loss: 2.4030 - val_accuracy: 0.4372 - 21s/epoch - 66ms/step
+Epoch 27/30
+313/313 - 22s - loss: 1.0495 - accuracy: 0.6823 - val_loss: 2.4196 - val_accuracy: 0.4352 - 22s/epoch - 70ms/step
+Epoch 28/30
+313/313 - 20s - loss: 1.0270 - accuracy: 0.6903 - val_loss: 2.3836 - val_accuracy: 0.4389 - 20s/epoch - 65ms/step
+Epoch 29/30
+313/313 - 20s - loss: 0.9930 - accuracy: 0.6962 - val_loss: 2.4345 - val_accuracy: 0.4380 - 20s/epoch - 65ms/step
+Epoch 30/30
+313/313 - 20s - loss: 0.9645 - accuracy: 0.7029 - val_loss: 2.4610 - val_accuracy: 0.4332 - 20s/epoch - 65ms/step
+Saved trained model at keras_cifar100.h5
+CPU times: user 1h 44min 1s, sys: 2min 20s, total: 1h 46min 21s
+Wall time: 10min 27s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plotting the metrics</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/lab_10.9.3_convolutional_neural_networks_11_0.png" src="../../_images/lab_10.9.3_convolutional_neural_networks_11_0.png" />
+</div>
+</div>
+<p>This model takes 10 minutes to run and achieves 46% accuracy on the test data. Although this is not terrible for 100-class data (a random classifier gets 1% accuracy), searching the web we see results around 75%. Typically, it takes a lot of architecture carpentry, fiddling with regularization, and time to achieve such results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">mnist_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Loss: </span><span class="si">{</span><span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Accuracy: </span><span class="si">{</span><span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 2s - loss: 2.4364 - accuracy: 0.4467 - 2s/epoch - 6ms/step
+Test Loss: 2.436
+Test Accuracy: 0.447
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./islr/labs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="lab_10.9.2_multilayer_network_on_mnist_digit_data.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lab 10.9.2: A Multilayer Network on the MNIST Digit Data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="lab_12.5_unsupervised_learning.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lab 12.5: Unsupervised Learning</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Daniel Kapitan<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
