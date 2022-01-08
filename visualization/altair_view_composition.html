@@ -41,7 +41,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -169,6 +169,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../islr/labs/lab_09.6_support_vector_machines.html">
      Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.html">
+     MNIST Handwritten Digit Recognition in Keras
     </a>
    </li>
    <li class="toctree-l2">
@@ -1216,7 +1221,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -1272,7 +1277,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -1334,7 +1339,72 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Multi-View Composition</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#weather-data">
+   Weather Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#layer">
+   Layer
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#shared-axes">
+     Shared Axes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dual-axis-charts">
+     Dual-Axis Charts
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#facet">
+   Facet
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#concatenate">
+   Concatenate
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#repeat">
+   Repeat
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-view-composition-algebra">
+   A View Composition Algebra
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="multi-view-composition">
@@ -1666,29 +1736,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2553aa9ad46948f3b7481330f0fb0ef3"></div>
+<div id="altair-viz-8656d97cc1a046cc97d13039895ab51c"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2553aa9ad46948f3b7481330f0fb0ef3") {
-      outputDiv = document.getElementById("altair-viz-2553aa9ad46948f3b7481330f0fb0ef3");
+    if (outputDiv.id !== "altair-viz-8656d97cc1a046cc97d13039895ab51c") {
+      outputDiv = document.getElementById("altair-viz-8656d97cc1a046cc97d13039895ab51c");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1704,16 +1781,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "area", "encoding": {"x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "area", "encoding": {"x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>The plot shows us temperature ranges for each month over the entirety of our data. However, this is pretty misleading as it aggregates the measurements for both Seattle and New York!</em></p>
@@ -1731,29 +1806,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-4b63cba6d60e48edb8548b6be86d6f0f"></div>
+<div id="altair-viz-fef4bec4d004493a939d8b0cdc270cec"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4b63cba6d60e48edb8548b6be86d6f0f") {
-      outputDiv = document.getElementById("altair-viz-4b63cba6d60e48edb8548b6be86d6f0f");
+    if (outputDiv.id !== "altair-viz-fef4bec4d004493a939d8b0cdc270cec") {
+      outputDiv = document.getElementById("altair-viz-fef4bec4d004493a939d8b0cdc270cec");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1769,16 +1851,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>We can see that Seattle is more temperate: warmer in the winter, and cooler in the summer.</em></p>
@@ -1798,29 +1878,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d48482be2f0c43889d31ec122baa04a1"></div>
+<div id="altair-viz-d0a35c161e98496f9a982e0ad9562bb3"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d48482be2f0c43889d31ec122baa04a1") {
-      outputDiv = document.getElementById("altair-viz-d48482be2f0c43889d31ec122baa04a1");
+    if (outputDiv.id !== "altair-viz-d0a35c161e98496f9a982e0ad9562bb3") {
+      outputDiv = document.getElementById("altair-viz-d0a35c161e98496f9a982e0ad9562bb3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1836,16 +1923,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_mid"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_mid", "type": "quantitative"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Aside</em>: note the use of <code class="docutils literal notranslate"><span class="pre">+datum.temp_min</span></code> within the calculate transform. As we are loading the data directly from a CSV file without any special parsing instructions, the temperature values may be internally represented as string values. Adding the  <code class="docutils literal notranslate"><span class="pre">+</span></code> in front of the value forces it to be treated as a number.</p>
@@ -1873,29 +1958,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-0190befed5c74838903bc59cd4a90d59"></div>
+<div id="altair-viz-0c73687ab29540ffa851efc89d066603"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-0190befed5c74838903bc59cd4a90d59") {
-      outputDiv = document.getElementById("altair-viz-0190befed5c74838903bc59cd4a90d59");
+    if (outputDiv.id !== "altair-viz-0c73687ab29540ffa851efc89d066603") {
+      outputDiv = document.getElementById("altair-viz-0c73687ab29540ffa851efc89d066603");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1911,16 +2003,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_mid"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_mid", "type": "quantitative"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Now we have a multi-layer plot! However, the y-axis title (though informative) has become a bit long and unruly…</em></p>
@@ -1948,29 +2038,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9eb3467298fa4015bb60ac8d4ce120dc"></div>
+<div id="altair-viz-8ade81ebf902428088f726b1cd401f67"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9eb3467298fa4015bb60ac8d4ce120dc") {
-      outputDiv = document.getElementById("altair-viz-9eb3467298fa4015bb60ac8d4ce120dc");
+    if (outputDiv.id !== "altair-viz-8ade81ebf902428088f726b1cd401f67") {
+      outputDiv = document.getElementById("altair-viz-8ade81ebf902428088f726b1cd401f67");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1986,16 +2083,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_mid"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_mid", "type": "quantitative"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>What happens if both layers have custom axis titles? Modify the code above to find out…</em></p>
@@ -2008,29 +2103,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9ab6bad0f1cb4a3a99ef7aa0bac46daa"></div>
+<div id="altair-viz-429993862b214fe692427dc22f5d8f71"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9ab6bad0f1cb4a3a99ef7aa0bac46daa") {
-      outputDiv = document.getElementById("altair-viz-9ab6bad0f1cb4a3a99ef7aa0bac46daa");
+    if (outputDiv.id !== "altair-viz-429993862b214fe692427dc22f5d8f71") {
+      outputDiv = document.getElementById("altair-viz-429993862b214fe692427dc22f5d8f71");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2046,16 +2148,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_mid"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_mid", "type": "quantitative"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>Note that the order of inputs to a layer matters, as subsequent layers will be drawn on top of earlier layers. <em>Try swapping the order of the charts in the cells above. What happens? (Hint: look closely at the color of the <code class="docutils literal notranslate"><span class="pre">line</span></code> marks.)</em></p>
@@ -2080,29 +2180,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c755c0eff627482184e9cde26cb6f4b4"></div>
+<div id="altair-viz-954be1e295324c6399bcc94316b9b9ef"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c755c0eff627482184e9cde26cb6f4b4") {
-      outputDiv = document.getElementById("altair-viz-c755c0eff627482184e9cde26cb6f4b4");
+    if (outputDiv.id !== "altair-viz-954be1e295324c6399bcc94316b9b9ef") {
+      outputDiv = document.getElementById("altair-viz-954be1e295324c6399bcc94316b9b9ef");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2118,16 +2225,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"type": "temporal", "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "precipitation", "title": "Precipitation"}}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "precipitation", "title": "Precipitation", "type": "quantitative"}}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>To facilitate comparison with the temperature data, let’s create a new layered chart. Here’s what happens if we try to layer the charts as we did earlier:</p>
@@ -2157,29 +2262,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7bf71f9206b14d8bbde74ccf0ff0846a"></div>
+<div id="altair-viz-2486f6c42cf744618590886df2319dea"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7bf71f9206b14d8bbde74ccf0ff0846a") {
-      outputDiv = document.getElementById("altair-viz-7bf71f9206b14d8bbde74ccf0ff0846a");
+    if (outputDiv.id !== "altair-viz-2486f6c42cf744618590886df2319dea") {
+      outputDiv = document.getElementById("altair-viz-2486f6c42cf744618590886df2319dea");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2195,16 +2307,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}, {"mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "precipitation", "title": "Precipitation"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}, {"mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "precipitation", "title": "Precipitation", "type": "quantitative"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>The precipitation values use a much smaller range of the y-axis then the temperatures!</em></p>
@@ -2236,29 +2346,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-135d759fc9364cefac28fba43788af29"></div>
+<div id="altair-viz-52f0bb2f881d4307a1002024a1745bbe"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-135d759fc9364cefac28fba43788af29") {
-      outputDiv = document.getElementById("altair-viz-135d759fc9364cefac28fba43788af29");
+    if (outputDiv.id !== "altair-viz-52f0bb2f881d4307a1002024a1745bbe") {
+      outputDiv = document.getElementById("altair-viz-52f0bb2f881d4307a1002024a1745bbe");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2274,16 +2391,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}, {"mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "precipitation", "title": "Precipitation"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "resolve": {"scale": {"y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}, {"mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "precipitation", "title": "Precipitation", "type": "quantitative"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "resolve": {"scale": {"y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>We can now see that autumn is the rainiest season in Seattle (peaking in November), complemented by dry summers.</em></p>
@@ -2312,29 +2427,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6f110753404d4128b8cffbb6560974aa"></div>
+<div id="altair-viz-c96bb432bad548749e7665023cbb2b48"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6f110753404d4128b8cffbb6560974aa") {
-      outputDiv = document.getElementById("altair-viz-6f110753404d4128b8cffbb6560974aa");
+    if (outputDiv.id !== "altair-viz-c96bb432bad548749e7665023cbb2b48") {
+      outputDiv = document.getElementById("altair-viz-c96bb432bad548749e7665023cbb2b48");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2350,16 +2472,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "precipitation", "title": "Precipitation"}}}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "resolve": {"scale": {"y": "independent"}}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature \u00b0C", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": {"type": "line", "interpolate": "monotone", "stroke": "grey"}, "encoding": {"x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "precipitation", "title": "Precipitation", "type": "quantitative"}}}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "resolve": {"scale": {"y": "independent"}}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>While dual-axis charts can be useful, <em>they are often prone to misinterpretation</em>, as the different units and axis scales may be incommensurate. As is feasible, you might consider transformations that map different data fields to shared units, for example showing <a class="reference external" href="https://en.wikipedia.org/wiki/Quantile">quantiles</a> or relative percentage change.</p>
@@ -2382,29 +2502,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1bc0034226b44efc83b46388e26d4af8"></div>
+<div id="altair-viz-9f1cecbaabfe44b4b511deb747ed83d9"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1bc0034226b44efc83b46388e26d4af8") {
-      outputDiv = document.getElementById("altair-viz-1bc0034226b44efc83b46388e26d4af8");
+    if (outputDiv.id !== "altair-viz-9f1cecbaabfe44b4b511deb747ed83d9") {
+      outputDiv = document.getElementById("altair-viz-9f1cecbaabfe44b4b511deb747ed83d9");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2420,16 +2547,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "bar", "encoding": {"x": {"type": "quantitative", "bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)"}, "y": {"type": "quantitative", "aggregate": "count"}}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "bar", "encoding": {"x": {"bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)", "type": "quantitative"}, "y": {"aggregate": "count", "type": "quantitative"}}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>How does this temperature profile change based on the weather of a given day – that is, whether there was drizzle, fog, rain, snow, or sun?</em></p>
@@ -2457,29 +2582,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-261428bc8af6495a83401a47f06ffc44"></div>
+<div id="altair-viz-17178abb3ba24571aa460456829f2cef"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-261428bc8af6495a83401a47f06ffc44") {
-      outputDiv = document.getElementById("altair-viz-261428bc8af6495a83401a47f06ffc44");
+    if (outputDiv.id !== "altair-viz-17178abb3ba24571aa460456829f2cef") {
+      outputDiv = document.getElementById("altair-viz-17178abb3ba24571aa460456829f2cef");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2495,16 +2627,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "bar", "encoding": {"color": {"type": "nominal", "field": "weather", "scale": {"domain": ["drizzle", "fog", "rain", "snow", "sun"], "range": ["#aec7e8", "#c7c7c7", "#1f77b4", "#9467bd", "#e7ba52"]}}, "column": {"type": "nominal", "field": "weather"}, "x": {"type": "quantitative", "bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)"}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 150, "transform": [{"filter": "datum.location == \"Seattle\""}], "width": 150, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "bar", "encoding": {"color": {"field": "weather", "scale": {"domain": ["drizzle", "fog", "rain", "snow", "sun"], "range": ["#aec7e8", "#c7c7c7", "#1f77b4", "#9467bd", "#e7ba52"]}, "type": "nominal"}, "column": {"field": "weather", "type": "nominal"}, "x": {"bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)", "type": "quantitative"}, "y": {"aggregate": "count", "type": "quantitative"}}, "height": 150, "transform": [{"filter": "datum.location == \"Seattle\""}], "width": 150, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Unsurprisingly, those rare snow days center on the coldest temperatures, followed by rainy and foggy days. Sunny days are warmer and, despite Seattle stereotypes, are the most plentiful. Though as any Seattleite can tell you, the drizzle occasionally comes, no matter the temperature!</em></p>
@@ -2536,29 +2666,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-eefe44ded16c4429a0bff1111b408a70"></div>
+<div id="altair-viz-d8bf46b540d44453a9b4d3074ec23b90"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-eefe44ded16c4429a0bff1111b408a70") {
-      outputDiv = document.getElementById("altair-viz-eefe44ded16c4429a0bff1111b408a70");
+    if (outputDiv.id !== "altair-viz-d8bf46b540d44453a9b4d3074ec23b90") {
+      outputDiv = document.getElementById("altair-viz-d8bf46b540d44453a9b4d3074ec23b90");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2574,16 +2711,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"type": "nominal", "field": "weather"}}, "spec": {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "weather", "scale": {"domain": ["drizzle", "fog", "rain", "snow", "sun"], "range": ["#aec7e8", "#c7c7c7", "#1f77b4", "#9467bd", "#e7ba52"]}}, "x": {"type": "quantitative", "bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)"}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 150, "width": 150}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"field": "weather", "type": "nominal"}}, "spec": {"mark": "bar", "encoding": {"color": {"field": "weather", "scale": {"domain": ["drizzle", "fog", "rain", "snow", "sun"], "range": ["#aec7e8", "#c7c7c7", "#1f77b4", "#9467bd", "#e7ba52"]}, "type": "nominal"}, "x": {"bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)", "type": "quantitative"}, "y": {"aggregate": "count", "type": "quantitative"}}, "height": 150, "width": 150}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>Given all the extra code above, why would we want to use an explicit <code class="docutils literal notranslate"><span class="pre">facet</span></code> operator? For basic charts, we should certainly use the <code class="docutils literal notranslate"><span class="pre">column</span></code> or <code class="docutils literal notranslate"><span class="pre">row</span></code> encoding channels if we can. However, using the <code class="docutils literal notranslate"><span class="pre">facet</span></code> operator explicitly is useful if we want to facet composed views, such as layered charts.</p>
@@ -2614,29 +2749,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6235accab0874f0b8af672887808318c"></div>
+<div id="altair-viz-097e31c505ac43489193141e8c78b904"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6235accab0874f0b8af672887808318c") {
-      outputDiv = document.getElementById("altair-viz-6235accab0874f0b8af672887808318c");
+    if (outputDiv.id !== "altair-viz-097e31c505ac43489193141e8c78b904") {
+      outputDiv = document.getElementById("altair-viz-097e31c505ac43489193141e8c78b904");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2652,16 +2794,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"type": "nominal", "field": "location"}}, "spec": {"layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature (\u00b0C)"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_mid"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}]}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"field": "location", "type": "nominal"}}, "spec": {"layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature (\u00b0C)", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_mid", "type": "quantitative"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}]}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>The faceted charts we have seen so far use the same axis scale domains across the facet cells. This default of using <em>shared</em> scales and axes helps aid accurate comparison of values. However, in some cases you may wish to scale each chart independently, for example if the range of values in the cells differs significantly.</p>
@@ -2692,29 +2832,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-aef2a870b30a4310a47bc2afb165d5e6"></div>
+<div id="altair-viz-81355ca3c45d4fab9a8203413f78066d"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-aef2a870b30a4310a47bc2afb165d5e6") {
-      outputDiv = document.getElementById("altair-viz-aef2a870b30a4310a47bc2afb165d5e6");
+    if (outputDiv.id !== "altair-viz-81355ca3c45d4fab9a8203413f78066d") {
+      outputDiv = document.getElementById("altair-viz-81355ca3c45d4fab9a8203413f78066d");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2730,16 +2877,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"type": "nominal", "field": "location"}}, "spec": {"layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature (\u00b0C)"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_mid"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}]}, "resolve": {"axis": {"y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"field": "location", "type": "nominal"}}, "spec": {"layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature (\u00b0C)", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_mid", "type": "quantitative"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}]}, "resolve": {"axis": {"y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>The chart above looks largely unchanged, but the plot for Seattle now includes its own axis.</em></p>
@@ -2770,29 +2915,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-07de6b49f74a47a091561e2a6a70632b"></div>
+<div id="altair-viz-8df381611b6941f395cae5ba022592b7"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-07de6b49f74a47a091561e2a6a70632b") {
-      outputDiv = document.getElementById("altair-viz-07de6b49f74a47a091561e2a6a70632b");
+    if (outputDiv.id !== "altair-viz-8df381611b6941f395cae5ba022592b7") {
+      outputDiv = document.getElementById("altair-viz-8df381611b6941f395cae5ba022592b7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2808,16 +2960,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"type": "nominal", "field": "location"}}, "spec": {"layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max", "title": "Avg. Temperature (\u00b0C)"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_mid"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}]}, "resolve": {"scale": {"y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "facet": {"column": {"field": "location", "type": "nominal"}}, "spec": {"layer": [{"mark": {"type": "area", "opacity": 0.3}, "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"axis": {"format": "%b"}, "field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "title": "Avg. Temperature (\u00b0C)", "type": "quantitative"}, "y2": {"aggregate": "average", "field": "temp_min"}}}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_mid", "type": "quantitative"}}, "transform": [{"calculate": "(+datum.temp_min + +datum.temp_max) / 2", "as": "temp_mid"}]}]}, "resolve": {"scale": {"y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Now we see facet cells with different axis scale domains. In this case, using independent scales seems like a bad idea! The domains aren’t very different, and one might be fooled into thinking that New York and Seattle have similar maximum summer temperatures.</em></p>
@@ -2840,29 +2990,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-36a91911f7fc4ce38ca743381406f690"></div>
+<div id="altair-viz-f9e6bbc399664671a9c7cae20d7e0a21"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-36a91911f7fc4ce38ca743381406f690") {
-      outputDiv = document.getElementById("altair-viz-36a91911f7fc4ce38ca743381406f690");
+    if (outputDiv.id !== "altair-viz-f9e6bbc399664671a9c7cae20d7e0a21") {
+      outputDiv = document.getElementById("altair-viz-f9e6bbc399664671a9c7cae20d7e0a21");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2878,16 +3035,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>What if we want to compare not just temperature over time, but also precipitation and wind levels?</em></p>
@@ -2912,29 +3067,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a751b7ff2960429fb92edbccf3d9d29c"></div>
+<div id="altair-viz-94abf41570684359ad74a3f6cad3a93a"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a751b7ff2960429fb92edbccf3d9d29c") {
-      outputDiv = document.getElementById("altair-viz-a751b7ff2960429fb92edbccf3d9d29c");
+    if (outputDiv.id !== "altair-viz-94abf41570684359ad74a3f6cad3a93a") {
+      outputDiv = document.getElementById("altair-viz-94abf41570684359ad74a3f6cad3a93a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2950,16 +3112,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max"}}, "height": 180, "width": 240}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "precipitation"}}, "height": 180, "width": 240}, {"mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": "wind"}}, "height": 180, "width": 240}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "temp_max", "type": "quantitative"}}, "height": 180, "width": 240}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "precipitation", "type": "quantitative"}}, "height": 180, "width": 240}, {"mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": "wind", "type": "quantitative"}}, "height": 180, "width": 240}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>Alternatively, we could use the more explicit <code class="docutils literal notranslate"><span class="pre">alt.hconcat()</span></code> method in lieu of the pipe <code class="docutils literal notranslate"><span class="pre">|</span></code> operator. <em>Try rewriting the code above to use <code class="docutils literal notranslate"><span class="pre">hconcat</span></code> instead.</em></p>
@@ -2991,29 +3151,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-66fc3575e55a42aa82468d1a2ffe432a"></div>
+<div id="altair-viz-399fb755c6704043bf3be77cc9834789"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-66fc3575e55a42aa82468d1a2ffe432a") {
-      outputDiv = document.getElementById("altair-viz-66fc3575e55a42aa82468d1a2ffe432a");
+    if (outputDiv.id !== "altair-viz-399fb755c6704043bf3be77cc9834789") {
+      outputDiv = document.getElementById("altair-viz-399fb755c6704043bf3be77cc9834789");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -3029,16 +3196,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["temp_max", "precipitation", "wind"]}, "spec": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "line", "encoding": {"color": {"type": "nominal", "field": "location"}, "x": {"type": "temporal", "field": "date", "timeUnit": "month", "title": null}, "y": {"type": "quantitative", "aggregate": "average", "field": {"repeat": "column"}}}, "height": 180, "width": 240}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["temp_max", "precipitation", "wind"]}, "spec": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "mark": "line", "encoding": {"color": {"field": "location", "type": "nominal"}, "x": {"field": "date", "timeUnit": "month", "title": null, "type": "temporal"}, "y": {"aggregate": "average", "field": {"repeat": "column"}, "type": "quantitative"}}, "height": 180, "width": 240}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>Repetition is supported for both columns and rows. <em>What happens if you modify the code above to use <code class="docutils literal notranslate"><span class="pre">row</span></code> instead of <code class="docutils literal notranslate"><span class="pre">column</span></code>?</em></p>
@@ -3064,29 +3229,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6a4bbffb51774deda47b5ecb4cefe820"></div>
+<div id="altair-viz-b878802b87fc4bc6a23ff1edf29cdff2"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6a4bbffb51774deda47b5ecb4cefe820") {
-      outputDiv = document.getElementById("altair-viz-6a4bbffb51774deda47b5ecb4cefe820");
+    if (outputDiv.id !== "altair-viz-b878802b87fc4bc6a23ff1edf29cdff2") {
+      outputDiv = document.getElementById("altair-viz-b878802b87fc4bc6a23ff1edf29cdff2");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -3102,16 +3274,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["wind", "precipitation", "temp_max"], "row": ["temp_max", "precipitation", "wind"]}, "spec": {"mark": {"type": "point", "filled": true, "opacity": 0.5, "size": 15}, "encoding": {"x": {"type": "quantitative", "field": {"repeat": "column"}}, "y": {"type": "quantitative", "field": {"repeat": "row"}}}, "height": 150, "width": 150}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["wind", "precipitation", "temp_max"], "row": ["temp_max", "precipitation", "wind"]}, "spec": {"mark": {"type": "point", "filled": true, "opacity": 0.5, "size": 15}, "encoding": {"x": {"field": {"repeat": "column"}, "type": "quantitative"}, "y": {"field": {"repeat": "row"}, "type": "quantitative"}}, "height": 150, "width": 150}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Looking at these plots, there does not appear to be a strong association between precipitation and wind, though we do see that extreme wind and precipitation events occur in similar temperature ranges (~5-15° C). However, this observation is not particularly surprising: if we revisit our histogram at the beginning of the facet section, we can plainly see that the days with maximum temperatures in the range of 5-15° C are the most commonly occurring.</em></p>
@@ -3143,29 +3313,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-61769f5695b547239fda3a64ec063d66"></div>
+<div id="altair-viz-9b132fa96ca543baaacc083b9d2c2e74"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-61769f5695b547239fda3a64ec063d66") {
-      outputDiv = document.getElementById("altair-viz-61769f5695b547239fda3a64ec063d66");
+    if (outputDiv.id !== "altair-viz-9b132fa96ca543baaacc083b9d2c2e74") {
+      outputDiv = document.getElementById("altair-viz-9b132fa96ca543baaacc083b9d2c2e74");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -3181,16 +3358,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": "bar", "encoding": {"x": {"type": "ordinal", "field": "date", "timeUnit": "month"}, "y": {"type": "quantitative", "aggregate": "average", "field": "temp_max"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}, {"mark": {"type": "rule", "stroke": "firebrick"}, "encoding": {"y": {"type": "quantitative", "aggregate": "average", "field": "temp_max"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": "bar", "encoding": {"x": {"field": "date", "timeUnit": "month", "type": "ordinal"}, "y": {"aggregate": "average", "field": "temp_max", "type": "quantitative"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}, {"mark": {"type": "rule", "stroke": "firebrick"}, "encoding": {"y": {"aggregate": "average", "field": "temp_max", "type": "quantitative"}}, "transform": [{"filter": "datum.location == \"Seattle\""}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>We can then combine the two charts using a <code class="docutils literal notranslate"><span class="pre">layer</span></code> operator, and then <code class="docutils literal notranslate"><span class="pre">repeat</span></code> that layered chart to show histograms with overlaid averages for multiple fields:</p>
@@ -3218,29 +3393,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ebd7211bdad247efbed36f9d664236c6"></div>
+<div id="altair-viz-f94b784265fc440e885117beb159512f"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ebd7211bdad247efbed36f9d664236c6") {
-      outputDiv = document.getElementById("altair-viz-ebd7211bdad247efbed36f9d664236c6");
+    if (outputDiv.id !== "altair-viz-f94b784265fc440e885117beb159512f") {
+      outputDiv = document.getElementById("altair-viz-f94b784265fc440e885117beb159512f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -3256,16 +3438,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["temp_max", "precipitation", "wind"]}, "spec": {"layer": [{"mark": "bar", "encoding": {"x": {"type": "ordinal", "field": "date", "timeUnit": "month", "title": "Month"}, "y": {"type": "quantitative", "aggregate": "average", "field": {"repeat": "column"}}}}, {"mark": {"type": "rule", "stroke": "firebrick"}, "encoding": {"y": {"type": "quantitative", "aggregate": "average", "field": {"repeat": "column"}}}}], "height": 150, "width": 200}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["temp_max", "precipitation", "wind"]}, "spec": {"layer": [{"mark": "bar", "encoding": {"x": {"field": "date", "timeUnit": "month", "title": "Month", "type": "ordinal"}, "y": {"aggregate": "average", "field": {"repeat": "column"}, "type": "quantitative"}}}, {"mark": {"type": "rule", "stroke": "firebrick"}, "encoding": {"y": {"aggregate": "average", "field": {"repeat": "column"}, "type": "quantitative"}}}], "height": 150, "width": 200}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>Focusing only on the multi-view composition operators, the model for the visualization above is:</p>
@@ -3335,29 +3515,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-813ba52ad53043918f9ebfe2c8a67b0c"></div>
+<div id="altair-viz-af47ef23cb274cebb8602a4ec8cb4acc"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-813ba52ad53043918f9ebfe2c8a67b0c") {
-      outputDiv = document.getElementById("altair-viz-813ba52ad53043918f9ebfe2c8a67b0c");
+    if (outputDiv.id !== "altair-viz-af47ef23cb274cebb8602a4ec8cb4acc") {
+      outputDiv = document.getElementById("altair-viz-af47ef23cb274cebb8602a4ec8cb4acc");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -3373,16 +3560,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}, "axis": {"labelAngle": 0}}, "vconcat": [{"hconcat": [{"repeat": {"column": ["wind", "precipitation", "temp_max"], "row": ["temp_max", "precipitation", "wind"]}, "spec": {"mark": {"type": "point", "filled": true, "opacity": 0.5, "size": 15}, "encoding": {"x": {"type": "quantitative", "field": {"repeat": "column"}}, "y": {"type": "quantitative", "field": {"repeat": "row"}}}, "height": 125, "width": 125}}, {"repeat": {"row": ["temp_max", "precipitation", "wind"]}, "spec": {"layer": [{"mark": "bar", "encoding": {"x": {"type": "ordinal", "field": "date", "timeUnit": "month", "title": "Month"}, "y": {"type": "quantitative", "aggregate": "average", "field": {"repeat": "row"}}}}, {"mark": {"type": "rule", "stroke": "firebrick"}, "encoding": {"y": {"type": "quantitative", "aggregate": "average", "field": {"repeat": "row"}}}}], "height": 125, "width": 175}}]}, {"facet": {"column": {"type": "nominal", "field": "weather"}}, "spec": {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "weather", "scale": {"domain": ["drizzle", "fog", "rain", "snow", "sun"], "range": ["#aec7e8", "#c7c7c7", "#1f77b4", "#9467bd", "#e7ba52"]}}, "x": {"type": "quantitative", "bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)"}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 100, "width": 115}}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "resolve": {"legend": {"color": "independent"}}, "title": "Seattle Weather Dashboard", "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}, "axis": {"labelAngle": 0}}, "vconcat": [{"hconcat": [{"repeat": {"column": ["wind", "precipitation", "temp_max"], "row": ["temp_max", "precipitation", "wind"]}, "spec": {"mark": {"type": "point", "filled": true, "opacity": 0.5, "size": 15}, "encoding": {"x": {"field": {"repeat": "column"}, "type": "quantitative"}, "y": {"field": {"repeat": "row"}, "type": "quantitative"}}, "height": 125, "width": 125}}, {"repeat": {"row": ["temp_max", "precipitation", "wind"]}, "spec": {"layer": [{"mark": "bar", "encoding": {"x": {"field": "date", "timeUnit": "month", "title": "Month", "type": "ordinal"}, "y": {"aggregate": "average", "field": {"repeat": "row"}, "type": "quantitative"}}}, {"mark": {"type": "rule", "stroke": "firebrick"}, "encoding": {"y": {"aggregate": "average", "field": {"repeat": "row"}, "type": "quantitative"}}}], "height": 125, "width": 175}}]}, {"facet": {"column": {"field": "weather", "type": "nominal"}}, "spec": {"mark": "bar", "encoding": {"color": {"field": "weather", "scale": {"domain": ["drizzle", "fog", "rain", "snow", "sun"], "range": ["#aec7e8", "#c7c7c7", "#1f77b4", "#9467bd", "#e7ba52"]}, "type": "nominal"}, "x": {"bin": true, "field": "temp_max", "title": "Temperature (\u00b0C)", "type": "quantitative"}, "y": {"aggregate": "count", "type": "quantitative"}}, "height": 100, "width": 115}}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv"}, "resolve": {"legend": {"color": "independent"}}, "title": "Seattle Weather Dashboard", "transform": [{"filter": "datum.location == \"Seattle\""}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>The full composition model for this dashboard is:</p>
@@ -3437,8 +3622,8 @@
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="altair_scales_axes_legends.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -3455,19 +3640,17 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Daniel Kapitan<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Daniel Kapitan<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

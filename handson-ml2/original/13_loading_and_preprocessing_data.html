@@ -41,7 +41,7 @@
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -171,6 +171,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../islr/labs/lab_09.6_support_vector_machines.html">
      Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.html">
+     MNIST Handwritten Digit Recognition in Keras
     </a>
    </li>
    <li class="toctree-l2">
@@ -1218,7 +1223,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -1274,7 +1279,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -1464,7 +1469,200 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Chapter 13 – Loading and Preprocessing Data with TensorFlow</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Chapter 13 – Loading and Preprocessing Data with TensorFlow
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#datasets">
+     Datasets
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#split-the-california-dataset-to-multiple-csv-files">
+     Split the California dataset to multiple CSV files
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-an-input-pipeline">
+     Building an Input Pipeline
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-tfrecord-binary-format">
+     The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TFRecord
+      </span>
+     </code>
+     binary format
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-brief-intro-to-protocol-buffers">
+       A Brief Intro to Protocol Buffers
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#custom-protobuf">
+         Custom protobuf
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#tensorflow-protobufs">
+       TensorFlow Protobufs
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#putting-images-in-tfrecords">
+       Putting Images in TFRecords
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#putting-tensors-and-sparse-tensors-in-tfrecords">
+       Putting Tensors and Sparse Tensors in TFRecords
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#handling-sequential-data-using-sequenceexample">
+     Handling Sequential Data Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       SequenceExample
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-features-api">
+   The Features API
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-feature-columns-for-parsing">
+     Using Feature Columns for Parsing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tf-transform">
+   TF Transform
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tensorflow-datasets">
+   TensorFlow Datasets
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tensorflow-hub">
+   TensorFlow Hub
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercises">
+   Exercises
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#to-8">
+     1. to 8.
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     9.
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a">
+       a.
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#b">
+       b.
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     10.
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       a.
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       b.
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#c">
+       c.
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#d">
+       d.
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#e">
+       e.
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#f">
+       f.
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#g">
+       g.
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="chapter-13-loading-and-preprocessing-data-with-tensorflow">
@@ -2635,20 +2833,20 @@ email: &quot;a@b.com&quot;
 <div class="section" id="tensorflow-protobufs">
 <h3>TensorFlow Protobufs<a class="headerlink" href="#tensorflow-protobufs" title="Permalink to this headline">¶</a></h3>
 <p>Here is the definition of the tf.train.Example protobuf:</p>
-<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="k">syntax</span> <span class="o">=</span> <span class="s">&quot;proto3&quot;</span><span class="p">;</span>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto3&quot;</span><span class="p">;</span>
 
-<span class="kd">message</span> <span class="nc">BytesList</span> <span class="p">{</span> <span class="k">repeated</span> <span class="kt">bytes</span> <span class="na">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
-<span class="kd">message</span> <span class="nc">FloatList</span> <span class="p">{</span> <span class="k">repeated</span> <span class="kt">float</span> <span class="na">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">[</span><span class="k">packed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">];</span> <span class="p">}</span>
-<span class="kd">message</span> <span class="nc">Int64List</span> <span class="p">{</span> <span class="k">repeated</span> <span class="kt">int64</span> <span class="na">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">[</span><span class="k">packed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">];</span> <span class="p">}</span>
-<span class="kd">message</span> <span class="nc">Feature</span> <span class="p">{</span>
-    <span class="k">oneof</span> <span class="n">kind</span> <span class="p">{</span>
-        <span class="n">BytesList</span> <span class="na">bytes_list</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">FloatList</span> <span class="na">float_list</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-        <span class="n">Int64List</span> <span class="na">int64_list</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">BytesList</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">repeated</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">FloatList</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">repeated</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">[</span><span class="k">packed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">Int64List</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">repeated</span><span class="w"> </span><span class="kt">int64</span><span class="w"> </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">[</span><span class="k">packed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">Feature</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">oneof</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">BytesList</span><span class="w"> </span><span class="na">bytes_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">FloatList</span><span class="w"> </span><span class="na">float_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Int64List</span><span class="w"> </span><span class="na">int64_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">};</span>
-<span class="kd">message</span> <span class="nc">Features</span> <span class="p">{</span> <span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Feature</span><span class="p">&gt;</span> <span class="na">feature</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
-<span class="kd">message</span> <span class="nc">Example</span> <span class="p">{</span> <span class="n">Features</span> <span class="na">features</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">Features</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="n">Feature</span><span class="p">&gt;</span><span class="w"> </span><span class="na">feature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">Example</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Features</span><span class="w"> </span><span class="na">features</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
 </pre></div>
 </div>
 <p><strong>Warning</strong>: in TensorFlow 2.0 and 2.1, there was a bug preventing <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">tensorflow.train</span> <span class="pre">import</span> <span class="pre">X</span></code> so we work around it by writing <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">=</span> <span class="pre">tf.train.X</span></code>. See <a class="reference external" href="https://github.com/tensorflow/tensorflow/issues/33289">https://github.com/tensorflow/tensorflow/issues/33289</a> for more details.</p>
@@ -2905,13 +3103,13 @@ value: &quot;\010\t\022\004\022\002\010\001\&quot;\010\002\000\000\000\000\000\0
 </div>
 <div class="section" id="handling-sequential-data-using-sequenceexample">
 <h2>Handling Sequential Data Using <code class="docutils literal notranslate"><span class="pre">SequenceExample</span></code><a class="headerlink" href="#handling-sequential-data-using-sequenceexample" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="k">syntax</span> <span class="o">=</span> <span class="s">&quot;proto3&quot;</span><span class="p">;</span>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto3&quot;</span><span class="p">;</span>
 
-<span class="kd">message</span> <span class="nc">FeatureList</span> <span class="p">{</span> <span class="k">repeated</span> <span class="n">Feature</span> <span class="na">feature</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
-<span class="kd">message</span> <span class="nc">FeatureLists</span> <span class="p">{</span> <span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">FeatureList</span><span class="p">&gt;</span> <span class="na">feature_list</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
-<span class="kd">message</span> <span class="nc">SequenceExample</span> <span class="p">{</span>
-  <span class="n">Features</span> <span class="na">context</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="n">FeatureLists</span> <span class="na">feature_lists</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">FeatureList</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">repeated</span><span class="w"> </span><span class="n">Feature</span><span class="w"> </span><span class="na">feature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">FeatureLists</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="n">FeatureList</span><span class="p">&gt;</span><span class="w"> </span><span class="na">feature_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">SequenceExample</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Features</span><span class="w"> </span><span class="na">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="n">FeatureLists</span><span class="w"> </span><span class="na">feature_lists</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -4679,8 +4877,8 @@ tf.Tensor(0, shape=(), dtype=int64)
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="12_custom_models_and_training_with_tensorflow.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -4697,19 +4895,17 @@ tf.Tensor(0, shape=(), dtype=int64)
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Daniel Kapitan<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Daniel Kapitan<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

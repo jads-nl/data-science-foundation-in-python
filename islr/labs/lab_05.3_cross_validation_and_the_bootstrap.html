@@ -41,7 +41,7 @@
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -169,6 +169,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="lab_09.6_support_vector_machines.html">
      Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_10.9.2_multilayer_network_on_mnist_digit_data.html">
+     MNIST Handwritten Digit Recognition in Keras
     </a>
    </li>
    <li class="toctree-l2">
@@ -1216,7 +1221,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -1272,7 +1277,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -1307,7 +1312,45 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Lab 5.3: Cross-Validation and the Bootstrap</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-validation-set-approach">
+   5.3.1 The Validation Set Approach
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#leave-one-out-cross-validation">
+   5.3.2 Leave-One-Out Cross-Validation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-fold-cross-validation">
+   5.3.3 k-Fold Cross-Validation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-bootstrap">
+   5.3.4 The Bootstrap
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="lab-5-3-cross-validation-and-the-bootstrap">
@@ -1390,7 +1433,7 @@
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lm1 MSE: 25.5738781896844
 lm2 MSE: 22.218020050032855
-lm3 MSE: 22.667675435534864
+lm3 MSE: 22.66767543553441
 </pre></div>
 </div>
 </div>
@@ -1510,10 +1553,10 @@ lm3 MSE: 22.667675435534864
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lm1_MSE&#39;: 24.231513517929226,
- &#39;lm2_MSE&#39;: 19.24821312448967,
- &#39;lm3_MSE&#39;: 19.33498406402931,
- &#39;lm4_MSE&#39;: 19.42443031024277,
- &#39;lm5_MSE&#39;: 19.03321248615882}
+ &#39;lm2_MSE&#39;: 19.248213124489677,
+ &#39;lm3_MSE&#39;: 19.334984064029342,
+ &#39;lm4_MSE&#39;: 19.42443031028324,
+ &#39;lm5_MSE&#39;: 19.033212854447346}
 </pre></div>
 </div>
 </div>
@@ -1575,10 +1618,10 @@ lm3 MSE: 22.667675435534864
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lm1_MSE&#39;: 24.199808197692477,
- &#39;lm2_MSE&#39;: 19.228636614268016,
- &#39;lm3_MSE&#39;: 19.26626534663179,
- &#39;lm4_MSE&#39;: 19.35109227292693,
- &#39;lm5_MSE&#39;: 19.02323339651184}
+ &#39;lm2_MSE&#39;: 19.22863661426802,
+ &#39;lm3_MSE&#39;: 19.266265346631815,
+ &#39;lm4_MSE&#39;: 19.351092272905753,
+ &#39;lm5_MSE&#39;: 19.023233058241843}
 </pre></div>
 </div>
 </div>
@@ -1626,7 +1669,7 @@ lm3 MSE: 22.667675435534864
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5819105540634674
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6587653142698304
 </pre></div>
 </div>
 </div>
@@ -1650,8 +1693,8 @@ lm3 MSE: 22.667675435534864
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bootstrapped alpha: 0.5772144162410552
-SE: 0.09108024176455
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bootstrapped alpha: 0.5785325611470885
+SE: 0.09500942799676795
 </pre></div>
 </div>
 </div>
@@ -1683,7 +1726,7 @@ SE: 0.09108024176455
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(39.650893848214466, array([-0.1562008]))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40.842109601334485, array([-0.16789382]))
 </pre></div>
 </div>
 </div>
@@ -1711,8 +1754,8 @@ SE: 0.09108024176455
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 39.99597714443738 0.8238783134293134
-t2 bs estimate &amp; se: -0.15839332728676506 0.00726800105216044
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 39.932866051582394 0.8377745212159864
+t2 bs estimate &amp; se: -0.1584210614662145 0.0073950571049125405
 </pre></div>
 </div>
 </div>
@@ -1782,9 +1825,9 @@ t2 bs estimate &amp; se: -0.15839332728676506 0.00726800105216044
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 57.01327513392262 2.171808777086148
-t2 bs estimate &amp; se: -0.4675037610752514 0.032519119644439314
-t3 bs estimate &amp; se: 0.0012354002403551032 0.00011845132681663741
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t1 bs estimate &amp; se: 57.01126697757436 2.1831590744346188
+t2 bs estimate &amp; se: -0.4680549764614721 0.033452087779475385
+t3 bs estimate &amp; se: 0.001236580638272056 0.00012060859999604755
 </pre></div>
 </div>
 </div>
@@ -1839,8 +1882,8 @@ t3 bs estimate &amp; se: 0.0012354002403551032 0.00011845132681663741
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="lab_04.7_classification_methods.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1857,19 +1900,17 @@ t3 bs estimate &amp; se: 0.0012354002403551032 0.00011845132681663741
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Daniel Kapitan<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Daniel Kapitan<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

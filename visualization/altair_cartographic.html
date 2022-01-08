@@ -41,7 +41,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -169,6 +169,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../islr/labs/lab_09.6_support_vector_machines.html">
      Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.html">
+     MNIST Handwritten Digit Recognition in Keras
     </a>
    </li>
    <li class="toctree-l2">
@@ -1216,7 +1221,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -1272,7 +1277,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -1334,7 +1339,72 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Cartographic Visualization</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geographic-data-geojson-and-topojson">
+   Geographic Data: GeoJSON and TopoJSON
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geoshape-marks">
+   Geoshape Marks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#point-maps">
+   Point Maps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#symbol-maps">
+   Symbol Maps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choropleth-maps">
+   Choropleth Maps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cartographic-projections">
+   Cartographic Projections
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-tour-of-specific-projection-types">
+     A Tour of Specific Projection Types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coda-wrangling-geographic-data">
+   Coda: Wrangling Geographic Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="cartographic-visualization">
@@ -1365,17 +1435,17 @@
 <p>Up to this point, we have worked with JSON and CSV formatted datasets that correspond to data tables made up of rows (records) and columns (fields). In order to represent geographic regions (countries, states, <em>etc.</em>) and trajectories (flight paths, subway lines, <em>etc.</em>), we need to expand our repertoire with additional formats designed to support rich geometries.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> models geographic features within a specialized JSON format. A GeoJSON <code class="docutils literal notranslate"><span class="pre">feature</span></code> can include geometric data – such as <code class="docutils literal notranslate"><span class="pre">longitude</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code> coordinates that make up a country boundary – as well as additional data attributes.</p>
 <p>Here is a GeoJSON <code class="docutils literal notranslate"><span class="pre">feature</span></code> object for the boundary of the U.S. state of Colorado:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-  <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">},</span>
-  <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">[[</span><span class="mf">-106.32056285448942</span><span class="p">,</span><span class="mf">40.998675790862656</span><span class="p">],[</span><span class="mf">-106.19134826714341</span><span class="p">,</span><span class="mf">40.99813863734313</span><span class="p">],[</span><span class="mf">-105.27607827344248</span><span class="p">,</span><span class="mf">40.99813863734313</span><span class="p">],[</span><span class="mf">-104.9422739227986</span><span class="p">,</span><span class="mf">40.99813863734313</span><span class="p">],[</span><span class="mf">-104.05212898774828</span><span class="p">,</span><span class="mf">41.00136155846029</span><span class="p">],[</span><span class="mf">-103.57475287338661</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-103.38093099236758</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.65589358559272</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.62000064466328</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.74889940428302</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.69733266640851</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.44003613055551</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.3492571857556</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.00333031918079</span><span class="p">],[</span><span class="mf">-102.04930288388505</span><span class="p">,</span><span class="mf">39.57414465707943</span><span class="p">],[</span><span class="mf">-102.04930288388505</span><span class="p">,</span><span class="mf">39.56823596836465</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">39.1331416175485</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">39.0466599009048</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.69751011321283</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.61478847120581</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.268861604631</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.262415762396685</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">37.738153927339205</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">37.64415206142214</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">37.38900413964724</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">36.99365914927603</span><span class="p">],[</span><span class="mf">-103.00046581851544</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-103.08660887674611</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-104.00905745863294</span><span class="p">,</span><span class="mf">36.99580776335414</span><span class="p">],[</span><span class="mf">-105.15404227428235</span><span class="p">,</span><span class="mf">36.995270609834606</span><span class="p">],[</span><span class="mf">-105.2222388620483</span><span class="p">,</span><span class="mf">36.995270609834606</span><span class="p">],[</span><span class="mf">-105.7175614468747</span><span class="p">,</span><span class="mf">36.99580776335414</span><span class="p">],[</span><span class="mf">-106.00829426840322</span><span class="p">,</span><span class="mf">36.995270609834606</span><span class="p">],[</span><span class="mf">-106.47490250048605</span><span class="p">,</span><span class="mf">36.99365914927603</span><span class="p">],[</span><span class="mf">-107.4224761410235</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-107.48349414060355</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-108.38081766383978</span><span class="p">,</span><span class="mf">36.99903068447129</span><span class="p">],[</span><span class="mf">-109.04483707103458</span><span class="p">,</span><span class="mf">36.99903068447129</span><span class="p">],[</span><span class="mf">-109.04483707103458</span><span class="p">,</span><span class="mf">37.484617466122884</span><span class="p">],[</span><span class="mf">-109.04124777694163</span><span class="p">,</span><span class="mf">37.88049961001363</span><span class="p">],[</span><span class="mf">-109.04124777694163</span><span class="p">,</span><span class="mf">38.15283644441336</span><span class="p">],[</span><span class="mf">-109.05919424740635</span><span class="p">,</span><span class="mf">38.49983761802722</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">39.36680339854235</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">39.49786885730673</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">39.66062637372313</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">40.22248895514744</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">40.653823231326896</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">41.000287251421234</span><span class="p">],[</span><span class="mf">-107.91779872584989</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-107.3183866123281</span><span class="p">,</span><span class="mf">41.00297301901887</span><span class="p">],[</span><span class="mf">-106.85895696843116</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-106.32056285448942</span><span class="p">,</span><span class="mf">40.998675790862656</span><span class="p">]]</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Colorado&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;geometry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Polygon&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">[[</span><span class="mf">-106.32056285448942</span><span class="p">,</span><span class="mf">40.998675790862656</span><span class="p">],[</span><span class="mf">-106.19134826714341</span><span class="p">,</span><span class="mf">40.99813863734313</span><span class="p">],[</span><span class="mf">-105.27607827344248</span><span class="p">,</span><span class="mf">40.99813863734313</span><span class="p">],[</span><span class="mf">-104.9422739227986</span><span class="p">,</span><span class="mf">40.99813863734313</span><span class="p">],[</span><span class="mf">-104.05212898774828</span><span class="p">,</span><span class="mf">41.00136155846029</span><span class="p">],[</span><span class="mf">-103.57475287338661</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-103.38093099236758</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.65589358559272</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.62000064466328</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.74889940428302</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.69733266640851</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.44003613055551</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.3492571857556</span><span class="p">],[</span><span class="mf">-102.052892177978</span><span class="p">,</span><span class="mf">40.00333031918079</span><span class="p">],[</span><span class="mf">-102.04930288388505</span><span class="p">,</span><span class="mf">39.57414465707943</span><span class="p">],[</span><span class="mf">-102.04930288388505</span><span class="p">,</span><span class="mf">39.56823596836465</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">39.1331416175485</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">39.0466599009048</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.69751011321283</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.61478847120581</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.268861604631</span><span class="p">],[</span><span class="mf">-102.0457135897921</span><span class="p">,</span><span class="mf">38.262415762396685</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">37.738153927339205</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">37.64415206142214</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">37.38900413964724</span><span class="p">],[</span><span class="mf">-102.04212429569915</span><span class="p">,</span><span class="mf">36.99365914927603</span><span class="p">],[</span><span class="mf">-103.00046581851544</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-103.08660887674611</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-104.00905745863294</span><span class="p">,</span><span class="mf">36.99580776335414</span><span class="p">],[</span><span class="mf">-105.15404227428235</span><span class="p">,</span><span class="mf">36.995270609834606</span><span class="p">],[</span><span class="mf">-105.2222388620483</span><span class="p">,</span><span class="mf">36.995270609834606</span><span class="p">],[</span><span class="mf">-105.7175614468747</span><span class="p">,</span><span class="mf">36.99580776335414</span><span class="p">],[</span><span class="mf">-106.00829426840322</span><span class="p">,</span><span class="mf">36.995270609834606</span><span class="p">],[</span><span class="mf">-106.47490250048605</span><span class="p">,</span><span class="mf">36.99365914927603</span><span class="p">],[</span><span class="mf">-107.4224761410235</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-107.48349414060355</span><span class="p">,</span><span class="mf">37.00010499151034</span><span class="p">],[</span><span class="mf">-108.38081766383978</span><span class="p">,</span><span class="mf">36.99903068447129</span><span class="p">],[</span><span class="mf">-109.04483707103458</span><span class="p">,</span><span class="mf">36.99903068447129</span><span class="p">],[</span><span class="mf">-109.04483707103458</span><span class="p">,</span><span class="mf">37.484617466122884</span><span class="p">],[</span><span class="mf">-109.04124777694163</span><span class="p">,</span><span class="mf">37.88049961001363</span><span class="p">],[</span><span class="mf">-109.04124777694163</span><span class="p">,</span><span class="mf">38.15283644441336</span><span class="p">],[</span><span class="mf">-109.05919424740635</span><span class="p">,</span><span class="mf">38.49983761802722</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">39.36680339854235</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">39.49786885730673</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">39.66062637372313</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">40.22248895514744</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">40.653823231326896</span><span class="p">],[</span><span class="mf">-109.05201565922046</span><span class="p">,</span><span class="mf">41.000287251421234</span><span class="p">],[</span><span class="mf">-107.91779872584989</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-107.3183866123281</span><span class="p">,</span><span class="mf">41.00297301901887</span><span class="p">],[</span><span class="mf">-106.85895696843116</span><span class="p">,</span><span class="mf">41.00189871197981</span><span class="p">],[</span><span class="mf">-106.32056285448942</span><span class="p">,</span><span class="mf">40.998675790862656</span><span class="p">]]</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">feature</span></code> includes a <code class="docutils literal notranslate"><span class="pre">properties</span></code> object, which can include any number of data fields, plus a <code class="docutils literal notranslate"><span class="pre">geometry</span></code> object, which in this case contains a single polygon that consists of <code class="docutils literal notranslate"><span class="pre">[longitude,</span> <span class="pre">latitude]</span></code> coordinates for the state boundary. The coordinates continue off to the right for a while should you care to scroll…</p>
@@ -1464,29 +1534,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ad087ae682004d029e029110e9894ae5"></div>
+<div id="altair-viz-a753a6f274e04bb0b3cd55e577e9245b"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ad087ae682004d029e029110e9894ae5") {
-      outputDiv = document.getElementById("altair-viz-ad087ae682004d029e029110e9894ae5");
+    if (outputDiv.id !== "altair-viz-a753a6f274e04bb0b3cd55e577e9245b") {
+      outputDiv = document.getElementById("altair-viz-a753a6f274e04bb0b3cd55e577e9245b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1502,16 +1579,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": "geoshape", "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": "geoshape", "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>In the example above, Altair applies a default blue color and uses a default map projection (<code class="docutils literal notranslate"><span class="pre">mercator</span></code>). We can customize the colors and boundary stroke widths using standard mark properties. Using the <code class="docutils literal notranslate"><span class="pre">project</span></code> method we can also add our own map projection:</p>
@@ -1527,29 +1602,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-66d193e2133f4704ac9be6649e5395d7"></div>
+<div id="altair-viz-39e075a94295464f98fab539f8f868a5"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-66d193e2133f4704ac9be6649e5395d7") {
-      outputDiv = document.getElementById("altair-viz-66d193e2133f4704ac9be6649e5395d7");
+    if (outputDiv.id !== "altair-viz-39e075a94295464f98fab539f8f868a5") {
+      outputDiv = document.getElementById("altair-viz-39e075a94295464f98fab539f8f868a5");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1565,16 +1647,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}, "projection": {"type": "mercator"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}, "projection": {"type": "mercator"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>By default Altair automatically adjusts the projection so that all the data fits within the width and height of the chart. We can also specify projection parameters, such as <code class="docutils literal notranslate"><span class="pre">scale</span></code> (zoom level) and <code class="docutils literal notranslate"><span class="pre">translate</span></code> (panning), to customize the projection settings. Here we adjust the <code class="docutils literal notranslate"><span class="pre">scale</span></code> and <code class="docutils literal notranslate"><span class="pre">translate</span></code> parameters to focus on Europe:</p>
@@ -1590,29 +1670,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a5aa38e3e9f148a784f1923bf31f7874"></div>
+<div id="altair-viz-1a01cb9898484494bb138bc8d9dac007"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a5aa38e3e9f148a784f1923bf31f7874") {
-      outputDiv = document.getElementById("altair-viz-a5aa38e3e9f148a784f1923bf31f7874");
+    if (outputDiv.id !== "altair-viz-1a01cb9898484494bb138bc8d9dac007") {
+      outputDiv = document.getElementById("altair-viz-1a01cb9898484494bb138bc8d9dac007");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1628,16 +1715,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}, "projection": {"scale": 400, "translate": [100, 550], "type": "mercator"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}, "projection": {"scale": 400, "translate": [100, 550], "type": "mercator"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Note how the 110m resolution of the data becomes apparent at this scale. To see more detailed coast lines and boundaries, we need an input file with more fine-grained geometries. Adjust the <code class="docutils literal notranslate"><span class="pre">scale</span></code> and <code class="docutils literal notranslate"><span class="pre">translate</span></code> parameters to focus the map on other regions!</em></p>
@@ -1681,29 +1766,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a807373c952b4485a1020a3c99ecf897"></div>
+<div id="altair-viz-431f1ee8d6bd41f792fa8be88b4c9522"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a807373c952b4485a1020a3c99ecf897") {
-      outputDiv = document.getElementById("altair-viz-a807373c952b4485a1020a3c99ecf897");
+    if (outputDiv.id !== "altair-viz-431f1ee8d6bd41f792fa8be88b4c9522") {
+      outputDiv = document.getElementById("altair-viz-431f1ee8d6bd41f792fa8be88b4c9522");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1719,16 +1811,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 400, "projection": {"scale": 110, "translate": [300, 200], "type": "naturalEarth1"}, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 400, "projection": {"scale": 110, "translate": [300, 200], "type": "naturalEarth1"}, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 </div>
@@ -1771,29 +1861,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ca52d6628b4c4b02bae5568009160934"></div>
+<div id="altair-viz-adc4f22bb56f4a4cbc40b19acae24abb"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ca52d6628b4c4b02bae5568009160934") {
-      outputDiv = document.getElementById("altair-viz-ca52d6628b4c4b02bae5568009160934");
+    if (outputDiv.id !== "altair-viz-adc4f22bb56f4a4cbc40b19acae24abb") {
+      outputDiv = document.getElementById("altair-viz-adc4f22bb56f4a4cbc40b19acae24abb");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1809,16 +1906,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/zipcodes.csv"}, "mark": {"type": "square", "opacity": 1, "size": 1}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}}, "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/zipcodes.csv"}, "mark": {"type": "square", "opacity": 1, "size": 1}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}}, "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Plotting zip codes only, we can see the outline of the United States and discern meaningful patterns in the density of post offices, without a base map or additional reference elements!</em></p>
@@ -1847,29 +1942,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-899743860b5c4e3ab46b448a745383f0"></div>
+<div id="altair-viz-009d7024b0fe4b53a55e2527c526afe0"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-899743860b5c4e3ab46b448a745383f0") {
-      outputDiv = document.getElementById("altair-viz-899743860b5c4e3ab46b448a745383f0");
+    if (outputDiv.id !== "altair-viz-009d7024b0fe4b53a55e2527c526afe0") {
+      outputDiv = document.getElementById("altair-viz-009d7024b0fe4b53a55e2527c526afe0");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1885,16 +1987,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/zipcodes.csv"}, "mark": {"type": "square", "opacity": 1, "size": 2}, "encoding": {"color": {"type": "nominal", "field": "digit"}, "latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}}, "height": 500, "projection": {"type": "albersUsa"}, "transform": [{"calculate": "datum.zip_code[0]", "as": "digit"}], "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/zipcodes.csv"}, "mark": {"type": "square", "opacity": 1, "size": 2}, "encoding": {"color": {"field": "digit", "type": "nominal"}, "latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}}, "height": 500, "projection": {"type": "albersUsa"}, "transform": [{"calculate": "datum.zip_code[0]", "as": "digit"}], "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>To zoom in on a specific digit, add a filter transform to limit the data shown! Try adding an <a class="reference external" href="https://github.com/uwdata/visualization-curriculum/blob/master/altair_interaction.ipynb">interactive selection</a> to filter to a single digit and dynamically update the map. And be sure to use strings (`’1’`) instead of numbers (`1`) when filtering digit values!</em></p>
@@ -1926,29 +2026,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6915e184606a4ae3b285711453a49edf"></div>
+<div id="altair-viz-00536164ddae4274aace253edcc75837"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6915e184606a4ae3b285711453a49edf") {
-      outputDiv = document.getElementById("altair-viz-6915e184606a4ae3b285711453a49edf");
+    if (outputDiv.id !== "altair-viz-00536164ddae4274aace253edcc75837") {
+      outputDiv = document.getElementById("altair-viz-00536164ddae4274aace253edcc75837");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1964,16 +2071,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/zipcodes.csv"}, "mark": {"type": "line", "strokeWidth": 0.5}, "encoding": {"color": {"type": "nominal", "field": "digit"}, "latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "order": {"type": "ordinal", "field": "zip_code"}}, "height": 500, "projection": {"type": "albersUsa"}, "transform": [{"filter": "-150 < datum.longitude && 22 < datum.latitude && datum.latitude < 55"}, {"calculate": "datum.zip_code[0]", "as": "digit"}], "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/zipcodes.csv"}, "mark": {"type": "line", "strokeWidth": 0.5}, "encoding": {"color": {"field": "digit", "type": "nominal"}, "latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "order": {"field": "zip_code", "type": "ordinal"}}, "height": 500, "projection": {"type": "albersUsa"}, "transform": [{"filter": "-150 < datum.longitude && 22 < datum.latitude && datum.latitude < 55"}, {"calculate": "datum.zip_code[0]", "as": "digit"}], "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>We can now see how zip codes further cluster into smaller areas, indicating a hierarchical allocation of codes by location, but with some notable variability within local clusters.</em></p>
@@ -2050,29 +2155,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-cde3e552c0c441f396935bdab39f52af"></div>
+<div id="altair-viz-4cc12fd6a187466c8bb67d72970fc63f"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-cde3e552c0c441f396935bdab39f52af") {
-      outputDiv = document.getElementById("altair-viz-cde3e552c0c441f396935bdab39f52af");
+    if (outputDiv.id !== "altair-viz-4cc12fd6a187466c8bb67d72970fc63f") {
+      outputDiv = document.getElementById("altair-viz-4cc12fd6a187466c8bb67d72970fc63f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2088,16 +2200,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "states", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#ddd", "stroke": "#fff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "mark": {"type": "circle", "size": 9}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "tooltip": {"type": "nominal", "field": "iata"}}}], "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "states", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#ddd", "stroke": "#fff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "mark": {"type": "circle", "size": 9}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "tooltip": {"field": "iata", "type": "nominal"}}}], "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>That’s a lot of airports! Obviously, not all of them are major hubs.</em></p>
@@ -2140,29 +2250,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-47e078e3aacd437e820358ad0b22b13a"></div>
+<div id="altair-viz-b62795cd39b24cf69eeadbfbf5c39a9f"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-47e078e3aacd437e820358ad0b22b13a") {
-      outputDiv = document.getElementById("altair-viz-47e078e3aacd437e820358ad0b22b13a");
+    if (outputDiv.id !== "altair-viz-b62795cd39b24cf69eeadbfbf5c39a9f") {
+      outputDiv = document.getElementById("altair-viz-b62795cd39b24cf69eeadbfbf5c39a9f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2178,16 +2295,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "states", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#ddd", "stroke": "#fff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/flights-airport.csv"}, "mark": "circle", "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "order": {"type": "quantitative", "field": "routes", "sort": "descending"}, "size": {"type": "quantitative", "field": "routes", "legend": null, "scale": {"range": [0, 1000]}}, "tooltip": [{"type": "nominal", "field": "origin"}, {"type": "quantitative", "field": "routes"}]}, "transform": [{"aggregate": [{"op": "count", "as": "routes"}], "groupby": ["origin"]}, {"lookup": "origin", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["state", "latitude", "longitude"]}}, {"filter": "datum.state !== \"PR\" && datum.state !== \"VI\""}]}], "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "states", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#ddd", "stroke": "#fff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/flights-airport.csv"}, "mark": "circle", "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "order": {"field": "routes", "sort": "descending", "type": "quantitative"}, "size": {"field": "routes", "legend": null, "scale": {"range": [0, 1000]}, "type": "quantitative"}, "tooltip": [{"field": "origin", "type": "nominal"}, {"field": "routes", "type": "quantitative"}]}, "transform": [{"aggregate": [{"op": "count", "as": "routes"}], "groupby": ["origin"]}, {"lookup": "origin", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["state", "latitude", "longitude"]}}, {"filter": "datum.state !== \"PR\" && datum.state !== \"VI\""}]}], "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Which U.S. airports have the highest number of outgoing routes?</em></p>
@@ -2261,29 +2376,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6f06378a60b9442daebc151e69bbe411"></div>
+<div id="altair-viz-1593bb05ca424854a11cf2cefc492998"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6f06378a60b9442daebc151e69bbe411") {
-      outputDiv = document.getElementById("altair-viz-6f06378a60b9442daebc151e69bbe411");
+    if (outputDiv.id !== "altair-viz-1593bb05ca424854a11cf2cefc492998") {
+      outputDiv = document.getElementById("altair-viz-1593bb05ca424854a11cf2cefc492998");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2299,16 +2421,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "states", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#ddd", "stroke": "#fff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/flights-airport.csv"}, "mark": {"type": "rule", "color": "#000", "opacity": 0.35}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "latitude2": {"field": "lat2"}, "longitude": {"field": "longitude", "type": "quantitative"}, "longitude2": {"field": "lon2"}}, "transform": [{"filter": {"selection": "selector001"}}, {"lookup": "origin", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["latitude", "longitude"]}}, {"lookup": "destination", "as": ["lat2", "lon2"], "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["latitude", "longitude"]}}]}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/flights-airport.csv"}, "mark": "circle", "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "order": {"type": "quantitative", "field": "routes", "sort": "descending"}, "size": {"type": "quantitative", "field": "routes", "legend": null, "scale": {"range": [0, 1000]}}, "tooltip": [{"type": "nominal", "field": "origin"}, {"type": "quantitative", "field": "routes"}]}, "selection": {"selector001": {"type": "single", "on": "mouseover", "nearest": true, "fields": ["origin"], "empty": "none"}}, "transform": [{"aggregate": [{"op": "count", "as": "routes"}], "groupby": ["origin"]}, {"lookup": "origin", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["state", "latitude", "longitude"]}}, {"filter": "datum.state !== \"PR\" && datum.state !== \"VI\""}]}], "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "layer": [{"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "states", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#ddd", "stroke": "#fff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/flights-airport.csv"}, "mark": {"type": "rule", "color": "#000", "opacity": 0.35}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "latitude2": {"field": "lat2"}, "longitude": {"field": "longitude", "type": "quantitative"}, "longitude2": {"field": "lon2"}}, "transform": [{"filter": {"selection": "selector001"}}, {"lookup": "origin", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["latitude", "longitude"]}}, {"lookup": "destination", "as": ["lat2", "lon2"], "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["latitude", "longitude"]}}]}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/flights-airport.csv"}, "mark": "circle", "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "order": {"field": "routes", "sort": "descending", "type": "quantitative"}, "size": {"field": "routes", "legend": null, "scale": {"range": [0, 1000]}, "type": "quantitative"}, "tooltip": [{"field": "origin", "type": "nominal"}, {"field": "routes", "type": "quantitative"}]}, "selection": {"selector001": {"type": "single", "on": "mouseover", "nearest": true, "fields": ["origin"], "empty": "none"}}, "transform": [{"aggregate": [{"op": "count", "as": "routes"}], "groupby": ["origin"]}, {"lookup": "origin", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["state", "latitude", "longitude"]}}, {"filter": "datum.state !== \"PR\" && datum.state !== \"VI\""}]}], "height": 500, "projection": {"type": "albersUsa"}, "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Mouseover the map to probe the flight network!</em></p>
@@ -2355,29 +2475,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-b4ce1826a3734a418c3d49660434aaa3"></div>
+<div id="altair-viz-3f3dc11130084077ae491c1b1ed41434"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b4ce1826a3734a418c3d49660434aaa3") {
-      outputDiv = document.getElementById("altair-viz-b4ce1826a3734a418c3d49660434aaa3");
+    if (outputDiv.id !== "altair-viz-3f3dc11130084077ae491c1b1ed41434") {
+      outputDiv = document.getElementById("altair-viz-3f3dc11130084077ae491c1b1ed41434");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2393,16 +2520,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "counties", "type": "topojson"}}, "mark": {"type": "geoshape", "stroke": "#aaa", "strokeWidth": 0.25}, "encoding": {"color": {"type": "quantitative", "field": "rate", "legend": {"format": "%"}, "scale": {"clamp": true, "domain": [0, 0.3]}}, "tooltip": {"type": "quantitative", "field": "rate", "format": ".0%"}}, "height": 500, "projection": {"type": "albersUsa"}, "transform": [{"lookup": "id", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/unemployment.tsv"}, "key": "id", "fields": ["rate"]}}], "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "counties", "type": "topojson"}}, "mark": {"type": "geoshape", "stroke": "#aaa", "strokeWidth": 0.25}, "encoding": {"color": {"field": "rate", "legend": {"format": "%"}, "scale": {"clamp": true, "domain": [0, 0.3]}, "type": "quantitative"}, "tooltip": {"field": "rate", "format": ".0%", "type": "quantitative"}}, "height": 500, "projection": {"type": "albersUsa"}, "transform": [{"lookup": "id", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/unemployment.tsv"}, "key": "id", "fields": ["rate"]}}], "width": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Examine the unemployment rates by county. Higher values in Michigan may relate to the automotive industry. Counties in the <a class="reference external" href="https://en.wikipedia.org/wiki/Great_Plains">Great Plains</a> and Mountain states exhibit both low <strong>and</strong> high rates. Is this variation meaningful, or is it possibly an <a class="reference external" href="https://medium.com/&#64;uwdata/surprise-maps-showing-the-unexpected-e92b67398865">artifact of lower sample sizes</a>? To explore further, try changing the upper scale domain (e.g., to <code class="docutils literal notranslate"><span class="pre">0.2</span></code>) to adjust the color mapping.</em></p>
@@ -2430,29 +2555,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-73b4b57c320041ea879dc065cd9f6631"></div>
+<div id="altair-viz-6f9ec4fd632e4031a7b15fc5c0ed6c59"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-73b4b57c320041ea879dc065cd9f6631") {
-      outputDiv = document.getElementById("altair-viz-73b4b57c320041ea879dc065cd9f6631");
+    if (outputDiv.id !== "altair-viz-6f9ec4fd632e4031a7b15fc5c0ed6c59") {
+      outputDiv = document.getElementById("altair-viz-6f9ec4fd632e4031a7b15fc5c0ed6c59");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2468,16 +2600,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"mark": "geoshape", "encoding": {"color": {"type": "quantitative", "field": "rate", "legend": null, "scale": {"scheme": "tealblues"}}}, "height": 200, "projection": {"type": "albersUsa"}, "width": 305}, {"mark": "geoshape", "encoding": {"color": {"type": "quantitative", "field": "rate", "legend": null, "scale": {"scheme": "viridis"}}}, "height": 200, "projection": {"type": "albersUsa"}, "width": 305}, {"mark": "geoshape", "encoding": {"color": {"type": "quantitative", "field": "rate", "legend": null, "scale": {"scheme": "blueorange"}}}, "height": 200, "projection": {"type": "albersUsa"}, "width": 305}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "counties", "type": "topojson"}}, "resolve": {"scale": {"color": "independent"}}, "transform": [{"lookup": "id", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/unemployment.tsv"}, "key": "id", "fields": ["rate"]}}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"mark": "geoshape", "encoding": {"color": {"field": "rate", "legend": null, "scale": {"scheme": "tealblues"}, "type": "quantitative"}}, "height": 200, "projection": {"type": "albersUsa"}, "width": 305}, {"mark": "geoshape", "encoding": {"color": {"field": "rate", "legend": null, "scale": {"scheme": "viridis"}, "type": "quantitative"}}, "height": 200, "projection": {"type": "albersUsa"}, "width": 305}, {"mark": "geoshape", "encoding": {"color": {"field": "rate", "legend": null, "scale": {"scheme": "blueorange"}, "type": "quantitative"}}, "height": 200, "projection": {"type": "albersUsa"}, "width": 305}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "counties", "type": "topojson"}}, "resolve": {"scale": {"color": "independent"}}, "transform": [{"lookup": "id", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/unemployment.tsv"}, "key": "id", "fields": ["rate"]}}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p><em>Which color schemes do you find to be more effective? Why might that be? Modify the maps above to use other available schemes, as described in the <a class="reference external" href="https://vega.github.io/vega/docs/schemes/">Vega Color Schemes documentation</a>.</em></p>
@@ -2515,29 +2645,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-03d6b4fe6ffc42988a9854e3acc58589"></div>
+<div id="altair-viz-89e1a778aab44517b19ddeab80f9f643"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-03d6b4fe6ffc42988a9854e3acc58589") {
-      outputDiv = document.getElementById("altair-viz-03d6b4fe6ffc42988a9854e3acc58589");
+    if (outputDiv.id !== "altair-viz-89e1a778aab44517b19ddeab80f9f643") {
+      outputDiv = document.getElementById("altair-viz-89e1a778aab44517b19ddeab80f9f643");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2553,16 +2690,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "equirectangular"}, "title": "equirectangular", "width": 225}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "mercator"}, "title": "mercator", "width": 225}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "transverseMercator"}, "title": "transverseMercator", "width": 225}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "naturalEarth1"}, "title": "naturalEarth1", "width": 225}], "spacing": 10, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "equirectangular"}, "title": "equirectangular", "width": 225}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "mercator"}, "title": "mercator", "width": 225}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "transverseMercator"}, "title": "transverseMercator", "width": 225}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 225, "projection": {"type": "naturalEarth1"}, "title": "naturalEarth1", "width": 225}], "spacing": 10, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <ul class="simple">
@@ -2588,29 +2723,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-49b88a56c8de4735bb40f6aac25f0d8f"></div>
+<div id="altair-viz-d3a65fb1a2194ef789174b4525eac46f"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-49b88a56c8de4735bb40f6aac25f0d8f") {
-      outputDiv = document.getElementById("altair-viz-49b88a56c8de4735bb40f6aac25f0d8f");
+    if (outputDiv.id !== "altair-viz-d3a65fb1a2194ef789174b4525eac46f") {
+      outputDiv = document.getElementById("altair-viz-d3a65fb1a2194ef789174b4525eac46f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2626,16 +2768,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "conicEqualArea"}, "title": "conicEqualArea", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "conicEquidistant"}, "title": "conicEquidistant", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"scale": 35, "translate": [90, 65], "type": "conicConformal"}, "title": "conicConformal", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "albers"}, "title": "albers", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "albersUsa"}, "title": "albersUsa", "width": 180}], "spacing": 10, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "conicEqualArea"}, "title": "conicEqualArea", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "conicEquidistant"}, "title": "conicEquidistant", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"scale": 35, "translate": [90, 65], "type": "conicConformal"}, "title": "conicConformal", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "albers"}, "title": "albers", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 130, "projection": {"type": "albersUsa"}, "title": "albersUsa", "width": 180}], "spacing": 10, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <ul class="simple">
@@ -2662,29 +2802,36 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-f5ed9d7c855a488fb046e60ff16748cc"></div>
+<div id="altair-viz-b69588f3b7a84cd7ac3252caa061b188"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f5ed9d7c855a488fb046e60ff16748cc") {
-      outputDiv = document.getElementById("altair-viz-f5ed9d7c855a488fb046e60ff16748cc");
+    if (outputDiv.id !== "altair-viz-b69588f3b7a84cd7ac3252caa061b188") {
+      outputDiv = document.getElementById("altair-viz-b69588f3b7a84cd7ac3252caa061b188");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -2700,16 +2847,14 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "azimuthalEqualArea"}, "title": "azimuthalEqualArea", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "azimuthalEquidistant"}, "title": "azimuthalEquidistant", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "orthographic"}, "title": "orthographic", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "stereographic"}, "title": "stereographic", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "gnomonic"}, "title": "gnomonic", "width": 180}], "spacing": 10, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}}, "hconcat": [{"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "azimuthalEqualArea"}, "title": "azimuthalEqualArea", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "azimuthalEquidistant"}, "title": "azimuthalEquidistant", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "orthographic"}, "title": "orthographic", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "stereographic"}, "title": "stereographic", "width": 180}, {"layer": [{"data": {"sphere": true}, "mark": {"type": "geoshape", "fill": "#e6f3ff"}}, {"data": {"graticule": true}, "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json", "format": {"feature": "countries", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "#2a1d0c", "stroke": "#706545", "strokeWidth": 0.5}}], "height": 180, "projection": {"type": "gnomonic"}, "title": "gnomonic", "width": 180}], "spacing": 10, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <ul class="simple">
@@ -2761,8 +2906,8 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="altair_interaction.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -2779,19 +2924,17 @@ For our base map, we’ll use a TopoJSON file for the United States at 10m resol
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Daniel Kapitan<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Daniel Kapitan<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 

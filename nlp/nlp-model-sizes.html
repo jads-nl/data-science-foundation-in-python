@@ -41,7 +41,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -168,6 +168,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../islr/labs/lab_09.6_support_vector_machines.html">
      Lab 9.6: Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.html">
+     MNIST Handwritten Digit Recognition in Keras
     </a>
    </li>
    <li class="toctree-l2">
@@ -1215,7 +1220,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -1271,14 +1276,24 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Extra: plot of transformer model sizes</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="extra-plot-of-transformer-model-sizes">
@@ -1309,29 +1324,36 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ee1c4a779d6343e2bf146fe182c186ca"></div>
+<div id="altair-viz-9ea7d363460f4dd38e404beebe02903e"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ee1c4a779d6343e2bf146fe182c186ca") {
-      outputDiv = document.getElementById("altair-viz-ee1c4a779d6343e2bf146fe182c186ca");
+    if (outputDiv.id !== "altair-viz-9ea7d363460f4dd38e404beebe02903e") {
+      outputDiv = document.getElementById("altair-viz-9ea7d363460f4dd38e404beebe02903e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -1347,16 +1369,14 @@
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "circle", "size": 60}, "encoding": {"x": {"type": "quantitative", "field": "model_size", "scale": {"type": "log"}, "title": "model size (million parameters)"}, "y": {"type": "quantitative", "field": "training_volume", "scale": {"type": "log"}, "title": "training volume (million tokens)"}}}, {"mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 7}, "encoding": {"text": {"type": "nominal", "field": "model"}, "x": {"type": "quantitative", "field": "model_size", "scale": {"type": "log"}, "title": "model size (million parameters)"}, "y": {"type": "quantitative", "field": "training_volume", "scale": {"type": "log"}, "title": "training volume (million tokens)"}}}], "data": {"name": "data-751df94472465bc07958ad8f65bf8836"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-751df94472465bc07958ad8f65bf8836": [{"model": "GPT-1", "model_size": 100, "training_volume": 30}, {"model": "BERT-large", "model_size": 300, "training_volume": 100}, {"model": "GPT-2", "model_size": 1500, "training_volume": 500}, {"model": "XLNet", "model_size": 400, "training_volume": 2100}, {"model": "T5", "model_size": 11000, "training_volume": 1000}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "circle", "size": 60}, "encoding": {"x": {"field": "model_size", "scale": {"type": "log"}, "title": "model size (million parameters)", "type": "quantitative"}, "y": {"field": "training_volume", "scale": {"type": "log"}, "title": "training volume (million tokens)", "type": "quantitative"}}}, {"mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 7}, "encoding": {"text": {"field": "model", "type": "nominal"}, "x": {"field": "model_size", "scale": {"type": "log"}, "title": "model size (million parameters)", "type": "quantitative"}, "y": {"field": "training_volume", "scale": {"type": "log"}, "title": "training volume (million tokens)", "type": "quantitative"}}}], "data": {"name": "data-751df94472465bc07958ad8f65bf8836"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-751df94472465bc07958ad8f65bf8836": [{"model": "GPT-1", "model_size": 100, "training_volume": 30}, {"model": "BERT-large", "model_size": 300, "training_volume": 100}, {"model": "GPT-2", "model_size": 1500, "training_volume": 500}, {"model": "XLNet", "model_size": 400, "training_volume": 2100}, {"model": "T5", "model_size": 11000, "training_volume": 1000}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 </div>
@@ -1383,8 +1403,8 @@
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="language-detection-with-character-quadgrams.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1394,19 +1414,17 @@
         </div>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Daniel Kapitan<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Daniel Kapitan<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 
