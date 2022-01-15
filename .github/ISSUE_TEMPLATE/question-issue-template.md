@@ -1,8 +1,8 @@
 ---
 name: Question issue template
 about: Ask a question about the content of the book
-title: '[QUESTION]'
-labels: ''
+title: ''
+labels: 'question'
 assignees: ''
 
 ---
