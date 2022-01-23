@@ -182,6 +182,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="lab_10.9.5_imdb_document_classification.html">
+     Lab 10.9.3: Convolutional Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="lab_12.5_unsupervised_learning.html">
      Lab 12.5: Unsupervised Learning
     </a>
@@ -1426,6 +1431,38 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OptionError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">12</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># number precision for pandas</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:256,</span> in <span class="ni">CallableDynamicDoc.__call__</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">256</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__func__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:149,</span> in <span class="ni">_set_option</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;_set_option() got an unexpected keyword argument &quot;</span><span class="si">{</span><span class="n">kwarg</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]):</span>
+<span class="ne">--&gt; </span><span class="mi">149</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">_get_single_key</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">silent</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>     <span class="n">o</span> <span class="o">=</span> <span class="n">_get_registered_option</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>     <span class="k">if</span> <span class="n">o</span> <span class="ow">and</span> <span class="n">o</span><span class="o">.</span><span class="n">validator</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:116,</span> in <span class="ni">_get_single_key</span><span class="nt">(pat, silent)</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such keys(s): </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">116</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="s2">&quot;Pattern matched multiple keys&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="n">key</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+
+<span class="ne">OptionError</span>: &#39;Pattern matched multiple keys&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1473,88 +1510,88 @@
   <tbody>
     <tr>
       <th>1</th>
-      <td>0.01</td>
-      <td>18.00</td>
+      <td>0.00632</td>
+      <td>18.0</td>
       <td>2.31</td>
       <td>0</td>
-      <td>0.54</td>
-      <td>6.58</td>
-      <td>65.20</td>
-      <td>4.09</td>
+      <td>0.538</td>
+      <td>6.575</td>
+      <td>65.2</td>
+      <td>4.0900</td>
       <td>1</td>
       <td>296</td>
-      <td>15.30</td>
+      <td>15.3</td>
       <td>396.90</td>
       <td>4.98</td>
-      <td>24.00</td>
+      <td>24.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.03</td>
-      <td>0.00</td>
+      <td>0.02731</td>
+      <td>0.0</td>
       <td>7.07</td>
       <td>0</td>
-      <td>0.47</td>
-      <td>6.42</td>
-      <td>78.90</td>
-      <td>4.97</td>
+      <td>0.469</td>
+      <td>6.421</td>
+      <td>78.9</td>
+      <td>4.9671</td>
       <td>2</td>
       <td>242</td>
-      <td>17.80</td>
+      <td>17.8</td>
       <td>396.90</td>
       <td>9.14</td>
-      <td>21.60</td>
+      <td>21.6</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.03</td>
-      <td>0.00</td>
+      <td>0.02729</td>
+      <td>0.0</td>
       <td>7.07</td>
       <td>0</td>
-      <td>0.47</td>
-      <td>7.18</td>
-      <td>61.10</td>
-      <td>4.97</td>
+      <td>0.469</td>
+      <td>7.185</td>
+      <td>61.1</td>
+      <td>4.9671</td>
       <td>2</td>
       <td>242</td>
-      <td>17.80</td>
+      <td>17.8</td>
       <td>392.83</td>
       <td>4.03</td>
-      <td>34.70</td>
+      <td>34.7</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.03</td>
-      <td>0.00</td>
+      <td>0.03237</td>
+      <td>0.0</td>
       <td>2.18</td>
       <td>0</td>
-      <td>0.46</td>
-      <td>7.00</td>
-      <td>45.80</td>
-      <td>6.06</td>
+      <td>0.458</td>
+      <td>6.998</td>
+      <td>45.8</td>
+      <td>6.0622</td>
       <td>3</td>
       <td>222</td>
-      <td>18.70</td>
+      <td>18.7</td>
       <td>394.63</td>
       <td>2.94</td>
-      <td>33.40</td>
+      <td>33.4</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>0.07</td>
-      <td>0.00</td>
+      <td>0.06905</td>
+      <td>0.0</td>
       <td>2.18</td>
       <td>0</td>
-      <td>0.46</td>
-      <td>7.15</td>
-      <td>54.20</td>
-      <td>6.06</td>
+      <td>0.458</td>
+      <td>7.147</td>
+      <td>54.2</td>
+      <td>6.0622</td>
       <td>3</td>
       <td>222</td>
-      <td>18.70</td>
+      <td>18.7</td>
       <td>396.90</td>
       <td>5.33</td>
-      <td>36.20</td>
+      <td>36.2</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1575,88 +1612,88 @@
     </tr>
     <tr>
       <th>502</th>
-      <td>0.06</td>
-      <td>0.00</td>
+      <td>0.06263</td>
+      <td>0.0</td>
       <td>11.93</td>
       <td>0</td>
-      <td>0.57</td>
-      <td>6.59</td>
-      <td>69.10</td>
-      <td>2.48</td>
+      <td>0.573</td>
+      <td>6.593</td>
+      <td>69.1</td>
+      <td>2.4786</td>
       <td>1</td>
       <td>273</td>
-      <td>21.00</td>
+      <td>21.0</td>
       <td>391.99</td>
       <td>9.67</td>
-      <td>22.40</td>
+      <td>22.4</td>
     </tr>
     <tr>
       <th>503</th>
-      <td>0.05</td>
-      <td>0.00</td>
+      <td>0.04527</td>
+      <td>0.0</td>
       <td>11.93</td>
       <td>0</td>
-      <td>0.57</td>
-      <td>6.12</td>
-      <td>76.70</td>
-      <td>2.29</td>
+      <td>0.573</td>
+      <td>6.120</td>
+      <td>76.7</td>
+      <td>2.2875</td>
       <td>1</td>
       <td>273</td>
-      <td>21.00</td>
+      <td>21.0</td>
       <td>396.90</td>
       <td>9.08</td>
-      <td>20.60</td>
+      <td>20.6</td>
     </tr>
     <tr>
       <th>504</th>
-      <td>0.06</td>
-      <td>0.00</td>
+      <td>0.06076</td>
+      <td>0.0</td>
       <td>11.93</td>
       <td>0</td>
-      <td>0.57</td>
-      <td>6.98</td>
-      <td>91.00</td>
-      <td>2.17</td>
+      <td>0.573</td>
+      <td>6.976</td>
+      <td>91.0</td>
+      <td>2.1675</td>
       <td>1</td>
       <td>273</td>
-      <td>21.00</td>
+      <td>21.0</td>
       <td>396.90</td>
       <td>5.64</td>
-      <td>23.90</td>
+      <td>23.9</td>
     </tr>
     <tr>
       <th>505</th>
-      <td>0.11</td>
-      <td>0.00</td>
+      <td>0.10959</td>
+      <td>0.0</td>
       <td>11.93</td>
       <td>0</td>
-      <td>0.57</td>
-      <td>6.79</td>
-      <td>89.30</td>
-      <td>2.39</td>
+      <td>0.573</td>
+      <td>6.794</td>
+      <td>89.3</td>
+      <td>2.3889</td>
       <td>1</td>
       <td>273</td>
-      <td>21.00</td>
+      <td>21.0</td>
       <td>393.45</td>
       <td>6.48</td>
-      <td>22.00</td>
+      <td>22.0</td>
     </tr>
     <tr>
       <th>506</th>
-      <td>0.05</td>
-      <td>0.00</td>
+      <td>0.04741</td>
+      <td>0.0</td>
       <td>11.93</td>
       <td>0</td>
-      <td>0.57</td>
-      <td>6.03</td>
-      <td>80.80</td>
-      <td>2.50</td>
+      <td>0.573</td>
+      <td>6.030</td>
+      <td>80.8</td>
+      <td>2.5050</td>
       <td>1</td>
       <td>273</td>
-      <td>21.00</td>
+      <td>21.0</td>
       <td>396.90</td>
       <td>7.88</td>
-      <td>11.90</td>
+      <td>11.9</td>
     </tr>
   </tbody>
 </table>
@@ -1764,10 +1801,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   601.6</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>5.08e-88</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>5.08e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:45</td>     <th>  Log-Likelihood:    </th> <td> -1641.5</td>
+  <th>Time:</th>                 <td>23:11:53</td>     <th>  Log-Likelihood:    </th> <td> -1641.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3287.</td>
@@ -1872,47 +1909,47 @@ MSE : 38.48296722989415
     <tr>
       <th>1</th>
       <td>4.98</td>
-      <td>29.82</td>
-      <td>24.00</td>
-      <td>17.58</td>
-      <td>42.06</td>
-      <td>6.23</td>
+      <td>29.822595</td>
+      <td>24.0</td>
+      <td>17.584603</td>
+      <td>42.060587</td>
+      <td>6.228994</td>
     </tr>
     <tr>
       <th>2</th>
       <td>9.14</td>
-      <td>25.87</td>
-      <td>21.60</td>
-      <td>13.64</td>
-      <td>38.10</td>
-      <td>6.22</td>
+      <td>25.870390</td>
+      <td>21.6</td>
+      <td>13.643413</td>
+      <td>38.097367</td>
+      <td>6.223387</td>
     </tr>
     <tr>
       <th>3</th>
       <td>4.03</td>
-      <td>30.73</td>
-      <td>34.70</td>
-      <td>18.48</td>
-      <td>42.97</td>
-      <td>6.23</td>
+      <td>30.725142</td>
+      <td>34.7</td>
+      <td>18.483488</td>
+      <td>42.966796</td>
+      <td>6.230858</td>
     </tr>
     <tr>
       <th>4</th>
       <td>2.94</td>
-      <td>31.76</td>
-      <td>33.40</td>
-      <td>19.51</td>
-      <td>44.01</td>
-      <td>6.23</td>
+      <td>31.760696</td>
+      <td>33.4</td>
+      <td>19.514315</td>
+      <td>44.007076</td>
+      <td>6.233264</td>
     </tr>
     <tr>
       <th>5</th>
       <td>5.33</td>
-      <td>29.49</td>
-      <td>36.20</td>
-      <td>17.25</td>
-      <td>41.73</td>
-      <td>6.23</td>
+      <td>29.490078</td>
+      <td>36.2</td>
+      <td>17.253328</td>
+      <td>41.726828</td>
+      <td>6.228362</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1926,47 +1963,47 @@ MSE : 38.48296722989415
     <tr>
       <th>502</th>
       <td>9.67</td>
-      <td>25.37</td>
-      <td>22.40</td>
-      <td>13.14</td>
-      <td>37.59</td>
-      <td>6.22</td>
+      <td>25.366864</td>
+      <td>22.4</td>
+      <td>13.140702</td>
+      <td>37.593025</td>
+      <td>6.222972</td>
     </tr>
     <tr>
       <th>503</th>
       <td>9.08</td>
-      <td>25.93</td>
-      <td>20.60</td>
-      <td>13.70</td>
-      <td>38.15</td>
-      <td>6.22</td>
+      <td>25.927393</td>
+      <td>20.6</td>
+      <td>13.700315</td>
+      <td>38.154470</td>
+      <td>6.223438</td>
     </tr>
     <tr>
       <th>504</th>
       <td>5.64</td>
-      <td>29.20</td>
-      <td>23.90</td>
-      <td>16.96</td>
-      <td>41.43</td>
-      <td>6.23</td>
+      <td>29.195563</td>
+      <td>23.9</td>
+      <td>16.959864</td>
+      <td>41.431261</td>
+      <td>6.227826</td>
     </tr>
     <tr>
       <th>505</th>
       <td>6.48</td>
-      <td>28.40</td>
-      <td>22.00</td>
-      <td>16.16</td>
-      <td>40.63</td>
-      <td>6.23</td>
+      <td>28.397521</td>
+      <td>22.0</td>
+      <td>16.164444</td>
+      <td>40.630598</td>
+      <td>6.226492</td>
     </tr>
     <tr>
       <th>506</th>
       <td>7.88</td>
-      <td>27.07</td>
-      <td>11.90</td>
-      <td>14.84</td>
-      <td>39.30</td>
-      <td>6.22</td>
+      <td>27.067452</td>
+      <td>11.9</td>
+      <td>14.838003</td>
+      <td>39.296901</td>
+      <td>6.224646</td>
     </tr>
   </tbody>
 </table>
@@ -2071,10 +2108,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   309.0</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:46</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
+  <th>Time:</th>                 <td>23:11:54</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3281.</td>
@@ -2144,10 +2181,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   309.0</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:47</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
+  <th>Time:</th>                 <td>23:11:54</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3281.</td>
@@ -2227,10 +2264,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   108.1</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>6.72e-135</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>6.72e-135</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:47</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
+  <th>Time:</th>                 <td>23:11:54</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3026.</td> 
@@ -2368,10 +2405,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   117.3</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>6.08e-136</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>6.08e-136</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:47</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
+  <th>Time:</th>                 <td>23:11:54</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3024.</td> 
@@ -2472,10 +2509,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   209.3</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>4.86e-88</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>4.86e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:47</td>     <th>  Log-Likelihood:    </th> <td> -1635.0</td>
+  <th>Time:</th>                 <td>23:11:54</td>     <th>  Log-Likelihood:    </th> <td> -1635.0</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3278.</td>
@@ -2549,10 +2586,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   448.5</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>1.56e-112</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>1.56e-112</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:47</td>     <th>  Log-Likelihood:    </th> <td> -1581.3</td> 
+  <th>Time:</th>                 <td>23:11:54</td>     <th>  Log-Likelihood:    </th> <td> -1581.3</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3169.</td> 
@@ -2636,21 +2673,21 @@ lstat 	: 2.94
   <tbody>
     <tr>
       <th>0</th>
-      <td>504.00</td>
-      <td>19,472.38</td>
-      <td>0.00</td>
+      <td>504.0</td>
+      <td>19472.381418</td>
+      <td>0.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>503.00</td>
-      <td>15,347.24</td>
-      <td>1.00</td>
-      <td>4,125.14</td>
-      <td>135.20</td>
-      <td>0.00</td>
+      <td>503.0</td>
+      <td>15347.243158</td>
+      <td>1.0</td>
+      <td>4125.13826</td>
+      <td>135.199822</td>
+      <td>7.630116e-28</td>
     </tr>
   </tbody>
 </table>
@@ -2702,10 +2739,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   214.2</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>8.73e-122</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>8.73e-122</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:49</td>     <th>  Log-Likelihood:    </th> <td> -1550.6</td> 
+  <th>Time:</th>                 <td>23:11:56</td>     <th>  Log-Likelihood:    </th> <td> -1550.6</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3113.</td> 
@@ -2782,10 +2819,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   389.3</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>1.22e-64</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>1.22e-64</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:49</td>     <th>  Log-Likelihood:    </th> <td> -1695.4</td>
+  <th>Time:</th>                 <td>23:11:56</td>     <th>  Log-Likelihood:    </th> <td> -1695.4</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3395.</td>
@@ -3069,10 +3106,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   210.0</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Sat, 15 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>6.14e-166</td>
+  <th>Date:</th>             <td>Sun, 23 Jan 2022</td> <th>  Prob (F-statistic):</th> <td>6.14e-166</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>09:54:49</td>     <th>  Log-Likelihood:    </th> <td> -564.67</td> 
+  <th>Time:</th>                 <td>23:11:57</td>     <th>  Log-Likelihood:    </th> <td> -564.67</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   400</td>      <th>  AIC:               </th> <td>   1157.</td> 

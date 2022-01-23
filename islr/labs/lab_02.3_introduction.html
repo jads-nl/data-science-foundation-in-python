@@ -182,6 +182,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="lab_10.9.5_imdb_document_classification.html">
+     Lab 10.9.3: Convolutional Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="lab_12.5_unsupervised_learning.html">
      Lab 12.5: Unsupervised Learning
     </a>
@@ -1383,6 +1388,37 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OptionError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># number precision for pandas</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:256,</span> in <span class="ni">CallableDynamicDoc.__call__</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">256</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__func__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:149,</span> in <span class="ni">_set_option</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;_set_option() got an unexpected keyword argument &quot;</span><span class="si">{</span><span class="n">kwarg</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]):</span>
+<span class="ne">--&gt; </span><span class="mi">149</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">_get_single_key</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">silent</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>     <span class="n">o</span> <span class="o">=</span> <span class="n">_get_registered_option</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>     <span class="k">if</span> <span class="n">o</span> <span class="ow">and</span> <span class="n">o</span><span class="o">.</span><span class="n">validator</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:116,</span> in <span class="ni">_get_single_key</span><span class="nt">(pat, silent)</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such keys(s): </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">116</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="s2">&quot;Pattern matched multiple keys&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="n">key</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+
+<span class="ne">OptionError</span>: &#39;Pattern matched multiple keys&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1451,7 +1487,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9954462621988631
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9956958262475413
 </pre></div>
 </div>
 </div>
@@ -1582,11 +1618,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_4060/3285476865.py:4: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
-  plt.colorbar();
-</pre></div>
-</div>
-<img alt="../../_images/lab_02.3_introduction_14_1.png" src="../../_images/lab_02.3_introduction_14_1.png" />
+<img alt="../../_images/lab_02.3_introduction_14_0.png" src="../../_images/lab_02.3_introduction_14_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2195,14 +2227,14 @@
   <tbody>
     <tr>
       <th>count</th>
-      <td>392.00</td>
+      <td>392.000000</td>
       <td>392.0</td>
-      <td>392.00</td>
-      <td>392.00</td>
-      <td>392.00</td>
-      <td>392.00</td>
-      <td>392.00</td>
-      <td>392.00</td>
+      <td>392.000000</td>
+      <td>392.000000</td>
+      <td>392.000000</td>
+      <td>392.000000</td>
+      <td>392.000000</td>
+      <td>392.000000</td>
       <td>392</td>
     </tr>
     <tr>
@@ -2243,86 +2275,86 @@
     </tr>
     <tr>
       <th>mean</th>
-      <td>23.45</td>
+      <td>23.445918</td>
       <td>NaN</td>
-      <td>194.41</td>
-      <td>104.47</td>
-      <td>2977.58</td>
-      <td>15.54</td>
-      <td>75.98</td>
-      <td>1.58</td>
+      <td>194.411990</td>
+      <td>104.469388</td>
+      <td>2977.584184</td>
+      <td>15.541327</td>
+      <td>75.979592</td>
+      <td>1.576531</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>7.81</td>
+      <td>7.805007</td>
       <td>NaN</td>
-      <td>104.64</td>
-      <td>38.49</td>
-      <td>849.40</td>
-      <td>2.76</td>
-      <td>3.68</td>
-      <td>0.81</td>
+      <td>104.644004</td>
+      <td>38.491160</td>
+      <td>849.402560</td>
+      <td>2.758864</td>
+      <td>3.683737</td>
+      <td>0.805518</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>9.00</td>
+      <td>9.000000</td>
       <td>NaN</td>
-      <td>68.00</td>
-      <td>46.00</td>
-      <td>1613.00</td>
-      <td>8.00</td>
-      <td>70.00</td>
-      <td>1.00</td>
+      <td>68.000000</td>
+      <td>46.000000</td>
+      <td>1613.000000</td>
+      <td>8.000000</td>
+      <td>70.000000</td>
+      <td>1.000000</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>17.00</td>
+      <td>17.000000</td>
       <td>NaN</td>
-      <td>105.00</td>
-      <td>75.00</td>
-      <td>2225.25</td>
-      <td>13.78</td>
-      <td>73.00</td>
-      <td>1.00</td>
+      <td>105.000000</td>
+      <td>75.000000</td>
+      <td>2225.250000</td>
+      <td>13.775000</td>
+      <td>73.000000</td>
+      <td>1.000000</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>22.75</td>
+      <td>22.750000</td>
       <td>NaN</td>
-      <td>151.00</td>
-      <td>93.50</td>
-      <td>2803.50</td>
-      <td>15.50</td>
-      <td>76.00</td>
-      <td>1.00</td>
+      <td>151.000000</td>
+      <td>93.500000</td>
+      <td>2803.500000</td>
+      <td>15.500000</td>
+      <td>76.000000</td>
+      <td>1.000000</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>29.00</td>
+      <td>29.000000</td>
       <td>NaN</td>
-      <td>275.75</td>
-      <td>126.00</td>
-      <td>3614.75</td>
-      <td>17.02</td>
-      <td>79.00</td>
-      <td>2.00</td>
+      <td>275.750000</td>
+      <td>126.000000</td>
+      <td>3614.750000</td>
+      <td>17.025000</td>
+      <td>79.000000</td>
+      <td>2.000000</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>46.60</td>
+      <td>46.600000</td>
       <td>NaN</td>
-      <td>455.00</td>
-      <td>230.00</td>
-      <td>5140.00</td>
-      <td>24.80</td>
-      <td>82.00</td>
-      <td>3.00</td>
+      <td>455.000000</td>
+      <td>230.000000</td>
+      <td>5140.000000</td>
+      <td>24.800000</td>
+      <td>82.000000</td>
+      <td>3.000000</td>
       <td>NaN</td>
     </tr>
   </tbody>
@@ -2362,35 +2394,35 @@
   <tbody>
     <tr>
       <th>count</th>
-      <td>392.00</td>
+      <td>392.000000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>23.45</td>
+      <td>23.445918</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>7.81</td>
+      <td>7.805007</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>9.00</td>
+      <td>9.000000</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>17.00</td>
+      <td>17.000000</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>22.75</td>
+      <td>22.750000</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>29.00</td>
+      <td>29.000000</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>46.60</td>
+      <td>46.600000</td>
     </tr>
   </tbody>
 </table>

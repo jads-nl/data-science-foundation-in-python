@@ -56,7 +56,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Exercises" href="../exercises.html" />
-    <link rel="prev" title="Lab 10.9.3: Convolutional Neural Networks" href="lab_10.9.3_convolutional_neural_networks.html" />
+    <link rel="prev" title="Lab 10.9.3: Convolutional Neural Networks" href="lab_10.9.5_imdb_document_classification.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -178,6 +178,11 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="lab_10.9.3_convolutional_neural_networks.html">
+     Lab 10.9.3: Convolutional Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lab_10.9.5_imdb_document_classification.html">
      Lab 10.9.3: Convolutional Neural Networks
     </a>
    </li>
@@ -1429,6 +1434,38 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OptionError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># number precision for pandas</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:256,</span> in <span class="ni">CallableDynamicDoc.__call__</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">256</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__func__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:149,</span> in <span class="ni">_set_option</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;_set_option() got an unexpected keyword argument &quot;</span><span class="si">{</span><span class="n">kwarg</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]):</span>
+<span class="ne">--&gt; </span><span class="mi">149</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">_get_single_key</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">silent</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>     <span class="n">o</span> <span class="o">=</span> <span class="n">_get_registered_option</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>     <span class="k">if</span> <span class="n">o</span> <span class="ow">and</span> <span class="n">o</span><span class="o">.</span><span class="n">validator</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py:116,</span> in <span class="ni">_get_single_key</span><span class="nt">(pat, silent)</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such keys(s): </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">116</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="s2">&quot;Pattern matched multiple keys&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="n">key</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+
+<span class="ne">OptionError</span>: &#39;Pattern matched multiple keys&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1444,10 +1481,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Murder                   7.7880
-Assault                170.7600
-UrbanPop                65.5400
-Rape                    21.2320
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Murder        7.788
+Assault     170.760
+UrbanPop     65.540
+Rape         21.232
 dtype: float64
 </pre></div>
 </div>
@@ -1460,10 +1497,10 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Murder                  18.9705
-Assault              6,945.1657
-UrbanPop               209.5188
-Rape                    87.7292
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Murder        18.970465
+Assault     6945.165714
+UrbanPop     209.518776
+Rape          87.729159
 dtype: float64
 </pre></div>
 </div>
@@ -1560,31 +1597,31 @@ dtype: float64
   <tbody>
     <tr>
       <th>Murder</th>
-      <td>0.5359</td>
-      <td>0.4182</td>
-      <td>-0.3412</td>
-      <td>0.6492</td>
+      <td>0.535899</td>
+      <td>0.418181</td>
+      <td>-0.341233</td>
+      <td>0.649228</td>
     </tr>
     <tr>
       <th>Assault</th>
-      <td>0.5832</td>
-      <td>0.1880</td>
-      <td>-0.2681</td>
-      <td>-0.7434</td>
+      <td>0.583184</td>
+      <td>0.187986</td>
+      <td>-0.268148</td>
+      <td>-0.743407</td>
     </tr>
     <tr>
       <th>UrbanPop</th>
-      <td>0.2782</td>
-      <td>-0.8728</td>
-      <td>-0.3780</td>
-      <td>0.1339</td>
+      <td>0.278191</td>
+      <td>-0.872806</td>
+      <td>-0.378016</td>
+      <td>0.133878</td>
     </tr>
     <tr>
       <th>Rape</th>
-      <td>0.5434</td>
-      <td>-0.1673</td>
-      <td>0.8178</td>
-      <td>0.0890</td>
+      <td>0.543432</td>
+      <td>-0.167319</td>
+      <td>0.817778</td>
+      <td>0.089024</td>
     </tr>
   </tbody>
 </table>
@@ -1970,7 +2007,15 @@ inertia with n_init=20: 62.73737809735573
       <th>data.4</th>
       <th>data.5</th>
       <th>data.6</th>
+      <th>data.7</th>
+      <th>data.8</th>
+      <th>data.9</th>
+      <th>data.10</th>
       <th>...</th>
+      <th>data.6821</th>
+      <th>data.6822</th>
+      <th>data.6823</th>
+      <th>data.6824</th>
       <th>data.6825</th>
       <th>data.6826</th>
       <th>data.6827</th>
@@ -1982,83 +2027,123 @@ inertia with n_init=20: 62.73737809735573
   <tbody>
     <tr>
       <th>V1</th>
-      <td>0.3000</td>
-      <td>1.1800</td>
-      <td>0.5500</td>
-      <td>1.1400</td>
-      <td>-0.2650</td>
-      <td>-0.0700</td>
+      <td>0.300000</td>
+      <td>1.180000</td>
+      <td>0.550000</td>
+      <td>1.140000</td>
+      <td>-0.265000</td>
+      <td>-7.000000e-02</td>
+      <td>0.350000</td>
+      <td>-0.315000</td>
+      <td>-0.450000</td>
+      <td>-0.654980</td>
       <td>...</td>
-      <td>0.6300</td>
-      <td>-0.0300</td>
-      <td>0.0000</td>
-      <td>0.2800</td>
-      <td>-0.3400</td>
-      <td>-1.9300</td>
+      <td>-0.990020</td>
+      <td>0.000000</td>
+      <td>0.030000</td>
+      <td>-0.175000</td>
+      <td>0.629981</td>
+      <td>-0.030000</td>
+      <td>0.000000</td>
+      <td>0.280000</td>
+      <td>-0.340000</td>
+      <td>-1.930000</td>
     </tr>
     <tr>
       <th>V2</th>
-      <td>0.6800</td>
-      <td>1.2900</td>
-      <td>0.1700</td>
-      <td>0.3800</td>
-      <td>0.4650</td>
-      <td>0.5800</td>
+      <td>0.679961</td>
+      <td>1.289961</td>
+      <td>0.169961</td>
+      <td>0.379961</td>
+      <td>0.464961</td>
+      <td>5.799610e-01</td>
+      <td>0.699961</td>
+      <td>0.724961</td>
+      <td>-0.040039</td>
+      <td>-0.285019</td>
       <td>...</td>
-      <td>0.1099</td>
-      <td>-0.8600</td>
-      <td>-1.2500</td>
-      <td>-0.7700</td>
-      <td>-0.3900</td>
-      <td>-2.0000</td>
+      <td>-0.270058</td>
+      <td>-0.300039</td>
+      <td>-0.250039</td>
+      <td>-0.535039</td>
+      <td>0.109941</td>
+      <td>-0.860039</td>
+      <td>-1.250049</td>
+      <td>-0.770039</td>
+      <td>-0.390039</td>
+      <td>-2.000039</td>
     </tr>
     <tr>
       <th>V3</th>
-      <td>0.9400</td>
-      <td>-0.0400</td>
-      <td>-0.1700</td>
-      <td>-0.0400</td>
-      <td>-0.6050</td>
-      <td>0.0000</td>
+      <td>0.940000</td>
+      <td>-0.040000</td>
+      <td>-0.170000</td>
+      <td>-0.040000</td>
+      <td>-0.605000</td>
+      <td>0.000000e+00</td>
+      <td>0.090000</td>
+      <td>0.645000</td>
+      <td>0.430000</td>
+      <td>0.475019</td>
       <td>...</td>
-      <td>-0.2700</td>
-      <td>-0.1500</td>
-      <td>0.0000</td>
-      <td>-0.1200</td>
-      <td>-0.4100</td>
-      <td>0.0000</td>
+      <td>0.319981</td>
+      <td>0.120000</td>
+      <td>-0.740000</td>
+      <td>-0.595000</td>
+      <td>-0.270020</td>
+      <td>-0.150000</td>
+      <td>0.000000</td>
+      <td>-0.120000</td>
+      <td>-0.410000</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>V4</th>
-      <td>0.2800</td>
-      <td>-0.3100</td>
-      <td>0.6800</td>
-      <td>-0.8100</td>
-      <td>0.6250</td>
-      <td>-0.0000</td>
+      <td>0.280000</td>
+      <td>-0.310000</td>
+      <td>0.680000</td>
+      <td>-0.810000</td>
+      <td>0.625000</td>
+      <td>-1.387779e-17</td>
+      <td>0.170000</td>
+      <td>0.245000</td>
+      <td>0.020000</td>
+      <td>0.095019</td>
       <td>...</td>
-      <td>-0.3500</td>
-      <td>-0.3000</td>
-      <td>-1.1500</td>
-      <td>1.0900</td>
-      <td>-0.2600</td>
-      <td>-1.1000</td>
+      <td>-1.240020</td>
+      <td>-0.110000</td>
+      <td>-0.160000</td>
+      <td>0.095000</td>
+      <td>-0.350019</td>
+      <td>-0.300000</td>
+      <td>-1.150010</td>
+      <td>1.090000</td>
+      <td>-0.260000</td>
+      <td>-1.100000</td>
     </tr>
     <tr>
       <th>V5</th>
-      <td>0.4850</td>
-      <td>-0.4650</td>
-      <td>0.3950</td>
-      <td>0.9050</td>
-      <td>0.2000</td>
-      <td>-0.0050</td>
+      <td>0.485000</td>
+      <td>-0.465000</td>
+      <td>0.395000</td>
+      <td>0.905000</td>
+      <td>0.200000</td>
+      <td>-5.000000e-03</td>
+      <td>0.085000</td>
+      <td>0.110000</td>
+      <td>0.235000</td>
+      <td>1.490019</td>
       <td>...</td>
-      <td>0.6350</td>
-      <td>0.6050</td>
-      <td>0.0000</td>
-      <td>0.7450</td>
-      <td>0.4250</td>
-      <td>0.1450</td>
+      <td>0.554980</td>
+      <td>-0.775000</td>
+      <td>-0.515000</td>
+      <td>-0.320000</td>
+      <td>0.634980</td>
+      <td>0.605000</td>
+      <td>0.000000</td>
+      <td>0.745000</td>
+      <td>0.425000</td>
+      <td>0.145000</td>
     </tr>
   </tbody>
 </table>
@@ -2094,13 +2179,16 @@ NSCLC          9
 MELANOMA       8
 BREAST         7
 COLON          7
-              ..
+OVARIAN        6
+LEUKEMIA       6
+CNS            5
+PROSTATE       2
 UNKNOWN        1
 K562B-repro    1
 K562A-repro    1
 MCF7A-repro    1
 MCF7D-repro    1
-Name: labs, Length: 14, dtype: int64
+Name: labs, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -2279,7 +2367,8 @@ Name: labs, Length: 14, dtype: int64
       <th>K562A-repro</th>
       <th>K562B-repro</th>
       <th>LEUKEMIA</th>
-      <th>...</th>
+      <th>MCF7A-repro</th>
+      <th>MCF7D-repro</th>
       <th>MELANOMA</th>
       <th>NSCLC</th>
       <th>OVARIAN</th>
@@ -2289,6 +2378,7 @@ Name: labs, Length: 14, dtype: int64
     </tr>
     <tr>
       <th>row_0</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -2313,7 +2403,8 @@ Name: labs, Length: 14, dtype: int64
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>...</td>
+      <td>0</td>
+      <td>0</td>
       <td>8</td>
       <td>8</td>
       <td>6</td>
@@ -2329,7 +2420,8 @@ Name: labs, Length: 14, dtype: int64
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>...</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
@@ -2345,7 +2437,8 @@ Name: labs, Length: 14, dtype: int64
       <td>1</td>
       <td>1</td>
       <td>6</td>
-      <td>...</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -2361,7 +2454,8 @@ Name: labs, Length: 14, dtype: int64
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>...</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -2371,7 +2465,6 @@ Name: labs, Length: 14, dtype: int64
     </tr>
   </tbody>
 </table>
-<p>4 rows × 14 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -2518,7 +2611,8 @@ Name: labs, Length: 14, dtype: int64
       <th>K562A-repro</th>
       <th>K562B-repro</th>
       <th>LEUKEMIA</th>
-      <th>...</th>
+      <th>MCF7A-repro</th>
+      <th>MCF7D-repro</th>
       <th>MELANOMA</th>
       <th>NSCLC</th>
       <th>OVARIAN</th>
@@ -2528,6 +2622,7 @@ Name: labs, Length: 14, dtype: int64
     </tr>
     <tr>
       <th>row_0</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -2552,7 +2647,8 @@ Name: labs, Length: 14, dtype: int64
       <td>0</td>
       <td>0</td>
       <td>2</td>
-      <td>...</td>
+      <td>0</td>
+      <td>0</td>
       <td>1</td>
       <td>8</td>
       <td>5</td>
@@ -2568,7 +2664,8 @@ Name: labs, Length: 14, dtype: int64
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>...</td>
+      <td>0</td>
+      <td>0</td>
       <td>7</td>
       <td>1</td>
       <td>1</td>
@@ -2584,7 +2681,8 @@ Name: labs, Length: 14, dtype: int64
       <td>1</td>
       <td>1</td>
       <td>4</td>
-      <td>...</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -2600,7 +2698,8 @@ Name: labs, Length: 14, dtype: int64
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>...</td>
+      <td>1</td>
+      <td>1</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -2610,7 +2709,6 @@ Name: labs, Length: 14, dtype: int64
     </tr>
   </tbody>
 </table>
-<p>4 rows × 14 columns</p>
 </div></div></div>
 </div>
 </div>
@@ -2642,7 +2740,7 @@ Name: labs, Length: 14, dtype: int64
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="lab_10.9.3_convolutional_neural_networks.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="lab_10.9.5_imdb_document_classification.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
