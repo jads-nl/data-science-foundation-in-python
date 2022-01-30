@@ -189,6 +189,11 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="lab_10.9.6_recurrent_neural_networks.html">
+     Lab 10.9.6: Recurrent Neural Networks
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="lab_12.5_unsupervised_learning.html">
      Lab 12.5: Unsupervised Learning
     </a>
@@ -1376,24 +1381,25 @@
 <p>In this section we fit a CNN to the <a class="reference external" href="https://keras.io/api/datasets/cifar100/">CIFAR100 data</a>, which is available in the <a class="reference external" href="https://keras.io">Keras</a> package. It is arranged in a similar fashion as the MNIST data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports for array-handling and plotting</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="c1"># let&#39;s keep our keras backend tensorflow quiet</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;3&#39;</span>
 
-<span class="c1"># keras imports for the dataset and building our neural network</span>
+
+<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">cifar100</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Dense</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.losses</span> <span class="kn">import</span> <span class="n">sparse_categorical_crossentropy</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">load_model</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="c1"># load the data</span>
 <span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">cifar100</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">label_mode</span><span class="o">=</span><span class="s1">&#39;fine&#39;</span><span class="p">)</span>
@@ -1436,54 +1442,17 @@ Shape after one-hot encoding:  (50000, 100)
 <p>Before we start, we look at some of the training images. The file <code class="docutils literal notranslate"><span class="pre">cifar100_meta</span></code> contains the label names.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./cifar100_meta&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-<span class="n">pprint</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="s1">&#39;fine_label_names&#39;</span><span class="p">][</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="s1">&#39;fine_label_names&#39;</span><span class="p">][</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;coarse_label_names&#39;: [&#39;aquatic_mammals&#39;, &#39;fish&#39;, &#39;flowers&#39;, &#39;food_containers&#39;,
-                        &#39;fruit_and_vegetables&#39;, &#39;household_electrical_devices&#39;,
-                        &#39;household_furniture&#39;, &#39;insects&#39;, &#39;large_carnivores&#39;,
-                        &#39;large_man-made_outdoor_things&#39;,
-                        &#39;large_natural_outdoor_scenes&#39;,
-                        &#39;large_omnivores_and_herbivores&#39;, &#39;medium_mammals&#39;,
-                        &#39;non-insect_invertebrates&#39;, &#39;people&#39;, &#39;reptiles&#39;,
-                        &#39;small_mammals&#39;, &#39;trees&#39;, &#39;vehicles_1&#39;, &#39;vehicles_2&#39;],
- &#39;fine_label_names&#39;: [&#39;apple&#39;, &#39;aquarium_fish&#39;, &#39;baby&#39;, &#39;bear&#39;, &#39;beaver&#39;, &#39;bed&#39;,
-                      &#39;bee&#39;, &#39;beetle&#39;, &#39;bicycle&#39;, &#39;bottle&#39;, &#39;bowl&#39;, &#39;boy&#39;,
-                      &#39;bridge&#39;, &#39;bus&#39;, &#39;butterfly&#39;, &#39;camel&#39;, &#39;can&#39;, &#39;castle&#39;,
-                      &#39;caterpillar&#39;, &#39;cattle&#39;, &#39;chair&#39;, &#39;chimpanzee&#39;, &#39;clock&#39;,
-                      &#39;cloud&#39;, &#39;cockroach&#39;, &#39;couch&#39;, &#39;crab&#39;, &#39;crocodile&#39;, &#39;cup&#39;,
-                      &#39;dinosaur&#39;, &#39;dolphin&#39;, &#39;elephant&#39;, &#39;flatfish&#39;, &#39;forest&#39;,
-                      &#39;fox&#39;, &#39;girl&#39;, &#39;hamster&#39;, &#39;house&#39;, &#39;kangaroo&#39;, &#39;keyboard&#39;,
-                      &#39;lamp&#39;, &#39;lawn_mower&#39;, &#39;leopard&#39;, &#39;lion&#39;, &#39;lizard&#39;,
-                      &#39;lobster&#39;, &#39;man&#39;, &#39;maple_tree&#39;, &#39;motorcycle&#39;, &#39;mountain&#39;,
-                      &#39;mouse&#39;, &#39;mushroom&#39;, &#39;oak_tree&#39;, &#39;orange&#39;, &#39;orchid&#39;,
-                      &#39;otter&#39;, &#39;palm_tree&#39;, &#39;pear&#39;, &#39;pickup_truck&#39;, &#39;pine_tree&#39;,
-                      &#39;plain&#39;, &#39;plate&#39;, &#39;poppy&#39;, &#39;porcupine&#39;, &#39;possum&#39;,
-                      &#39;rabbit&#39;, &#39;raccoon&#39;, &#39;ray&#39;, &#39;road&#39;, &#39;rocket&#39;, &#39;rose&#39;,
-                      &#39;sea&#39;, &#39;seal&#39;, &#39;shark&#39;, &#39;shrew&#39;, &#39;skunk&#39;, &#39;skyscraper&#39;,
-                      &#39;snail&#39;, &#39;snake&#39;, &#39;spider&#39;, &#39;squirrel&#39;, &#39;streetcar&#39;,
-                      &#39;sunflower&#39;, &#39;sweet_pepper&#39;, &#39;table&#39;, &#39;tank&#39;, &#39;telephone&#39;,
-                      &#39;television&#39;, &#39;tiger&#39;, &#39;tractor&#39;, &#39;train&#39;, &#39;trout&#39;,
-                      &#39;tulip&#39;, &#39;turtle&#39;, &#39;wardrobe&#39;, &#39;whale&#39;, &#39;willow_tree&#39;,
-                      &#39;wolf&#39;, &#39;woman&#39;, &#39;worm&#39;]}
-</pre></div>
-</div>
-<img alt="../../_images/lab_10.9.3_convolutional_neural_networks_5_1.png" src="../../_images/lab_10.9.3_convolutional_neural_networks_5_1.png" />
-<img alt="../../_images/lab_10.9.3_convolutional_neural_networks_5_2.png" src="../../_images/lab_10.9.3_convolutional_neural_networks_5_2.png" />
+<img alt="../../_images/lab_10.9.3_convolutional_neural_networks_5_0.png" src="../../_images/lab_10.9.3_convolutional_neural_networks_5_0.png" />
 </div>
 </div>
 </div>
@@ -1577,68 +1546,68 @@ _________________________________________________________________
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/30
-313/313 - 21s - loss: 4.1577 - accuracy: 0.0587 - val_loss: 3.6969 - val_accuracy: 0.1263 - 21s/epoch - 67ms/step
+313/313 [==============================] - 21s 67ms/step - loss: 4.1307 - accuracy: 0.0610 - val_loss: 3.7441 - val_accuracy: 0.1196
 Epoch 2/30
-313/313 - 19s - loss: 3.4891 - accuracy: 0.1631 - val_loss: 3.2034 - val_accuracy: 0.2149 - 19s/epoch - 62ms/step
+313/313 [==============================] - 20s 65ms/step - loss: 3.4793 - accuracy: 0.1650 - val_loss: 3.2364 - val_accuracy: 0.2169
 Epoch 3/30
-313/313 - 19s - loss: 3.1219 - accuracy: 0.2277 - val_loss: 2.9499 - val_accuracy: 0.2644 - 19s/epoch - 62ms/step
+313/313 [==============================] - 20s 64ms/step - loss: 3.1171 - accuracy: 0.2275 - val_loss: 3.0188 - val_accuracy: 0.2521
 Epoch 4/30
-313/313 - 19s - loss: 2.8791 - accuracy: 0.2764 - val_loss: 2.8735 - val_accuracy: 0.2773 - 19s/epoch - 62ms/step
+313/313 [==============================] - 20s 65ms/step - loss: 2.8494 - accuracy: 0.2817 - val_loss: 2.7353 - val_accuracy: 0.3050
 Epoch 5/30
-313/313 - 20s - loss: 2.6941 - accuracy: 0.3103 - val_loss: 2.6603 - val_accuracy: 0.3256 - 20s/epoch - 63ms/step
+313/313 [==============================] - 20s 65ms/step - loss: 2.6497 - accuracy: 0.3214 - val_loss: 2.6284 - val_accuracy: 0.3348
 Epoch 6/30
-313/313 - 20s - loss: 2.5200 - accuracy: 0.3456 - val_loss: 2.5317 - val_accuracy: 0.3535 - 20s/epoch - 63ms/step
+313/313 [==============================] - 21s 66ms/step - loss: 2.4713 - accuracy: 0.3557 - val_loss: 2.4881 - val_accuracy: 0.3620
 Epoch 7/30
-313/313 - 20s - loss: 2.3977 - accuracy: 0.3730 - val_loss: 2.4579 - val_accuracy: 0.3686 - 20s/epoch - 63ms/step
+313/313 [==============================] - 21s 67ms/step - loss: 2.3206 - accuracy: 0.3883 - val_loss: 2.4010 - val_accuracy: 0.3814
 Epoch 8/30
-313/313 - 20s - loss: 2.2714 - accuracy: 0.4001 - val_loss: 2.4374 - val_accuracy: 0.3701 - 20s/epoch - 64ms/step
+313/313 [==============================] - 21s 68ms/step - loss: 2.1844 - accuracy: 0.4150 - val_loss: 2.3158 - val_accuracy: 0.4022
 Epoch 9/30
-313/313 - 21s - loss: 2.1526 - accuracy: 0.4245 - val_loss: 2.3649 - val_accuracy: 0.3920 - 21s/epoch - 66ms/step
+313/313 [==============================] - 24s 76ms/step - loss: 2.0668 - accuracy: 0.4445 - val_loss: 2.3066 - val_accuracy: 0.4057
 Epoch 10/30
-313/313 - 20s - loss: 2.0608 - accuracy: 0.4448 - val_loss: 2.3010 - val_accuracy: 0.4018 - 20s/epoch - 65ms/step
+313/313 [==============================] - 23s 73ms/step - loss: 1.9617 - accuracy: 0.4652 - val_loss: 2.2419 - val_accuracy: 0.4229
 Epoch 11/30
-313/313 - 20s - loss: 1.9553 - accuracy: 0.4674 - val_loss: 2.2965 - val_accuracy: 0.4080 - 20s/epoch - 65ms/step
+313/313 [==============================] - 22s 71ms/step - loss: 1.8601 - accuracy: 0.4896 - val_loss: 2.2236 - val_accuracy: 0.4295
 Epoch 12/30
-313/313 - 20s - loss: 1.8735 - accuracy: 0.4835 - val_loss: 2.2814 - val_accuracy: 0.4081 - 20s/epoch - 65ms/step
+313/313 [==============================] - 22s 69ms/step - loss: 1.7683 - accuracy: 0.5102 - val_loss: 2.2144 - val_accuracy: 0.4325
 Epoch 13/30
-313/313 - 21s - loss: 1.7963 - accuracy: 0.5051 - val_loss: 2.2483 - val_accuracy: 0.4177 - 21s/epoch - 66ms/step
+313/313 [==============================] - 22s 69ms/step - loss: 1.6757 - accuracy: 0.5304 - val_loss: 2.1977 - val_accuracy: 0.4343
 Epoch 14/30
-313/313 - 21s - loss: 1.7115 - accuracy: 0.5200 - val_loss: 2.2871 - val_accuracy: 0.4062 - 21s/epoch - 67ms/step
+313/313 [==============================] - 22s 69ms/step - loss: 1.5943 - accuracy: 0.5497 - val_loss: 2.1885 - val_accuracy: 0.4421
 Epoch 15/30
-313/313 - 23s - loss: 1.6400 - accuracy: 0.5350 - val_loss: 2.2901 - val_accuracy: 0.4246 - 23s/epoch - 73ms/step
+313/313 [==============================] - 21s 68ms/step - loss: 1.5233 - accuracy: 0.5652 - val_loss: 2.2067 - val_accuracy: 0.4390
 Epoch 16/30
-313/313 - 26s - loss: 1.5634 - accuracy: 0.5555 - val_loss: 2.2349 - val_accuracy: 0.4314 - 26s/epoch - 82ms/step
+313/313 [==============================] - 22s 71ms/step - loss: 1.4562 - accuracy: 0.5817 - val_loss: 2.2007 - val_accuracy: 0.4414
 Epoch 17/30
-313/313 - 25s - loss: 1.5039 - accuracy: 0.5687 - val_loss: 2.2831 - val_accuracy: 0.4282 - 25s/epoch - 81ms/step
+313/313 [==============================] - 22s 70ms/step - loss: 1.3785 - accuracy: 0.5982 - val_loss: 2.2191 - val_accuracy: 0.4365
 Epoch 18/30
-313/313 - 21s - loss: 1.4523 - accuracy: 0.5812 - val_loss: 2.2258 - val_accuracy: 0.4397 - 21s/epoch - 67ms/step
+313/313 [==============================] - 22s 71ms/step - loss: 1.3202 - accuracy: 0.6142 - val_loss: 2.2120 - val_accuracy: 0.4504
 Epoch 19/30
-313/313 - 22s - loss: 1.3887 - accuracy: 0.5977 - val_loss: 2.2423 - val_accuracy: 0.4326 - 22s/epoch - 70ms/step
+313/313 [==============================] - 21s 68ms/step - loss: 1.2651 - accuracy: 0.6258 - val_loss: 2.2463 - val_accuracy: 0.4430
 Epoch 20/30
-313/313 - 21s - loss: 1.3253 - accuracy: 0.6099 - val_loss: 2.2678 - val_accuracy: 0.4352 - 21s/epoch - 66ms/step
+313/313 [==============================] - 21s 68ms/step - loss: 1.2096 - accuracy: 0.6450 - val_loss: 2.2703 - val_accuracy: 0.4475
 Epoch 21/30
-313/313 - 21s - loss: 1.2870 - accuracy: 0.6217 - val_loss: 2.2687 - val_accuracy: 0.4380 - 21s/epoch - 67ms/step
+313/313 [==============================] - 21s 68ms/step - loss: 1.1486 - accuracy: 0.6587 - val_loss: 2.2933 - val_accuracy: 0.4419
 Epoch 22/30
-313/313 - 21s - loss: 1.2291 - accuracy: 0.6373 - val_loss: 2.2967 - val_accuracy: 0.4377 - 21s/epoch - 66ms/step
+313/313 [==============================] - 21s 69ms/step - loss: 1.1234 - accuracy: 0.6643 - val_loss: 2.3067 - val_accuracy: 0.4417
 Epoch 23/30
-313/313 - 21s - loss: 1.1952 - accuracy: 0.6441 - val_loss: 2.3206 - val_accuracy: 0.4387 - 21s/epoch - 66ms/step
+313/313 [==============================] - 22s 69ms/step - loss: 1.0704 - accuracy: 0.6761 - val_loss: 2.3614 - val_accuracy: 0.4503
 Epoch 24/30
-313/313 - 21s - loss: 1.1655 - accuracy: 0.6496 - val_loss: 2.3227 - val_accuracy: 0.4366 - 21s/epoch - 68ms/step
+313/313 [==============================] - 22s 71ms/step - loss: 1.0311 - accuracy: 0.6895 - val_loss: 2.3665 - val_accuracy: 0.4394
 Epoch 25/30
-313/313 - 21s - loss: 1.1147 - accuracy: 0.6628 - val_loss: 2.3840 - val_accuracy: 0.4410 - 21s/epoch - 66ms/step
+313/313 [==============================] - 22s 69ms/step - loss: 1.0013 - accuracy: 0.6975 - val_loss: 2.3657 - val_accuracy: 0.4483
 Epoch 26/30
-313/313 - 21s - loss: 1.0828 - accuracy: 0.6734 - val_loss: 2.4030 - val_accuracy: 0.4372 - 21s/epoch - 66ms/step
+313/313 [==============================] - 21s 68ms/step - loss: 0.9566 - accuracy: 0.7077 - val_loss: 2.3976 - val_accuracy: 0.4483
 Epoch 27/30
-313/313 - 22s - loss: 1.0495 - accuracy: 0.6823 - val_loss: 2.4196 - val_accuracy: 0.4352 - 22s/epoch - 70ms/step
+313/313 [==============================] - 21s 67ms/step - loss: 0.9309 - accuracy: 0.7140 - val_loss: 2.4040 - val_accuracy: 0.4428
 Epoch 28/30
-313/313 - 20s - loss: 1.0270 - accuracy: 0.6903 - val_loss: 2.3836 - val_accuracy: 0.4389 - 20s/epoch - 65ms/step
+313/313 [==============================] - 21s 67ms/step - loss: 0.8874 - accuracy: 0.7283 - val_loss: 2.4349 - val_accuracy: 0.4463
 Epoch 29/30
-313/313 - 20s - loss: 0.9930 - accuracy: 0.6962 - val_loss: 2.4345 - val_accuracy: 0.4380 - 20s/epoch - 65ms/step
+313/313 [==============================] - 22s 71ms/step - loss: 0.8727 - accuracy: 0.7287 - val_loss: 2.4372 - val_accuracy: 0.4440
 Epoch 30/30
-313/313 - 20s - loss: 0.9645 - accuracy: 0.7029 - val_loss: 2.4610 - val_accuracy: 0.4332 - 20s/epoch - 65ms/step
+313/313 [==============================] - 22s 69ms/step - loss: 0.8455 - accuracy: 0.7376 - val_loss: 2.4941 - val_accuracy: 0.4446
 Saved trained model at keras_cifar100.h5
-CPU times: user 1h 44min 1s, sys: 2min 20s, total: 1h 46min 21s
-Wall time: 10min 27s
+CPU times: user 1h 46min 4s, sys: 2min 51s, total: 1h 48min 55s
+Wall time: 10min 44s
 </pre></div>
 </div>
 </div>
@@ -1646,45 +1615,93 @@ Wall time: 10min 27s
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plotting the metrics</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model accuracy&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model loss&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;epoch&quot;</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;training&quot;</span><span class="p">),</span>
+        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">:</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;val_loss&quot;</span><span class="p">:</span> <span class="s2">&quot;loss&quot;</span><span class="p">})</span>
+        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;validation&quot;</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;epoch:Q&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;,.2f&quot;</span><span class="p">)])</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;epoch:Q&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;,.2f&quot;</span><span class="p">)]</span> <span class="p">)</span>
+<span class="n">loss</span> <span class="o">|</span> <span class="n">accuracy</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_10.9.3_convolutional_neural_networks_11_0.png" src="../../_images/lab_10.9.3_convolutional_neural_networks_11_0.png" />
-</div>
+<div class="output text_html">
+<div id="altair-viz-363732c71d5c4e0283be21d4fd5b98b5"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-363732c71d5c4e0283be21d4fd5b98b5") {
+      outputDiv = document.getElementById("altair-viz-363732c71d5c4e0283be21d4fd5b98b5");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": {"type": "line", "point": true}, "encoding": {"color": {"type": "nominal", "field": "fold"}, "tooltip": [{"type": "quantitative", "field": "epoch"}, {"type": "quantitative", "field": "loss", "format": ",.2f"}], "x": {"type": "quantitative", "field": "epoch"}, "y": {"type": "quantitative", "field": "loss"}}}, {"mark": {"type": "line", "point": true}, "encoding": {"color": {"type": "nominal", "field": "fold"}, "tooltip": [{"type": "quantitative", "field": "epoch"}, {"type": "quantitative", "field": "accuracy", "format": ",.2f"}], "x": {"type": "quantitative", "field": "epoch"}, "y": {"type": "quantitative", "field": "accuracy"}}}], "data": {"name": "data-faea37cd230777d8c10fbae2922d3856"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-faea37cd230777d8c10fbae2922d3856": [{"epoch": 1, "loss": 4.1307148933410645, "accuracy": 0.061000000685453415, "fold": "training"}, {"epoch": 2, "loss": 3.4793343544006348, "accuracy": 0.16504999995231628, "fold": "training"}, {"epoch": 3, "loss": 3.1170527935028076, "accuracy": 0.22754999995231628, "fold": "training"}, {"epoch": 4, "loss": 2.8494207859039307, "accuracy": 0.2816750109195709, "fold": "training"}, {"epoch": 5, "loss": 2.6497232913970947, "accuracy": 0.321399986743927, "fold": "training"}, {"epoch": 6, "loss": 2.4712986946105957, "accuracy": 0.3557249903678894, "fold": "training"}, {"epoch": 7, "loss": 2.320563316345215, "accuracy": 0.3883250057697296, "fold": "training"}, {"epoch": 8, "loss": 2.1843905448913574, "accuracy": 0.41495001316070557, "fold": "training"}, {"epoch": 9, "loss": 2.0668091773986816, "accuracy": 0.444474995136261, "fold": "training"}, {"epoch": 10, "loss": 1.9617271423339844, "accuracy": 0.4652250111103058, "fold": "training"}, {"epoch": 11, "loss": 1.8601402044296265, "accuracy": 0.48957499861717224, "fold": "training"}, {"epoch": 12, "loss": 1.7683037519454956, "accuracy": 0.5101500153541565, "fold": "training"}, {"epoch": 13, "loss": 1.6757193803787231, "accuracy": 0.5304250121116638, "fold": "training"}, {"epoch": 14, "loss": 1.5942999124526978, "accuracy": 0.5496500134468079, "fold": "training"}, {"epoch": 15, "loss": 1.523347020149231, "accuracy": 0.5652250051498413, "fold": "training"}, {"epoch": 16, "loss": 1.4561598300933838, "accuracy": 0.5816500186920166, "fold": "training"}, {"epoch": 17, "loss": 1.3785043954849243, "accuracy": 0.5982000231742859, "fold": "training"}, {"epoch": 18, "loss": 1.320160984992981, "accuracy": 0.614175021648407, "fold": "training"}, {"epoch": 19, "loss": 1.2650883197784424, "accuracy": 0.6257500052452087, "fold": "training"}, {"epoch": 20, "loss": 1.2095528841018677, "accuracy": 0.6449750065803528, "fold": "training"}, {"epoch": 21, "loss": 1.1486376523971558, "accuracy": 0.6587250232696533, "fold": "training"}, {"epoch": 22, "loss": 1.1234098672866821, "accuracy": 0.6643000245094299, "fold": "training"}, {"epoch": 23, "loss": 1.070427417755127, "accuracy": 0.6761249899864197, "fold": "training"}, {"epoch": 24, "loss": 1.0311206579208374, "accuracy": 0.6894500255584717, "fold": "training"}, {"epoch": 25, "loss": 1.0012807846069336, "accuracy": 0.697475016117096, "fold": "training"}, {"epoch": 26, "loss": 0.9566457867622375, "accuracy": 0.7077249884605408, "fold": "training"}, {"epoch": 27, "loss": 0.9309296607971191, "accuracy": 0.7140499949455261, "fold": "training"}, {"epoch": 28, "loss": 0.8873628973960876, "accuracy": 0.7282999753952026, "fold": "training"}, {"epoch": 29, "loss": 0.872673749923706, "accuracy": 0.728725016117096, "fold": "training"}, {"epoch": 30, "loss": 0.8454855680465698, "accuracy": 0.7375500202178955, "fold": "training"}, {"epoch": 1, "loss": 3.744094133377075, "accuracy": 0.11959999799728394, "fold": "validation"}, {"epoch": 2, "loss": 3.236351490020752, "accuracy": 0.21690000593662262, "fold": "validation"}, {"epoch": 3, "loss": 3.018782138824463, "accuracy": 0.25209999084472656, "fold": "validation"}, {"epoch": 4, "loss": 2.735325813293457, "accuracy": 0.3050000071525574, "fold": "validation"}, {"epoch": 5, "loss": 2.628425121307373, "accuracy": 0.33480000495910645, "fold": "validation"}, {"epoch": 6, "loss": 2.4880599975585938, "accuracy": 0.3619999885559082, "fold": "validation"}, {"epoch": 7, "loss": 2.4009907245635986, "accuracy": 0.3813999891281128, "fold": "validation"}, {"epoch": 8, "loss": 2.3158366680145264, "accuracy": 0.40220001339912415, "fold": "validation"}, {"epoch": 9, "loss": 2.306555986404419, "accuracy": 0.4056999981403351, "fold": "validation"}, {"epoch": 10, "loss": 2.241865634918213, "accuracy": 0.42289999127388, "fold": "validation"}, {"epoch": 11, "loss": 2.223642110824585, "accuracy": 0.429500013589859, "fold": "validation"}, {"epoch": 12, "loss": 2.214426279067993, "accuracy": 0.4325000047683716, "fold": "validation"}, {"epoch": 13, "loss": 2.1977365016937256, "accuracy": 0.4343000054359436, "fold": "validation"}, {"epoch": 14, "loss": 2.1884708404541016, "accuracy": 0.44209998846054077, "fold": "validation"}, {"epoch": 15, "loss": 2.2066986560821533, "accuracy": 0.4390000104904175, "fold": "validation"}, {"epoch": 16, "loss": 2.200692892074585, "accuracy": 0.4413999915122986, "fold": "validation"}, {"epoch": 17, "loss": 2.219095230102539, "accuracy": 0.43650001287460327, "fold": "validation"}, {"epoch": 18, "loss": 2.211961030960083, "accuracy": 0.4503999948501587, "fold": "validation"}, {"epoch": 19, "loss": 2.2462642192840576, "accuracy": 0.4429999887943268, "fold": "validation"}, {"epoch": 20, "loss": 2.2703185081481934, "accuracy": 0.44749999046325684, "fold": "validation"}, {"epoch": 21, "loss": 2.2933261394500732, "accuracy": 0.44190001487731934, "fold": "validation"}, {"epoch": 22, "loss": 2.306680917739868, "accuracy": 0.4417000114917755, "fold": "validation"}, {"epoch": 23, "loss": 2.3614492416381836, "accuracy": 0.450300008058548, "fold": "validation"}, {"epoch": 24, "loss": 2.366464853286743, "accuracy": 0.43939998745918274, "fold": "validation"}, {"epoch": 25, "loss": 2.3656980991363525, "accuracy": 0.44830000400543213, "fold": "validation"}, {"epoch": 26, "loss": 2.3975698947906494, "accuracy": 0.44830000400543213, "fold": "validation"}, {"epoch": 27, "loss": 2.4040303230285645, "accuracy": 0.44279998540878296, "fold": "validation"}, {"epoch": 28, "loss": 2.434857130050659, "accuracy": 0.4462999999523163, "fold": "validation"}, {"epoch": 29, "loss": 2.4371566772460938, "accuracy": 0.4440000057220459, "fold": "validation"}, {"epoch": 30, "loss": 2.494108200073242, "accuracy": 0.444599986076355, "fold": "validation"}]}}, {"mode": "vega-lite"});
+</script></div></div>
 </div>
 <p>This model takes 10 minutes to run and achieves 46% accuracy on the test data. Although this is not terrible for 100-class data (a random classifier gets 1% accuracy), searching the web we see results around 75%. Typically, it takes a lot of architecture carpentry, fiddling with regularization, and time to achieve such results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">mnist_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Loss: </span><span class="si">{</span><span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Accuracy: </span><span class="si">{</span><span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 2s - loss: 2.4364 - accuracy: 0.4467 - 2s/epoch - 6ms/step
-Test Loss: 2.436
-Test Accuracy: 0.447
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 2s - loss: 2.4390 - accuracy: 0.4524 - 2s/epoch - 6ms/step
+Test Loss: 2.439
+Test Accuracy: 0.452
 </pre></div>
 </div>
 </div>
