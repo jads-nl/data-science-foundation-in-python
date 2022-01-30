@@ -1362,47 +1362,11 @@
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># number precision for pandas</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OptionError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4959</span><span class="o">/</span><span class="mf">2469372909.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># number precision for pandas</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py</span> in <span class="ni">__call__</span><span class="nt">(self, *args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">254</span> 
-<span class="g g-Whitespace">    </span><span class="mi">255</span>     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">256</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__func__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span> 
-<span class="g g-Whitespace">    </span><span class="mi">258</span>     <span class="nd">@property</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py</span> in <span class="ni">_set_option</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">147</span> 
-<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]):</span>
-<span class="ne">--&gt; </span><span class="mi">149</span>         <span class="n">key</span> <span class="o">=</span> <span class="n">_get_single_key</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">silent</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span> 
-<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="n">o</span> <span class="o">=</span> <span class="n">_get_registered_option</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py</span> in <span class="ni">_get_single_key</span><span class="nt">(pat, silent)</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>         <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such keys(s): </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="s2">&quot;Pattern matched multiple keys&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span> 
-
-<span class="ne">OptionError</span>: &#39;Pattern matched multiple keys&#39;
 </pre></div>
 </div>
 </div>
@@ -2606,7 +2570,9 @@ model.fit(X, y, **kwargs)
 
 Set parameter alpha to: original_alpha * n_samples. 
   warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
 If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
 
 from sklearn.pipeline import make_pipeline
@@ -2856,25 +2822,25 @@ Set parameter alpha to: original_alpha * n_samples.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat         0.107679
-Hits          0.488687
-HmRun         1.317959
-Runs          0.757860
-RBI           0.730997
-Walks         1.009385
-Years         2.789207
-CAtBat        0.009301
-CHits         0.037040
-CHmRun        0.272351
-CRuns         0.074222
-CRBI          0.076950
-CWalks        0.069170
-League        6.812670
-Division    -33.627921
-PutOuts       0.077050
-Assists       0.010255
-Errors       -0.302799
-NewLeague     5.360695
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat                    0.10768
+Hits                     0.48869
+HmRun                    1.31796
+Runs                     0.75786
+RBI                      0.73100
+Walks                    1.00938
+Years                    2.78921
+CAtBat                   0.00930
+CHits                    0.03704
+CHmRun                   0.27235
+CRuns                    0.07422
+CRBI                     0.07695
+CWalks                   0.06917
+League                   6.81267
+Division               -33.62792
+PutOuts                  0.07705
+Assists                  0.01026
+Errors                  -0.30280
+NewLeague                5.36069
 dtype: float64
 </pre></div>
 </div>
@@ -2919,25 +2885,25 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat         0.098658
-Hits          0.446094
-HmRun         1.412107
-Runs          0.660773
-RBI           0.843403
-Walks         1.008473
-Years         2.779882
-CAtBat        0.008244
-CHits         0.034149
-CHmRun        0.268634
-CRuns         0.070407
-CRBI          0.070060
-CWalks        0.082795
-League        4.241051
-Division    -30.768885
-PutOuts       0.104747
-Assists      -0.003739
-Errors        0.268363
-NewLeague     4.123474
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat                    0.09866
+Hits                     0.44609
+HmRun                    1.41211
+Runs                     0.66077
+RBI                      0.84340
+Walks                    1.00847
+Years                    2.77988
+CAtBat                   0.00824
+CHits                    0.03415
+CHmRun                   0.26863
+CRuns                    0.07041
+CRBI                     0.07006
+CWalks                   0.08279
+League                   4.24105
+Division               -30.76888
+PutOuts                  0.10475
+Assists                 -0.00374
+Errors                   0.26836
+NewLeague                4.12347
 dtype: float64
 MSE: 106216.52238005561
 </pre></div>
@@ -2973,25 +2939,25 @@ Set parameter alpha to: original_alpha * n_samples.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat        1.317464e-10
-Hits         4.647486e-10
-HmRun        2.079865e-09
-Runs         7.726175e-10
-RBI          9.390640e-10
-Walks        9.769219e-10
-Years        3.961442e-09
-CAtBat       1.060533e-11
-CHits        3.993605e-11
-CHmRun       2.959428e-10
-CRuns        8.245247e-11
-CRBI         7.795451e-11
-CWalks       9.894387e-11
-League      -2.501281e-09
-Division    -1.549951e-08
-PutOuts      7.268991e-11
-Assists     -2.615885e-12
-Errors       2.084514e-10
-NewLeague   -2.023196e-09
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat                    0.00000
+Hits                     0.00000
+HmRun                    0.00000
+Runs                     0.00000
+RBI                      0.00000
+Walks                    0.00000
+Years                    0.00000
+CAtBat                   0.00000
+CHits                    0.00000
+CHmRun                   0.00000
+CRuns                    0.00000
+CRBI                     0.00000
+CWalks                   0.00000
+League                  -0.00000
+Division                -0.00000
+PutOuts                  0.00000
+Assists                 -0.00000
+Errors                   0.00000
+NewLeague               -0.00000
 dtype: float64
 MSE: 172862.23580379886
 </pre></div>
@@ -3027,25 +2993,25 @@ Set parameter alpha to: original_alpha * n_samples.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat         -1.821115
-Hits           4.259156
-HmRun         -4.773401
-Runs          -0.038760
-RBI            3.984578
-Walks          3.470126
-Years          9.498236
-CAtBat        -0.605129
-CHits          2.174979
-CHmRun         2.979306
-CRuns          0.266356
-CRBI          -0.598456
-CWalks         0.171383
-League       133.743163
-Division    -113.743875
-PutOuts        0.421063
-Assists        0.464379
-Errors        -6.024576
-NewLeague    -81.927763
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat                   -1.82111
+Hits                     4.25916
+HmRun                   -4.77340
+Runs                    -0.03876
+RBI                      3.98458
+Walks                    3.47013
+Years                    9.49824
+CAtBat                  -0.60513
+CHits                    2.17498
+CHmRun                   2.97931
+CRuns                    0.26636
+CRBI                    -0.59846
+CWalks                   0.17138
+League                 133.74316
+Division              -113.74387
+PutOuts                  0.42106
+Assists                  0.46438
+Errors                  -6.02458
+NewLeague              -81.92776
 dtype: float64
 MSE: 116690.46856660399
 </pre></div>
@@ -3112,25 +3078,25 @@ model.fit(X, y, **kwargs)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat        -0.010538
-Hits          0.857832
-HmRun        -0.255585
-Runs          0.724445
-RBI           1.312886
-Walks         2.080908
-Years         1.241837
-CAtBat        0.006738
-CHits         0.051853
-CHmRun        0.509965
-CRuns         0.106424
-CRBI          0.127555
-CWalks        0.099308
-League       18.746117
-Division    -91.613248
-PutOuts       0.278500
-Assists      -0.017327
-Errors       -0.302122
-NewLeague     9.991401
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat                   -0.01054
+Hits                     0.85783
+HmRun                   -0.25559
+Runs                     0.72445
+RBI                      1.31289
+Walks                    2.08091
+Years                    1.24184
+CAtBat                   0.00674
+CHits                    0.05185
+CHmRun                   0.50997
+CRuns                    0.10642
+CRBI                     0.12755
+CWalks                   0.09931
+League                  18.74612
+Division               -91.61325
+PutOuts                  0.27850
+Assists                 -0.01733
+Errors                  -0.30212
+NewLeague                9.99140
 dtype: float64
 MSE: 99805.3630192956
 </pre></div>
@@ -3691,300 +3657,6 @@ model.fit(X, y, **kwargs)
 
 Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
   warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
-/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
-If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
-
-from sklearn.pipeline import make_pipeline
-
-model = make_pipeline(StandardScaler(with_mean=False), Lasso())
-
-If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
-
-kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
-model.fit(X, y, **kwargs)
-
-Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
-  warnings.warn(
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
@@ -4046,6 +3718,34 @@ Set parameter alpha to: original_alpha * np.sqrt(n_samples).
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
 If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
 
 from sklearn.pipeline import make_pipeline
@@ -4259,9 +3959,121 @@ model.fit(X, y, **kwargs)
 
 Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
   warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
 If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
 
 from sklearn.pipeline import make_pipeline
@@ -4543,6 +4355,52 @@ model.fit(X, y, **kwargs)
 
 Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
   warnings.warn(
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
 /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
 If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
 
@@ -4558,6 +4416,126 @@ model.fit(X, y, **kwargs)
 Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
   warnings.warn(
 /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
+If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
+
+from sklearn.pipeline import make_pipeline
+
+model = make_pipeline(StandardScaler(with_mean=False), Lasso())
+
+If you wish to pass a sample_weight parameter, you need to pass it as a fit parameter to each step of the pipeline as follows:
+
+kwargs = {s[0] + &#39;__sample_weight&#39;: sample_weight for s in model.steps}
+model.fit(X, y, **kwargs)
+
+Set parameter alpha to: original_alpha * np.sqrt(n_samples). 
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_base.py:141: FutureWarning: &#39;normalize&#39; was deprecated in version 1.0 and will be removed in 1.2.
 If you wish to scale the data, use Pipeline with a StandardScaler in a preprocessing stage. To reproduce the previous behavior:
 
 from sklearn.pipeline import make_pipeline
@@ -4647,25 +4625,25 @@ Set parameter alpha to: original_alpha * np.sqrt(n_samples).
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat         0.000000
-Hits          1.085871
-HmRun         0.000000
-Runs          0.000000
-RBI           0.000000
-Walks         2.913495
-Years         0.000000
-CAtBat        0.000000
-CHits         0.000000
-CHmRun        0.221342
-CRuns         0.000000
-CRBI          0.514466
-CWalks        0.000000
-League        0.000000
-Division    -89.913945
-PutOuts       0.369119
-Assists      -0.000000
-Errors       -0.000000
-NewLeague     0.000000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AtBat                    0.00000
+Hits                     1.08587
+HmRun                    0.00000
+Runs                     0.00000
+RBI                      0.00000
+Walks                    2.91350
+Years                    0.00000
+CAtBat                   0.00000
+CHits                    0.00000
+CHmRun                   0.22134
+CRuns                    0.00000
+CRBI                     0.51447
+CWalks                   0.00000
+League                   0.00000
+Division               -89.91394
+PutOuts                  0.36912
+Assists                 -0.00000
+Errors                  -0.00000
+NewLeague                0.00000
 dtype: float64
 MSE: 104933.75326714719
 </pre></div>

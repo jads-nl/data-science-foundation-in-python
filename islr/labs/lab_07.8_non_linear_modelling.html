@@ -1371,47 +1371,11 @@
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># number precision for pandas</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OptionError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4987</span><span class="o">/</span><span class="mf">591418955.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># number precision for pandas</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py</span> in <span class="ni">__call__</span><span class="nt">(self, *args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">254</span> 
-<span class="g g-Whitespace">    </span><span class="mi">255</span>     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">256</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__func__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span> 
-<span class="g g-Whitespace">    </span><span class="mi">258</span>     <span class="nd">@property</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py</span> in <span class="ni">_set_option</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">147</span> 
-<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]):</span>
-<span class="ne">--&gt; </span><span class="mi">149</span>         <span class="n">key</span> <span class="o">=</span> <span class="n">_get_single_key</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">silent</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span> 
-<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="n">o</span> <span class="o">=</span> <span class="n">_get_registered_option</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pandas/_config/config.py</span> in <span class="ni">_get_single_key</span><span class="nt">(pat, silent)</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>         <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such keys(s): </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="s2">&quot;Pattern matched multiple keys&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span> 
-
-<span class="ne">OptionError</span>: &#39;Pattern matched multiple keys&#39;
 </pre></div>
 </div>
 </div>
@@ -1525,49 +1489,49 @@
   <tbody>
     <tr>
       <th>age</th>
-      <td>1.0</td>
-      <td>1.998697e+05</td>
-      <td>199869.664970</td>
-      <td>125.444324</td>
-      <td>1.491111e-28</td>
+      <td>1.00000</td>
+      <td>199,869.66497</td>
+      <td>199,869.66497</td>
+      <td>125.44432</td>
+      <td>0.00000</td>
     </tr>
     <tr>
       <th>age_2</th>
-      <td>1.0</td>
-      <td>2.287860e+05</td>
-      <td>228786.010128</td>
-      <td>143.593107</td>
-      <td>2.367734e-32</td>
+      <td>1.00000</td>
+      <td>228,786.01013</td>
+      <td>228,786.01013</td>
+      <td>143.59311</td>
+      <td>0.00000</td>
     </tr>
     <tr>
       <th>age_3</th>
-      <td>1.0</td>
-      <td>1.575569e+04</td>
-      <td>15755.693664</td>
-      <td>9.888756</td>
-      <td>1.679213e-03</td>
+      <td>1.00000</td>
+      <td>15,755.69366</td>
+      <td>15,755.69366</td>
+      <td>9.88876</td>
+      <td>0.00168</td>
     </tr>
     <tr>
       <th>age_4</th>
-      <td>1.0</td>
-      <td>6.070152e+03</td>
-      <td>6070.152124</td>
-      <td>3.809813</td>
-      <td>5.104623e-02</td>
+      <td>1.00000</td>
+      <td>6,070.15212</td>
+      <td>6,070.15212</td>
+      <td>3.80981</td>
+      <td>0.05105</td>
     </tr>
     <tr>
       <th>age_5</th>
-      <td>1.0</td>
-      <td>1.282563e+03</td>
-      <td>1282.563017</td>
-      <td>0.804976</td>
-      <td>3.696820e-01</td>
+      <td>1.00000</td>
+      <td>1,282.56302</td>
+      <td>1,282.56302</td>
+      <td>0.80498</td>
+      <td>0.36968</td>
     </tr>
     <tr>
       <th>Residual</th>
-      <td>2994.0</td>
-      <td>4.770322e+06</td>
-      <td>1593.293816</td>
+      <td>2,994.00000</td>
+      <td>4,770,321.68581</td>
+      <td>1,593.29382</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1607,7 +1571,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_4987/2470884708.py:7: DeprecationWarning: Calling Family(..) with a link class as argument is deprecated.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_4491/2470884708.py:7: DeprecationWarning: Calling Family(..) with a link class as argument is deprecated.
 Use an instance of a link class instead.
   family=sm.families.Binomial(sm.families.links.logit)).fit()
 </pre></div>
@@ -1707,7 +1671,7 @@ Use an instance of a link class instead.
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4987</span><span class="o">/</span><span class="mf">2771723131.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4491</span><span class="o">/</span><span class="mf">2771723131.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">GLM</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">lr_sm</span> <span class="o">=</span> <span class="n">GLM</span><span class="p">(</span><span class="n">wage_step</span><span class="o">.</span><span class="n">wage_250</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
