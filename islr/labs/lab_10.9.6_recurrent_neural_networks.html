@@ -37,9 +37,12 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -1401,42 +1404,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-01-30 23:32:12.085684: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-01-30 23:32:12.085717: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb.npz
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   16384/17464789 [..............................] - ETA: 7s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-   81920/17464789 [..............................] - ETA: 13s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-  303104/17464789 [..............................] - ETA: 6s 
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 1163264/17464789 [&gt;.............................] - ETA: 2s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 4702208/17464789 [=======&gt;......................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-12492800/17464789 [====================&gt;.........] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-17465344/17464789 [==============================] - 0s 0us/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-17473536/17464789 [==============================] - 0s 0us/step
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-02-18 16:25:50.903859: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-02-18 16:25:50.903903: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
 </pre></div>
 </div>
 </div>
@@ -1500,28 +1469,56 @@ Dimension of X_train: (25000, 500)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-01-30 23:32:18.478376: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-01-30 23:32:18.478405: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
-2022-01-30 23:32:18.478431: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az131-930): /proc/driver/nvidia/version does not exist
-2022-01-30 23:32:18.478664: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-02-18 16:25:57.777829: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-02-18 16:25:57.777865: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
+2022-02-18 16:25:57.777887: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az28-943): /proc/driver/nvidia/version does not exist
+2022-02-18 16:25:57.778167: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- embedding (Embedding)       (None, None, 32)          320000    
-                                                                 
- lstm (LSTM)                 (None, 32)                8320      
-                                                                 
- dense (Dense)               (None, 1)                 33        
-                                                                 
-=================================================================
-Total params: 328,353
-Trainable params: 328,353
-Non-trainable params: 0
-_________________________________________________________________
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Layer (type)                Output Shape              Param #   
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=================================================================
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> embedding (Embedding)       (None, None, 32)          320000    
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> lstm (LSTM)                 (None, 32)                8320      
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> dense (Dense)               (None, 1)                 33        
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=================================================================
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total params: 328,353
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Trainable params: 328,353
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Non-trainable params: 0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
 </pre></div>
 </div>
 </div>
@@ -1539,14 +1536,8 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-01-30 23:32:18.713338: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 50000000 exceeds 10% of free system memory.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-01-30 23:32:54.279143: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 50000000 exceeds 10% of free system memory.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 12min 22s, sys: 37.3 s, total: 12min 59s
-Wall time: 6min 59s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 15min 13s, sys: 43.1 s, total: 15min 56s
+Wall time: 9min 21s
 </pre></div>
 </div>
 </div>
@@ -1577,13 +1568,13 @@ Wall time: 6min 59s
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1b1e06258efa4fb3af05076837573cb1"></div>
+<div id="altair-viz-5daf157890304fa2bbae1201ce07bc92"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1b1e06258efa4fb3af05076837573cb1") {
-      outputDiv = document.getElementById("altair-viz-1b1e06258efa4fb3af05076837573cb1");
+    if (outputDiv.id !== "altair-viz-5daf157890304fa2bbae1201ce07bc92") {
+      outputDiv = document.getElementById("altair-viz-5daf157890304fa2bbae1201ce07bc92");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1629,7 +1620,7 @@ Wall time: 6min 59s
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "loss", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "loss", "type": "quantitative"}}}, {"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}}], "data": {"name": "data-edb8b692cf9eb1b4121f400636a13f5f"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-edb8b692cf9eb1b4121f400636a13f5f": [{"epoch": 1, "loss": 0.4773499667644501, "accuracy": 0.777239978313446, "fold": "training"}, {"epoch": 2, "loss": 0.2892588973045349, "accuracy": 0.8880000114440918, "fold": "training"}, {"epoch": 3, "loss": 0.2337394654750824, "accuracy": 0.9108800292015076, "fold": "training"}, {"epoch": 4, "loss": 0.20650708675384521, "accuracy": 0.924839973449707, "fold": "training"}, {"epoch": 5, "loss": 0.182633638381958, "accuracy": 0.9346399903297424, "fold": "training"}, {"epoch": 6, "loss": 0.16819755733013153, "accuracy": 0.9393600225448608, "fold": "training"}, {"epoch": 7, "loss": 0.15624834597110748, "accuracy": 0.9446399807929993, "fold": "training"}, {"epoch": 8, "loss": 0.14454549551010132, "accuracy": 0.9493600130081177, "fold": "training"}, {"epoch": 9, "loss": 0.1370895802974701, "accuracy": 0.9521999955177307, "fold": "training"}, {"epoch": 10, "loss": 0.12605957686901093, "accuracy": 0.9561200141906738, "fold": "training"}, {"epoch": 1, "loss": 0.3226882517337799, "accuracy": 0.8658400177955627, "fold": "validation"}, {"epoch": 2, "loss": 0.32328060269355774, "accuracy": 0.866320013999939, "fold": "validation"}, {"epoch": 3, "loss": 0.3916362524032593, "accuracy": 0.843280017375946, "fold": "validation"}, {"epoch": 4, "loss": 0.34481093287467957, "accuracy": 0.8610799908638, "fold": "validation"}, {"epoch": 5, "loss": 0.3728322982788086, "accuracy": 0.8620799779891968, "fold": "validation"}, {"epoch": 6, "loss": 0.39572811126708984, "accuracy": 0.8645200133323669, "fold": "validation"}, {"epoch": 7, "loss": 0.3546037971973419, "accuracy": 0.8741199970245361, "fold": "validation"}, {"epoch": 8, "loss": 0.36077871918678284, "accuracy": 0.8746399879455566, "fold": "validation"}, {"epoch": 9, "loss": 0.3702816665172577, "accuracy": 0.8550000190734863, "fold": "validation"}, {"epoch": 10, "loss": 0.4735439419746399, "accuracy": 0.8470399975776672, "fold": "validation"}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "loss", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "loss", "type": "quantitative"}}}, {"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}}], "data": {"name": "data-9d5e275f11f8fe7fa97763cbf7eddfbf"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-9d5e275f11f8fe7fa97763cbf7eddfbf": [{"epoch": 1, "loss": 0.462780237197876, "accuracy": 0.7897999882698059, "fold": "training"}, {"epoch": 2, "loss": 0.27820608019828796, "accuracy": 0.8880400061607361, "fold": "training"}, {"epoch": 3, "loss": 0.2278912365436554, "accuracy": 0.9145200252532959, "fold": "training"}, {"epoch": 4, "loss": 0.19931836426258087, "accuracy": 0.9259600043296814, "fold": "training"}, {"epoch": 5, "loss": 0.1799956113100052, "accuracy": 0.9338399767875671, "fold": "training"}, {"epoch": 6, "loss": 0.16534268856048584, "accuracy": 0.9416000247001648, "fold": "training"}, {"epoch": 7, "loss": 0.1520886868238449, "accuracy": 0.9450799822807312, "fold": "training"}, {"epoch": 8, "loss": 0.14036835730075836, "accuracy": 0.9499199986457825, "fold": "training"}, {"epoch": 9, "loss": 0.13177983462810516, "accuracy": 0.954479992389679, "fold": "training"}, {"epoch": 10, "loss": 0.12417200952768326, "accuracy": 0.9567999839782715, "fold": "training"}, {"epoch": 1, "loss": 0.3361910581588745, "accuracy": 0.8584799766540527, "fold": "validation"}, {"epoch": 2, "loss": 0.31092435121536255, "accuracy": 0.8674399852752686, "fold": "validation"}, {"epoch": 3, "loss": 0.28493690490722656, "accuracy": 0.8808000087738037, "fold": "validation"}, {"epoch": 4, "loss": 0.32441461086273193, "accuracy": 0.8762000203132629, "fold": "validation"}, {"epoch": 5, "loss": 0.4262675344944, "accuracy": 0.8421199917793274, "fold": "validation"}, {"epoch": 6, "loss": 0.3439793884754181, "accuracy": 0.8755999803543091, "fold": "validation"}, {"epoch": 7, "loss": 0.3396555483341217, "accuracy": 0.8750399947166443, "fold": "validation"}, {"epoch": 8, "loss": 0.43267640471458435, "accuracy": 0.8626800179481506, "fold": "validation"}, {"epoch": 9, "loss": 0.4024609625339508, "accuracy": 0.8671600222587585, "fold": "validation"}, {"epoch": 10, "loss": 0.412578821182251, "accuracy": 0.8521199822425842, "fold": "validation"}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 </div>
