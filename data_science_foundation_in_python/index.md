@@ -19,6 +19,7 @@ Those new to Python and seeking to get started quickly, I recommend using the fo
 
 - [A Whirlwind Tour of Python](https://github.com/jads-nl/WhirlwindTourOfPython) (2016).
 - [Python Data Science Handbook](https://github.com/jads-nl/PythonDataScienceHandbook) (2018). 
+- [Python for Data Analysis, 3rd Edition](https://wesmckinney.com/book/) (2022).
 
 ## Feedback
 
