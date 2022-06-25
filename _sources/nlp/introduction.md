@@ -15,7 +15,7 @@ spaCy is a free, open-source library for advanced Natural Language Processing (N
 
 ## Suggested study plan
 
-- Read the lecture notes [here](https://github.com/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/nlp/introduction-to-nlp-with-python-spacy.pdf).
+- Read the lecture notes [here](https://github.com/jads-nl/data-science-foundation-in-python/blob/main/data_science_foundation_in_python/nlp/introduction-to-nlp-with-python-spacy.pdf).
 - Go through the interactive online course [Advanced NLP with spaCy](https://course.spacy.io/en/). Alternatively, get started with a shorter tutorial on Real Python [NLP with spaCy in Python](https://realpython.com/natural-language-processing-spacy-python/).
 - Go through a more detailed explanation of word2vec
   - [Illustrated word2vec](http://jalammar.github.io/illustrated-word2vec/) by [Jay Alammar](http://jalammar.github.io/).

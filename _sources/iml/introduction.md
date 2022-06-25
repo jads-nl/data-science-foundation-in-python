@@ -6,7 +6,7 @@
 
 To get started with interpretable machine learning :
 
-- Read the lectures notes [here](https://github.com/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/iml/interpretable-machine-learning.pdf)
+- Read the lectures notes [here](https://github.com/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_in_python/iml/interpretable-machine-learning.pdf)
 - Read the book, at least covering the basics in chapters 1 to 6
 - Go through the Kaggle online course on [Machine Learning Explainability](https://www.kaggle.com/learn/machine-learning-explainability)
 - Go through some of the examples provided in the next section

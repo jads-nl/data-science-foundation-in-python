@@ -10,9 +10,4 @@ Each chapter of the book comes with a separate notebook. Chapter 1 through 9 cov
  
 ## Extra notebooks
  
-If you require a more insight into the underlying principles of machine learning, these extra notebooks cover a selection of mathematical topics. Besides the notebooks by Géron, I have added smaller notebooks that came to be during the lectures, including contributions from participants.
-
-
-## Discover projects
-
-Example solutions from selected [discover projects](https://github.com/jads-nl/discover-projects).
+If you require a more insight into the underlying principles of machine learning, these extra notebooks cover a selection of mathematical topics.
