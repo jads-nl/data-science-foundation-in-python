@@ -1,6 +1,6 @@
-# Data Science Foundation Curriculum
+# Data Science Foundation in Python
 
-A foundational data science curriculum based on creative commons materials.
+A foundational data science curriculum in Python based on creative commons materials.
 
 ## Usage
 
@@ -10,11 +10,11 @@ If you'd like to develop and/or build the Data Science Foundation Curriculum boo
 
 1. Clone this repository
 2. Run `pip install -r requirements.txt` (it is recommended you do this within a virtual environment)
-3. (Optional) Edit the books source files located in the `data_science_foundation_curriculum/` directory
-4. Run `jupyter-book clean data_science_foundation_curriculum/` to remove any existing builds
-5. Run `jupyter-book build data_science_foundation_curriculum/`
+3. (Optional) Edit the books source files located in the `data_science_foundation_in_python/` directory
+4. Run `jupyter-book clean data_science_foundation_in_python/` to remove any existing builds
+5. Run `jupyter-book build data_science_foundation_in_python/`
 
-A fully-rendered HTML version of the book will be built in `data_science_foundation_curriculum/_build/html/`.
+A fully-rendered HTML version of the book will be built in `data_science_foundation_in_python/_build/html/`.
 
 ### Hosting the book
 
