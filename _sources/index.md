@@ -15,11 +15,11 @@ Since three of these use R (ISLRv2, fpp3 and IML), and we have chosen Python as 
 
 ## Getting started with Python for Data Science
 
-Those new to Python and seeking to get started quickly, I recommend using the following books by [Jake VanderPlas](http://vanderplas.com/):
+Those new to Python and seeking to get started quickly, I recommend using the following books:
 
-- [A Whirlwind Tour of Python](https://github.com/jads-nl/WhirlwindTourOfPython) (2016).
-- [Python Data Science Handbook](https://github.com/jads-nl/PythonDataScienceHandbook) (2018). 
-- [Python for Data Analysis, 3rd Edition](https://wesmckinney.com/book/) (2022).
+- [A Whirlwind Tour of Python](https://github.com/jads-nl/WhirlwindTourOfPython), by [Jake VanderPlas](http://vanderplas.com/) (2016).
+- [Python Data Science Handbook](https://github.com/jads-nl/PythonDataScienceHandbook), also by [Jake VanderPlas](http://vanderplas.com/) (2018). 
+- [Python for Data Analysis, 3rd Edition](https://wesmckinney.com/book/), by [Wes McKinney](https://wesmckinney.com/) (2022).
 
 ## Feedback
 
@@ -28,6 +28,6 @@ Suggestions, questions and all kinds of feedback are welcome. Please open a new 
 
 ## Attribution and copyright notice
 
-© by [Daniel Kapitan](https://linkedin.com/in/dkapitan), _Data Science Foundation Curriculum_.
+© by [Daniel Kapitan](https://linkedin.com/in/dkapitan), _Data Science Foundation in Python_.
 
 This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
