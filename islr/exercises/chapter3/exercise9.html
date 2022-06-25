@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Exercise 3.9 &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -39,23 +37,21 @@
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/exercises/chapter3/exercise9.html" />
     <link rel="shortcut icon" href="../../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -968,16 +980,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,90 +1173,180 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/islr/exercises/chapter3/exercise9.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/exercises/chapter3/exercise9.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/exercises/chapter3/exercise9.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/islr/exercises/chapter3/exercise9.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#a">
    (a)
@@ -1361,12 +1426,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Exercise 3.9</h1>
@@ -1462,11 +1526,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="exercise-3-9">
-<h1>Exercise 3.9<a class="headerlink" href="#exercise-3-9" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-3-9">
+<h1>Exercise 3.9<a class="headerlink" href="#exercise-3-9" title="Permalink to this headline">#</a></h1>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1579,8 +1644,8 @@
   </tbody>
 </table>
 </div>
-<div class="section" id="a">
-<h2>(a)<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h2>
+<section id="a">
+<h2>(a)<a class="headerlink" href="#a" title="Permalink to this headline">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># http://seaborn.pydata.org/generated/seaborn.PairGrid.html</span>
 
 <span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">PairGrid</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">diag_sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1590,9 +1655,9 @@
 </pre></div>
 </div>
 <p><img alt="png" src="../../../_images/03_09_4_0.png" /></p>
-</div>
-<div class="section" id="b">
-<h2>(b)<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="b">
+<h2>(b)<a class="headerlink" href="#b" title="Permalink to this headline">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># pandas&#39; corr() function takes care of excluding non numeric data: </span>
 <span class="c1"># https://github.com/pandas-dev/pandas/blob/v0.19.2/pandas/core/frame.py#L4721</span>
     
@@ -1734,9 +1799,9 @@
 </pre></div>
 </div>
 <p><img alt="png" src="../../../_images/03_09_8_0.png" /></p>
-</div>
-<div class="section" id="c">
-<h2>(c)<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="c">
+<h2>(c)<a class="headerlink" href="#c" title="Permalink to this headline">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;mpg ~ cylinders + displacement + horsepower + weight + acceleration + year + origin&#39;</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">reg</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
@@ -1814,9 +1879,9 @@
   <th>Kurtosis:</th>      <td> 4.460</td> <th>  Cond. No.          </th> <td>8.59e+04</td>
 </tr>
 </table>
-</div>
-<div class="section" id="i">
-<h2>i<a class="headerlink" href="#i" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="i">
+<h2>i<a class="headerlink" href="#i" title="Permalink to this headline">#</a></h2>
 <p>Yes, there is a relationship between the predictors and the response.
 In the table above we can see that the value of the F-statistic is 252 which is much larger than 1, so we can reject the corresponding null hypothesis:</p>
 <div class="math notranslate nohighlight">
@@ -1824,18 +1889,18 @@ In the table above we can see that the value of the F-statistic is 252 which is 
 H_0 :\beta_{cylinders} = \beta_{displacement} = \beta_{weight} = \beta_{acceleration} = \beta_{year} = \beta_{origin}  =0.  
 \]</div>
 <p>In fact, the probability this data would be generated if <span class="math notranslate nohighlight">\(H_0\)</span> was true is <span class="math notranslate nohighlight">\(Prob(F-Statistic) = 2 \times 10^{-139}\)</span>, a ridiculously low value.</p>
-</div>
-<div class="section" id="ii">
-<h2>ii<a class="headerlink" href="#ii" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="ii">
+<h2>ii<a class="headerlink" href="#ii" title="Permalink to this headline">#</a></h2>
 <p>We can see which predictors have a statistically significant relationship with the response by looking at the p-values in the table above.
 The predictors that have a statistically significant relationship to the response are definitely weight, year and origin, and we could say displacement as well; while cylinders, horsepower, and acceleration do not.</p>
-</div>
-<div class="section" id="iii">
-<h2>iii<a class="headerlink" href="#iii" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="iii">
+<h2>iii<a class="headerlink" href="#iii" title="Permalink to this headline">#</a></h2>
 <p>The coefficient suggests that, on average, when the other variables are held constant, an increase of one year (of production) corresponds to an increase of 0.75 of mpg (so, the more recent the more efficient).</p>
-</div>
-<div class="section" id="d">
-<h2>(d)<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="d">
+<h2>(d)<a class="headerlink" href="#d" title="Permalink to this headline">#</a></h2>
 <p>In R [4], by default, plot() on a fit produces 4 plots:</p>
 <ul class="simple">
 <li><p>a plot of residuals against fitted values,</p></li>
@@ -1889,8 +1954,8 @@ The predictors that have a statistically significant relationship to the respons
 <span class="n">model_cooks</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">get_influence</span><span class="p">()</span><span class="o">.</span><span class="n">cooks_distance</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="section" id="residuals-against-fitted-values">
-<h3>Residuals against fitted values<a class="headerlink" href="#residuals-against-fitted-values" title="Permalink to this headline">¶</a></h3>
+<section id="residuals-against-fitted-values">
+<h3>Residuals against fitted values<a class="headerlink" href="#residuals-against-fitted-values" title="Permalink to this headline">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_lm_1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plot_lm_1</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">plot_lm_1</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
@@ -1916,9 +1981,9 @@ The predictors that have a statistically significant relationship to the respons
 </pre></div>
 </div>
 <p><img alt="png" src="../../../_images/03_09_21_0.png" /></p>
-</div>
-<div class="section" id="normal-q-q-plot">
-<h3>Normal Q-Q plot<a class="headerlink" href="#normal-q-q-plot" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="normal-q-q-plot">
+<h3>Normal Q-Q plot<a class="headerlink" href="#normal-q-q-plot" title="Permalink to this headline">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">QQ</span> <span class="o">=</span> <span class="n">ProbPlot</span><span class="p">(</span><span class="n">model_norm_residuals</span><span class="p">)</span>
 <span class="n">plot_lm_2</span> <span class="o">=</span> <span class="n">QQ</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="s1">&#39;45&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#4C72B0&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -1940,9 +2005,9 @@ The predictors that have a statistically significant relationship to the respons
 </pre></div>
 </div>
 <p><img alt="png" src="../../../_images/03_09_23_0.png" /></p>
-</div>
-<div class="section" id="scale-location-plot-of-sqrt-residuals-against-fitted-values">
-<h3>Scale-Location plot of sqrt(|residuals|) against fitted values<a class="headerlink" href="#scale-location-plot-of-sqrt-residuals-against-fitted-values" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="scale-location-plot-of-sqrt-residuals-against-fitted-values">
+<h3>Scale-Location plot of sqrt(|residuals|) against fitted values<a class="headerlink" href="#scale-location-plot-of-sqrt-residuals-against-fitted-values" title="Permalink to this headline">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_lm_3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plot_lm_3</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">plot_lm_3</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
@@ -1966,9 +2031,9 @@ The predictors that have a statistically significant relationship to the respons
 </pre></div>
 </div>
 <p><img alt="png" src="../../../_images/03_09_25_0.png" /></p>
-</div>
-<div class="section" id="residuals-against-leverages">
-<h3>Residuals against leverages<a class="headerlink" href="#residuals-against-leverages" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="residuals-against-leverages">
+<h3>Residuals against leverages<a class="headerlink" href="#residuals-against-leverages" title="Permalink to this headline">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_lm_4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">plot_lm_4</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">plot_lm_4</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
@@ -2013,23 +2078,23 @@ The predictors that have a statistically significant relationship to the respons
 </pre></div>
 </div>
 <p><img alt="png" src="../../../_images/03_09_27_0.png" /></p>
-</div>
-</div>
-<div class="section" id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">#</a></h2>
 <p>No, there are no unusually large outliers, as per the the scale log location.
 They are however skewedly distributed. The larger the fitted value, the larger the variance, since the spread of the residuals increases.</p>
 <p>No, even though there is an observation (number 13) with higher leverage, it is still well within Cook’s 0.5 distance.</p>
 <p>The normal qq-plot deviates at one extreme, which could indicate that there are other explanatory predictors that we are not considering (quadratic terms, for example).
 Additionally, the funnel shape of the residuals plot indicates heteroskedacity.</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <p>[1] <a class="reference external" href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.lm.html">https://stat.ethz.ch/R-manual/R-devel/library/stats/html/plot.lm.html</a></p>
 <p>[2] <a class="reference external" href="https://emredjan.github.io/blog/2017/07/11/emulating-r-plots-in-python/">https://emredjan.github.io/blog/2017/07/11/emulating-r-plots-in-python/</a></p>
-</div>
-<div class="section" id="e">
-<h2>(e)<a class="headerlink" href="#e" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="e">
+<h2>(e)<a class="headerlink" href="#e" title="Permalink to this headline">#</a></h2>
 <p>Statsmodels uses patsy which is a “mini-language” inspired by R and S to describe statistical models. The symbols ‘:’ and ‘*’ have the same meaning as in R. Namely, a:b includes an interaction term between a and b, while a*b is shorthand for a + b + a:b, that is, it includes a and b as well.</p>
 <p>References:</p>
 <ul class="simple">
@@ -2226,9 +2291,9 @@ Let’s try to fit a model with these terms - a total of 15 terms.</p>
 Interestingly, when these are considered the only first order terms that are statistically different are horsepower and year.
 By the hierarchy principle (page 89), we should nonetheless include all of the main effects (for more on this, see <a class="reference external" href="https://stats.stackexchange.com/questions/27724/do-all-interactions-terms-need-their-individual-terms-in-regression-model">these</a> answers).</p>
 <p>We could also have a try at <a class="reference external" href="https://en.wikipedia.org/wiki/Interaction_%28statistics%29#Interaction_plots">interaction plots</a>, which are not covered in the book, but we will leave it as a <a class="reference external" href="https://en.wikipedia.org/wiki/Interaction_%28statistics%29#/media/File:GSS_sealevel_interaction.png">mention</a> only.</p>
-</div>
-<div class="section" id="f">
-<h2>(f)<a class="headerlink" href="#f" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="f">
+<h2>(f)<a class="headerlink" href="#f" title="Permalink to this headline">#</a></h2>
 <p>As an example, we fit the data with a model containing the transformations indicated for the variable horsepower, starting with <span class="math notranslate nohighlight">\(X^2\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;mpg ~ horsepower + np.power(horsepower,2) + weight + year + origin&#39;</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">reg</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
@@ -2468,8 +2533,8 @@ Let’s try adding the square root term.</p>
 </tr>
 </table>
 <p>So now the square term is back to a small p-value, indicating that it is statistically significant in the presence of the square root and the logarithm.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2493,9 +2558,11 @@ Let’s try adding the square root term.</p>
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="exercise8.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2511,24 +2578,28 @@ Let’s try adding the square root term.</p>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

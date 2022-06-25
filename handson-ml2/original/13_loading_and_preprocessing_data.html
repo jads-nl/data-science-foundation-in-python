@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Chapter 13 – Loading and Preprocessing Data with TensorFlow &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,23 +37,21 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/handson-ml2/original/13_loading_and_preprocessing_data.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -968,16 +980,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,112 +1173,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/handson-ml2/original/13_loading_and_preprocessing_data.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/13_loading_and_preprocessing_data.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/13_loading_and_preprocessing_data.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/13_loading_and_preprocessing_data.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/13_loading_and_preprocessing_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/13_loading_and_preprocessing_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/13_loading_and_preprocessing_data.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/handson-ml2/original/13_loading_and_preprocessing_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    Chapter 13 – Loading and Preprocessing Data with TensorFlow
@@ -1481,12 +1571,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Chapter 13 – Loading and Preprocessing Data with TensorFlow</h1>
@@ -1680,15 +1769,16 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-13-loading-and-preprocessing-data-with-tensorflow">
-<h1>Chapter 13 – Loading and Preprocessing Data with TensorFlow<a class="headerlink" href="#chapter-13-loading-and-preprocessing-data-with-tensorflow" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-13-loading-and-preprocessing-data-with-tensorflow">
+<h1>Chapter 13 – Loading and Preprocessing Data with TensorFlow<a class="headerlink" href="#chapter-13-loading-and-preprocessing-data-with-tensorflow" title="Permalink to this headline">#</a></h1>
 <p><em>This notebook contains all the sample code and solutions to the exercises in chapter 13.</em></p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="setup">
-<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h1>
 <p>First, let’s import a few common modules, ensure MatplotLib plots figures inline and prepare a function to save the figures. We also check that Python 3.5 or later is installed (although Python 2.x may work, it is deprecated so we strongly recommend you use Python 3 instead), as well as Scikit-Learn ≥0.20 and TensorFlow ≥2.0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1744,8 +1834,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="datasets">
-<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
+<section id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -1883,9 +1973,9 @@ tf.Tensor([6 9], shape=(2,), dtype=int64)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="split-the-california-dataset-to-multiple-csv-files">
-<h2>Split the California dataset to multiple CSV files<a class="headerlink" href="#split-the-california-dataset-to-multiple-csv-files" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="split-the-california-dataset-to-multiple-csv-files">
+<h2>Split the California dataset to multiple CSV files<a class="headerlink" href="#split-the-california-dataset-to-multiple-csv-files" title="Permalink to this headline">#</a></h2>
 <p>Let’s start by loading and preparing the California housing dataset. We first load it, then split it into a training set, a validation set and a test set, and finally we scale it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2101,9 +2191,9 @@ tf.Tensor([6 9], shape=(2,), dtype=int64)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="building-an-input-pipeline">
-<h2>Building an Input Pipeline<a class="headerlink" href="#building-an-input-pipeline" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-an-input-pipeline">
+<h2>Building an Input Pipeline<a class="headerlink" href="#building-an-input-pipeline" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filepath_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">list_files</span><span class="p">(</span><span class="n">train_filepaths</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -2595,9 +2685,9 @@ Global step 1800 / 1810
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="the-tfrecord-binary-format">
-<h2>The <code class="docutils literal notranslate"><span class="pre">TFRecord</span></code> binary format<a class="headerlink" href="#the-tfrecord-binary-format" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-tfrecord-binary-format">
+<h2>The <code class="docutils literal notranslate"><span class="pre">TFRecord</span></code> binary format<a class="headerlink" href="#the-tfrecord-binary-format" title="Permalink to this headline">#</a></h2>
 <p>A TFRecord file is just a list of binary records. You can create one using a <code class="docutils literal notranslate"><span class="pre">tf.io.TFRecordWriter</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2686,8 +2776,8 @@ tf.Tensor(b&#39;And this is the second record&#39;, shape=(), dtype=string)
 </div>
 </div>
 </div>
-<div class="section" id="a-brief-intro-to-protocol-buffers">
-<h3>A Brief Intro to Protocol Buffers<a class="headerlink" href="#a-brief-intro-to-protocol-buffers" title="Permalink to this headline">¶</a></h3>
+<section id="a-brief-intro-to-protocol-buffers">
+<h3>A Brief Intro to Protocol Buffers<a class="headerlink" href="#a-brief-intro-to-protocol-buffers" title="Permalink to this headline">#</a></h3>
 <p>For this section you need to <a class="reference external" href="https://developers.google.com/protocol-buffers/docs/downloads">install protobuf</a>. In general you will not have to do so when using TensorFlow, as it comes with functions to create and parse protocol buffers of type <code class="docutils literal notranslate"><span class="pre">tf.train.Example</span></code>, which are generally sufficient. However, in this section we will learn about protocol buffers by creating our own simple protobuf definition, so we need the protobuf compiler (<code class="docutils literal notranslate"><span class="pre">protoc</span></code>): we will use it to compile the protobuf definition to a Python module that we can then use in our code.</p>
 <p>First let’s write a simple protobuf definition:</p>
 <div class="cell docutils container">
@@ -2821,8 +2911,8 @@ email: &quot;a@b.com&quot;
 </div>
 </div>
 </div>
-<div class="section" id="custom-protobuf">
-<h4>Custom protobuf<a class="headerlink" href="#custom-protobuf" title="Permalink to this headline">¶</a></h4>
+<section id="custom-protobuf">
+<h4>Custom protobuf<a class="headerlink" href="#custom-protobuf" title="Permalink to this headline">#</a></h4>
 <p>In rare cases, you may want to parse a custom protobuf (like the one we just created) in TensorFlow. For this you can use the <code class="docutils literal notranslate"><span class="pre">tf.io.decode_proto()</span></code> function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2846,10 +2936,10 @@ email: &quot;a@b.com&quot;
 </div>
 </div>
 <p>For more details, see the <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/io/decode_proto"><code class="docutils literal notranslate"><span class="pre">tf.io.decode_proto()</span></code></a> documentation.</p>
-</div>
-</div>
-<div class="section" id="tensorflow-protobufs">
-<h3>TensorFlow Protobufs<a class="headerlink" href="#tensorflow-protobufs" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="tensorflow-protobufs">
+<h3>TensorFlow Protobufs<a class="headerlink" href="#tensorflow-protobufs" title="Permalink to this headline">#</a></h3>
 <p>Here is the definition of the tf.train.Example protobuf:</p>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto3&quot;</span><span class="p">;</span>
 
@@ -2971,9 +3061,9 @@ email: &quot;a@b.com&quot;
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="putting-images-in-tfrecords">
-<h3>Putting Images in TFRecords<a class="headerlink" href="#putting-images-in-tfrecords" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="putting-images-in-tfrecords">
+<h3>Putting Images in TFRecords<a class="headerlink" href="#putting-images-in-tfrecords" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_sample_images</span>
@@ -3031,9 +3121,9 @@ email: &quot;a@b.com&quot;
 <img alt="../../_images/13_loading_and_preprocessing_data_102_0.png" src="../../_images/13_loading_and_preprocessing_data_102_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="putting-tensors-and-sparse-tensors-in-tfrecords">
-<h3>Putting Tensors and Sparse Tensors in TFRecords<a class="headerlink" href="#putting-tensors-and-sparse-tensors-in-tfrecords" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="putting-tensors-and-sparse-tensors-in-tfrecords">
+<h3>Putting Tensors and Sparse Tensors in TFRecords<a class="headerlink" href="#putting-tensors-and-sparse-tensors-in-tfrecords" title="Permalink to this headline">#</a></h3>
 <p>Tensors can be serialized and parsed easily using <code class="docutils literal notranslate"><span class="pre">tf.io.serialize_tensor()</span></code> and <code class="docutils literal notranslate"><span class="pre">tf.io.parse_tensor()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3117,10 +3207,10 @@ value: &quot;\010\t\022\004\022\002\010\001\&quot;\010\002\000\000\000\000\000\0
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="handling-sequential-data-using-sequenceexample">
-<h2>Handling Sequential Data Using <code class="docutils literal notranslate"><span class="pre">SequenceExample</span></code><a class="headerlink" href="#handling-sequential-data-using-sequenceexample" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="handling-sequential-data-using-sequenceexample">
+<h2>Handling Sequential Data Using <code class="docutils literal notranslate"><span class="pre">SequenceExample</span></code><a class="headerlink" href="#handling-sequential-data-using-sequenceexample" title="Permalink to this headline">#</a></h2>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto3&quot;</span><span class="p">;</span>
 
 <span class="kd">message</span><span class="w"> </span><span class="nc">FeatureList</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">repeated</span><span class="w"> </span><span class="n">Feature</span><span class="w"> </span><span class="na">feature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
@@ -3343,10 +3433,10 @@ feature_lists {
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="the-features-api">
-<h1>The Features API<a class="headerlink" href="#the-features-api" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-features-api">
+<h1>The Features API<a class="headerlink" href="#the-features-api" title="Permalink to this headline">#</a></h1>
 <p>Let’s use the variant of the California housing dataset that we used in Chapter 2, since it contains categorical features and missing values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3607,8 +3697,8 @@ feature_lists {
 </div>
 </div>
 </div>
-<div class="section" id="using-feature-columns-for-parsing">
-<h2>Using Feature Columns for Parsing<a class="headerlink" href="#using-feature-columns-for-parsing" title="Permalink to this headline">¶</a></h2>
+<section id="using-feature-columns-for-parsing">
+<h2>Using Feature Columns for Parsing<a class="headerlink" href="#using-feature-columns-for-parsing" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">median_house_value</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">)</span>
@@ -3727,10 +3817,10 @@ array([[ 0.        ,  0.        ,  1.        ,  0.        ,  0.        ,
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="tf-transform">
-<h1>TF Transform<a class="headerlink" href="#tf-transform" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tf-transform">
+<h1>TF Transform<a class="headerlink" href="#tf-transform" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
@@ -3751,9 +3841,9 @@ array([[ 0.        ,  0.        ,  1.        ,  0.        ,  0.        ,
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="tensorflow-datasets">
-<h1>TensorFlow Datasets<a class="headerlink" href="#tensorflow-datasets" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tensorflow-datasets">
+<h1>TensorFlow Datasets<a class="headerlink" href="#tensorflow-datasets" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow_datasets</span> <span class="k">as</span> <span class="nn">tfds</span>
@@ -3881,9 +3971,9 @@ Epoch 5/5
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="tensorflow-hub">
-<h1>TensorFlow Hub<a class="headerlink" href="#tensorflow-hub" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tensorflow-hub">
+<h1>TensorFlow Hub<a class="headerlink" href="#tensorflow-hub" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
@@ -3982,17 +4072,17 @@ array([[ 7.45939985e-02,  2.76720114e-02,  9.38646123e-02,
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="to-8">
-<h2>1. to 8.<a class="headerlink" href="#to-8" title="Permalink to this headline">¶</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h1>
+<section id="to-8">
+<h2>1. to 8.<a class="headerlink" href="#to-8" title="Permalink to this headline">#</a></h2>
 <p>See Appendix A</p>
-</div>
-<div class="section" id="id1">
-<h2>9.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="a">
-<h3>a.<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id1">
+<h2>9.<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<section id="a">
+<h3>a.<a class="headerlink" href="#a" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Load the Fashion MNIST dataset (introduced in Chapter 10); split it into a training set, a validation set, and a test set; shuffle the training set; and save each dataset to multiple TFRecord files. Each record should be a serialized <code class="docutils literal notranslate"><span class="pre">Example</span></code> protobuf with two features: the serialized image (use <code class="docutils literal notranslate"><span class="pre">tf.io.serialize_tensor()</span></code> to serialize each image), and the label. Note: for large images, you could use <code class="docutils literal notranslate"><span class="pre">tf.io.encode_jpeg()</span></code> instead. This would save a lot of space, but it would lose a bit of image quality.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4095,9 +4185,9 @@ array([[ 7.45939985e-02,  2.76720114e-02,  9.38646123e-02,
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="b">
-<h3>b.<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="b">
+<h3>b.<a class="headerlink" href="#b" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Then use tf.data to create an efficient dataset for each set. Finally, use a Keras model to train these datasets, including a preprocessing layer to standardize each input feature. Try to make the input pipeline as efficient as possible, using TensorBoard to visualize profiling data.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4242,13 +4332,13 @@ Epoch 5/5
 </script>
 </div></div>
 </div>
-</div>
-</div>
-<div class="section" id="id2">
-<h2>10.<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="id2">
+<h2>10.<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: In this exercise you will download a dataset, split it, create a <code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> to load it and preprocess it efficiently, then build and train a binary classification model containing an <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> layer.</em></p>
-<div class="section" id="id3">
-<h3>a.<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<section id="id3">
+<h3>a.<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Download the <a class="reference external" href="https://homl.info/imdb">Large Movie Review Dataset</a>, which contains 50,000 movies reviews from the <a class="reference external" href="https://imdb.com/">Internet Movie Database</a>. The data is organized in two directories, <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code>, each containing a <code class="docutils literal notranslate"><span class="pre">pos</span></code> subdirectory with 12,500 positive reviews and a <code class="docutils literal notranslate"><span class="pre">neg</span></code> subdirectory with 12,500 negative reviews. Each review is stored in a separate text file. There are other files and folders (including preprocessed bag-of-words), but we will ignore them in this exercise.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4348,9 +4438,9 @@ Epoch 5/5
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id4">
-<h3>b.<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id4">
+<h3>b.<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Split the test set into a validation set (15,000) and a test set (10,000).</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4364,9 +4454,9 @@ Epoch 5/5
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="c">
-<h3>c.<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="c">
+<h3>c.<a class="headerlink" href="#c" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Use tf.data to create an efficient dataset for each set.</em></p>
 <p>Since the dataset fits in memory, we can just load all the data using pure Python code and use <code class="docutils literal notranslate"><span class="pre">tf.data.Dataset.from_tensor_slices()</span></code>:</p>
 <div class="cell docutils container">
@@ -4471,9 +4561,9 @@ tf.Tensor(0, shape=(), dtype=int32)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="d">
-<h3>d.<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="d">
+<h3>d.<a class="headerlink" href="#d" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Create a binary classification model, using a <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> layer to preprocess each review. If the <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> layer is not yet available (or if you like a challenge), try to create your own custom preprocessing layer: you can use the functions in the <code class="docutils literal notranslate"><span class="pre">tf.strings</span></code> package, for example <code class="docutils literal notranslate"><span class="pre">lower()</span></code> to make everything lowercase, <code class="docutils literal notranslate"><span class="pre">regex_replace()</span></code> to replace punctuation with spaces, and <code class="docutils literal notranslate"><span class="pre">split()</span></code> to split words on spaces. You should use a lookup table to output word indices, which must be prepared in the <code class="docutils literal notranslate"><span class="pre">adapt()</span></code> method.</em></p>
 <p>Let’s first write a function to preprocess the reviews, cropping them to 300 characters, converting them to lower case, then replacing <code class="docutils literal notranslate"><span class="pre">&lt;br</span> <span class="pre">/&gt;</span></code> and all non-letter characters to spaces, splitting the reviews into words, and finally padding or cropping each review so it ends up with exactly <code class="docutils literal notranslate"><span class="pre">n_words</span></code> tokens:</p>
 <div class="cell docutils container">
@@ -4739,9 +4829,9 @@ Epoch 5/5
 </div>
 </div>
 <p>We get about 73.5% accuracy on the validation set after just the first epoch, but after that the model makes no significant progress. We will do better in Chapter 16. For now the point is just to perform efficient preprocessing using <code class="docutils literal notranslate"><span class="pre">tf.data</span></code> and Keras preprocessing layers.</p>
-</div>
-<div class="section" id="e">
-<h3>e.<a class="headerlink" href="#e" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="e">
+<h3>e.<a class="headerlink" href="#e" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Add an <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> layer and compute the mean embedding for each review, multiplied by the square root of the number of words (see Chapter 16). This rescaled mean embedding can then be passed to the rest of your model.</em></p>
 <p>To compute the mean embedding for each review, and multiply it by the square root of the number of words in that review, we will need a little function. For each sentence, this function needs to compute <span class="math notranslate nohighlight">\(M \times \sqrt N\)</span>, where <span class="math notranslate nohighlight">\(M\)</span> is the mean of all the word embeddings in the sentence (excluding padding tokens), and <span class="math notranslate nohighlight">\(N\)</span> is the number of words in the sentence (also excluding padding tokens). We can rewrite <span class="math notranslate nohighlight">\(M\)</span> as <span class="math notranslate nohighlight">\(\dfrac{S}{N}\)</span>, where <span class="math notranslate nohighlight">\(S\)</span> is the sum of all word embeddings (it does not matter whether or not we include the padding tokens in this sum, since their representation is a zero vector). So the function must return <span class="math notranslate nohighlight">\(M \times \sqrt N = \dfrac{S}{N} \times \sqrt N = \dfrac{S}{\sqrt N \times \sqrt N} \times \sqrt N= \dfrac{S}{\sqrt N}\)</span>.</p>
 <div class="cell docutils container">
@@ -4810,9 +4900,9 @@ array([[3.535534 , 4.9497476, 2.1213205],
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="f">
-<h3>f.<a class="headerlink" href="#f" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="f">
+<h3>f.<a class="headerlink" href="#f" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Train the model and see what accuracy you get. Try to optimize your pipelines to make training as fast as possible.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4840,9 +4930,9 @@ Epoch 5/5
 </div>
 </div>
 <p>The model is not better using embeddings (but we will do better in Chapter 16). The pipeline looks fast enough (we optimized it earlier).</p>
-</div>
-<div class="section" id="g">
-<h3>g.<a class="headerlink" href="#g" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="g">
+<h3>g.<a class="headerlink" href="#g" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Use TFDS to load the same dataset more easily: <code class="docutils literal notranslate"><span class="pre">tfds.load(&quot;imdb_reviews&quot;)</span></code>.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4869,9 +4959,9 @@ tf.Tensor(0, shape=(), dtype=int64)
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -4895,9 +4985,11 @@ tf.Tensor(0, shape=(), dtype=int64)
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="12_custom_models_and_training_with_tensorflow.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -4913,24 +5005,28 @@ tf.Tensor(0, shape=(), dtype=int64)
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

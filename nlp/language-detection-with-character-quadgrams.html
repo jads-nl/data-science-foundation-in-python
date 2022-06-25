@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Extra: language detection with character quadgrams &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/nlp/language-detection-with-character-quadgrams.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/nlp/language-detection-with-character-quadgrams.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fnlp/language-detection-with-character-quadgrams.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/nlp/language-detection-with-character-quadgrams.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/nlp/language-detection-with-character-quadgrams.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/nlp/language-detection-with-character-quadgrams.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/nlp/language-detection-with-character-quadgrams.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fnlp/language-detection-with-character-quadgrams.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/nlp/language-detection-with-character-quadgrams.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cld2-library-for-language-detection">
    <code class="docutils literal notranslate">
@@ -1319,12 +1409,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Extra: language detection with character quadgrams</h1>
@@ -1358,13 +1447,14 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="extra-language-detection-with-character-quadgrams">
-<h1>Extra: language detection with character quadgrams<a class="headerlink" href="#extra-language-detection-with-character-quadgrams" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="cld2-library-for-language-detection">
-<h2><code class="docutils literal notranslate"><span class="pre">cld2</span></code> library for language detection<a class="headerlink" href="#cld2-library-for-language-detection" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="extra-language-detection-with-character-quadgrams">
+<h1>Extra: language detection with character quadgrams<a class="headerlink" href="#extra-language-detection-with-character-quadgrams" title="Permalink to this headline">#</a></h1>
+<section id="cld2-library-for-language-detection">
+<h2><code class="docutils literal notranslate"><span class="pre">cld2</span></code> library for language detection<a class="headerlink" href="#cld2-library-for-language-detection" title="Permalink to this headline">#</a></h2>
 <p><a class="reference external" href="https://github.com/CLD2Owners/cld2">CLD2</a> is a Naïve Bayesian classifier, using one of three different token algorithms:</p>
 <ol class="simple">
 <li><p>For Unicode scripts such as Greek and Thai that map one-to-one to detected languages, the script defines the result.</p></li>
@@ -1394,12 +1484,12 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4540</span><span class="o">/</span><span class="mf">2156811455.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pycld2</span> <span class="k">as</span> <span class="nn">cld2</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">posts_data</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/jads-nl/public-lectures/blob/main/nlp/data/linkedin-shares.csv?raw=true&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">posts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">posts_data</span><span class="p">)</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;pycld2&#39;
 </pre></div>
@@ -1415,7 +1505,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4540</span><span class="o">/</span><span class="mf">3812350839.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">posts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 
 <span class="ne">NameError</span>: name &#39;posts&#39; is not defined
@@ -1435,7 +1525,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4540</span><span class="o">/</span><span class="mf">832374058.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s2">&quot;length:Q&quot;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Bin</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
@@ -1446,9 +1536,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="exercise-compute-the-top-10-character-quadgrams-from-the-universal-declaration-of-human-rights">
-<h2>Exercise: compute the top-10 character quadgrams from the Universal Declaration of Human Rights<a class="headerlink" href="#exercise-compute-the-top-10-character-quadgrams-from-the-universal-declaration-of-human-rights" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="exercise-compute-the-top-10-character-quadgrams-from-the-universal-declaration-of-human-rights">
+<h2>Exercise: compute the top-10 character quadgrams from the Universal Declaration of Human Rights<a class="headerlink" href="#exercise-compute-the-top-10-character-quadgrams-from-the-universal-declaration-of-human-rights" title="Permalink to this headline">#</a></h2>
 <p>Given:</p>
 <ul class="simple">
 <li><p>The <a class="reference external" href="https://www.ohchr.org/EN/UDHR/Pages/SearchByLang.aspx">Universal Declaration of Human Rights in 500 languages</a></p></li>
@@ -1476,113 +1566,6 @@
 <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=</span><span class="si">{</span><span class="n">lang_id</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
 <span class="n">soup</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;udhrtext&quot;</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;span class=&quot;udhrtext&quot; id=&quot;ctl00_PlaceHolderMain_usrUDHRLanguage_lblLang&quot;&gt;&lt;h3&gt;UNIVERSELE VERKLARING VAN DE RECHTEN VAN DE MENS&lt;/h3&gt;
-&lt;h4&gt;Preambule&lt;/h4&gt;
-&lt;p&gt;Overwegende, dat erkenning van de inherente waardigheid en van de gelijke en onvervreemdbare rechten van alle leden van de mensengemeenschap grondslag is voor de vrijheid, gerechtigheid en vrede in de wereld; &lt;/p&gt;
-&lt;p&gt;Overwegende, dat terzijdestelling van en minachting voor de rechten van de mens geleid hebben tot barbaarse handelingen, die het geweten van de mensheid geweld hebben aangedaan en dat de komst van een wereld, waarin de mensen vrijheid van meningsuiting en geloof zullen genieten, en vrij zullen zijn van vrees en gebrek, is verkondigd als het hoogste ideaal van iedere mens; &lt;/p&gt;
-&lt;p&gt;Overwegende, dat het van het grootste belang is, dat de rechten van de mens beschermd worden door de suprematie van het recht, opdat de mens niet gedwongen worde om in laatste instantie zijn toevlucht te nemen tot opstand tegen tyrannie en onderdrukking; &lt;/p&gt;
-&lt;p&gt;Overwegende, dat het van het grootste belang is om de ontwikkeling van vriendschappelijke betrekkingen tussen de naties te bevorderen; &lt;/p&gt;
-&lt;p&gt;Overwegende, dat de volkeren van de Verenigde Naties in het Handvest hun vertrouwen in de fundamentele rechten van de mens, in de waardigheid en de waarde van de mens en in de gelijke rechten van mannen en vrouwen opnieuw hebben bevestigd, en besloten hebben om sociale vooruitgang en een hogere levensstandaard in groter vrijheid te bevorderen; &lt;/p&gt;
-&lt;p&gt;Overwegende, dat de Staten, welke Lid zijn van de Verenigde Naties, zich plechtig verbonden hebben om, in samenwerking met de Organisatie van de Verenigde Naties, overal de eerbied voor en inachtneming van de rechten van de mens en de fundamentele vrijheden te bevorderen; &lt;/p&gt;
-&lt;p&gt;Overwegende, dat het van het grootste belang is voor de volledige nakoming van deze verbintenis, dat een ieder begrip hebbe voor deze rechten en vrijheden; &lt;/p&gt;
-&lt;p&gt;Op grond daarvan proclameert de Algemene Vergadering deze Universele Verklaring van de Rechten van de Mens als het gemeenschappelijk door alle volkeren en alle naties te bereiken ideaal, opdat ieder individu en elk orgaan van de gemeenschap, met deze verklaring voortdurend voor ogen, er naar zal streven door onderwijs en opvoeding de eerbied voor deze rechten en vrijheden te bevorderen, en door vooruitstrevende maatregelen, op nationaal en internationaal terrein, deze rechten algemeen en daadwerkelijk te doen erkennen en toepassen, zowel onder de volkeren van Staten die Lid van de Verenigde Naties zijn, zelf, als onder de volkeren van gebieden, die onder hun jurisdictie staan: &lt;/p&gt;
-&lt;h4&gt;Artikel 1&lt;/h4&gt;
-&lt;p&gt;Alle mensen worden vrij en gelijk in waardigheid en rechten geboren. Zij zijn begiftigd met verstand en geweten, en behoren zich jegens elkander in een geest van broederschap te gedragen. &lt;/p&gt;
-&lt;h4&gt;Artikel 2&lt;/h4&gt;
-&lt;p&gt;Een ieder heeft aanspraak op alle rechten en vrijheden, in deze Verklaring opgesomd, zonder enig onderscheid van welke aard ook, zoals ras, kleur, geslacht, taal, godsdienst, politieke of andere overtuiging, nationale of maatschappelijke afkomst, eigendom, geboorte of andere status. &lt;/p&gt;
-&lt;p&gt;Verder zal geen onderscheid worden gemaakt naar de politieke, juridische of internationale status van het land of gebied, waartoe iemand behoort, onverschillig of het een onafhankelijk, trust-, of niet-zelfbesturend gebied betreft, dan wel of er een andere beperking van de soevereiniteit bestaat. &lt;/p&gt;
-&lt;h4&gt;Artikel 3&lt;/h4&gt;
-&lt;p&gt;Een ieder heeft het recht op leven, vrijheid en onschendbaarheid van zijn persoon. &lt;/p&gt;
-&lt;h4&gt;Artikel 4&lt;/h4&gt;
-&lt;p&gt;Niemand zal in slavernij of horigheid gehouden worden. Slavernij en slavenhandel in iedere vorm zijn verboden. &lt;/p&gt;
-&lt;h4&gt;Artikel 5&lt;/h4&gt;
-&lt;p&gt;Niemand zal onderworpen worden aan folteringen, noch aan een wrede, onmenselijke of onterende behandeling of bestraffing. &lt;/p&gt;
-&lt;h4&gt;Artikel 6 &lt;/h4&gt;
-&lt;p&gt;Een ieder heeft, waar hij zich ook bevindt, het recht als persoon erkend te worden voor de wet. &lt;/p&gt;
-&lt;h4&gt;Artikel 7&lt;/h4&gt;
-&lt;p&gt;Allen zijn gelijk voor de wet en hebben zonder onderscheid aanspraak op gelijke bescherming door de wet. Allen hebben aanspraak op gelijke bescherming tegen iedere achterstelling in strijd met deze Verklaring en tegen iedere ophitsing tot een dergelijke achterstelling. &lt;/p&gt;
-&lt;h4&gt;Artikel 8 &lt;/h4&gt;
-&lt;p&gt;Een ieder heeft recht op daadwerkelijke rechtshulp van bevoegde nationale rechterlijke instanties tegen handelingen, welke in strijd zijn met de grondrechten hem toegekend bij Grondwet of wet. &lt;/p&gt;
-&lt;h4&gt;Artikel 9&lt;/h4&gt;
-&lt;p&gt;Niemand zal onderworpen worden aan willekeurige arrestatie, detentie of verbanning. &lt;/p&gt;
-&lt;h4&gt;Artikel 10 &lt;/h4&gt;
-&lt;p&gt;Een ieder heeft, in volle gelijkheid, recht op een eerlijke en openbare behandeling van zijn zaak door een onafhankelijke en onpartijdige rechterlijke instantie bij het vaststellen van zijn rechten en verplichtingen en bij het bepalen van de gegrondheid van een tegen hem ingestelde strafvervolging. &lt;/p&gt;
-&lt;h4&gt;Artikel 11&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder, die wegens een strafbaar feit wordt vervolgd, heeft er recht op voor onschuldig gehouden te worden, totdat zijn schuld krachtens de wet bewezen wordt in een openbare rechtszitting, waarbij hem alle waarborgen, nodig voor zijn verdediging, zijn toegekend. &lt;/li&gt;
-&lt;li&gt;Niemand zal voor schuldig gehouden worden aan enig strafrechtelijk vergrijp op grond van enige handeling of enig verzuim, welke naar nationaal of internationaal recht geen strafrechtelijk vergrijp betekenden op het tijdstip, waarop de handeling of het verzuim begaan werd. Evenmin zal een zwaardere straf worden opgelegd dan die, welke ten tijde van het begaan van het strafbare feit van toepassing was. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 12&lt;/h4&gt;
-&lt;p&gt;Niemand zal onderworpen worden aan willekeurige inmenging in zijn persoonlijke aangelegenheden, in zijn gezin, zijn tehuis of zijn briefwisseling, noch aan enige aantasting van zijn eer of goede naam. Tegen een dergelijke inmenging of aantasting heeft een ieder recht op bescherming door de wet. &lt;/p&gt;
-&lt;h4&gt;Artikel 13&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft het recht zich vrijelijk te verplaatsen en te vertoeven binnen de grenzen van elke Staat. &lt;/li&gt;
-&lt;li&gt;Een ieder heeft het recht welk land ook, met inbegrip van het zijne, te verlaten en naar zijn land terug te keren. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 14&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft het recht om in andere landen asiel te zoeken en te genieten tegen vervolging. &lt;/li&gt;
-&lt;li&gt;Op dit recht kan geen beroep worden gedaan ingeval van strafvervolgingen wegens misdrijven van niet-politieke aard of handelingen in strijd met de doeleinden en beginselen van de Verenigde Naties. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 15&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft het recht op een nationaliteit. &lt;/li&gt;
-&lt;li&gt;Aan niemand mag willekeurig zijn nationaliteit worden ontnomen, noch het recht worden ontzegd om van nationaliteit te veranderen. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 16&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Zonder enige beperking op grond van ras, nationaliteit of godsdienst, hebben mannen en vrouwen van huwbare leeftijd het recht om te huwen en een gezin te stichten. Zij hebben gelijke rechten wat het huwelijk betreft, tijdens het huwelijk en bij de ontbinding ervan. &lt;/li&gt;
-&lt;li&gt;Een huwelijk kan slechts worden gesloten met de vrije en volledige toestemming van de aanstaande echtgenoten. &lt;/li&gt;
-&lt;li&gt;Het gezin is de natuurlijke en fundamentele groepseenheid van de maatschappij en heeft recht op bescherming door de maatschappij en de Staat. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 17&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft recht op eigendom, hetzij alleen, hetzij tezamen met anderen. &lt;/li&gt;
-&lt;li&gt;Niemand mag willekeurig van zijn eigendom worden beroofd. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 18&lt;/h4&gt;
-&lt;p&gt;Een ieder heeft recht op vrijheid van gedachte, geweten en godsdienst;dit recht omvat tevens de vrijheid om van godsdienst of overtuiging te veranderen, alsmede de vrijheid hetzij alleen, hetzij met anderen zowel in het openbaar als in zijn particuliere leven zijn godsdienst of overtuiging te belijden door het onderwijzen ervan, door de praktische toepassing, door eredienst en de inachtneming van de geboden en voorschriften. &lt;/p&gt;
-&lt;h4&gt;Artikel 19&lt;/h4&gt;
-&lt;p&gt;Een ieder heeft recht op vrijheid van mening en meningsuiting. Dit recht omvat de vrijheid om zonder inmenging een mening te koesteren en om door alle middelen en ongeacht grenzen inlichtingen en denkbeelden op te sporen, te ontvangen en door te geven. &lt;/p&gt;
-&lt;h4&gt;Artikel 20&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft recht op vrijheid van vreedzame vereniging en vergadering. &lt;/li&gt;
-&lt;li&gt;Niemand mag worden gedwongen om tot een vereniging te behoren. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 21&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft het recht om deel te nemen aan het bestuur van zijn land, rechtstreeks of door middel van vrij gekozen vertegenwoordigers. &lt;/li&gt;
-&lt;li&gt;Een ieder heeft het recht om op voet van gelijkheid te worden toegelaten tot de overheidsdiensten van zijn land. &lt;/li&gt;
-&lt;li&gt;De wil van het volk zal de grondslag zijn van het gezag van de Regering; deze wil zal tot uiting komen in periodieke en eerlijke verkiezingen, die gehouden zullen worden krachtens algemeen en gelijkwaardig kiesrecht en bij geheime stemmingen of volgens een procedure, die evenzeer de vrijheid van de stemmen verzekert. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 22&lt;/h4&gt;
-&lt;p&gt;Een ieder heeft als lid van de gemeenschap recht op maatschappelijke zekerheid en heeft er aanspraak op, dat door middel van nationale inspanning en internationale samenwerking, en overeenkomstig de organisatie en de hulpbronnen van de betreffende Staat, de economische, sociale en culturele rechten, die onmisbaar zijn voor zijn waardigheid en voor de vrije ontplooiing van zijn persoonlijkheid, verwezenlijkt worden. &lt;/p&gt;
-&lt;h4&gt;Artikel 23&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft recht op arbeid, op vrije keuze van beroep, op rechtmatige en gunstige arbeidsvoorwaarden en op bescherming tegen werkloosheid. &lt;/li&gt;
-&lt;li&gt;Een ieder, zonder enige achterstelling, heeft recht op gelijk loon voor gelijke arbeid. &lt;/li&gt;
-&lt;li&gt;Een ieder, die arbeid verricht, heeft recht op een rechtvaardige en gunstige beloning, welke hem en zijn gezin een menswaardig bestaan verzekert, welke beloning zo nodig met andere middelen van sociale bescherming zal worden aangevuld. &lt;/li&gt;
-&lt;li&gt;Een ieder heeft het recht om vakverenigingen op te richten en zich daarbij aan te sluiten ter bescherming van zijn belangen. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 24&lt;/h4&gt;
-&lt;p&gt;Een ieder heeft recht op rust en op eigen vrije tijd, met inbegrip van een redelijke beperking van de arbeidstijd, en op periodieke vakanties met behoud van loon. &lt;/p&gt;
-&lt;h4&gt;Artikel 25&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft recht op een levensstandaard, die hoog genoeg is voor de gezondheid en het welzijn van zichzelf en zijn gezin, waaronder inbegrepen voeding, kleding, huisvesting en geneeskundige verzorging en de noodzakelijke sociale diensten, alsmede het recht op voorziening in geval van werkloosheid, ziekte, invaliditeit, overlijden van de echtgenoot, ouderdom of een ander gemis aan bestaansmiddelen, ontstaan ten gevolge van omstandigheden onafhankelijk van zijn wil. &lt;/li&gt;
-&lt;li&gt;Moeder en kind hebben recht op bijzondere zorg en bijstand. Alle kinderen, al dan niet wettig, zullen dezelfde sociale bescherming genieten. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 26&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft recht op onderwijs; het onderwijs zal kosteloos zijn, althans wat het lager en basisonderwijs betreft. Het lager onderwijs zal verplicht zijn. Ambachtsonderwijs en beroepsopleiding zullen algemeen beschikbaar worden gesteld. Hoger onderwijs zal openstaan voor een ieder, die daartoe de begaafdheid bezit. &lt;/li&gt;
-&lt;li&gt;Het onderwijs zal gericht zijn op de volle ontwikkeling van de menselijke persoonlijkheid en op de versterking van de eerbied voor de rechten van de mens en de fundamentele vrijheden. Het zal het begrip, de verdraagzaamheid en de vriendschap onder alle naties, rassen of godsdienstige groepen bevorderen en het zal de werkzaamheden van de Verenigde Naties voor de handhaving van de vrede steunen. &lt;/li&gt;
-&lt;li&gt;Aan de ouders komt in de eerste plaats het recht toe om de soort van opvoeding en onderwijs te kiezen, welke aan hun kinderen zal worden gegeven. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 27 &lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft het recht om vrijelijk deel te nemen aan het culturele leven van de gemeenschap, om te genieten van kunst en om deel te hebben aan wetenschappelijke vooruitgang en de vruchten daarvan. &lt;/li&gt;
-&lt;li&gt;Een ieder heeft het recht op de bescherming van de geestelijke en materiële belangen, voortspruitende uit een wetenschappelijk, letterkundig of artistiek werk, dat hij heeft voortgebracht. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 28&lt;/h4&gt;
-&lt;p&gt;Een ieder heeft recht op het bestaan van een zodanige maatschappelijke en internationale orde, dat de rechten en vrijheden, in deze Verklaring genoemd, daarin ten volle kunnen worden verwezenlijkt. &lt;/p&gt;
-&lt;h4&gt;Artikel 29&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;Een ieder heeft plichten jegens de gemeenschap, zonder welke de vrije en volledige ontplooiing van zijn persoonlijkheid niet mogelijk is. &lt;/li&gt;
-&lt;li&gt;In de uitoefening van zijn rechten en vrijheden zal een ieder slechts onderworpen zijn aan die beperkingen, welke bij de wet zijn vastgesteld en wel uitsluitend ter verzekering van de onmisbare erkenning en eerbiediging van de rechten en vrijheden van anderen en om te voldoen aan de gerechtvaardigde eisen van de moraliteit, de openbare orde en het algemeen welzijn in een democratische gemeenschap. &lt;/li&gt;
-&lt;li&gt;Deze rechten en vrijheden mogen in geen geval worden uitgeoefend in strijd met de doeleinden en beginselen van de Verenigde Naties. &lt;/li&gt;&lt;/ol&gt;
-&lt;h4&gt;Artikel 30&lt;/h4&gt;
-&lt;p&gt;Geen bepaling in deze Verklaring zal zodanig mogen worden uitgelegd, dat welke Staat, groep of persoon dan ook, daaraan enig recht kan ontlenen om iets te ondernemen of handelingen van welke aard ook te verrichten, die vernietiging van een van de rechten en vrijheden, in deze Verklaring genoemd, ten doel hebben. &lt;/p&gt;&lt;/span&gt;
 </pre></div>
 </div>
 </div>
@@ -1657,8 +1640,8 @@
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1682,9 +1665,11 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="nlp-pipeline-example.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1700,24 +1685,28 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

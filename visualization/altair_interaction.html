@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Interaction &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/visualization/altair_interaction.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/visualization/altair_interaction.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_interaction.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_interaction.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_interaction.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_interaction.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_interaction.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_interaction.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/visualization/altair_interaction.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#datasets">
    Datasets
@@ -1370,12 +1460,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Interaction</h1>
@@ -1460,11 +1549,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="interaction">
-<h1>Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="interaction">
+<h1>Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline">#</a></h1>
 <p><em>“A graphic is not ‘drawn’ once and for all; it is ‘constructed’ and reconstructed until it reveals all the relationships constituted by the interplay of the data. The best graphic operations are those carried out by the decision-maker themself.”</em> — <a class="reference external" href="https://books.google.com/books?id=csqX_xnm4tcC">Jacques Bertin</a></p>
 <p>Visualization provides a powerful means of making sense of data. A single image, however, typically provides answers to, at best, a handful of questions. Through <em>interaction</em> we can transform static images into tools for exploration: highlighting points of interest, zooming in to reveal finer-grained patterns, and linking across multiple views to reason about multi-dimensional relationships.</p>
 <p>At the core of interaction is the notion of a <em>selection</em>: a means of indicating to the computer which elements or regions we are interested in. For example, we might hover the mouse over a point, click multiple marks, or draw a bounding box around a region to highlight subsets of the data for further scrutiny.</p>
@@ -1484,8 +1574,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="datasets">
-<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
+<section id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">#</a></h2>
 <p>We will visualize a variety of datasets from the <a class="reference external" href="https://github.com/vega/vega-datasets">vega-datasets</a> collection:</p>
 <ul class="simple">
 <li><p>A dataset of <code class="docutils literal notranslate"><span class="pre">cars</span></code> from the 1970s and early 1980s,</p></li>
@@ -1505,9 +1595,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="introducing-selections">
-<h2>Introducing Selections<a class="headerlink" href="#introducing-selections" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="introducing-selections">
+<h2>Introducing Selections<a class="headerlink" href="#introducing-selections" title="Permalink to this headline">#</a></h2>
 <p>Let’s start with a basic selection: simply clicking a point to highlight it. Using the <code class="docutils literal notranslate"><span class="pre">cars</span></code> dataset, we’ll start with a scatter plot of horsepower versus miles per gallon, with a color encoding for the number cylinders in the car engine.</p>
 <p>In addition, we’ll create a selection instance by calling <code class="docutils literal notranslate"><span class="pre">alt.selection_single()</span></code>, indicating we want a selection defined over a <em>single value</em>. By default, the selection uses a mouse click to determine the selected value. To register a selection with a chart, we must add it using the <code class="docutils literal notranslate"><span class="pre">.add_selection()</span></code> method.</p>
 <p>Once our selection has been defined, we can use it as a parameter for <em>conditional encodings</em>, which apply a different encoding depending on whether a data record lies in or out of the selection. For example, consider the following code:</p>
@@ -1533,13 +1623,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-bfe739e951794526a1d66f89ca1bb8bd"></div>
+<div id="altair-viz-abc7ad5c782e4e979fe159e9fda62d10"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-bfe739e951794526a1d66f89ca1bb8bd") {
-      outputDiv = document.getElementById("altair-viz-bfe739e951794526a1d66f89ca1bb8bd");
+    if (outputDiv.id !== "altair-viz-abc7ad5c782e4e979fe159e9fda62d10") {
+      outputDiv = document.getElementById("altair-viz-abc7ad5c782e4e979fe159e9fda62d10");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1628,13 +1718,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-4240b989ef884cbb81cd1fc5f11c1a1e"></div>
+<div id="altair-viz-84047b07ba864f318f00d123c52e56d7"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4240b989ef884cbb81cd1fc5f11c1a1e") {
-      outputDiv = document.getElementById("altair-viz-4240b989ef884cbb81cd1fc5f11c1a1e");
+    if (outputDiv.id !== "altair-viz-84047b07ba864f318f00d123c52e56d7") {
+      outputDiv = document.getElementById("altair-viz-84047b07ba864f318f00d123c52e56d7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1696,13 +1786,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ec8b7ba2447e4f5fac1f5108604b1373"></div>
+<div id="altair-viz-10c32be244464b71a5942ef36ada738a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ec8b7ba2447e4f5fac1f5108604b1373") {
-      outputDiv = document.getElementById("altair-viz-ec8b7ba2447e4f5fac1f5108604b1373");
+    if (outputDiv.id !== "altair-viz-10c32be244464b71a5942ef36ada738a") {
+      outputDiv = document.getElementById("altair-viz-10c32be244464b71a5942ef36ada738a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1752,9 +1842,9 @@
 </script></div></div>
 </div>
 <p>Now that we’ve covered the basics of Altair selections, let’s take a tour through the various interaction techniques they enable!</p>
-</div>
-<div class="section" id="dynamic-queries">
-<h2>Dynamic Queries<a class="headerlink" href="#dynamic-queries" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="dynamic-queries">
+<h2>Dynamic Queries<a class="headerlink" href="#dynamic-queries" title="Permalink to this headline">#</a></h2>
 <p><em>Dynamic queries</em> enables rapid, reversible exploration of data to isolate patterns of interest. As defined by <a class="reference external" href="https://www.cs.umd.edu/~ben/papers/Ahlberg1992Dynamic.pdf">Ahlberg, Williamson, &amp; Shneiderman</a>, a dynamic query:</p>
 <ul class="simple">
 <li><p>represents a query graphically,</p></li>
@@ -1808,13 +1898,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-43cfacf635824184a42e7eddab3cdbf8"></div>
+<div id="altair-viz-f0d73e5230024edf91ccefb305601854"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-43cfacf635824184a42e7eddab3cdbf8") {
-      outputDiv = document.getElementById("altair-viz-43cfacf635824184a42e7eddab3cdbf8");
+    if (outputDiv.id !== "altair-viz-f0d73e5230024edf91ccefb305601854") {
+      outputDiv = document.getElementById("altair-viz-f0d73e5230024edf91ccefb305601854");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1871,8 +1961,8 @@
 <li><p>We <code class="docutils literal notranslate"><span class="pre">bind</span></code> the selection to an interface widget, in this case a drop-down menu via <code class="docutils literal notranslate"><span class="pre">binding_select</span></code>.</p></li>
 <li><p>As before, we then use a conditional encoding to control the opacity channel.</p></li>
 </ul>
-<div class="section" id="binding-selections-to-multiple-inputs">
-<h3>Binding Selections to Multiple Inputs<a class="headerlink" href="#binding-selections-to-multiple-inputs" title="Permalink to this headline">¶</a></h3>
+<section id="binding-selections-to-multiple-inputs">
+<h3>Binding Selections to Multiple Inputs<a class="headerlink" href="#binding-selections-to-multiple-inputs" title="Permalink to this headline">#</a></h3>
 <p>One selection instance can be bound to <em>multiple</em> dynamic query widgets. Let’s modify the example above to provide filters for <em>both</em> <code class="docutils literal notranslate"><span class="pre">Major_Genre</span></code> and <code class="docutils literal notranslate"><span class="pre">MPAA_Rating</span></code>, using radio buttons instead of a menu. Our <code class="docutils literal notranslate"><span class="pre">single</span></code> selection is now defined over a single <em>pair</em> of genre and MPAA rating values</p>
 <p><em>Look for surprising conjunctions of genre and rating. Are there any G or PG-rated horror films?</em></p>
 <div class="cell docutils container">
@@ -1900,13 +1990,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-b2dd1fbe7fd84ce7b763e5858d319c8f"></div>
+<div id="altair-viz-958e6906515140f89024ea7cd2895bae"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b2dd1fbe7fd84ce7b763e5858d319c8f") {
-      outputDiv = document.getElementById("altair-viz-b2dd1fbe7fd84ce7b763e5858d319c8f");
+    if (outputDiv.id !== "altair-viz-958e6906515140f89024ea7cd2895bae") {
+      outputDiv = document.getElementById("altair-viz-958e6906515140f89024ea7cd2895bae");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1956,9 +2046,9 @@
 </script></div></div>
 </div>
 <p><em>Fun facts: The PG-13 rating didn’t exist when the movies <a class="reference external" href="https://www.imdb.com/title/tt0073195/">Jaws</a> and <a class="reference external" href="https://www.imdb.com/title/tt0077766/">Jaws 2</a> were released. The first film to receive a PG-13 rating was 1984’s <a class="reference external" href="https://www.imdb.com/title/tt0087985/">Red Dawn</a>.</em></p>
-</div>
-<div class="section" id="using-visualizations-as-dynamic-queries">
-<h3>Using Visualizations as Dynamic Queries<a class="headerlink" href="#using-visualizations-as-dynamic-queries" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-visualizations-as-dynamic-queries">
+<h3>Using Visualizations as Dynamic Queries<a class="headerlink" href="#using-visualizations-as-dynamic-queries" title="Permalink to this headline">#</a></h3>
 <p>Though standard interface widgets show the <em>possible</em> query parameter values, they do not visualize the <em>distribution</em> of those values. We might also wish to use richer interactions, such as multi-value or interval selections, rather than input widgets that select only a single value at a time.</p>
 <p>To address these issues, we can author additional charts to both visualize data and support dynamic queries. Let’s add a histogram of the count of films per year and use an interval selection to dynamically highlight films over selected time periods.</p>
 <p><em>Interact with the year histogram to explore films from different time periods. Do you seen any evidence of <a class="reference external" href="https://en.wikipedia.org/wiki/Sampling_bias">sampling bias</a> across the years? (How do year and critics’ ratings relate?)</em></p>
@@ -1997,13 +2087,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-4423d3693cbd4619a03bbe0d99de2346"></div>
+<div id="altair-viz-54ed06881fbf485fa3db361dada869f5"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4423d3693cbd4619a03bbe0d99de2346") {
-      outputDiv = document.getElementById("altair-viz-4423d3693cbd4619a03bbe0d99de2346");
+    if (outputDiv.id !== "altair-viz-54ed06881fbf485fa3db361dada869f5") {
+      outputDiv = document.getElementById("altair-viz-54ed06881fbf485fa3db361dada869f5");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2059,10 +2149,10 @@
 <li><p>We use <code class="docutils literal notranslate"><span class="pre">brush</span></code> in a conditional encoding to adjust the scatter plot <code class="docutils literal notranslate"><span class="pre">opacity</span></code>.</p></li>
 </ul>
 <p>This interaction technique of selecting elements in one chart and seeing linked highlights in one or more other charts is known as <a class="reference external" href="https://en.wikipedia.org/wiki/Brushing_and_linking"><em>brushing &amp; linking</em></a>.</p>
-</div>
-</div>
-<div class="section" id="panning-zooming">
-<h2>Panning &amp; Zooming<a class="headerlink" href="#panning-zooming" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="panning-zooming">
+<h2>Panning &amp; Zooming<a class="headerlink" href="#panning-zooming" title="Permalink to this headline">#</a></h2>
 <p>The movie rating scatter plot is a bit cluttered in places, making it hard to examine points in denser regions. Using the interaction techniques of <em>panning</em> and <em>zooming</em>, we can inspect dense regions more closely.</p>
 <p>Let’s start by thinking about how we might express panning and zooming using Altair selections. What defines the “viewport” of a chart? <em>Axis scale domains!</em></p>
 <p>We can change the scale domains to modify the visualized range of data values. To do so interactively, we can bind an <code class="docutils literal notranslate"><span class="pre">interval</span></code> selection to scale domains with the code <code class="docutils literal notranslate"><span class="pre">bind='scales'</span></code>. The result is that instead of an interval brush that we can drag and zoom, we instead can drag and zoom the entire plotting area!</p>
@@ -2084,13 +2174,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-22546c84a7ab4c00acf990810927f6ce"></div>
+<div id="altair-viz-41497ef23ce64107b431155f93a1deaf"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-22546c84a7ab4c00acf990810927f6ce") {
-      outputDiv = document.getElementById("altair-viz-22546c84a7ab4c00acf990810927f6ce");
+    if (outputDiv.id !== "altair-viz-41497ef23ce64107b431155f93a1deaf") {
+      outputDiv = document.getElementById("altair-viz-41497ef23ce64107b431155f93a1deaf");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2157,13 +2247,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ddfe4c3023714c4ca9b286a1062cb5d4"></div>
+<div id="altair-viz-c8b4ba0288a84936b619efe578e898aa"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ddfe4c3023714c4ca9b286a1062cb5d4") {
-      outputDiv = document.getElementById("altair-viz-ddfe4c3023714c4ca9b286a1062cb5d4");
+    if (outputDiv.id !== "altair-viz-c8b4ba0288a84936b619efe578e898aa") {
+      outputDiv = document.getElementById("altair-viz-c8b4ba0288a84936b619efe578e898aa");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2230,13 +2320,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-af9248c64e5f4bd1b97ba9681911ffc4"></div>
+<div id="altair-viz-44a12bce8b53455e937b1c5dce28691a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-af9248c64e5f4bd1b97ba9681911ffc4") {
-      outputDiv = document.getElementById("altair-viz-af9248c64e5f4bd1b97ba9681911ffc4");
+    if (outputDiv.id !== "altair-viz-44a12bce8b53455e937b1c5dce28691a") {
+      outputDiv = document.getElementById("altair-viz-44a12bce8b53455e937b1c5dce28691a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2286,9 +2376,9 @@
 </script></div></div>
 </div>
 <p><em>When zooming along a single axis only, the shape of the visualized data can change, potentially affecting our perception of relationships in the data. <a class="reference external" href="http://vis.stanford.edu/papers/arclength-banking">Choosing an appropriate aspect ratio</a> is an important visualization design concern!</em></p>
-</div>
-<div class="section" id="navigation-overview-detail">
-<h2>Navigation: Overview + Detail<a class="headerlink" href="#navigation-overview-detail" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="navigation-overview-detail">
+<h2>Navigation: Overview + Detail<a class="headerlink" href="#navigation-overview-detail" title="Permalink to this headline">#</a></h2>
 <p>When panning and zooming, we directly adjust the “viewport” of a chart. The related navigation strategy of <em>overview + detail</em> instead uses an overview display to show <em>all</em> of the data, while supporting selections that pan and zoom a separate focus display.</p>
 <p>Below we have two area charts showing a decade of price fluctuations for the S&amp;P 500 stock index. Initially both charts show the same data range. <em>Click and drag in the bottom overview chart to update the focus display and examine specific time spans.</em></p>
 <div class="cell docutils container">
@@ -2312,13 +2402,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7c7671b809ad42b4b1cbe0b672e629b5"></div>
+<div id="altair-viz-53dc6f9965dd48928837b6adf610f929"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7c7671b809ad42b4b1cbe0b672e629b5") {
-      outputDiv = document.getElementById("altair-viz-7c7671b809ad42b4b1cbe0b672e629b5");
+    if (outputDiv.id !== "altair-viz-53dc6f9965dd48928837b6adf610f929") {
+      outputDiv = document.getElementById("altair-viz-53dc6f9965dd48928837b6adf610f929");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2368,9 +2458,9 @@
 </script></div></div>
 </div>
 <p>Unlike our earlier panning &amp; zooming case, here we don’t want to bind a selection directly to the scales of a single interactive chart. Instead, we want to bind the selection to a scale domain in <em>another</em> chart. To do so, we update the <code class="docutils literal notranslate"><span class="pre">x</span></code> encoding channel for our focus chart, setting the scale <code class="docutils literal notranslate"><span class="pre">domain</span></code> property to reference our <code class="docutils literal notranslate"><span class="pre">brush</span></code> selection. If no interval is defined (the selection is empty), Altair ignores the brush and uses the underlying data to determine the domain. When a brush interval is created, Altair instead uses that as the scale <code class="docutils literal notranslate"><span class="pre">domain</span></code> for the focus chart.</p>
-</div>
-<div class="section" id="details-on-demand">
-<h2>Details on Demand<a class="headerlink" href="#details-on-demand" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="details-on-demand">
+<h2>Details on Demand<a class="headerlink" href="#details-on-demand" title="Permalink to this headline">#</a></h2>
 <p>Once we spot points of interest within a visualization, we often want to know more about them. <em>Details-on-demand</em> refers to interactively querying for more information about selected values. <em>Tooltips</em> are one useful means of providing details on demand. However, tooltips typically only show information for one data point at a time. How might we show more?</p>
 <p>The movie ratings scatterplot includes a number of potentially interesting outliers where the Rotten Tomatoes and IMDB ratings disagree. Let’s create a plot that allows us to interactively select points and show their labels. To trigger the filter query on either the hover or click interaction, we will use the <a class="reference external" href="https://altair-viz.github.io/user_guide/interactions.html#composing-multiple-selections">Altair composition operator</a> <code class="docutils literal notranslate"><span class="pre">|</span></code> (“or”).</p>
 <p><em>Mouse over points in the scatter plot below to see a highlight and title label. Shift-click points to make annotations persistent and view multiple labels at once. Which movies are loved by Rotten Tomatoes critics, but not the general audience on IMDB (or vice versa)? See if you can find possible errors, where two different movies with the same name were accidentally combined!</em></p>
@@ -2413,13 +2503,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7d30ae3ec6bd4402b33eab73f12be036"></div>
+<div id="altair-viz-9d8031f47b2e486b8b16cf0d7829da79"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7d30ae3ec6bd4402b33eab73f12be036") {
-      outputDiv = document.getElementById("altair-viz-7d30ae3ec6bd4402b33eab73f12be036");
+    if (outputDiv.id !== "altair-viz-9d8031f47b2e486b8b16cf0d7829da79") {
+      outputDiv = document.getElementById("altair-viz-9d8031f47b2e486b8b16cf0d7829da79");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2525,13 +2615,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d8ec416200544e5393b999f14f185159"></div>
+<div id="altair-viz-7b4a117330ce41f4937cb06336a0c35f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d8ec416200544e5393b999f14f185159") {
-      outputDiv = document.getElementById("altair-viz-d8ec416200544e5393b999f14f185159");
+    if (outputDiv.id !== "altair-viz-7b4a117330ce41f4937cb06336a0c35f") {
+      outputDiv = document.getElementById("altair-viz-7b4a117330ce41f4937cb06336a0c35f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2581,9 +2671,9 @@
 </script></div></div>
 </div>
 <p><em>Putting into action what we’ve learned so far: can you modify the movie scatter plot above (the one with the dynamic query over years) to include a <code class="docutils literal notranslate"><span class="pre">rule</span></code> mark that shows the average IMDB (or Rotten Tomatoes) rating for the data contained within the year <code class="docutils literal notranslate"><span class="pre">interval</span></code> selection?</em></p>
-</div>
-<div class="section" id="brushing-linking-revisited">
-<h2>Brushing &amp; Linking, Revisited<a class="headerlink" href="#brushing-linking-revisited" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="brushing-linking-revisited">
+<h2>Brushing &amp; Linking, Revisited<a class="headerlink" href="#brushing-linking-revisited" title="Permalink to this headline">#</a></h2>
 <p>Earlier in this notebook we saw an example of <em>brushing &amp; linking</em>: using a dynamic query histogram to highlight points in a movie rating scatter plot. Here, we’ll visit some additional examples involving linked selections.</p>
 <p>Returning to the <code class="docutils literal notranslate"><span class="pre">cars</span></code> dataset, we can use the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> operator to build a <a class="reference external" href="https://en.wikipedia.org/wiki/Scatter_plot#Scatterplot_matrices">scatter plot matrix (SPLOM)</a> that shows associations between mileage, acceleration, and horsepower. We can define an <code class="docutils literal notranslate"><span class="pre">interval</span></code> selection and include it <em>within</em> our repeated scatter plot specification to enable linked selections among all the plots.</p>
 <p><em>Click and drag in any of the plots below to perform brushing &amp; linking!</em></p>
@@ -2612,13 +2702,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-f2fad034f6834a5e84173c7d27332f86"></div>
+<div id="altair-viz-2660d6a0b22c46b6b2974f722b52f31a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f2fad034f6834a5e84173c7d27332f86") {
-      outputDiv = document.getElementById("altair-viz-f2fad034f6834a5e84173c7d27332f86");
+    if (outputDiv.id !== "altair-viz-2660d6a0b22c46b6b2974f722b52f31a") {
+      outputDiv = document.getElementById("altair-viz-2660d6a0b22c46b6b2974f722b52f31a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2669,8 +2759,8 @@
 </div>
 <p>Note above the use of <code class="docutils literal notranslate"><span class="pre">resolve='global'</span></code> on the <code class="docutils literal notranslate"><span class="pre">interval</span></code> selection. The default setting of <code class="docutils literal notranslate"><span class="pre">'global'</span></code> indicates that across all plots only one brush can be active at a time. However, in some cases we might want to define brushes in multiple plots and combine the results. If we use <code class="docutils literal notranslate"><span class="pre">resolve='union'</span></code>, the selection will be the <em>union</em> of all brushes: if a point resides within any brush it will be selected. Alternatively, if we use <code class="docutils literal notranslate"><span class="pre">resolve='intersect'</span></code>, the selection will consist of the <em>intersection</em> of all brushes: only points that reside within all brushes will be selected.</p>
 <p><em>Try setting the <code class="docutils literal notranslate"><span class="pre">resolve</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">'union'</span></code> and <code class="docutils literal notranslate"><span class="pre">'intersect'</span></code> and see how it changes the resulting selection logic.</em></p>
-<div class="section" id="cross-filtering">
-<h3>Cross-Filtering<a class="headerlink" href="#cross-filtering" title="Permalink to this headline">¶</a></h3>
+<section id="cross-filtering">
+<h3>Cross-Filtering<a class="headerlink" href="#cross-filtering" title="Permalink to this headline">#</a></h3>
 <p>The brushing &amp; linking examples we’ve looked at all use conditional encodings, for example to change opacity values in response to a selection. Another option is to use a selection defined in one view to <em>filter</em> the content of another view.</p>
 <p>Let’s build a collection of histograms for the <code class="docutils literal notranslate"><span class="pre">flights</span></code> dataset: arrival <code class="docutils literal notranslate"><span class="pre">delay</span></code> (how early or late a flight arrives, in minutes), <code class="docutils literal notranslate"><span class="pre">distance</span></code> flown (in miles), and <code class="docutils literal notranslate"><span class="pre">time</span></code> of departure (hour of the day). We’ll use the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> operator to create the histograms, and add an <code class="docutils literal notranslate"><span class="pre">interval</span></code> selection for the <code class="docutils literal notranslate"><span class="pre">x</span></code> axis with brushes resolved via intersection.</p>
 <p>In particular, each histogram will consist of two layers: a gray background layer and a blue foreground layer, with the foreground layer filtered by our intersection of brush selections. The result is a <em>cross-filtering</em> interaction across the three charts!</p>
@@ -2710,13 +2800,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8cfdd4fd6294447ebd71d8a4e0a2a4dd"></div>
+<div id="altair-viz-5cdafd9a1e3b47529b5b63e8133f89d1"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8cfdd4fd6294447ebd71d8a4e0a2a4dd") {
-      outputDiv = document.getElementById("altair-viz-8cfdd4fd6294447ebd71d8a4e0a2a4dd");
+    if (outputDiv.id !== "altair-viz-5cdafd9a1e3b47529b5b63e8133f89d1") {
+      outputDiv = document.getElementById("altair-viz-5cdafd9a1e3b47529b5b63e8133f89d1");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2767,10 +2857,10 @@
 </div>
 <p><em>By cross-filtering you can observe that delayed flights are more likely to depart at later hours. This phenomenon is familiar to frequent fliers: a delay can propagate through the day, affecting subsequent travel by that plane. For the best odds of an on-time arrival, book an early flight!</em></p>
 <p>The combination of multiple views and interactive selections can enable valuable forms of multi-dimensional reasoning, turning even basic histograms into powerful input devices for asking questions of a dataset!</p>
-</div>
-</div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <p>For more information about the supported interaction options in Altair, please consult the <a class="reference external" href="https://altair-viz.github.io/user_guide/interactions.html">Altair interactive selection documentation</a>. For details about customizing event handlers, for example to compose multiple interaction techniques or support touch-based input on mobile devices, see the <a class="reference external" href="https://vega.github.io/vega-lite/docs/selection.html">Vega-Lite selection documentation</a>.</p>
 <p>Interested in learning more?</p>
 <ul class="simple">
@@ -2780,14 +2870,14 @@
 <li><p>For a comprehensive summary of interaction techniques for visualization, see <a class="reference external" href="https://queue.acm.org/detail.cfm?id=2146416">Interactive Dynamics for Visual Analysis</a> by Heer &amp; Shneiderman.</p></li>
 <li><p>Finally, for a treatise on what makes interaction effective, read the classic <a class="reference external" href="https://scholar.google.com/scholar?cluster=15702972136892195211">Direct Manipulation Interfaces</a> paper by Hutchins, Hollan, &amp; Norman.</p></li>
 </ul>
-<div class="section" id="appendix-on-the-representation-of-time">
-<h3>Appendix: On The Representation of Time<a class="headerlink" href="#appendix-on-the-representation-of-time" title="Permalink to this headline">¶</a></h3>
+<section id="appendix-on-the-representation-of-time">
+<h3>Appendix: On The Representation of Time<a class="headerlink" href="#appendix-on-the-representation-of-time" title="Permalink to this headline">#</a></h3>
 <p>Earlier we observed a small bump in the number of movies in either 1969 and 1970. Where does that bump come from? And why 1969 <em>or</em> 1970? The answer stems from a combination of missing data and how your computer represents time.</p>
 <p>Internally, dates and times are represented relative to the <a class="reference external" href="https://en.wikipedia.org/wiki/Unix_time">UNIX epoch</a>, in which time “zero” corresponds to the stroke of midnight on January 1, 1970 in <a class="reference external" href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC time</a>, which runs along the <a class="reference external" href="https://en.wikipedia.org/wiki/Prime_meridian">prime meridian</a>. It turns out there are a few movies with missing (<code class="docutils literal notranslate"><span class="pre">null</span></code>) release dates. Those <code class="docutils literal notranslate"><span class="pre">null</span></code> values get interpreted as time <code class="docutils literal notranslate"><span class="pre">0</span></code>, and thus map to January 1, 1970 in UTC time. If you live in the Americas – and thus in “earlier” time zones – this precise point in time corresponds to an earlier hour on December 31, 1969 in your local time zone. On the other hand, if you live near or east of the prime meridian, the date in your local time zone will be January 1, 1970.</p>
 <p>The takeaway? Always be skeptical of your data, and be mindful that how data is represented (whether as date times, or floating point numbers, or latitudes and longitudes, <em>etc.</em>) can sometimes lead to artifacts that impact analysis!</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2811,9 +2901,11 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="altair_view_composition.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2829,24 +2921,28 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

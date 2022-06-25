@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Examples of time-series forecasting with Python &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/fpp/examples-time-series-forecasting-with-python.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/fpp/examples-time-series-forecasting-with-python.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Ffpp/examples-time-series-forecasting-with-python.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/fpp/examples-time-series-forecasting-with-python.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/fpp/examples-time-series-forecasting-with-python.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/fpp/examples-time-series-forecasting-with-python.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/fpp/examples-time-series-forecasting-with-python.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Ffpp/examples-time-series-forecasting-with-python.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/fpp/examples-time-series-forecasting-with-python.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#eda-with-an-interactive-dashboard">
    EDA with an interactive dashboard
@@ -1412,12 +1502,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Examples of time-series forecasting with Python</h1>
@@ -1544,11 +1633,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="examples-of-time-series-forecasting-with-python">
-<h1>Examples of time-series forecasting with Python<a class="headerlink" href="#examples-of-time-series-forecasting-with-python" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="examples-of-time-series-forecasting-with-python">
+<h1>Examples of time-series forecasting with Python<a class="headerlink" href="#examples-of-time-series-forecasting-with-python" title="Permalink to this headline">#</a></h1>
 <ul class="simple">
 <li><p>Building on the excellent (and freely available!) <a class="reference external" href="https://otexts.com/fpp3/">Forecasting: Principles and Practice (3rd edition)</a> by Hyndman and Athanasopoulos, this notebooks presents a number of examples using the following Python libraries:</p>
 <ul>
@@ -1583,18 +1673,18 @@
 </div>
 </div>
 </div>
-<div class="section" id="eda-with-an-interactive-dashboard">
-<h2>EDA with an interactive dashboard<a class="headerlink" href="#eda-with-an-interactive-dashboard" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="bike-sharing-dataset">
-<h3>Bike sharing dataset<a class="headerlink" href="#bike-sharing-dataset" title="Permalink to this headline">¶</a></h3>
+<section id="eda-with-an-interactive-dashboard">
+<h2>EDA with an interactive dashboard<a class="headerlink" href="#eda-with-an-interactive-dashboard" title="Permalink to this headline">#</a></h2>
+<section id="bike-sharing-dataset">
+<h3>Bike sharing dataset<a class="headerlink" href="#bike-sharing-dataset" title="Permalink to this headline">#</a></h3>
 <p>As an example, we will explore the bike sharing dataset, taken from the <a class="reference external" href="http://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset">UCI Machine Learning Repository</a></p>
-<div class="section" id="data-set-information">
-<h4>Data Set Information<a class="headerlink" href="#data-set-information" title="Permalink to this headline">¶</a></h4>
+<section id="data-set-information">
+<h4>Data Set Information<a class="headerlink" href="#data-set-information" title="Permalink to this headline">#</a></h4>
 <p>Bike sharing systems are new generation of traditional bike rentals where whole process from membership, rental and return back has become automatic. Through these systems, user is able to easily rent a bike from a particular position and return back at another position. Currently, there are about over 500 bike-sharing programs around the world which is composed of over 500 thousands bicycles. Today, there exists great interest in these systems due to their important role in traffic, environmental and health issues.</p>
 <p>Apart from interesting real world applications of bike sharing systems, the characteristics of data being generated by these systems make them attractive for the research. Opposed to other transport services such as bus or subway, the duration of travel, departure and arrival position is explicitly recorded in these systems. This feature turns bike sharing system into a virtual sensor network that can be used for sensing mobility in the city. Hence, it is expected that most of important events in the city could be detected via monitoring these data.</p>
-</div>
-<div class="section" id="attribute-information">
-<h4>Attribute Information<a class="headerlink" href="#attribute-information" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="attribute-information">
+<h4>Attribute Information<a class="headerlink" href="#attribute-information" title="Permalink to this headline">#</a></h4>
 <p>Both hour.csv and day.csv have the following fields, except hr which is not available in day.csv</p>
 <ul class="simple">
 <li><p>instant: record index</p></li>
@@ -1807,13 +1897,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-4a06af25a0fe4232bf6d6027798f9e9d"></div>
+<div id="altair-viz-439f55cc519740a18b252534c1595e64"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4a06af25a0fe4232bf6d6027798f9e9d") {
-      outputDiv = document.getElementById("altair-viz-4a06af25a0fe4232bf6d6027798f9e9d");
+    if (outputDiv.id !== "altair-viz-439f55cc519740a18b252534c1595e64") {
+      outputDiv = document.getElementById("altair-viz-439f55cc519740a18b252534c1595e64");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1881,13 +1971,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3d04244648a0400aa801e77d8ca78c8b"></div>
+<div id="altair-viz-1fa981705dcc4a0abab44bc0c63650e8"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3d04244648a0400aa801e77d8ca78c8b") {
-      outputDiv = document.getElementById("altair-viz-3d04244648a0400aa801e77d8ca78c8b");
+    if (outputDiv.id !== "altair-viz-1fa981705dcc4a0abab44bc0c63650e8") {
+      outputDiv = document.getElementById("altair-viz-1fa981705dcc4a0abab44bc0c63650e8");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1936,12 +2026,12 @@
   })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-e8027168799b370fb26dc130466488ba"}, "mark": "line", "encoding": {"x": {"field": "yr_mnth", "type": "nominal"}, "y": {"field": "cnt", "type": "quantitative"}}, "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-e8027168799b370fb26dc130466488ba": [{"yr": 2011, "mnth": 1, "cnt": 38189, "yr_mnth": "2011-01"}, {"yr": 2011, "mnth": 2, "cnt": 48215, "yr_mnth": "2011-02"}, {"yr": 2011, "mnth": 3, "cnt": 64045, "yr_mnth": "2011-03"}, {"yr": 2011, "mnth": 4, "cnt": 94870, "yr_mnth": "2011-04"}, {"yr": 2011, "mnth": 5, "cnt": 135821, "yr_mnth": "2011-05"}, {"yr": 2011, "mnth": 6, "cnt": 143512, "yr_mnth": "2011-06"}, {"yr": 2011, "mnth": 7, "cnt": 141341, "yr_mnth": "2011-07"}, {"yr": 2011, "mnth": 8, "cnt": 136691, "yr_mnth": "2011-08"}, {"yr": 2011, "mnth": 9, "cnt": 127418, "yr_mnth": "2011-09"}, {"yr": 2011, "mnth": 10, "cnt": 123511, "yr_mnth": "2011-10"}, {"yr": 2011, "mnth": 11, "cnt": 102167, "yr_mnth": "2011-11"}, {"yr": 2011, "mnth": 12, "cnt": 87323, "yr_mnth": "2011-12"}, {"yr": 2012, "mnth": 1, "cnt": 96744, "yr_mnth": "2012-01"}, {"yr": 2012, "mnth": 2, "cnt": 103137, "yr_mnth": "2012-02"}, {"yr": 2012, "mnth": 3, "cnt": 164875, "yr_mnth": "2012-03"}, {"yr": 2012, "mnth": 4, "cnt": 174224, "yr_mnth": "2012-04"}, {"yr": 2012, "mnth": 5, "cnt": 195865, "yr_mnth": "2012-05"}, {"yr": 2012, "mnth": 6, "cnt": 202830, "yr_mnth": "2012-06"}, {"yr": 2012, "mnth": 7, "cnt": 203607, "yr_mnth": "2012-07"}, {"yr": 2012, "mnth": 8, "cnt": 214503, "yr_mnth": "2012-08"}, {"yr": 2012, "mnth": 9, "cnt": 218573, "yr_mnth": "2012-09"}, {"yr": 2012, "mnth": 10, "cnt": 198841, "yr_mnth": "2012-10"}, {"yr": 2012, "mnth": 11, "cnt": 152664, "yr_mnth": "2012-11"}, {"yr": 2012, "mnth": 12, "cnt": 123713, "yr_mnth": "2012-12"}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="decomposition">
-<h3>Decomposition<a class="headerlink" href="#decomposition" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="simple-decomposition-statsmodels">
-<h4>Simple decomposition (<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>)<a class="headerlink" href="#simple-decomposition-statsmodels" title="Permalink to this headline">¶</a></h4>
+</section>
+</section>
+<section id="decomposition">
+<h3>Decomposition<a class="headerlink" href="#decomposition" title="Permalink to this headline">#</a></h3>
+<section id="simple-decomposition-statsmodels">
+<h4>Simple decomposition (<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>)<a class="headerlink" href="#simple-decomposition-statsmodels" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span><span class="p">,</span> <span class="n">STL</span>
@@ -1955,9 +2045,9 @@
 <img alt="../_images/examples-time-series-forecasting-with-python_10_0.png" src="../_images/examples-time-series-forecasting-with-python_10_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="stl-decomposition-statsmodels">
-<h4>STL decomposition (<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>)<a class="headerlink" href="#stl-decomposition-statsmodels" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="stl-decomposition-statsmodels">
+<h4>STL decomposition (<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>)<a class="headerlink" href="#stl-decomposition-statsmodels" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stl</span> <span class="o">=</span> <span class="n">STL</span><span class="p">(</span><span class="n">monthly</span><span class="o">.</span><span class="n">cnt</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -1984,13 +2074,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ac338cfd7ad24bc2b1a7464be7ccba07"></div>
+<div id="altair-viz-cdcbd4039d444ae18db227e420a466ba"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ac338cfd7ad24bc2b1a7464be7ccba07") {
-      outputDiv = document.getElementById("altair-viz-ac338cfd7ad24bc2b1a7464be7ccba07");
+    if (outputDiv.id !== "altair-viz-cdcbd4039d444ae18db227e420a466ba") {
+      outputDiv = document.getElementById("altair-viz-cdcbd4039d444ae18db227e420a466ba");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2039,9 +2129,9 @@
   })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "vconcat": [{"data": {"name": "data-2207c7e53f416449cf6c4ec8f2ea1536"}, "mark": "line", "encoding": {"x": {"field": "yr_mnth", "type": "nominal"}, "y": {"field": "observed", "type": "quantitative"}}, "width": 700}, {"data": {"name": "data-4c30202c2602ca0553634db9a896cdcc"}, "mark": "line", "encoding": {"x": {"field": "yr_mnth", "type": "nominal"}, "y": {"field": "trend", "type": "quantitative"}}, "width": 700}, {"data": {"name": "data-8dcc4c541888261b9081bd62874574d0"}, "mark": "line", "encoding": {"x": {"field": "yr_mnth", "type": "nominal"}, "y": {"field": "seasonal", "type": "quantitative"}}, "width": 700}, {"data": {"name": "data-b8c0fc3adb851ee3a1c35e42a67d6583"}, "mark": "line", "encoding": {"x": {"field": "yr_mnth", "type": "nominal"}, "y": {"field": "resid", "type": "quantitative"}}, "width": 700}], "resolve": {"scale": {"x": "shared"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-2207c7e53f416449cf6c4ec8f2ea1536": [{"yr_mnth": "2011-01", "observed": 38189}, {"yr_mnth": "2011-02", "observed": 48215}, {"yr_mnth": "2011-03", "observed": 64045}, {"yr_mnth": "2011-04", "observed": 94870}, {"yr_mnth": "2011-05", "observed": 135821}, {"yr_mnth": "2011-06", "observed": 143512}, {"yr_mnth": "2011-07", "observed": 141341}, {"yr_mnth": "2011-08", "observed": 136691}, {"yr_mnth": "2011-09", "observed": 127418}, {"yr_mnth": "2011-10", "observed": 123511}, {"yr_mnth": "2011-11", "observed": 102167}, {"yr_mnth": "2011-12", "observed": 87323}, {"yr_mnth": "2012-01", "observed": 96744}, {"yr_mnth": "2012-02", "observed": 103137}, {"yr_mnth": "2012-03", "observed": 164875}, {"yr_mnth": "2012-04", "observed": 174224}, {"yr_mnth": "2012-05", "observed": 195865}, {"yr_mnth": "2012-06", "observed": 202830}, {"yr_mnth": "2012-07", "observed": 203607}, {"yr_mnth": "2012-08", "observed": 214503}, {"yr_mnth": "2012-09", "observed": 218573}, {"yr_mnth": "2012-10", "observed": 198841}, {"yr_mnth": "2012-11", "observed": 152664}, {"yr_mnth": "2012-12", "observed": 123713}], "data-4c30202c2602ca0553634db9a896cdcc": [{"yr_mnth": "2011-01", "trend": 73993.58333333327}, {"yr_mnth": "2011-02", "trend": 79594.09027777774}, {"yr_mnth": "2011-03", "trend": 85194.5972222222}, {"yr_mnth": "2011-04", "trend": 90795.10416666672}, {"yr_mnth": "2011-05", "trend": 96395.61111111108}, {"yr_mnth": "2011-06", "trend": 101996.11805555553}, {"yr_mnth": "2011-07", "trend": 107596.62500000004}, {"yr_mnth": "2011-08", "trend": 113197.13194444447}, {"yr_mnth": "2011-09", "trend": 118797.63888888888}, {"yr_mnth": "2011-10", "trend": 124398.14583333336}, {"yr_mnth": "2011-11", "trend": 129998.65277777775}, {"yr_mnth": "2011-12", "trend": 135599.1597222222}, {"yr_mnth": "2012-01", "trend": 141199.66666666666}, {"yr_mnth": "2012-02", "trend": 146800.1736111111}, {"yr_mnth": "2012-03", "trend": 152400.68055555556}, {"yr_mnth": "2012-04", "trend": 158001.18749999997}, {"yr_mnth": "2012-05", "trend": 163601.69444444444}, {"yr_mnth": "2012-06", "trend": 169202.2013888889}, {"yr_mnth": "2012-07", "trend": 174802.70833333337}, {"yr_mnth": "2012-08", "trend": 180403.21527777784}, {"yr_mnth": "2012-09", "trend": 186003.72222222216}, {"yr_mnth": "2012-10", "trend": 191604.22916666663}, {"yr_mnth": "2012-11", "trend": 197204.73611111127}, {"yr_mnth": "2012-12", "trend": 202805.2430555557}], "data-8dcc4c541888261b9081bd62874574d0": [{"yr_mnth": "2011-01", "seasonal": -35804.58333333326}, {"yr_mnth": "2011-02", "seasonal": -31379.090277777756}, {"yr_mnth": "2011-03", "seasonal": -21149.59722222221}, {"yr_mnth": "2011-04", "seasonal": 4074.8958333332685}, {"yr_mnth": "2011-05", "seasonal": 39425.38888888889}, {"yr_mnth": "2011-06", "seasonal": 41515.88194444444}, {"yr_mnth": "2011-07", "seasonal": 33744.374999999935}, {"yr_mnth": "2011-08", "seasonal": 23493.86805555552}, {"yr_mnth": "2011-09", "seasonal": 8620.361111111119}, {"yr_mnth": "2011-10", "seasonal": -887.1458333333708}, {"yr_mnth": "2011-11", "seasonal": -27831.65277777778}, {"yr_mnth": "2011-12", "seasonal": -48276.15972222219}, {"yr_mnth": "2012-01", "seasonal": -44455.66666666668}, {"yr_mnth": "2012-02", "seasonal": -43663.17361111108}, {"yr_mnth": "2012-03", "seasonal": 12474.31944444445}, {"yr_mnth": "2012-04", "seasonal": 16222.812500000045}, {"yr_mnth": "2012-05", "seasonal": 32263.30555555555}, {"yr_mnth": "2012-06", "seasonal": 33627.79861111112}, {"yr_mnth": "2012-07", "seasonal": 28804.29166666665}, {"yr_mnth": "2012-08", "seasonal": 34099.78472222219}, {"yr_mnth": "2012-09", "seasonal": 32569.27777777784}, {"yr_mnth": "2012-10", "seasonal": 7236.770833333404}, {"yr_mnth": "2012-11", "seasonal": -44540.73611111123}, {"yr_mnth": "2012-12", "seasonal": -79092.24305555566}], "data-b8c0fc3adb851ee3a1c35e42a67d6583": [{"yr_mnth": "2011-01", "resid": -1.4551915228366852e-11}, {"yr_mnth": "2011-02", "resid": 1.4551915228366852e-11}, {"yr_mnth": "2011-03", "resid": 1.4551915228366852e-11}, {"yr_mnth": "2011-04", "resid": 1.4551915228366852e-11}, {"yr_mnth": "2011-05", "resid": 2.9103830456733704e-11}, {"yr_mnth": "2011-06", "resid": 2.9103830456733704e-11}, {"yr_mnth": "2011-07", "resid": 1.4551915228366852e-11}, {"yr_mnth": "2011-08", "resid": 1.4551915228366852e-11}, {"yr_mnth": "2011-09", "resid": 0.0}, {"yr_mnth": "2011-10", "resid": 1.4551915228366852e-11}, {"yr_mnth": "2011-11", "resid": 2.9103830456733704e-11}, {"yr_mnth": "2011-12", "resid": 0.0}, {"yr_mnth": "2012-01", "resid": 2.9103830456733704e-11}, {"yr_mnth": "2012-02", "resid": -2.9103830456733704e-11}, {"yr_mnth": "2012-03", "resid": 0.0}, {"yr_mnth": "2012-04", "resid": -2.9103830456733704e-11}, {"yr_mnth": "2012-05", "resid": 0.0}, {"yr_mnth": "2012-06", "resid": -2.9103830456733704e-11}, {"yr_mnth": "2012-07", "resid": -2.9103830456733704e-11}, {"yr_mnth": "2012-08", "resid": -2.9103830456733704e-11}, {"yr_mnth": "2012-09", "resid": 0.0}, {"yr_mnth": "2012-10", "resid": -2.9103830456733704e-11}, {"yr_mnth": "2012-11", "resid": -2.9103830456733704e-11}, {"yr_mnth": "2012-12", "resid": -2.9103830456733704e-11}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-<div class="section" id="seasonal-decomposition-pmdarima">
-<h4>Seasonal decomposition (<code class="docutils literal notranslate"><span class="pre">pmdarima</span></code>)<a class="headerlink" href="#seasonal-decomposition-pmdarima" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="seasonal-decomposition-pmdarima">
+<h4>Seasonal decomposition (<code class="docutils literal notranslate"><span class="pre">pmdarima</span></code>)<a class="headerlink" href="#seasonal-decomposition-pmdarima" title="Permalink to this headline">#</a></h4>
 <p>Same result as <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> <code class="docutils literal notranslate"><span class="pre">seasonal_decompose</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2057,14 +2147,14 @@
 <img alt="../_images/examples-time-series-forecasting-with-python_16_0.png" src="../_images/examples-time-series-forecasting-with-python_16_0.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="forecasting-with-ets">
-<h2>Forecasting with ETS<a class="headerlink" href="#forecasting-with-ets" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="forecasting-with-ets">
+<h2>Forecasting with ETS<a class="headerlink" href="#forecasting-with-ets" title="Permalink to this headline">#</a></h2>
 <p>We will reproduce the analysis from <a class="reference external" href="https://otexts.com/fpp2/ets-forecasting.html">FPP2 section 7.7</a> in Python. following the <a class="reference external" href="https://www.statsmodels.org/stable/examples/notebooks/generated/ets.html">example from the statsmodels documentation</a>.</p>
-<div class="section" id="get-data-international-visitor-nights-in-australia">
-<h3>Get data: international visitor nights in Australia<a class="headerlink" href="#get-data-international-visitor-nights-in-australia" title="Permalink to this headline">¶</a></h3>
+<section id="get-data-international-visitor-nights-in-australia">
+<h3>Get data: international visitor nights in Australia<a class="headerlink" href="#get-data-international-visitor-nights-in-australia" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read data and set proper DateRangeIndex in pandas</span>
@@ -2124,9 +2214,9 @@
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="forecast-ets-m-a-m-model">
-<h3>Forecast ETS(M, A, M) model<a class="headerlink" href="#forecast-ets-m-a-m-model" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="forecast-ets-m-a-m-model">
+<h3>Forecast ETS(M, A, M) model<a class="headerlink" href="#forecast-ets-m-a-m-model" title="Permalink to this headline">#</a></h3>
 <p>Note: use <code class="docutils literal notranslate"><span class="pre">exponential_smoothing.ETSModel</span></code> and not<code class="docutils literal notranslate"><span class="pre">holtwinters.ExponentialSmoothing</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2293,8 +2383,8 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 ==============================================================================
 Dep. Variable:               observed   No. Observations:                   68
 Model:                      ETS(MAdM)   Log Likelihood                -149.353
-Date:                Fri, 18 Feb 2022   AIC                            320.706
-Time:                        15:58:10   BIC                            345.120
+Date:                Sat, 25 Jun 2022   AIC                            320.706
+Time:                        16:34:20   BIC                            345.120
 Sample:                    03-31-1999   HQIC                           330.379
                          - 12-31-2015   Scale                            0.003
 Covariance Type:               approx                                         
@@ -2368,49 +2458,49 @@ Warnings:
       <th>0</th>
       <td>2014Q1</td>
       <td>67.905075</td>
-      <td>67.887296</td>
-      <td>60.312731</td>
-      <td>74.851227</td>
+      <td>67.698500</td>
+      <td>60.391081</td>
+      <td>74.845997</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2014Q2</td>
       <td>41.743547</td>
-      <td>41.798253</td>
-      <td>37.511210</td>
-      <td>46.299039</td>
+      <td>41.761405</td>
+      <td>37.188804</td>
+      <td>46.239753</td>
     </tr>
     <tr>
       <th>2</th>
       <td>2014Q3</td>
       <td>53.038336</td>
-      <td>53.058530</td>
-      <td>47.126000</td>
-      <td>58.914279</td>
+      <td>53.104488</td>
+      <td>47.662805</td>
+      <td>58.949716</td>
     </tr>
     <tr>
       <th>3</th>
       <td>2014Q4</td>
       <td>58.410095</td>
-      <td>58.515737</td>
-      <td>52.241037</td>
-      <td>64.685649</td>
+      <td>58.420797</td>
+      <td>52.206685</td>
+      <td>64.867743</td>
     </tr>
     <tr>
       <th>4</th>
       <td>2015Q1</td>
       <td>70.691020</td>
-      <td>70.681559</td>
-      <td>62.813317</td>
-      <td>78.679907</td>
+      <td>70.816903</td>
+      <td>63.231991</td>
+      <td>79.193273</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="plot-forecast-results-using-altair">
-<h3>Plot forecast results using Altair<a class="headerlink" href="#plot-forecast-results-using-altair" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="plot-forecast-results-using-altair">
+<h3>Plot forecast results using Altair<a class="headerlink" href="#plot-forecast-results-using-altair" title="Permalink to this headline">#</a></h3>
 <p>Because we love Altair, let’s do some plots with that. There are some details you need to consider.</p>
 <p>First, Altair can’t plot indexes, hence we need to reformat the data</p>
 <div class="cell docutils container">
@@ -2501,13 +2591,13 @@ Warnings:
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-0ae640dd91a144da8a681df4c0fabaff"></div>
+<div id="altair-viz-fc2bc52a96ed48f88e85e9fc88396e71"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-0ae640dd91a144da8a681df4c0fabaff") {
-      outputDiv = document.getElementById("altair-viz-0ae640dd91a144da8a681df4c0fabaff");
+    if (outputDiv.id !== "altair-viz-fc2bc52a96ed48f88e85e9fc88396e71") {
+      outputDiv = document.getElementById("altair-viz-fc2bc52a96ed48f88e85e9fc88396e71");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2609,201 +2699,201 @@ Warnings:
       <th>0</th>
       <td>2014Q1</td>
       <td>67.905075</td>
-      <td>67.887296</td>
-      <td>60.312731</td>
-      <td>74.851227</td>
+      <td>67.698500</td>
+      <td>60.391081</td>
+      <td>74.845997</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2014Q2</td>
       <td>41.743547</td>
-      <td>41.798253</td>
-      <td>37.511210</td>
-      <td>46.299039</td>
+      <td>41.761405</td>
+      <td>37.188804</td>
+      <td>46.239753</td>
     </tr>
     <tr>
       <th>2</th>
       <td>2014Q3</td>
       <td>53.038336</td>
-      <td>53.058530</td>
-      <td>47.126000</td>
-      <td>58.914279</td>
+      <td>53.104488</td>
+      <td>47.662805</td>
+      <td>58.949716</td>
     </tr>
     <tr>
       <th>3</th>
       <td>2014Q4</td>
       <td>58.410095</td>
-      <td>58.515737</td>
-      <td>52.241037</td>
-      <td>64.685649</td>
+      <td>58.420797</td>
+      <td>52.206685</td>
+      <td>64.867743</td>
     </tr>
     <tr>
       <th>4</th>
       <td>2015Q1</td>
       <td>70.691020</td>
-      <td>70.681559</td>
-      <td>62.813317</td>
-      <td>78.679907</td>
+      <td>70.816903</td>
+      <td>63.231991</td>
+      <td>79.193273</td>
     </tr>
     <tr>
       <th>5</th>
       <td>2015Q2</td>
       <td>45.088080</td>
-      <td>45.059480</td>
-      <td>40.300799</td>
-      <td>49.851991</td>
+      <td>45.236763</td>
+      <td>40.324547</td>
+      <td>50.101373</td>
     </tr>
     <tr>
       <th>6</th>
       <td>2015Q3</td>
       <td>57.987507</td>
-      <td>57.996032</td>
-      <td>51.427818</td>
-      <td>64.633512</td>
+      <td>57.789820</td>
+      <td>51.463425</td>
+      <td>64.048153</td>
     </tr>
     <tr>
       <th>7</th>
       <td>2015Q4</td>
       <td>64.479707</td>
-      <td>64.265818</td>
-      <td>57.712770</td>
-      <td>71.495583</td>
+      <td>64.228174</td>
+      <td>57.200138</td>
+      <td>71.063891</td>
     </tr>
     <tr>
       <th>8</th>
       <td>2016Q1</td>
       <td>77.990615</td>
-      <td>78.007305</td>
-      <td>70.001198</td>
-      <td>86.548463</td>
+      <td>78.104849</td>
+      <td>69.228528</td>
+      <td>86.163122</td>
     </tr>
     <tr>
       <th>9</th>
       <td>2016Q2</td>
       <td>48.836297</td>
-      <td>48.845711</td>
-      <td>42.929860</td>
-      <td>55.275406</td>
+      <td>48.841310</td>
+      <td>43.283442</td>
+      <td>54.992260</td>
     </tr>
     <tr>
       <th>10</th>
       <td>2016Q3</td>
       <td>61.026850</td>
-      <td>61.042336</td>
-      <td>53.464945</td>
-      <td>69.344647</td>
+      <td>61.191042</td>
+      <td>52.966870</td>
+      <td>69.959963</td>
     </tr>
     <tr>
       <th>11</th>
       <td>2016Q4</td>
       <td>66.075779</td>
-      <td>66.116908</td>
-      <td>56.591515</td>
-      <td>76.771515</td>
+      <td>66.210150</td>
+      <td>57.032264</td>
+      <td>75.792603</td>
     </tr>
     <tr>
       <th>12</th>
       <td>2017Q1</td>
       <td>78.939547</td>
-      <td>78.794894</td>
-      <td>67.413488</td>
-      <td>90.771694</td>
+      <td>79.072898</td>
+      <td>67.041110</td>
+      <td>91.521111</td>
     </tr>
     <tr>
       <th>13</th>
       <td>2017Q2</td>
       <td>49.416797</td>
-      <td>49.292801</td>
-      <td>41.417233</td>
-      <td>58.278077</td>
+      <td>49.574217</td>
+      <td>41.861680</td>
+      <td>57.698963</td>
     </tr>
     <tr>
       <th>14</th>
       <td>2017Q3</td>
       <td>61.735576</td>
-      <td>61.622116</td>
-      <td>51.919863</td>
-      <td>74.091658</td>
+      <td>61.809040</td>
+      <td>51.334201</td>
+      <td>72.620752</td>
     </tr>
     <tr>
       <th>15</th>
       <td>2017Q4</td>
       <td>66.825549</td>
-      <td>66.778302</td>
-      <td>55.335765</td>
-      <td>80.093388</td>
+      <td>67.096417</td>
+      <td>56.160244</td>
+      <td>79.849255</td>
     </tr>
     <tr>
       <th>16</th>
       <td>2018Q1</td>
       <td>79.814811</td>
-      <td>79.619135</td>
-      <td>65.400909</td>
-      <td>95.726116</td>
+      <td>80.250592</td>
+      <td>66.073410</td>
+      <td>95.502184</td>
     </tr>
     <tr>
       <th>17</th>
       <td>2018Q2</td>
       <td>49.952231</td>
-      <td>49.915037</td>
-      <td>40.447355</td>
-      <td>60.605256</td>
+      <td>50.110395</td>
+      <td>41.052483</td>
+      <td>60.683089</td>
     </tr>
     <tr>
       <th>18</th>
       <td>2018Q3</td>
       <td>62.389282</td>
-      <td>62.449743</td>
-      <td>49.601271</td>
-      <td>76.609663</td>
+      <td>62.535934</td>
+      <td>50.953509</td>
+      <td>76.382531</td>
     </tr>
     <tr>
       <th>19</th>
       <td>2018Q4</td>
       <td>67.517114</td>
-      <td>67.413782</td>
-      <td>53.407621</td>
-      <td>83.737236</td>
+      <td>67.714765</td>
+      <td>55.253984</td>
+      <td>82.922553</td>
     </tr>
     <tr>
       <th>20</th>
       <td>2019Q1</td>
       <td>80.622126</td>
-      <td>80.725120</td>
-      <td>64.137517</td>
-      <td>99.477506</td>
+      <td>80.776918</td>
+      <td>64.715344</td>
+      <td>99.264457</td>
     </tr>
     <tr>
       <th>21</th>
       <td>2019Q2</td>
       <td>50.446099</td>
-      <td>50.612374</td>
-      <td>39.924164</td>
-      <td>63.336672</td>
+      <td>50.406857</td>
+      <td>39.908984</td>
+      <td>62.021654</td>
     </tr>
     <tr>
       <th>22</th>
       <td>2019Q3</td>
       <td>62.992240</td>
-      <td>63.084745</td>
-      <td>49.137002</td>
-      <td>79.531369</td>
+      <td>63.055657</td>
+      <td>50.189242</td>
+      <td>78.734112</td>
     </tr>
     <tr>
       <th>23</th>
       <td>2019Q4</td>
       <td>68.154991</td>
-      <td>68.193478</td>
-      <td>52.672172</td>
-      <td>86.667272</td>
+      <td>68.043698</td>
+      <td>53.265738</td>
+      <td>84.939436</td>
     </tr>
     <tr>
       <th>24</th>
       <td>2020Q1</td>
       <td>81.366769</td>
-      <td>81.237176</td>
-      <td>61.601126</td>
-      <td>103.631252</td>
+      <td>81.328106</td>
+      <td>63.523409</td>
+      <td>103.781807</td>
     </tr>
   </tbody>
 </table>
@@ -2817,13 +2907,13 @@ Warnings:
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c95dd50c1a414f3b80767c9d611c171f"></div>
+<div id="altair-viz-fea1b1ae0e914de4b78fa14e94838ab1"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c95dd50c1a414f3b80767c9d611c171f") {
-      outputDiv = document.getElementById("altair-viz-c95dd50c1a414f3b80767c9d611c171f");
+    if (outputDiv.id !== "altair-viz-fea1b1ae0e914de4b78fa14e94838ab1") {
+      outputDiv = document.getElementById("altair-viz-fea1b1ae0e914de4b78fa14e94838ab1");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2869,16 +2959,16 @@ Warnings:
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "line", "encoding": {"x": {"axis": {"values": ["2014Q1", "2015Q1", "2016Q1", "2017Q1", "2018Q1", "2019Q1", "2020Q1"]}, "field": "quarter", "type": "ordinal"}, "y": {"field": "mean", "type": "quantitative"}}}, {"mark": {"type": "area", "opacity": 0.5}, "encoding": {"x": {"field": "quarter", "type": "nominal"}, "y": {"field": "pi_lower", "type": "quantitative"}, "y2": {"field": "pi_upper"}}}], "data": {"name": "data-26c5db921335cb2b3d5974e24395adf8"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-26c5db921335cb2b3d5974e24395adf8": [{"quarter": "2014Q1", "mean": 67.9050752679693, "mean_numerical": 67.88729559255513, "pi_lower": 60.31273052824866, "pi_upper": 74.85122692445647}, {"quarter": "2014Q2", "mean": 41.743546901796535, "mean_numerical": 41.7982525522631, "pi_lower": 37.51121019777268, "pi_upper": 46.299039485566155}, {"quarter": "2014Q3", "mean": 53.0383359063254, "mean_numerical": 53.05853016930945, "pi_lower": 47.126000125151485, "pi_upper": 58.91427906236837}, {"quarter": "2014Q4", "mean": 58.41009503905597, "mean_numerical": 58.515737046095325, "pi_lower": 52.241036918771385, "pi_upper": 64.68564910965432}, {"quarter": "2015Q1", "mean": 70.6910203727768, "mean_numerical": 70.68155860729959, "pi_lower": 62.813316691449955, "pi_upper": 78.67990739702915}, {"quarter": "2015Q2", "mean": 45.088079918364194, "mean_numerical": 45.05947970918949, "pi_lower": 40.30079893375279, "pi_upper": 49.85199053742821}, {"quarter": "2015Q3", "mean": 57.987507197138314, "mean_numerical": 57.996031581706234, "pi_lower": 51.427817507117666, "pi_upper": 64.63351169165715}, {"quarter": "2015Q4", "mean": 64.47970737491968, "mean_numerical": 64.26581833944009, "pi_lower": 57.7127702806898, "pi_upper": 71.49558272106142}, {"quarter": "2016Q1", "mean": 77.99061523654512, "mean_numerical": 78.00730527057475, "pi_lower": 70.00119836084063, "pi_upper": 86.54846336896239}, {"quarter": "2016Q2", "mean": 48.83629715722373, "mean_numerical": 48.8457110706746, "pi_lower": 42.929859928303266, "pi_upper": 55.275405548176685}, {"quarter": "2016Q3", "mean": 61.026849810049384, "mean_numerical": 61.042336286003305, "pi_lower": 53.46494524128831, "pi_upper": 69.34464724431689}, {"quarter": "2016Q4", "mean": 66.07577867070675, "mean_numerical": 66.1169080746235, "pi_lower": 56.59151490297391, "pi_upper": 76.77151465942055}, {"quarter": "2017Q1", "mean": 78.9395465555899, "mean_numerical": 78.79489350905544, "pi_lower": 67.41348761989757, "pi_upper": 90.77169397234064}, {"quarter": "2017Q2", "mean": 49.416796892409, "mean_numerical": 49.29280056030365, "pi_lower": 41.41723335314679, "pi_upper": 58.27807664486551}, {"quarter": "2017Q3", "mean": 61.73557588846837, "mean_numerical": 61.622116247864604, "pi_lower": 51.91986323651467, "pi_upper": 74.09165753736258}, {"quarter": "2017Q4", "mean": 66.82554925764285, "mean_numerical": 66.77830151408361, "pi_lower": 55.3357647661047, "pi_upper": 80.09338789404924}, {"quarter": "2018Q1", "mean": 79.81481059030361, "mean_numerical": 79.61913464500739, "pi_lower": 65.40090915622015, "pi_upper": 95.72611570464024}, {"quarter": "2018Q2", "mean": 49.952231365032326, "mean_numerical": 49.91503701890961, "pi_lower": 40.44735480296905, "pi_upper": 60.605255946639616}, {"quarter": "2018Q3", "mean": 62.38928225736369, "mean_numerical": 62.44974251207588, "pi_lower": 49.60127128038083, "pi_upper": 76.60966312430578}, {"quarter": "2018Q4", "mean": 67.51711377433719, "mean_numerical": 67.41378201203918, "pi_lower": 53.407621460433276, "pi_upper": 83.73723560253042}, {"quarter": "2019Q1", "mean": 80.62212626751666, "mean_numerical": 80.72512004273652, "pi_lower": 64.13751704156991, "pi_upper": 99.47750563756823}, {"quarter": "2019Q2", "mean": 50.44609907434646, "mean_numerical": 50.612373869020445, "pi_lower": 39.92416447011181, "pi_upper": 63.336671695097905}, {"quarter": "2019Q3", "mean": 62.992240198021946, "mean_numerical": 63.08474509431855, "pi_lower": 49.137002089335596, "pi_upper": 79.53136891802569}, {"quarter": "2019Q4", "mean": 68.15499086512186, "mean_numerical": 68.19347791567327, "pi_lower": 52.672171685253865, "pi_upper": 86.66727209886568}, {"quarter": "2020Q1", "mean": 81.36676854324683, "mean_numerical": 81.23717615305918, "pi_lower": 61.60112593142535, "pi_upper": 103.63125197076037}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "line", "encoding": {"x": {"axis": {"values": ["2014Q1", "2015Q1", "2016Q1", "2017Q1", "2018Q1", "2019Q1", "2020Q1"]}, "field": "quarter", "type": "ordinal"}, "y": {"field": "mean", "type": "quantitative"}}}, {"mark": {"type": "area", "opacity": 0.5}, "encoding": {"x": {"field": "quarter", "type": "nominal"}, "y": {"field": "pi_lower", "type": "quantitative"}, "y2": {"field": "pi_upper"}}}], "data": {"name": "data-5b0ab9a1707098e95cfe3d3c6d805103"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-5b0ab9a1707098e95cfe3d3c6d805103": [{"quarter": "2014Q1", "mean": 67.9050752679693, "mean_numerical": 67.69849998986433, "pi_lower": 60.39108107439963, "pi_upper": 74.8459973073889}, {"quarter": "2014Q2", "mean": 41.743546901796535, "mean_numerical": 41.76140496366602, "pi_lower": 37.188803619586125, "pi_upper": 46.23975327943685}, {"quarter": "2014Q3", "mean": 53.0383359063254, "mean_numerical": 53.104488285307625, "pi_lower": 47.662805489728875, "pi_upper": 58.94971613908888}, {"quarter": "2014Q4", "mean": 58.41009503905597, "mean_numerical": 58.42079711005252, "pi_lower": 52.20668542293914, "pi_upper": 64.86774282354558}, {"quarter": "2015Q1", "mean": 70.6910203727768, "mean_numerical": 70.81690321952698, "pi_lower": 63.231991469111136, "pi_upper": 79.19327348544498}, {"quarter": "2015Q2", "mean": 45.088079918364194, "mean_numerical": 45.23676318333552, "pi_lower": 40.3245470229175, "pi_upper": 50.10137338082415}, {"quarter": "2015Q3", "mean": 57.987507197138314, "mean_numerical": 57.789820333219204, "pi_lower": 51.46342547482219, "pi_upper": 64.0481531314442}, {"quarter": "2015Q4", "mean": 64.47970737491968, "mean_numerical": 64.22817387135142, "pi_lower": 57.20013781956513, "pi_upper": 71.06389051758009}, {"quarter": "2016Q1", "mean": 77.99061523654512, "mean_numerical": 78.10484910991197, "pi_lower": 69.22852769091239, "pi_upper": 86.1631224461958}, {"quarter": "2016Q2", "mean": 48.83629715722373, "mean_numerical": 48.84130960991769, "pi_lower": 43.28344215125965, "pi_upper": 54.992259767703224}, {"quarter": "2016Q3", "mean": 61.026849810049384, "mean_numerical": 61.191042129261874, "pi_lower": 52.96686997577107, "pi_upper": 69.95996307912493}, {"quarter": "2016Q4", "mean": 66.07577867070675, "mean_numerical": 66.21015028206986, "pi_lower": 57.03226375843167, "pi_upper": 75.79260340948586}, {"quarter": "2017Q1", "mean": 78.9395465555899, "mean_numerical": 79.07289791749415, "pi_lower": 67.04111005298049, "pi_upper": 91.52111114436715}, {"quarter": "2017Q2", "mean": 49.416796892409, "mean_numerical": 49.57421718725303, "pi_lower": 41.86168033917933, "pi_upper": 57.69896339571603}, {"quarter": "2017Q3", "mean": 61.73557588846837, "mean_numerical": 61.809039941175364, "pi_lower": 51.33420055652334, "pi_upper": 72.62075176013172}, {"quarter": "2017Q4", "mean": 66.82554925764285, "mean_numerical": 67.09641743882703, "pi_lower": 56.160243547328406, "pi_upper": 79.84925539271566}, {"quarter": "2018Q1", "mean": 79.81481059030361, "mean_numerical": 80.25059243204129, "pi_lower": 66.07340963841374, "pi_upper": 95.50218416005657}, {"quarter": "2018Q2", "mean": 49.952231365032326, "mean_numerical": 50.11039457659796, "pi_lower": 41.052483457050535, "pi_upper": 60.68308873258131}, {"quarter": "2018Q3", "mean": 62.38928225736369, "mean_numerical": 62.53593445181496, "pi_lower": 50.953509241185984, "pi_upper": 76.38253063349626}, {"quarter": "2018Q4", "mean": 67.51711377433719, "mean_numerical": 67.71476548277025, "pi_lower": 55.25398420907359, "pi_upper": 82.92255268969726}, {"quarter": "2019Q1", "mean": 80.62212626751666, "mean_numerical": 80.77691837559452, "pi_lower": 64.71534361188976, "pi_upper": 99.26445678362526}, {"quarter": "2019Q2", "mean": 50.44609907434646, "mean_numerical": 50.406857030284336, "pi_lower": 39.908983923408556, "pi_upper": 62.0216536711349}, {"quarter": "2019Q3", "mean": 62.992240198021946, "mean_numerical": 63.05565692833465, "pi_lower": 50.189241903644366, "pi_upper": 78.73411198899656}, {"quarter": "2019Q4", "mean": 68.15499086512186, "mean_numerical": 68.04369789808707, "pi_lower": 53.265737730106025, "pi_upper": 84.93943550021704}, {"quarter": "2020Q1", "mean": 81.36676854324683, "mean_numerical": 81.32810553880431, "pi_lower": 63.5234094693587, "pi_upper": 103.78180685641014}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="forecasting-with-arima">
-<h2>Forecasting with ARIMA<a class="headerlink" href="#forecasting-with-arima" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="forecasting-with-arima">
+<h2>Forecasting with ARIMA<a class="headerlink" href="#forecasting-with-arima" title="Permalink to this headline">#</a></h2>
 <p>Reproducing the example in <a class="reference external" href="https://otexts.com/fpp2/arima-r.html">FPP2 section 8.7</a> for a non-seasonal model of monthly electrical equipment sales.</p>
-<div class="section" id="get-data-monthly-electrical-equipment-orders">
-<h3>Get data: monthly electrical equipment orders<a class="headerlink" href="#get-data-monthly-electrical-equipment-orders" title="Permalink to this headline">¶</a></h3>
+<section id="get-data-monthly-electrical-equipment-orders">
+<h3>Get data: monthly electrical equipment orders<a class="headerlink" href="#get-data-monthly-electrical-equipment-orders" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ee_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/robjhyndman/fpp2-package/blob/master/data/elecequip.rda?raw=true&quot;</span> 
@@ -2936,9 +3026,9 @@ Warnings:
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="forecasting-with-auto-arima">
-<h3>Forecasting with <code class="docutils literal notranslate"><span class="pre">auto.arima</span></code><a class="headerlink" href="#forecasting-with-auto-arima" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="forecasting-with-auto-arima">
+<h3>Forecasting with <code class="docutils literal notranslate"><span class="pre">auto.arima</span></code><a class="headerlink" href="#forecasting-with-auto-arima" title="Permalink to this headline">#</a></h3>
 <p>As in FPP2, we are going to build an ARIMA model on the seasonally adjusted data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2968,32 +3058,32 @@ Warnings:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Performing stepwise search to minimize aic
  ARIMA(2,1,2)(0,0,0)[0] intercept   : AIC=707.575, Time=0.07 sec
  ARIMA(0,1,0)(0,0,0)[0] intercept   : AIC=724.165, Time=0.01 sec
- ARIMA(1,1,0)(0,0,0)[0] intercept   : AIC=715.304, Time=0.03 sec
- ARIMA(0,1,1)(0,0,0)[0] intercept   : AIC=713.256, Time=0.03 sec
+ ARIMA(1,1,0)(0,0,0)[0] intercept   : AIC=715.304, Time=0.02 sec
+ ARIMA(0,1,1)(0,0,0)[0] intercept   : AIC=713.256, Time=0.02 sec
  ARIMA(0,1,0)(0,0,0)[0]             : AIC=722.821, Time=0.01 sec
- ARIMA(1,1,2)(0,0,0)[0] intercept   : AIC=712.176, Time=0.06 sec
+ ARIMA(1,1,2)(0,0,0)[0] intercept   : AIC=712.176, Time=0.05 sec
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ARIMA(2,1,1)(0,0,0)[0] intercept   : AIC=707.187, Time=0.06 sec
- ARIMA(1,1,1)(0,0,0)[0] intercept   : AIC=715.144, Time=0.05 sec
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ARIMA(2,1,1)(0,0,0)[0] intercept   : AIC=707.187, Time=0.05 sec
+ ARIMA(1,1,1)(0,0,0)[0] intercept   : AIC=715.144, Time=0.03 sec
  ARIMA(2,1,0)(0,0,0)[0] intercept   : AIC=710.610, Time=0.03 sec
- ARIMA(3,1,1)(0,0,0)[0] intercept   : AIC=703.640, Time=0.07 sec
+ ARIMA(3,1,1)(0,0,0)[0] intercept   : AIC=703.640, Time=0.06 sec
  ARIMA(3,1,0)(0,0,0)[0] intercept   : AIC=703.060, Time=0.04 sec
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ARIMA(4,1,0)(0,0,0)[0] intercept   : AIC=704.363, Time=0.07 sec
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ARIMA(4,1,0)(0,0,0)[0] intercept   : AIC=704.363, Time=0.06 sec
  ARIMA(4,1,1)(0,0,0)[0] intercept   : AIC=705.507, Time=0.08 sec
- ARIMA(3,1,0)(0,0,0)[0]             : AIC=702.067, Time=0.03 sec
+ ARIMA(3,1,0)(0,0,0)[0]             : AIC=702.067, Time=0.02 sec
  ARIMA(2,1,0)(0,0,0)[0]             : AIC=710.534, Time=0.02 sec
  ARIMA(4,1,0)(0,0,0)[0]             : AIC=703.193, Time=0.03 sec
  ARIMA(3,1,1)(0,0,0)[0]             : AIC=702.190, Time=0.04 sec
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ARIMA(2,1,1)(0,0,0)[0]             : AIC=706.917, Time=0.04 sec
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> ARIMA(2,1,1)(0,0,0)[0]             : AIC=706.917, Time=0.03 sec
  ARIMA(4,1,1)(0,0,0)[0]             : AIC=704.063, Time=0.05 sec
 
 Best model:  ARIMA(3,1,0)(0,0,0)[0]          
-Total fit time: 0.806 seconds
+Total fit time: 0.753 seconds
 </pre></div>
 </div>
 </div>
@@ -3041,13 +3131,13 @@ Total fit time: 0.806 seconds
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6c7816416a7846bf919d2910cd8066ef"></div>
+<div id="altair-viz-e3d65248af0a4f30b79bee1913b845a3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6c7816416a7846bf919d2910cd8066ef") {
-      outputDiv = document.getElementById("altair-viz-6c7816416a7846bf919d2910cd8066ef");
+    if (outputDiv.id !== "altair-viz-e3d65248af0a4f30b79bee1913b845a3") {
+      outputDiv = document.getElementById("altair-viz-e3d65248af0a4f30b79bee1913b845a3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3129,13 +3219,13 @@ Total fit time: 0.806 seconds
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e163f6d7a44742c59baa4180fd97ffc4"></div>
+<div id="altair-viz-5020374d588d47da80640bd45b81e88e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e163f6d7a44742c59baa4180fd97ffc4") {
-      outputDiv = document.getElementById("altair-viz-e163f6d7a44742c59baa4180fd97ffc4");
+    if (outputDiv.id !== "altair-viz-5020374d588d47da80640bd45b81e88e") {
+      outputDiv = document.getElementById("altair-viz-5020374d588d47da80640bd45b81e88e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3184,9 +3274,9 @@ Total fit time: 0.806 seconds
   })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-3d8b46cccb30e972d92628fbabc00b2f"}, "mark": "bar", "encoding": {"x": {"bin": {"maxbins": 30}, "field": "residuals", "type": "quantitative"}, "y": {"aggregate": "count", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-3d8b46cccb30e972d92628fbabc00b2f": [{"residuals": -79.40809726264202}, {"residuals": 0.6263176827588239}, {"residuals": -0.7320998031893851}, {"residuals": 2.1814906509866887}, {"residuals": -1.627795180146535}, {"residuals": -0.1762273193728987}, {"residuals": -1.8818661373733505}, {"residuals": 1.3678023814689055}, {"residuals": -0.342728703423802}, {"residuals": -0.034214724163845744}, {"residuals": -0.5864164845265805}, {"residuals": -2.1120323329984956}, {"residuals": 1.4675449012178632}, {"residuals": -0.19150352424949801}, {"residuals": -0.50728135147763}, {"residuals": -4.513715760938879}, {"residuals": 2.25344446527356}, {"residuals": -1.2158697739477304}, {"residuals": 1.381195127701318}, {"residuals": -3.749669656782828}, {"residuals": 1.673974311968749}, {"residuals": -1.9032480541063137}, {"residuals": -0.8065638332189025}, {"residuals": 2.1970125762226758}, {"residuals": 0.5977785348070199}, {"residuals": -3.4711232014082185}, {"residuals": 3.352009741199822}, {"residuals": -0.32221597242991606}, {"residuals": -2.173006910281856}, {"residuals": 1.144596631566401}, {"residuals": 2.804206082041148}, {"residuals": 1.9273383523638046}, {"residuals": -4.0828536821776}, {"residuals": 1.6828835078951982}, {"residuals": -0.5345343953460997}, {"residuals": 1.326003304871719}, {"residuals": -3.181316922848282}, {"residuals": 0.044172294600898}, {"residuals": 4.887621673517472}, {"residuals": -1.0687394308080798}, {"residuals": -5.893752989821138}, {"residuals": -3.440962146307683}, {"residuals": -7.7510917244118644}, {"residuals": 0.6202763720771287}, {"residuals": -0.9575243504008455}, {"residuals": -0.20213010281854338}, {"residuals": 0.6278424476119824}, {"residuals": -3.5468174780989017}, {"residuals": 0.6545643603052156}, {"residuals": -2.4091490722817497}, {"residuals": -1.6356454121081043}, {"residuals": -3.2560003784308833}, {"residuals": -0.5374521250412272}, {"residuals": 0.3839778061798711}, {"residuals": -0.5625886156347377}, {"residuals": -6.069588893647335}, {"residuals": -5.214268922772035}, {"residuals": 1.583575477751637}, {"residuals": 1.892733530993823}, {"residuals": -1.037140882354663}, {"residuals": 9.658242156339242}, {"residuals": 0.5633126494124951}, {"residuals": 2.029137687628662}, {"residuals": 5.144161649418038}, {"residuals": -0.583543071870281}, {"residuals": -0.1628950516829235}, {"residuals": 2.0201930284158465}, {"residuals": 2.4047932402548895}, {"residuals": 2.147902619694534}, {"residuals": 1.2311022794908695}, {"residuals": -3.0668982408517564}, {"residuals": -0.6890996786640073}, {"residuals": 2.1759437410817384}, {"residuals": 2.2599275332391358}, {"residuals": 0.1967742208100276}, {"residuals": -0.9240710435398256}, {"residuals": 0.14233057711260244}, {"residuals": 0.5429070777206277}, {"residuals": 2.8166868939934346}, {"residuals": -2.1462050134328337}, {"residuals": 0.20134337469298202}, {"residuals": -1.9090730086281553}, {"residuals": 2.8210490818972147}, {"residuals": 3.9894779634997093}, {"residuals": -4.796344901899403}, {"residuals": 0.5342375695169892}, {"residuals": 0.797812283352556}, {"residuals": 0.1598343337205108}, {"residuals": 0.7133595087119886}, {"residuals": -2.5002855299921833}, {"residuals": -1.2068307123472835}, {"residuals": -1.3109087272259643}, {"residuals": -1.5290984496106006}, {"residuals": -0.3328430150692867}, {"residuals": -0.675905190945727}, {"residuals": 1.2200911282406253}, {"residuals": 1.1708595206814323}, {"residuals": -2.272493302911627}, {"residuals": -0.00378348491526026}, {"residuals": -0.9301102996443831}, {"residuals": -0.24961174100842243}, {"residuals": 2.153685632137069}, {"residuals": -1.1772507785089914}, {"residuals": 0.702907314993837}, {"residuals": -0.06043031887608663}, {"residuals": 1.4062976491900798}, {"residuals": -0.13954491595409024}, {"residuals": -5.4800533386486165}, {"residuals": 2.1618779377206465}, {"residuals": 1.3718171993763946}, {"residuals": 1.875946548206656}, {"residuals": -2.054661925972553}, {"residuals": 0.42705786997552764}, {"residuals": -2.7577850211266934}, {"residuals": -1.1320840549496722}, {"residuals": -1.5491900631100748}, {"residuals": 0.6543457708836655}, {"residuals": 0.17905892388814948}, {"residuals": -2.2745791318393884}, {"residuals": -0.41516957010819056}, {"residuals": -2.552546477722501}, {"residuals": -0.5105457156856659}, {"residuals": -0.17492760914932148}, {"residuals": -2.867351435839268}, {"residuals": 0.5061616455879232}, {"residuals": -1.1169646764657841}, {"residuals": 0.3378133466623723}, {"residuals": 0.5056870112547642}, {"residuals": -3.060228762578305}, {"residuals": -1.3878413198231954}, {"residuals": 1.5388866298882107}, {"residuals": 0.38457860224040985}, {"residuals": 0.5998967027295095}, {"residuals": 0.2407451896639543}, {"residuals": -3.1454098441715814}, {"residuals": 1.5680380995568726}, {"residuals": -1.4243860863906548}, {"residuals": 1.7107300616316934}, {"residuals": 0.39234395217972917}, {"residuals": -0.04779406566044031}, {"residuals": -1.3106424837004056}, {"residuals": -0.1780334168602451}, {"residuals": -0.04890087041896152}, {"residuals": -7.409044537511022}, {"residuals": 1.7553602730240812}, {"residuals": 4.990711943637066}, {"residuals": 5.4704026685453755}, {"residuals": -4.632835243854743}, {"residuals": 5.024109526771937}, {"residuals": 2.0666120349303583}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3210,9 +3300,11 @@ Total fit time: 0.806 seconds
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="introduction.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -3228,24 +3320,28 @@ Total fit time: 0.806 seconds
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

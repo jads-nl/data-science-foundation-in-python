@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Math primer - Linear Algebra &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,29 +37,27 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/handson-ml2/original/math_linear_algebra.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Math primer - Differential Calculus" href="math_differential_calculus.html" />
-    <link rel="prev" title="Effective Python and idiomatic pandas" href="../extra/effective-python-and-idiomatic-pandas.html" />
+    <link rel="prev" title="Miscellaneous tips &amp; tricks" href="../extra.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -967,16 +979,6 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Math primer - Linear Algebra
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,112 +1173,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/handson-ml2/original/math_linear_algebra.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/math_linear_algebra.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/math_linear_algebra.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/math_linear_algebra.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/math_linear_algebra.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/math_linear_algebra.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/math_linear_algebra.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/handson-ml2/original/math_linear_algebra.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    Math primer - Linear Algebra
@@ -1526,12 +1616,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Math primer - Linear Algebra</h1>
@@ -1770,18 +1859,19 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="math-primer-linear-algebra">
-<h1>Math primer - Linear Algebra<a class="headerlink" href="#math-primer-linear-algebra" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="math-primer-linear-algebra">
+<h1>Math primer - Linear Algebra<a class="headerlink" href="#math-primer-linear-algebra" title="Permalink to this headline">#</a></h1>
 <p><em>Linear Algebra is the branch of mathematics that studies <a class="reference external" href="https://en.wikipedia.org/wiki/Vector_space">vector spaces</a> and linear transformations between vector spaces, such as rotating a shape, scaling it up or down, translating it (ie. moving it), etc.</em></p>
 <p><em>Machine Learning relies heavily on Linear Algebra, so it is essential to understand what vectors and matrices are, what operations you can perform with them, and how they can be useful.</em></p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="vectors">
-<h1>Vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="definition">
-<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="vectors">
+<h1>Vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">#</a></h1>
+<section id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">#</a></h2>
 <p>A vector is a quantity defined by a magnitude and a direction. For example, a rocket’s velocity is a 3-dimensional vector: its magnitude is the speed of the rocket, and its direction is (hopefully) up. A vector can be represented by an array of numbers called <em>scalars</em>. Each scalar corresponds to the magnitude of the vector with regards to each dimension.</p>
 <p>For example, say the rocket is going up at a slight angle: it has a vertical speed of 5,000 m/s, and also a slight speed towards the East at 10 m/s, and a slight speed towards the North at 50 m/s. The rocket’s velocity may be represented by the following vector:</p>
 <p><strong>velocity</strong> <span class="math notranslate nohighlight">\(= \begin{pmatrix}
@@ -1791,9 +1881,9 @@
 \end{pmatrix}\)</span></p>
 <p>Note: by convention vectors are generally presented in the form of columns. Also, vector names are generally lowercase to distinguish them from matrices (which we will discuss below) and in bold (when possible) to distinguish them from simple scalar values such as <span class="math notranslate nohighlight">\({meters\_per\_second} = 5026\)</span>.</p>
 <p>A list of N numbers may also represent the coordinates of a point in an N-dimensional space, so it is quite frequent to represent vectors as simple points instead of arrows. A vector with 1 element may be represented as an arrow or a point on an axis, a vector with 2 elements is an arrow or a point on a plane, a vector with 3 elements is an arrow or point in space, and a vector with N elements is an arrow or a point in an N-dimensional space… which most people find hard to imagine.</p>
-</div>
-<div class="section" id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">#</a></h2>
 <p>Vectors have many purposes in Machine Learning, most notably to represent observations and predictions. For example, say we built a Machine Learning system to classify videos into 3 categories (good, spam, clickbait) based on what we know about them. For each video, we would have a vector representing what we know about it, such as:</p>
 <p><strong>video</strong> <span class="math notranslate nohighlight">\(= \begin{pmatrix}
 10.5 \\
@@ -1808,9 +1898,9 @@
 0.18 \\
 0.02
 \end{pmatrix}\)</span></p>
-</div>
-<div class="section" id="vectors-in-python">
-<h2>Vectors in python<a class="headerlink" href="#vectors-in-python" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vectors-in-python">
+<h2>Vectors in python<a class="headerlink" href="#vectors-in-python" title="Permalink to this headline">#</a></h2>
 <p>In python, a vector can be represented in many ways, the simplest being a regular python list of numbers:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1866,9 +1956,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="plotting-vectors">
-<h2>Plotting vectors<a class="headerlink" href="#plotting-vectors" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="plotting-vectors">
+<h2>Plotting vectors<a class="headerlink" href="#plotting-vectors" title="Permalink to this headline">#</a></h2>
 <p>To plot vectors we will use matplotlib, so let’s start by importing it (for details about matplotlib, check the <span class="xref myst">matplotlib tutorial</span>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1878,8 +1968,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="d-vectors">
-<h3>2D vectors<a class="headerlink" href="#d-vectors" title="Permalink to this headline">¶</a></h3>
+<section id="d-vectors">
+<h3>2D vectors<a class="headerlink" href="#d-vectors" title="Permalink to this headline">#</a></h3>
 <p>Let’s create a couple very simple 2D vectors to plot:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1930,9 +2020,9 @@
 <img alt="../../_images/math_linear_algebra_19_0.png" src="../../_images/math_linear_algebra_19_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id1">
-<h3>3D vectors<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id1">
+<h3>3D vectors<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
 <p>Plotting 3D vectors is also relatively straightforward. First let’s create two 3D vectors:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1980,10 +2070,10 @@
 <img alt="../../_images/math_linear_algebra_25_0.png" src="../../_images/math_linear_algebra_25_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="norm">
-<h2>Norm<a class="headerlink" href="#norm" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="norm">
+<h2>Norm<a class="headerlink" href="#norm" title="Permalink to this headline">#</a></h2>
 <p>The norm of a vector <span class="math notranslate nohighlight">\(\textbf{u}\)</span>, noted <span class="math notranslate nohighlight">\(\left \Vert \textbf{u} \right \|\)</span>, is a measure of the length (a.k.a. the magnitude) of <span class="math notranslate nohighlight">\(\textbf{u}\)</span>. There are multiple possible norms, but the most common one (and the only one we will discuss here) is the Euclidian norm, which is defined as:</p>
 <p><span class="math notranslate nohighlight">\(\left \Vert \textbf{u} \right \| = \sqrt{\sum_{i}{\textbf{u}_i}^2}\)</span></p>
 <p>We could implement this easily in pure python, recalling that <span class="math notranslate nohighlight">\(\sqrt x = x^{\frac{1}{2}}\)</span></p>
@@ -2038,9 +2128,9 @@
 </div>
 </div>
 <p>Looks about right!</p>
-</div>
-<div class="section" id="addition">
-<h2>Addition<a class="headerlink" href="#addition" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="addition">
+<h2>Addition<a class="headerlink" href="#addition" title="Permalink to this headline">#</a></h2>
 <p>Vectors of same size can be added together. Addition is performed <em>elementwise</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2123,9 +2213,9 @@
 </div>
 </div>
 <p>Finally, subtracting a vector is like adding the opposite vector.</p>
-</div>
-<div class="section" id="multiplication-by-a-scalar">
-<h2>Multiplication by a scalar<a class="headerlink" href="#multiplication-by-a-scalar" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="multiplication-by-a-scalar">
+<h2>Multiplication by a scalar<a class="headerlink" href="#multiplication-by-a-scalar" title="Permalink to this headline">#</a></h2>
 <p>Vectors can be multiplied by scalars. All elements in the vector are multiplied by that number, for example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2180,9 +2270,9 @@
 <p>Scalar multiplication is <strong>commutative</strong>: <span class="math notranslate nohighlight">\(\lambda \times \textbf{u} = \textbf{u} \times \lambda\)</span>.</p>
 <p>It is also <strong>associative</strong>: <span class="math notranslate nohighlight">\(\lambda_1 \times (\lambda_2 \times \textbf{u}) = (\lambda_1 \times \lambda_2) \times \textbf{u}\)</span>.</p>
 <p>Finally, it is <strong>distributive</strong> over addition of vectors: <span class="math notranslate nohighlight">\(\lambda \times (\textbf{u} + \textbf{v}) = \lambda \times \textbf{u} + \lambda \times \textbf{v}\)</span>.</p>
-</div>
-<div class="section" id="zero-unit-and-normalized-vectors">
-<h2>Zero, unit and normalized vectors<a class="headerlink" href="#zero-unit-and-normalized-vectors" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="zero-unit-and-normalized-vectors">
+<h2>Zero, unit and normalized vectors<a class="headerlink" href="#zero-unit-and-normalized-vectors" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>A **zero-vector ** is a vector full of 0s.</p></li>
 <li><p>A <strong>unit vector</strong> is a vector with a norm equal to 1.</p></li>
@@ -2206,19 +2296,19 @@
 <img alt="../../_images/math_linear_algebra_48_0.png" src="../../_images/math_linear_algebra_48_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="dot-product">
-<h2>Dot product<a class="headerlink" href="#dot-product" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Definition<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="dot-product">
+<h2>Dot product<a class="headerlink" href="#dot-product" title="Permalink to this headline">#</a></h2>
+<section id="id2">
+<h3>Definition<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
 <p>The dot product (also called <em>scalar product</em> or <em>inner product</em> in the context of the Euclidian space) of two vectors <span class="math notranslate nohighlight">\(\textbf{u}\)</span> and <span class="math notranslate nohighlight">\(\textbf{v}\)</span> is a useful operation that comes up fairly often in linear algebra. It is noted <span class="math notranslate nohighlight">\(\textbf{u} \cdot \textbf{v}\)</span>, or sometimes <span class="math notranslate nohighlight">\(⟨\textbf{u}|\textbf{v}⟩\)</span> or <span class="math notranslate nohighlight">\((\textbf{u}|\textbf{v})\)</span>, and it is defined as:</p>
 <p><span class="math notranslate nohighlight">\(\textbf{u} \cdot \textbf{v} = \left \Vert \textbf{u} \right \| \times \left \Vert \textbf{v} \right \| \times cos(\theta)\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(\theta\)</span> is the angle between <span class="math notranslate nohighlight">\(\textbf{u}\)</span> and <span class="math notranslate nohighlight">\(\textbf{v}\)</span>.</p>
 <p>Another way to calculate the dot product is:</p>
 <p><span class="math notranslate nohighlight">\(\textbf{u} \cdot \textbf{v} = \sum_i{\textbf{u}_i \times \textbf{v}_i}\)</span></p>
-</div>
-<div class="section" id="in-python">
-<h3>In python<a class="headerlink" href="#in-python" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="in-python">
+<h3>In python<a class="headerlink" href="#in-python" title="Permalink to this headline">#</a></h3>
 <p>The dot product is pretty simple to implement:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2283,9 +2373,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="main-properties">
-<h3>Main properties<a class="headerlink" href="#main-properties" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="main-properties">
+<h3>Main properties<a class="headerlink" href="#main-properties" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The dot product is <strong>commutative</strong>: <span class="math notranslate nohighlight">\(\textbf{u} \cdot \textbf{v} = \textbf{v} \cdot \textbf{u}\)</span>.</p></li>
 <li><p>The dot product is only defined between two vectors, not between a scalar and a vector. This means that we cannot chain dot products: for example, the expression <span class="math notranslate nohighlight">\(\textbf{u} \cdot \textbf{v} \cdot \textbf{w}\)</span> is not defined since <span class="math notranslate nohighlight">\(\textbf{u} \cdot \textbf{v}\)</span> is a scalar and <span class="math notranslate nohighlight">\(\textbf{w}\)</span> is a vector.</p></li>
@@ -2293,9 +2383,9 @@
 <li><p>However, the dot product is <strong>associative with regards to scalar multiplication</strong>: <span class="math notranslate nohighlight">\(\lambda \times (\textbf{u} \cdot \textbf{v}) = (\lambda \times \textbf{u}) \cdot \textbf{v} = \textbf{u} \cdot (\lambda \times \textbf{v})\)</span></p></li>
 <li><p>Finally, the dot product is <strong>distributive</strong> over addition of vectors: <span class="math notranslate nohighlight">\(\textbf{u} \cdot (\textbf{v} + \textbf{w}) = \textbf{u} \cdot \textbf{v} + \textbf{u} \cdot \textbf{w}\)</span>.</p></li>
 </ul>
-</div>
-<div class="section" id="calculating-the-angle-between-vectors">
-<h3>Calculating the angle between vectors<a class="headerlink" href="#calculating-the-angle-between-vectors" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="calculating-the-angle-between-vectors">
+<h3>Calculating the angle between vectors<a class="headerlink" href="#calculating-the-angle-between-vectors" title="Permalink to this headline">#</a></h3>
 <p>One of the many uses of the dot product is to calculate the angle between two non-zero vectors. Looking at the dot product definition, we can deduce the following formula:</p>
 <p><span class="math notranslate nohighlight">\(\theta = \arccos{\left ( \dfrac{\textbf{u} \cdot \textbf{v}}{\left \Vert \textbf{u} \right \| \times \left \Vert \textbf{v} \right \|} \right ) }\)</span></p>
 <p>Note that if <span class="math notranslate nohighlight">\(\textbf{u} \cdot \textbf{v} = 0\)</span>, it follows that <span class="math notranslate nohighlight">\(\theta = \dfrac{π}{2}\)</span>. In other words, if the dot product of two non-null vectors is zero, it means that they are orthogonal.</p>
@@ -2320,9 +2410,9 @@
 </div>
 </div>
 <p>Note: due to small floating point errors, <code class="docutils literal notranslate"><span class="pre">cos_theta</span></code> may be very slightly outside of the <span class="math notranslate nohighlight">\([-1, 1]\)</span> interval, which would make <code class="docutils literal notranslate"><span class="pre">arccos</span></code> fail. This is why we clipped the value within the range, using NumPy’s <code class="docutils literal notranslate"><span class="pre">clip</span></code> function.</p>
-</div>
-<div class="section" id="projecting-a-point-onto-an-axis">
-<h3>Projecting a point onto an axis<a class="headerlink" href="#projecting-a-point-onto-an-axis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="projecting-a-point-onto-an-axis">
+<h3>Projecting a point onto an axis<a class="headerlink" href="#projecting-a-point-onto-an-axis" title="Permalink to this headline">#</a></h3>
 <p>The dot product is also very useful to project points onto an axis. The projection of vector <span class="math notranslate nohighlight">\(\textbf{v}\)</span> onto <span class="math notranslate nohighlight">\(\textbf{u}\)</span>’s axis is given by this formula:</p>
 <p><span class="math notranslate nohighlight">\(\textbf{proj}_{\textbf{u}}{\textbf{v}} = \dfrac{\textbf{u} \cdot \textbf{v}}{\left \Vert \textbf{u} \right \| ^2} \times \textbf{u}\)</span></p>
 <p>Which is equivalent to:</p>
@@ -2354,17 +2444,17 @@
 <img alt="../../_images/math_linear_algebra_62_0.png" src="../../_images/math_linear_algebra_62_0.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="matrices">
-<h1>Matrices<a class="headerlink" href="#matrices" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="matrices">
+<h1>Matrices<a class="headerlink" href="#matrices" title="Permalink to this headline">#</a></h1>
 <p>A matrix is a rectangular array of scalars (ie. any number: integer, real or complex) arranged in rows and columns, for example:</p>
 <p>\begin{bmatrix} 10 &amp; 20 &amp; 30 \ 40 &amp; 50 &amp; 60 \end{bmatrix}</p>
 <p>You can also think of a matrix as a list of vectors: the previous matrix contains either 2 horizontal 3D vectors or 3 vertical 2D vectors.</p>
 <p>Matrices are convenient and very efficient to run operations on many vectors at a time. We will also see that they are great at representing and performing linear transformations such rotations, translations and scaling.</p>
-<div class="section" id="matrices-in-python">
-<h2>Matrices in python<a class="headerlink" href="#matrices-in-python" title="Permalink to this headline">¶</a></h2>
+<section id="matrices-in-python">
+<h2>Matrices in python<a class="headerlink" href="#matrices-in-python" title="Permalink to this headline">#</a></h2>
 <p>In python, a matrix can be represented in various ways. The simplest is just a list of python lists:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2401,9 +2491,9 @@
 </div>
 <p>By convention matrices generally have uppercase names, such as <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>In the rest of this tutorial, we will assume that we are using NumPy arrays (type <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) to represent matrices.</p>
-</div>
-<div class="section" id="size">
-<h2>Size<a class="headerlink" href="#size" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="size">
+<h2>Size<a class="headerlink" href="#size" title="Permalink to this headline">#</a></h2>
 <p>The size of a matrix is defined by its number of rows and number of columns. It is noted <span class="math notranslate nohighlight">\(rows \times columns\)</span>. For example, the matrix <span class="math notranslate nohighlight">\(A\)</span> above is an example of a <span class="math notranslate nohighlight">\(2 \times 3\)</span> matrix: 2 rows, 3 columns. Caution: a <span class="math notranslate nohighlight">\(3 \times 2\)</span> matrix would have 3 rows and 2 columns.</p>
 <p>To get a matrix’s size in NumPy:</p>
 <div class="cell docutils container">
@@ -2431,9 +2521,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="element-indexing">
-<h2>Element indexing<a class="headerlink" href="#element-indexing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="element-indexing">
+<h2>Element indexing<a class="headerlink" href="#element-indexing" title="Permalink to this headline">#</a></h2>
 <p>The number located in the <span class="math notranslate nohighlight">\(i^{th}\)</span> row, and <span class="math notranslate nohighlight">\(j^{th}\)</span> column of a matrix <span class="math notranslate nohighlight">\(X\)</span> is sometimes noted <span class="math notranslate nohighlight">\(X_{i,j}\)</span> or <span class="math notranslate nohighlight">\(X_{ij}\)</span>, but there is no standard notation, so people often prefer to explicitely name the elements, like this: “<em>let <span class="math notranslate nohighlight">\(X = (x_{i,j})_{1 ≤ i ≤ m, 1 ≤ j ≤ n}\)</span></em>”. This means that <span class="math notranslate nohighlight">\(X\)</span> is equal to:</p>
 <p><span class="math notranslate nohighlight">\(X = \begin{bmatrix}
   x_{1,1} &amp; x_{1,2} &amp; x_{1,3} &amp; \cdots &amp; x_{1,n}\\
@@ -2507,9 +2597,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="square-triangular-diagonal-and-identity-matrices">
-<h2>Square, triangular, diagonal and identity matrices<a class="headerlink" href="#square-triangular-diagonal-and-identity-matrices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="square-triangular-diagonal-and-identity-matrices">
+<h2>Square, triangular, diagonal and identity matrices<a class="headerlink" href="#square-triangular-diagonal-and-identity-matrices" title="Permalink to this headline">#</a></h2>
 <p>A <strong>square matrix</strong> is a matrix that has the same number of rows and columns, for example a <span class="math notranslate nohighlight">\(3 \times 3\)</span> matrix:</p>
 <p>\begin{bmatrix}
 4 &amp; 9 &amp; 2 \
@@ -2590,9 +2680,9 @@
 </div>
 </div>
 <p>The identity matrix is often noted simply <span class="math notranslate nohighlight">\(I\)</span> (instead of <span class="math notranslate nohighlight">\(I_n\)</span>) when its size is clear given the context. It is called the <em>identity</em> matrix because multiplying a matrix with it leaves the matrix unchanged as we will see below.</p>
-</div>
-<div class="section" id="adding-matrices">
-<h2>Adding matrices<a class="headerlink" href="#adding-matrices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="adding-matrices">
+<h2>Adding matrices<a class="headerlink" href="#adding-matrices" title="Permalink to this headline">#</a></h2>
 <p>If two matrices <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span> have the same size <span class="math notranslate nohighlight">\(m \times n\)</span>, they can be added together. Addition is performed <em>elementwise</em>: the result is also a <span class="math notranslate nohighlight">\(m \times n\)</span> matrix <span class="math notranslate nohighlight">\(S\)</span> where each element is the sum of the elements at the corresponding position: <span class="math notranslate nohighlight">\(S_{i,j} = Q_{i,j} + R_{i,j}\)</span></p>
 <p><span class="math notranslate nohighlight">\(S =
 \begin{bmatrix}
@@ -2686,9 +2776,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="scalar-multiplication">
-<h2>Scalar multiplication<a class="headerlink" href="#scalar-multiplication" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="scalar-multiplication">
+<h2>Scalar multiplication<a class="headerlink" href="#scalar-multiplication" title="Permalink to this headline">#</a></h2>
 <p>A matrix <span class="math notranslate nohighlight">\(M\)</span> can be multiplied by a scalar <span class="math notranslate nohighlight">\(\lambda\)</span>. The result is noted <span class="math notranslate nohighlight">\(\lambda M\)</span>, and it is a matrix of the same size as <span class="math notranslate nohighlight">\(M\)</span> with all elements multiplied by <span class="math notranslate nohighlight">\(\lambda\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(\lambda M =
 \begin{bmatrix}
@@ -2783,9 +2873,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="matrix-multiplication">
-<h2>Matrix multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="matrix-multiplication">
+<h2>Matrix multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this headline">#</a></h2>
 <p>So far, matrix operations have been rather intuitive. But multiplying matrices is a bit more involved.</p>
 <p>A matrix <span class="math notranslate nohighlight">\(Q\)</span> of size <span class="math notranslate nohighlight">\(m \times n\)</span> can be multiplied by a matrix <span class="math notranslate nohighlight">\(R\)</span> of size <span class="math notranslate nohighlight">\(n \times q\)</span>. It is noted simply <span class="math notranslate nohighlight">\(QR\)</span> without multiplication sign or dot. The result <span class="math notranslate nohighlight">\(P\)</span> is an <span class="math notranslate nohighlight">\(m \times q\)</span> matrix where each element is computed as a sum of products:</p>
 <p><span class="math notranslate nohighlight">\(P_{i,j} = \sum_{k=1}^n{Q_{i,k} \times R_{k,j}}\)</span></p>
@@ -3052,9 +3142,9 @@ Numpy version: 1.12.1
 </div>
 </div>
 <p>Note: <code class="docutils literal notranslate"><span class="pre">Q</span> <span class="pre">&#64;</span> <span class="pre">R</span></code> is actually equivalent to <code class="docutils literal notranslate"><span class="pre">Q.__matmul__(R)</span></code> which is implemented by NumPy as <code class="docutils literal notranslate"><span class="pre">np.matmul(Q,</span> <span class="pre">R)</span></code>, not as <code class="docutils literal notranslate"><span class="pre">Q.dot(R)</span></code>. The main difference is that <code class="docutils literal notranslate"><span class="pre">matmul</span></code> does not support scalar multiplication, while <code class="docutils literal notranslate"><span class="pre">dot</span></code> does, so you can write <code class="docutils literal notranslate"><span class="pre">Q.dot(3)</span></code>, which is equivalent to <code class="docutils literal notranslate"><span class="pre">Q</span> <span class="pre">*</span> <span class="pre">3</span></code>, but you cannot write <code class="docutils literal notranslate"><span class="pre">Q</span> <span class="pre">&#64;</span> <span class="pre">3</span></code> (<a class="reference external" href="http://stackoverflow.com/a/34142617/38626">more details</a>).</p>
-</div>
-<div class="section" id="matrix-transpose">
-<h2>Matrix transpose<a class="headerlink" href="#matrix-transpose" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="matrix-transpose">
+<h2>Matrix transpose<a class="headerlink" href="#matrix-transpose" title="Permalink to this headline">#</a></h2>
 <p>The transpose of a matrix <span class="math notranslate nohighlight">\(M\)</span> is a matrix noted <span class="math notranslate nohighlight">\(M^T\)</span> such that the <span class="math notranslate nohighlight">\(i^{th}\)</span> row in <span class="math notranslate nohighlight">\(M^T\)</span> is equal to the <span class="math notranslate nohighlight">\(i^{th}\)</span> column in <span class="math notranslate nohighlight">\(M\)</span>:</p>
 <p><span class="math notranslate nohighlight">\( A^T =
 \begin{bmatrix}
@@ -3193,9 +3283,9 @@ Numpy version: 1.12.1
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="converting-1d-arrays-to-2d-arrays-in-numpy">
-<h2>Converting 1D arrays to 2D arrays in NumPy<a class="headerlink" href="#converting-1d-arrays-to-2d-arrays-in-numpy" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="converting-1d-arrays-to-2d-arrays-in-numpy">
+<h2>Converting 1D arrays to 2D arrays in NumPy<a class="headerlink" href="#converting-1d-arrays-to-2d-arrays-in-numpy" title="Permalink to this headline">#</a></h2>
 <p>As we mentionned earlier, in NumPy (as opposed to Matlab, for example), 1D really means 1D: there is no such thing as a vertical 1D-array or a horizontal 1D-array. So you should not be surprised to see that transposing a 1D array does not do anything:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3304,9 +3394,9 @@ Numpy version: 1.12.1
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="plotting-a-matrix">
-<h2>Plotting a matrix<a class="headerlink" href="#plotting-a-matrix" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="plotting-a-matrix">
+<h2>Plotting a matrix<a class="headerlink" href="#plotting-a-matrix" title="Permalink to this headline">#</a></h2>
 <p>We have already seen that vectors can be represented as points or arrows in N-dimensional space. Is there a good graphical representation of matrices? Well you can simply see a matrix as a list of vectors, so plotting a matrix results in many points or arrows. For example, let’s create a <span class="math notranslate nohighlight">\(2 \times 4\)</span> matrix <code class="docutils literal notranslate"><span class="pre">P</span></code> and plot it as points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3356,13 +3446,13 @@ Numpy version: 1.12.1
 <img alt="../../_images/math_linear_algebra_170_0.png" src="../../_images/math_linear_algebra_170_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="geometric-applications-of-matrix-operations">
-<h2>Geometric applications of matrix operations<a class="headerlink" href="#geometric-applications-of-matrix-operations" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="geometric-applications-of-matrix-operations">
+<h2>Geometric applications of matrix operations<a class="headerlink" href="#geometric-applications-of-matrix-operations" title="Permalink to this headline">#</a></h2>
 <p>We saw earlier that vector addition results in a geometric translation, vector multiplication by a scalar results in rescaling (zooming in or out, centered on the origin), and vector dot product results in projecting a vector onto another vector, rescaling and measuring the resulting coordinate.</p>
 <p>Similarly, matrix operations have very useful geometric applications.</p>
-<div class="section" id="addition-multiple-geometric-translations">
-<h3>Addition = multiple geometric translations<a class="headerlink" href="#addition-multiple-geometric-translations" title="Permalink to this headline">¶</a></h3>
+<section id="addition-multiple-geometric-translations">
+<h3>Addition = multiple geometric translations<a class="headerlink" href="#addition-multiple-geometric-translations" title="Permalink to this headline">#</a></h3>
 <p>First, adding two matrices together is equivalent to adding all their vectors together. For example, let’s create a <span class="math notranslate nohighlight">\(2 \times 4\)</span> matrix <span class="math notranslate nohighlight">\(H\)</span> and add it to <span class="math notranslate nohighlight">\(P\)</span>, and look at the result:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3432,9 +3522,9 @@ Numpy version: 1.12.1
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id3">
-<h3>Scalar multiplication<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id3">
+<h3>Scalar multiplication<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
 <p>Multiplying a matrix by a scalar results in all its vectors being multiplied by that scalar, so unsurprisingly, the geometric result is a rescaling of the entire figure. For example, let’s rescale our polygon by a factor of 60% (zooming out, centered on the origin):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3460,9 +3550,9 @@ Numpy version: 1.12.1
 <img alt="../../_images/math_linear_algebra_179_0.png" src="../../_images/math_linear_algebra_179_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="matrix-multiplication-projection-onto-an-axis">
-<h3>Matrix multiplication – Projection onto an axis<a class="headerlink" href="#matrix-multiplication-projection-onto-an-axis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="matrix-multiplication-projection-onto-an-axis">
+<h3>Matrix multiplication – Projection onto an axis<a class="headerlink" href="#matrix-multiplication-projection-onto-an-axis" title="Permalink to this headline">#</a></h3>
 <p>Matrix multiplication is more complex to visualize, but it is also the most powerful tool in the box.</p>
 <p>Let’s start simple, by defining a <span class="math notranslate nohighlight">\(1 \times 2\)</span> matrix <span class="math notranslate nohighlight">\(U = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}\)</span>. This row vector is just the horizontal unit vector.</p>
 <div class="cell docutils container">
@@ -3527,9 +3617,9 @@ Numpy version: 1.12.1
 </div>
 </div>
 <p>Good! Remember that the dot product of a unit vector and a matrix basically performs a projection on an axis and gives us the coordinates of the resulting points on that axis.</p>
-</div>
-<div class="section" id="matrix-multiplication-rotation">
-<h3>Matrix multiplication – Rotation<a class="headerlink" href="#matrix-multiplication-rotation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="matrix-multiplication-rotation">
+<h3>Matrix multiplication – Rotation<a class="headerlink" href="#matrix-multiplication-rotation" title="Permalink to this headline">#</a></h3>
 <p>Now let’s create a <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrix <span class="math notranslate nohighlight">\(V\)</span> containing two unit vectors that make 30° and 120° angles with the horizontal axis:</p>
 <p><span class="math notranslate nohighlight">\(V = \begin{bmatrix} \cos(30°) &amp; \sin(30°) \\ \cos(120°) &amp; \sin(120°) \end{bmatrix}\)</span></p>
 <div class="cell docutils container">
@@ -3578,9 +3668,9 @@ Numpy version: 1.12.1
 </div>
 </div>
 <p>Matrix <span class="math notranslate nohighlight">\(V\)</span> is called a <strong>rotation matrix</strong>.</p>
-</div>
-<div class="section" id="matrix-multiplication-other-linear-transformations">
-<h3>Matrix multiplication – Other linear transformations<a class="headerlink" href="#matrix-multiplication-other-linear-transformations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="matrix-multiplication-other-linear-transformations">
+<h3>Matrix multiplication – Other linear transformations<a class="headerlink" href="#matrix-multiplication-other-linear-transformations" title="Permalink to this headline">#</a></h3>
 <p>More generally, any linear transformation <span class="math notranslate nohighlight">\(f\)</span> that maps n-dimensional vectors to m-dimensional vectors can be represented as an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix. For example, say <span class="math notranslate nohighlight">\(\textbf{u}\)</span> is a 3-dimensional vector:</p>
 <p><span class="math notranslate nohighlight">\(\textbf{u} = \begin{pmatrix} x \\ y \\ z \end{pmatrix}\)</span></p>
 <p>and <span class="math notranslate nohighlight">\(f\)</span> is defined as:</p>
@@ -3678,10 +3768,10 @@ d &amp; e &amp; f
 <img alt="../../_images/math_linear_algebra_205_0.png" src="../../_images/math_linear_algebra_205_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="matrix-inverse">
-<h2>Matrix inverse<a class="headerlink" href="#matrix-inverse" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="matrix-inverse">
+<h2>Matrix inverse<a class="headerlink" href="#matrix-inverse" title="Permalink to this headline">#</a></h2>
 <p>Now that we understand that a matrix can represent any linear transformation, a natural question is: can we find a transformation matrix that reverses the effect of a given transformation matrix <span class="math notranslate nohighlight">\(F\)</span>? The answer is yes… sometimes! When it exists, such a matrix is called the <strong>inverse</strong> of <span class="math notranslate nohighlight">\(F\)</span>, and it is noted <span class="math notranslate nohighlight">\(F^{-1}\)</span>.</p>
 <p>For example, the rotation, the shear mapping and the squeeze mapping above all have inverse transformations. Let’s demonstrate this on the shear mapping:</p>
 <div class="cell docutils container">
@@ -3869,9 +3959,9 @@ d &amp; e &amp; f
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="determinant">
-<h2>Determinant<a class="headerlink" href="#determinant" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="determinant">
+<h2>Determinant<a class="headerlink" href="#determinant" title="Permalink to this headline">#</a></h2>
 <p>The determinant of a square matrix <span class="math notranslate nohighlight">\(M\)</span>, noted <span class="math notranslate nohighlight">\(\det(M)\)</span> or <span class="math notranslate nohighlight">\(\det M\)</span> or <span class="math notranslate nohighlight">\(|M|\)</span> is a value that can be calculated from its elements <span class="math notranslate nohighlight">\((M_{i,j})\)</span> using various equivalent methods. One of the simplest methods is this recursive approach:</p>
 <p><span class="math notranslate nohighlight">\(|M| = M_{1,1}\times|M^{(1,1)}| - M_{2,1}\times|M^{(2,1)}| + M_{3,1}\times|M^{(3,1)}| - M_{4,1}\times|M^{(4,1)}| + \cdots ± M_{n,1}\times|M^{(n,1)}|\)</span></p>
 <ul class="simple">
@@ -3996,9 +4086,9 @@ d &amp; e &amp; f
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="composing-linear-transformations">
-<h2>Composing linear transformations<a class="headerlink" href="#composing-linear-transformations" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="composing-linear-transformations">
+<h2>Composing linear transformations<a class="headerlink" href="#composing-linear-transformations" title="Permalink to this headline">#</a></h2>
 <p>Several linear transformations can be chained simply by performing multiple dot products in a row. For example, to perform a squeeze mapping followed by a shear mapping, just write:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4042,9 +4132,9 @@ d &amp; e &amp; f
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="singular-value-decomposition">
-<h2>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="singular-value-decomposition">
+<h2>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline">#</a></h2>
 <p>It turns out that any <span class="math notranslate nohighlight">\(m \times n\)</span> matrix <span class="math notranslate nohighlight">\(M\)</span> can be decomposed into the dot product of three simple matrices:</p>
 <ul class="simple">
 <li><p>a rotation matrix <span class="math notranslate nohighlight">\(U\)</span> (an <span class="math notranslate nohighlight">\(m \times m\)</span> orthogonal matrix)</p></li>
@@ -4161,9 +4251,9 @@ d &amp; e &amp; f
 </div>
 </div>
 <p>And we can see that the result is indeed a shear mapping of the original unit square.</p>
-</div>
-<div class="section" id="eigenvectors-and-eigenvalues">
-<h2>Eigenvectors and eigenvalues<a class="headerlink" href="#eigenvectors-and-eigenvalues" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="eigenvectors-and-eigenvalues">
+<h2>Eigenvectors and eigenvalues<a class="headerlink" href="#eigenvectors-and-eigenvalues" title="Permalink to this headline">#</a></h2>
 <p>An <strong>eigenvector</strong> of a square matrix <span class="math notranslate nohighlight">\(M\)</span> (also called a <strong>characteristic vector</strong>) is a non-zero vector that remains on the same line after transformation by the linear transformation associated with <span class="math notranslate nohighlight">\(M\)</span>. A more formal definition is any vector <span class="math notranslate nohighlight">\(v\)</span> such that:</p>
 <p><span class="math notranslate nohighlight">\(M \cdot v = \lambda \times v\)</span></p>
 <p>Where <span class="math notranslate nohighlight">\(\lambda\)</span> is a scalar value called the <strong>eigenvalue</strong> associated to the vector <span class="math notranslate nohighlight">\(v\)</span>.</p>
@@ -4225,9 +4315,9 @@ d &amp; e &amp; f
 </div>
 </div>
 <p>Wait, what!? We expected just one unit eigenvector, not two. The second vector is almost equal to <span class="math notranslate nohighlight">\(\begin{pmatrix}-1 \\ 0 \end{pmatrix}\)</span>, which is on the same line as the first vector <span class="math notranslate nohighlight">\(\begin{pmatrix}1 \\ 0 \end{pmatrix}\)</span>. This is due to floating point errors. We can safely ignore vectors that are (almost) colinear (ie. on the same line).</p>
-</div>
-<div class="section" id="trace">
-<h2>Trace<a class="headerlink" href="#trace" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="trace">
+<h2>Trace<a class="headerlink" href="#trace" title="Permalink to this headline">#</a></h2>
 <p>The trace of a square matrix <span class="math notranslate nohighlight">\(M\)</span>, noted <span class="math notranslate nohighlight">\(tr(M)\)</span> is the sum of the values on its main diagonal. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4267,12 +4357,12 @@ d &amp; e &amp; f
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="what-next">
-<h1>What next?<a class="headerlink" href="#what-next" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="what-next">
+<h1>What next?<a class="headerlink" href="#what-next" title="Permalink to this headline">#</a></h1>
 <p>This concludes this introduction to Linear Algebra. Although these basics cover most of what you will need to know for Machine Learning, if you wish to go deeper into this topic there are many options available: Linear Algebra <a class="reference external" href="http://linear.axler.net/">books</a>, <a class="reference external" href="https://www.khanacademy.org/math/linear-algebra">Khan Academy</a> lessons, or just <a class="reference external" href="https://en.wikipedia.org/wiki/Linear_algebra">Wikipedia</a> pages.</p>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -4296,14 +4386,16 @@ d &amp; e &amp; f
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../extra/effective-python-and-idiomatic-pandas.html" title="previous page">
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../extra.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Effective Python and idiomatic pandas</p>
+            <p class="prev-next-title">Miscellaneous tips &amp; tricks</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="math_differential_calculus.html" title="next page">
@@ -4314,24 +4406,28 @@ d &amp; e &amp; f
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

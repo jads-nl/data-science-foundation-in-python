@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Multi-View Composition &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/visualization/altair_view_composition.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/visualization/altair_view_composition.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_view_composition.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_view_composition.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_view_composition.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_view_composition.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_view_composition.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_view_composition.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/visualization/altair_view_composition.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#weather-data">
    Weather Data
@@ -1351,12 +1441,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Multi-View Composition</h1>
@@ -1422,11 +1511,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="multi-view-composition">
-<h1>Multi-View Composition<a class="headerlink" href="#multi-view-composition" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="multi-view-composition">
+<h1>Multi-View Composition<a class="headerlink" href="#multi-view-composition" title="Permalink to this headline">#</a></h1>
 <p>When visualizing a number of different data fields, we might be tempted to use as many visual encoding channels as we can: <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">shape</span></code>, and so on. However, as the number of encoding channels increases, a chart can rapidly become cluttered and difficult to read. An alternative to “over-loading” a single chart is to instead <em>compose multiple charts</em> in a way that facilitates rapid comparisons.</p>
 <p>In this notebook, we will examine a variety of operations for <em>multi-view composition</em>:</p>
 <ul class="simple">
@@ -1445,8 +1535,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="weather-data">
-<h2>Weather Data<a class="headerlink" href="#weather-data" title="Permalink to this headline">¶</a></h2>
+<section id="weather-data">
+<h2>Weather Data<a class="headerlink" href="#weather-data" title="Permalink to this headline">#</a></h2>
 <p>We will be visualizing weather statistics for the U.S. cities of Seattle and New York. Let’s load the dataset and peek at the first and last 10 rows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1735,12 +1825,12 @@
 </div></div></div>
 </div>
 <p>We will create multi-view displays to examine weather within and across the cities.</p>
-</div>
-<div class="section" id="layer">
-<h2>Layer<a class="headerlink" href="#layer" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="layer">
+<h2>Layer<a class="headerlink" href="#layer" title="Permalink to this headline">#</a></h2>
 <p>One of the most common ways of combining multiple charts is to <em>layer</em> marks on top of each other. If the underlying scale domains are compatible, we can merge them to form <em>shared axes</em>. If either of the <code class="docutils literal notranslate"><span class="pre">x</span></code> or <code class="docutils literal notranslate"><span class="pre">y</span></code> encodings is not compatible, we might instead create a <em>dual-axis chart</em>, which overlays marks using separate scales and axes.</p>
-<div class="section" id="shared-axes">
-<h3>Shared Axes<a class="headerlink" href="#shared-axes" title="Permalink to this headline">¶</a></h3>
+<section id="shared-axes">
+<h3>Shared Axes<a class="headerlink" href="#shared-axes" title="Permalink to this headline">#</a></h3>
 <p>Let’s start by plotting the minimum and maximum average temperatures per month:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1754,13 +1844,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c9465819a7434266a9b12e751521b75c"></div>
+<div id="altair-viz-a2c8d63e296441638fc1ab58c05d728c"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c9465819a7434266a9b12e751521b75c") {
-      outputDiv = document.getElementById("altair-viz-c9465819a7434266a9b12e751521b75c");
+    if (outputDiv.id !== "altair-viz-a2c8d63e296441638fc1ab58c05d728c") {
+      outputDiv = document.getElementById("altair-viz-a2c8d63e296441638fc1ab58c05d728c");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1824,13 +1914,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2aa02ddb608c46468905a62a3ab43616"></div>
+<div id="altair-viz-778c036d0cea49edbd385c2584324123"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2aa02ddb608c46468905a62a3ab43616") {
-      outputDiv = document.getElementById("altair-viz-2aa02ddb608c46468905a62a3ab43616");
+    if (outputDiv.id !== "altair-viz-778c036d0cea49edbd385c2584324123") {
+      outputDiv = document.getElementById("altair-viz-778c036d0cea49edbd385c2584324123");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1896,13 +1986,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7657414054c24801b752bab79d8c2408"></div>
+<div id="altair-viz-6e3097ac24404490a3f0274e2ea47492"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7657414054c24801b752bab79d8c2408") {
-      outputDiv = document.getElementById("altair-viz-7657414054c24801b752bab79d8c2408");
+    if (outputDiv.id !== "altair-viz-6e3097ac24404490a3f0274e2ea47492") {
+      outputDiv = document.getElementById("altair-viz-6e3097ac24404490a3f0274e2ea47492");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1976,13 +2066,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9207036f45e040c1b6092e772df6aaa4"></div>
+<div id="altair-viz-00555cd0977c417ba2d92ec665fb24c1"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9207036f45e040c1b6092e772df6aaa4") {
-      outputDiv = document.getElementById("altair-viz-9207036f45e040c1b6092e772df6aaa4");
+    if (outputDiv.id !== "altair-viz-00555cd0977c417ba2d92ec665fb24c1") {
+      outputDiv = document.getElementById("altair-viz-00555cd0977c417ba2d92ec665fb24c1");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2056,13 +2146,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1d6cf077dc65478aaa3ed4adee2e415a"></div>
+<div id="altair-viz-bee0660901644959930633e4a6516f78"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1d6cf077dc65478aaa3ed4adee2e415a") {
-      outputDiv = document.getElementById("altair-viz-1d6cf077dc65478aaa3ed4adee2e415a");
+    if (outputDiv.id !== "altair-viz-bee0660901644959930633e4a6516f78") {
+      outputDiv = document.getElementById("altair-viz-bee0660901644959930633e4a6516f78");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2121,13 +2211,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-4a94286907004cd1bb82f569be8abdec"></div>
+<div id="altair-viz-29a3bb3491bf4ef5b290013cc000efcd"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4a94286907004cd1bb82f569be8abdec") {
-      outputDiv = document.getElementById("altair-viz-4a94286907004cd1bb82f569be8abdec");
+    if (outputDiv.id !== "altair-viz-29a3bb3491bf4ef5b290013cc000efcd") {
+      outputDiv = document.getElementById("altair-viz-29a3bb3491bf4ef5b290013cc000efcd");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2177,9 +2267,9 @@
 </script></div></div>
 </div>
 <p>Note that the order of inputs to a layer matters, as subsequent layers will be drawn on top of earlier layers. <em>Try swapping the order of the charts in the cells above. What happens? (Hint: look closely at the color of the <code class="docutils literal notranslate"><span class="pre">line</span></code> marks.)</em></p>
-</div>
-<div class="section" id="dual-axis-charts">
-<h3>Dual-Axis Charts<a class="headerlink" href="#dual-axis-charts" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="dual-axis-charts">
+<h3>Dual-Axis Charts<a class="headerlink" href="#dual-axis-charts" title="Permalink to this headline">#</a></h3>
 <p><em>Seattle has a reputation as a rainy city. Is that deserved?</em></p>
 <p>Let’s look at precipitation alongside temperature to learn more. First let’s create a base plot the shows average monthly precipitation in Seattle:</p>
 <div class="cell docutils container">
@@ -2198,13 +2288,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c1c14ebbafb647f2bfaf068b8ab93923"></div>
+<div id="altair-viz-1ebb10799671488db4a2a388eb749176"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c1c14ebbafb647f2bfaf068b8ab93923") {
-      outputDiv = document.getElementById("altair-viz-c1c14ebbafb647f2bfaf068b8ab93923");
+    if (outputDiv.id !== "altair-viz-1ebb10799671488db4a2a388eb749176") {
+      outputDiv = document.getElementById("altair-viz-1ebb10799671488db4a2a388eb749176");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2280,13 +2370,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-0f439264696a479bb804e3d85569b299"></div>
+<div id="altair-viz-ac4570ea662545f1ba5b334e664a7551"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-0f439264696a479bb804e3d85569b299") {
-      outputDiv = document.getElementById("altair-viz-0f439264696a479bb804e3d85569b299");
+    if (outputDiv.id !== "altair-viz-ac4570ea662545f1ba5b334e664a7551") {
+      outputDiv = document.getElementById("altair-viz-ac4570ea662545f1ba5b334e664a7551");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2364,13 +2454,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-eba83577f3fa4d91b4ea8ce0afe9f1cb"></div>
+<div id="altair-viz-a227231ffefa47dd8da9c40eafac3c3a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-eba83577f3fa4d91b4ea8ce0afe9f1cb") {
-      outputDiv = document.getElementById("altair-viz-eba83577f3fa4d91b4ea8ce0afe9f1cb");
+    if (outputDiv.id !== "altair-viz-a227231ffefa47dd8da9c40eafac3c3a") {
+      outputDiv = document.getElementById("altair-viz-a227231ffefa47dd8da9c40eafac3c3a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2445,13 +2535,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-971effce9a044a42b19da394ddc2bbf1"></div>
+<div id="altair-viz-a9723a9598b7422cb6201c69b375cc9a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-971effce9a044a42b19da394ddc2bbf1") {
-      outputDiv = document.getElementById("altair-viz-971effce9a044a42b19da394ddc2bbf1");
+    if (outputDiv.id !== "altair-viz-a9723a9598b7422cb6201c69b375cc9a") {
+      outputDiv = document.getElementById("altair-viz-a9723a9598b7422cb6201c69b375cc9a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2501,10 +2591,10 @@
 </script></div></div>
 </div>
 <p>While dual-axis charts can be useful, <em>they are often prone to misinterpretation</em>, as the different units and axis scales may be incommensurate. As is feasible, you might consider transformations that map different data fields to shared units, for example showing <a class="reference external" href="https://en.wikipedia.org/wiki/Quantile">quantiles</a> or relative percentage change.</p>
-</div>
-</div>
-<div class="section" id="facet">
-<h2>Facet<a class="headerlink" href="#facet" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="facet">
+<h2>Facet<a class="headerlink" href="#facet" title="Permalink to this headline">#</a></h2>
 <p><em>Faceting</em> involves subdividing a dataset into groups and creating a separate plot for each group. In earlier notebooks, we learned how to create faceted charts using the <code class="docutils literal notranslate"><span class="pre">row</span></code> and <code class="docutils literal notranslate"><span class="pre">column</span></code> encoding channels. We’ll first review those channels and then show how they are instances of the more general <code class="docutils literal notranslate"><span class="pre">facet</span></code> operator.</p>
 <p>Let’s start with a basic histogram of maximum temperature values in Seattle:</p>
 <div class="cell docutils container">
@@ -2520,13 +2610,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3bc02e42130f4576a4a093de0d466f5d"></div>
+<div id="altair-viz-7f11388939d0477eb4edc78349237760"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3bc02e42130f4576a4a093de0d466f5d") {
-      outputDiv = document.getElementById("altair-viz-3bc02e42130f4576a4a093de0d466f5d");
+    if (outputDiv.id !== "altair-viz-7f11388939d0477eb4edc78349237760") {
+      outputDiv = document.getElementById("altair-viz-7f11388939d0477eb4edc78349237760");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2600,13 +2690,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9e76745657bc4362b8b02471625ccf5c"></div>
+<div id="altair-viz-d6bbc64f819d445c9376c2bf081b951b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9e76745657bc4362b8b02471625ccf5c") {
-      outputDiv = document.getElementById("altair-viz-9e76745657bc4362b8b02471625ccf5c");
+    if (outputDiv.id !== "altair-viz-d6bbc64f819d445c9376c2bf081b951b") {
+      outputDiv = document.getElementById("altair-viz-d6bbc64f819d445c9376c2bf081b951b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2684,13 +2774,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-f24f8350c6934d949c57e248ffa57897"></div>
+<div id="altair-viz-4c21338d66514628b3aa7b055292226d"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f24f8350c6934d949c57e248ffa57897") {
-      outputDiv = document.getElementById("altair-viz-f24f8350c6934d949c57e248ffa57897");
+    if (outputDiv.id !== "altair-viz-4c21338d66514628b3aa7b055292226d") {
+      outputDiv = document.getElementById("altair-viz-4c21338d66514628b3aa7b055292226d");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2767,13 +2857,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-37fa40d3e1af4ba7aab637ef81c2e7be"></div>
+<div id="altair-viz-b4daa71af05148ad93a6609c62d541ef"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-37fa40d3e1af4ba7aab637ef81c2e7be") {
-      outputDiv = document.getElementById("altair-viz-37fa40d3e1af4ba7aab637ef81c2e7be");
+    if (outputDiv.id !== "altair-viz-b4daa71af05148ad93a6609c62d541ef") {
+      outputDiv = document.getElementById("altair-viz-b4daa71af05148ad93a6609c62d541ef");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2850,13 +2940,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-79a93bcbd09345cc8a0ff48dcb084de9"></div>
+<div id="altair-viz-a66291b4aff84c62a8014d84dde6649c"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-79a93bcbd09345cc8a0ff48dcb084de9") {
-      outputDiv = document.getElementById("altair-viz-79a93bcbd09345cc8a0ff48dcb084de9");
+    if (outputDiv.id !== "altair-viz-a66291b4aff84c62a8014d84dde6649c") {
+      outputDiv = document.getElementById("altair-viz-a66291b4aff84c62a8014d84dde6649c");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2933,13 +3023,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-fccbb2c9f1ae455ab9a776f9e5e7e3d5"></div>
+<div id="altair-viz-3e132019c37e4c80a1e0d131177880ea"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-fccbb2c9f1ae455ab9a776f9e5e7e3d5") {
-      outputDiv = document.getElementById("altair-viz-fccbb2c9f1ae455ab9a776f9e5e7e3d5");
+    if (outputDiv.id !== "altair-viz-3e132019c37e4c80a1e0d131177880ea") {
+      outputDiv = document.getElementById("altair-viz-3e132019c37e4c80a1e0d131177880ea");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2990,9 +3080,9 @@
 </div>
 <p><em>Now we see facet cells with different axis scale domains. In this case, using independent scales seems like a bad idea! The domains aren’t very different, and one might be fooled into thinking that New York and Seattle have similar maximum summer temperatures.</em></p>
 <p>To borrow a cliché: just because you <em>can</em> do something, doesn’t mean you <em>should</em>…</p>
-</div>
-<div class="section" id="concatenate">
-<h2>Concatenate<a class="headerlink" href="#concatenate" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="concatenate">
+<h2>Concatenate<a class="headerlink" href="#concatenate" title="Permalink to this headline">#</a></h2>
 <p>Faceting creates <a class="reference external" href="https://en.wikipedia.org/wiki/Small_multiple">small multiple</a> plots that show separate subdivisions of the data. However, we might wish to create a multi-view display with different views of the <em>same</em> dataset (not subsets) or views involving <em>different</em> datasets.</p>
 <p>Altair provides <em>concatenation</em> operators to combine arbitrary charts into a composed chart. The <code class="docutils literal notranslate"><span class="pre">hconcat</span></code> operator (shorthand <code class="docutils literal notranslate"><span class="pre">|</span></code> ) performs horizontal concatenation, while the <code class="docutils literal notranslate"><span class="pre">vconcat</span></code> operator (shorthand <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>) performs vertical concatenation.</p>
 <p>Let’s start with a basic line chart showing the average maximum temperature per month for both New York and Seattle, much like we’ve seen before:</p>
@@ -3008,13 +3098,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d03b11c84c2e4de58e44a53999505b09"></div>
+<div id="altair-viz-92071201692240158efbf0fe48db5a3f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d03b11c84c2e4de58e44a53999505b09") {
-      outputDiv = document.getElementById("altair-viz-d03b11c84c2e4de58e44a53999505b09");
+    if (outputDiv.id !== "altair-viz-92071201692240158efbf0fe48db5a3f") {
+      outputDiv = document.getElementById("altair-viz-92071201692240158efbf0fe48db5a3f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3085,13 +3175,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2384efd9fe6d476bb380dd10cb6fd58c"></div>
+<div id="altair-viz-40c59ac4398446fd9001d4dd10616408"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2384efd9fe6d476bb380dd10cb6fd58c") {
-      outputDiv = document.getElementById("altair-viz-2384efd9fe6d476bb380dd10cb6fd58c");
+    if (outputDiv.id !== "altair-viz-40c59ac4398446fd9001d4dd10616408") {
+      outputDiv = document.getElementById("altair-viz-40c59ac4398446fd9001d4dd10616408");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3145,9 +3235,9 @@
 <p>Finally, note that horizontal and vertical concatenation can be combined. <em>What happens if you write something like <code class="docutils literal notranslate"><span class="pre">(temp</span> <span class="pre">|</span> <span class="pre">precip)</span> <span class="pre">&amp;</span> <span class="pre">wind</span></code>?</em></p>
 <p><em>Aside</em>: Note the importance of those parentheses… what happens if you remove them? Keep in mind that these overloaded operators are still subject to <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#operator-precedence">Python’s operator precendence rules</a>, and so vertical concatenation with <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> will take precedence over horizontal concatenation with <code class="docutils literal notranslate"><span class="pre">|</span></code>!</p>
 <p>As we will revisit later, concatenation operators let you combine any and all charts into a multi-view dashboard!</p>
-</div>
-<div class="section" id="repeat">
-<h2>Repeat<a class="headerlink" href="#repeat" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="repeat">
+<h2>Repeat<a class="headerlink" href="#repeat" title="Permalink to this headline">#</a></h2>
 <p>The concatenation operators above are quite general, allowing arbitrary charts to be composed. Nevertheless, the example above was still a bit verbose: we have three very similar charts, yet have to define them separately and then concatenate them.</p>
 <p>For cases where only one or two variables are changing, the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> operator provides a convenient shortcut for creating multiple charts. Given a <em>template</em> specification with some free variables, the repeat operator will then create a chart for each specified assignment to those variables.</p>
 <p>Let’s recreate our concatenation example above using the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> operator. The only aspect that changes across charts is the choice of data field for the <code class="docutils literal notranslate"><span class="pre">y</span></code> encoding channel. To create a template specification, we can use the <em>repeater variable</em> <code class="docutils literal notranslate"><span class="pre">alt.repeat('column')</span></code> as our y-axis field. This code simply states that we want to use the variable assigned to the <code class="docutils literal notranslate"><span class="pre">column</span></code> repeater, which organizes repeated charts in a horizontal direction. (As the repeater provides the field name only, we have to specify the field data type separately as <code class="docutils literal notranslate"><span class="pre">type='quantitative'</span></code>.)</p>
@@ -3169,13 +3259,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-5e918ebd4dee40e1b1b2226f41a20459"></div>
+<div id="altair-viz-e6e033dcbe0841ecbdf212f540dcbc96"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5e918ebd4dee40e1b1b2226f41a20459") {
-      outputDiv = document.getElementById("altair-viz-5e918ebd4dee40e1b1b2226f41a20459");
+    if (outputDiv.id !== "altair-viz-e6e033dcbe0841ecbdf212f540dcbc96") {
+      outputDiv = document.getElementById("altair-viz-e6e033dcbe0841ecbdf212f540dcbc96");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3247,13 +3337,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-0c5ae2de1c6049d6aac490205abe0f16"></div>
+<div id="altair-viz-dee39367a7a44bceb6e9a27a2f1ca0e3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-0c5ae2de1c6049d6aac490205abe0f16") {
-      outputDiv = document.getElementById("altair-viz-0c5ae2de1c6049d6aac490205abe0f16");
+    if (outputDiv.id !== "altair-viz-dee39367a7a44bceb6e9a27a2f1ca0e3") {
+      outputDiv = document.getElementById("altair-viz-dee39367a7a44bceb6e9a27a2f1ca0e3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3305,9 +3395,9 @@
 <p><em>Looking at these plots, there does not appear to be a strong association between precipitation and wind, though we do see that extreme wind and precipitation events occur in similar temperature ranges (~5-15° C). However, this observation is not particularly surprising: if we revisit our histogram at the beginning of the facet section, we can plainly see that the days with maximum temperatures in the range of 5-15° C are the most commonly occurring.</em></p>
 <p><em>Modify the code above to get a better understanding of chart repetition. Try adding another variable (<code class="docutils literal notranslate"><span class="pre">temp_min</span></code>) to the SPLOM. What happens if you rearrange the order of the field names in either the <code class="docutils literal notranslate"><span class="pre">row</span></code> or <code class="docutils literal notranslate"><span class="pre">column</span></code> parameters for the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> operator?</em></p>
 <p><em>Finally, to really appreciate what the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> operator provides, take a moment to imagine how you might recreate the SPLOM above using only <code class="docutils literal notranslate"><span class="pre">hconcat</span></code> and <code class="docutils literal notranslate"><span class="pre">vconcat</span></code>!</em></p>
-</div>
-<div class="section" id="a-view-composition-algebra">
-<h2>A View Composition Algebra<a class="headerlink" href="#a-view-composition-algebra" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="a-view-composition-algebra">
+<h2>A View Composition Algebra<a class="headerlink" href="#a-view-composition-algebra" title="Permalink to this headline">#</a></h2>
 <p>Together, the composition operators <code class="docutils literal notranslate"><span class="pre">layer</span></code>, <code class="docutils literal notranslate"><span class="pre">facet</span></code>, <code class="docutils literal notranslate"><span class="pre">concat</span></code>, and <code class="docutils literal notranslate"><span class="pre">repeat</span></code> form a <em>view composition algebra</em>: the various operators can be combined to construct a variety of multi-view visualizations.</p>
 <p>As an example, let’s start with two basic charts: a histogram and a simple line (a single <code class="docutils literal notranslate"><span class="pre">rule</span></code> mark) showing a global average.</p>
 <div class="cell docutils container">
@@ -3331,13 +3421,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a54563cde25f47d9a55447916da8bfba"></div>
+<div id="altair-viz-a9d9c53380ac4e0fbba96986f55c5fc5"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a54563cde25f47d9a55447916da8bfba") {
-      outputDiv = document.getElementById("altair-viz-a54563cde25f47d9a55447916da8bfba");
+    if (outputDiv.id !== "altair-viz-a9d9c53380ac4e0fbba96986f55c5fc5") {
+      outputDiv = document.getElementById("altair-viz-a9d9c53380ac4e0fbba96986f55c5fc5");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3411,13 +3501,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ed5aa28f74b04cc29a314d2b04005a37"></div>
+<div id="altair-viz-3b94c9e72e7749d48dc0d560735952bd"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ed5aa28f74b04cc29a314d2b04005a37") {
-      outputDiv = document.getElementById("altair-viz-ed5aa28f74b04cc29a314d2b04005a37");
+    if (outputDiv.id !== "altair-viz-3b94c9e72e7749d48dc0d560735952bd") {
+      outputDiv = document.getElementById("altair-viz-3b94c9e72e7749d48dc0d560735952bd");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3533,13 +3623,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d798271e8c8245b99bedab5b475aa6d2"></div>
+<div id="altair-viz-2f249d7b78e04455bfe016d136d3c24b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d798271e8c8245b99bedab5b475aa6d2") {
-      outputDiv = document.getElementById("altair-viz-d798271e8c8245b99bedab5b475aa6d2");
+    if (outputDiv.id !== "altair-viz-2f249d7b78e04455bfe016d136d3c24b") {
+      outputDiv = document.getElementById("altair-viz-2f249d7b78e04455bfe016d136d3c24b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3609,14 +3699,14 @@
 </ul>
 <p><em>Try removing or modifying any of these adjustments and see how the dashboard layout responds!</em></p>
 <p>This dashboard can be reused to show data for other locations or from other datasets. <em>Update the dashboard to show weather patterns for New York instead of Seattle.</em></p>
-</div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <p>For more details on multi-view composition, including control over sub-plot spacing and header labels, see the <a class="reference external" href="https://altair-viz.github.io/user_guide/compound_charts.html">Altair Compound Charts documentation</a>.</p>
 <p>Now that we’ve seen how to compose multiple views, we’re ready to put them into action. In addition to statically presenting data, multiple views can enable interactive multi-dimensional exploration. For example, using <em>linked selections</em> we can highlight points in one view to see corresponding values highlight in other views.</p>
 <p>In the next notebook, we’ll examine how to author <em>interactive selections</em> for both individual plots and multi-view compositions.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3640,9 +3730,11 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="altair_scales_axes_legends.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -3658,24 +3750,28 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

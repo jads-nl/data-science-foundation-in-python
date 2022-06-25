@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Math primer - Differential Calculus &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,23 +37,21 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/handson-ml2/original/math_differential_calculus.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -968,16 +980,6 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="../extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,112 +1173,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/handson-ml2/original/math_differential_calculus.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/math_differential_calculus.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/math_differential_calculus.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/math_differential_calculus.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/math_differential_calculus.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/math_differential_calculus.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/math_differential_calculus.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/handson-ml2/original/math_differential_calculus.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    Math primer - Differential Calculus
@@ -1499,12 +1589,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Math primer - Differential Calculus</h1>
@@ -1716,17 +1805,18 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="math-primer-differential-calculus">
-<h1>Math primer - Differential Calculus<a class="headerlink" href="#math-primer-differential-calculus" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="math-primer-differential-calculus">
+<h1>Math primer - Differential Calculus<a class="headerlink" href="#math-primer-differential-calculus" title="Permalink to this headline">#</a></h1>
 <p>Calculus is the study of continuous change. It has two major subfields: <em>differential calculus</em>, which studies the rate of change of functions, and <em>integral calculus</em>, which studies the area under the curve. In this notebook, we will discuss the former.</p>
 <p><em>Differential calculus is at the core of Deep Learning, so it is important to understand what derivatives and gradients are, how they are used in Deep Learning, and understand what their limitations are.</em></p>
 <p><strong>Note:</strong> the code in this notebook is only used to create figures and animations. You do not need to understand how it works (although I did my best to make it clear, in case you are interested).</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="slope-of-a-straight-line">
-<h1>Slope of a straight line<a class="headerlink" href="#slope-of-a-straight-line" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="slope-of-a-straight-line">
+<h1>Slope of a straight line<a class="headerlink" href="#slope-of-a-straight-line" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
@@ -1791,9 +1881,9 @@
 <p>As you probably know, the slope of a (non-vertical) straight line can be calculated by taking any two points <span class="math notranslate nohighlight">\(\mathrm{A}\)</span> and <span class="math notranslate nohighlight">\(\mathrm{B}\)</span> on the line, and computing the “rise over run”:</p>
 <p><span class="math notranslate nohighlight">\(slope = \dfrac{rise}{run} = \dfrac{\Delta y}{\Delta x} = \dfrac{y_\mathrm{B} - y_\mathrm{A}}{x_\mathrm{B} - x_\mathrm{A}}\)</span></p>
 <p>In this example, the rise is 3, and the run is 6, so the slope is 3/6 = 0.5.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="defining-the-slope-of-a-curve">
-<h1>Defining the slope of a curve<a class="headerlink" href="#defining-the-slope-of-a-curve" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="defining-the-slope-of-a-curve">
+<h1>Defining the slope of a curve<a class="headerlink" href="#defining-the-slope-of-a-curve" title="Permalink to this headline">#</a></h1>
 <p>But what if you want to know the slope of something else than a straight line? For example, let’s consider the curve defined by <span class="math notranslate nohighlight">\(y = f(x) = x^2\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2508,9 +2598,9 @@ IYQQVun/AUrgnKx9Gj5qAAAAAElFTkSuQmCC\
 </div>
 <p>As you can see, when point <span class="math notranslate nohighlight">\(\mathrm{B}\)</span> is very close to point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span>, the <span class="math notranslate nohighlight">\((\mathrm{AB})\)</span> line becomes almost indistinguishable from the curve itself (at least locally around point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span>). The <span class="math notranslate nohighlight">\((\mathrm{AB})\)</span> line gets closer and closer to the <strong>tangent</strong> line to the curve at point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span>: this is the best linear approximation of the curve at point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span>.</p>
 <p>So it makes sense to define the slope of the curve at point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span> as the slope that the <span class="math notranslate nohighlight">\(\mathrm{(AB)}\)</span> line approaches when <span class="math notranslate nohighlight">\(\mathrm{B}\)</span> gets infinitely close to <span class="math notranslate nohighlight">\(\mathrm{A}\)</span>. This slope is called the <strong>derivative</strong> of the function <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x=x_\mathrm{A}\)</span>. For example, the derivative of the function <span class="math notranslate nohighlight">\(f(x)=x^2\)</span> at <span class="math notranslate nohighlight">\(x=x_\mathrm{A}\)</span> is equal to <span class="math notranslate nohighlight">\(2x_\mathrm{A}\)</span> (we will see how to get this result shortly), so on the graph above, since the point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span> is located at <span class="math notranslate nohighlight">\(x_\mathrm{A}=-1\)</span>, the tangent line to the curve at that point has a slope of <span class="math notranslate nohighlight">\(-2\)</span>.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="differentiability">
-<h1>Differentiability<a class="headerlink" href="#differentiability" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="differentiability">
+<h1>Differentiability<a class="headerlink" href="#differentiability" title="Permalink to this headline">#</a></h1>
 <p>Note that some functions are not quite as well-behaved as <span class="math notranslate nohighlight">\(x^2\)</span>: for example, consider the function <span class="math notranslate nohighlight">\(f(x)=|x|\)</span>, the absolute value of <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3639,16 +3729,16 @@ lDjAiIjIlH4BXpOt+i9OH4gAAAAASUVORK5CYII=\
 </div></div>
 </div>
 <p>Now let’s see how to actually differentiate a function (i.e., find its derivative).</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="differentiating-a-function">
-<h1>Differentiating a function<a class="headerlink" href="#differentiating-a-function" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="differentiating-a-function">
+<h1>Differentiating a function<a class="headerlink" href="#differentiating-a-function" title="Permalink to this headline">#</a></h1>
 <p>The previous discussion leads to the following definition:</p>
 <hr />
 <p>The <strong>derivative</strong> of a function <span class="math notranslate nohighlight">\(f(x)\)</span> at <span class="math notranslate nohighlight">\(x = x_\mathrm{A}\)</span> is noted <span class="math notranslate nohighlight">\(f'(x_\mathrm{A})\)</span>, and it is defined as:</p>
 <p><span class="math notranslate nohighlight">\(f'(x_\mathrm{A}) = \underset{x_\mathrm{B} \to x_\mathrm{A}}\lim\dfrac{f(x_\mathrm{B}) - f(x_\mathrm{A})}{x_\mathrm{B} - x_\mathrm{A}}\)</span></p>
 <hr /><p>Don’t be scared, this is simpler than it looks! You may recognize the <em>rise over run</em> equation <span class="math notranslate nohighlight">\(\dfrac{y_\mathrm{B} - y_\mathrm{A}}{x_\mathrm{B} - x_\mathrm{A}}\)</span> that we discussed earlier. That’s just the slope of the <span class="math notranslate nohighlight">\(\mathrm{(AB)}\)</span> line. And the notation <span class="math notranslate nohighlight">\(\underset{x_\mathrm{B} \to x_\mathrm{A}}\lim\)</span> means that we are making <span class="math notranslate nohighlight">\(x_\mathrm{B}\)</span> approach infinitely close to <span class="math notranslate nohighlight">\(x_\mathrm{A}\)</span>. So in plain English, <span class="math notranslate nohighlight">\(f'(x_\mathrm{A})\)</span> is the value that the slope of the <span class="math notranslate nohighlight">\(\mathrm{(AB)}\)</span> line approaches when <span class="math notranslate nohighlight">\(\mathrm{B}\)</span> gets infinitely close to <span class="math notranslate nohighlight">\(\mathrm{A}\)</span>. This is just a formal way of saying exactly the same thing as earlier.</p>
-<div class="section" id="example-finding-the-derivative-of-x-2">
-<h2>Example: finding the derivative of <span class="math notranslate nohighlight">\(x^2\)</span><a class="headerlink" href="#example-finding-the-derivative-of-x-2" title="Permalink to this headline">¶</a></h2>
+<section id="example-finding-the-derivative-of-x-2">
+<h2>Example: finding the derivative of <span class="math notranslate nohighlight">\(x^2\)</span><a class="headerlink" href="#example-finding-the-derivative-of-x-2" title="Permalink to this headline">#</a></h2>
 <p>Let’s look at a concrete example. Let’s see if we can determine what the slope of the <span class="math notranslate nohighlight">\(y=x^2\)</span> curve is, at any point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span> (try to understand each line, I promise it’s not that hard):</p>
 <p><span class="math notranslate nohighlight">\(
 \begin{align*}
@@ -3688,9 +3778,9 @@ f'(x) \, &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x + \epsilon) - f(x)}{\ep
 \end{align*}
 \)</span></p>
 <p>Yep! It works out.</p>
-</div>
-<div class="section" id="notations">
-<h2>Notations<a class="headerlink" href="#notations" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="notations">
+<h2>Notations<a class="headerlink" href="#notations" title="Permalink to this headline">#</a></h2>
 <p>A word about notations: there are several other notations for the derivative that you will find in the literature:</p>
 <p><span class="math notranslate nohighlight">\(f'(x) = \dfrac{\mathrm{d}f(x)}{\mathrm{d}x} = \dfrac{\mathrm{d}}{\mathrm{d}x}f(x)\)</span></p>
 <p>This notation is also handy when a function is not named. For example <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}}{\mathrm{d}x}[x^2]\)</span> refers to the derivative of the function <span class="math notranslate nohighlight">\(x \mapsto x^2\)</span>.</p>
@@ -3698,9 +3788,9 @@ f'(x) \, &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x + \epsilon) - f(x)}{\ep
 <p><span class="math notranslate nohighlight">\(f' = \dfrac{\mathrm{d}f}{\mathrm{d}x} = \dfrac{\mathrm{d}}{\mathrm{d}x}f\)</span></p>
 <p>The <span class="math notranslate nohighlight">\(f'\)</span> notation is Lagrange’s notation, while <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}f}{\mathrm{d}x}\)</span> is Leibniz’s notation.</p>
 <p>There are also other less common notations, such as Newton’s notation <span class="math notranslate nohighlight">\(\dot y\)</span> (assuming <span class="math notranslate nohighlight">\(y = f(x)\)</span>) or Euler’s notation <span class="math notranslate nohighlight">\(\mathrm{D}f\)</span>.</p>
-</div>
-<div class="section" id="plotting-the-tangent-to-a-curve">
-<h2>Plotting the tangent to a curve<a class="headerlink" href="#plotting-the-tangent-to-a-curve" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="plotting-the-tangent-to-a-curve">
+<h2>Plotting the tangent to a curve<a class="headerlink" href="#plotting-the-tangent-to-a-curve" title="Permalink to this headline">#</a></h2>
 <p>Let’s use the equation <span class="math notranslate nohighlight">\(f'(x) = 2x\)</span> to plot the tangent to the <span class="math notranslate nohighlight">\(y=x^2\)</span> curve at various values of <span class="math notranslate nohighlight">\(x\)</span> (you can click on the play button under the graphs to play the animation):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4482,10 +4572,10 @@ Ak1EpCkWaCIiTbFAExFpigWaiEhT/weYoMpI7HJYCAAAAABJRU5ErkJggg==\
 <p><span class="math notranslate nohighlight">\(y = f(x_\mathrm{A}) + f'(x_\mathrm{A})(x - x_\mathrm{A})\)</span></p>
 <p>For example, the tangent to the <span class="math notranslate nohighlight">\(y=x^2\)</span> curve is given by:</p>
 <p><span class="math notranslate nohighlight">\(y = {x_\mathrm{A}}^2 + 2x_\mathrm{A}(x - x_\mathrm{A}) = 2x_\mathrm{A}x - x_\mathrm{A}^2\)</span></p>
-<hr /></div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="differentiation-rules">
-<h1>Differentiation rules<a class="headerlink" href="#differentiation-rules" title="Permalink to this headline">¶</a></h1>
+<hr /></section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="differentiation-rules">
+<h1>Differentiation rules<a class="headerlink" href="#differentiation-rules" title="Permalink to this headline">#</a></h1>
 <p>One very important rule is that <strong>the derivative of a sum is the sum of the derivatives</strong>. More precisely, if we define <span class="math notranslate nohighlight">\(f(x) = g(x) + h(x)\)</span>, then <span class="math notranslate nohighlight">\(f'(x) = g'(x) + h'(x)\)</span>. This is quite easy to prove:</p>
 <p><span class="math notranslate nohighlight">\(
 \begin{align*}
@@ -5416,17 +5506,17 @@ P4//i9gxDgAAAABJRU5ErkJggg==\
 </script>
 </div></div>
 </div>
-<div class="section" id="the-chain-rule">
-<h2>The chain rule<a class="headerlink" href="#the-chain-rule" title="Permalink to this headline">¶</a></h2>
+<section id="the-chain-rule">
+<h2>The chain rule<a class="headerlink" href="#the-chain-rule" title="Permalink to this headline">#</a></h2>
 <p>The chain rule is easier to remember using Leibniz’s notation:</p>
 <p>If <span class="math notranslate nohighlight">\(f(x)=g(h(x))\)</span> and <span class="math notranslate nohighlight">\(y=h(x)\)</span>, then: <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}f}{\mathrm{d}x} = \dfrac{\mathrm{d}f}{\mathrm{d}y} \dfrac{\mathrm{d}y}{\mathrm{d}x}\)</span></p>
 <p>Indeed, <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}f}{\mathrm{d}y} = f'(y) = f'(h(x))\)</span> and <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}y}{\mathrm{d}x}=h'(x)\)</span>.</p>
 <p>It is possible to chain many functions. For example, if <span class="math notranslate nohighlight">\(f(x)=g(h(i(x)))\)</span>, and we define <span class="math notranslate nohighlight">\(y=i(x)\)</span> and <span class="math notranslate nohighlight">\(z=h(y)\)</span>, then <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}f}{\mathrm{d}x} = \dfrac{\mathrm{d}f}{\mathrm{d}z} \dfrac{\mathrm{d}z}{\mathrm{d}y} \dfrac{\mathrm{d}y}{\mathrm{d}x}\)</span>. Using Lagrange’s notation, we get <span class="math notranslate nohighlight">\(f'(x)=g'(z)\,h'(y)\,i'(x)=g'(h(i(x)))\,h'(i(x))\,i'(x)\)</span></p>
 <p>The chain rule is crucial in Deep Learning, as a neural network is basically as a long composition of functions. For example, a 3-layer dense neural network corresponds to the following function: <span class="math notranslate nohighlight">\(f(\mathbf{x})=\operatorname{Dense}_3(\operatorname{Dense}_2(\operatorname{Dense}_1(\mathbf{x})))\)</span> (in this example, <span class="math notranslate nohighlight">\(\operatorname{Dense}_3\)</span> is the output layer).</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="derivatives-and-optimization">
-<h1>Derivatives and optimization<a class="headerlink" href="#derivatives-and-optimization" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="derivatives-and-optimization">
+<h1>Derivatives and optimization<a class="headerlink" href="#derivatives-and-optimization" title="Permalink to this headline">#</a></h1>
 <p>When trying to optimize a function <span class="math notranslate nohighlight">\(f(x)\)</span>, we look for the values of <span class="math notranslate nohighlight">\(x\)</span> that minimize (or maximize) the function.</p>
 <p>It is important to note that when a function reaches a minimum or maximum, assuming it is differentiable at that point, the derivative will necessarily be equal to 0. For example, you can check the above animation, and notice that whenever the function <span class="math notranslate nohighlight">\(f\)</span> (in the upper graph) reaches a maximum or minimum, then the derivative <span class="math notranslate nohighlight">\(f'\)</span> (in the lower graph) is equal to 0.</p>
 <p>So one way to optimize a function is to differentiate it and analytically find all the values for which the derivative is 0, then determine which of these values optimize the function (if any). For example, consider the function <span class="math notranslate nohighlight">\(f(x)=\dfrac{1}{4}x^4 - x^2 + \dfrac{1}{2}\)</span>. Using the derivative rules (specifically, the sum rule, the product rule, the power rule and the constant rule), we find that <span class="math notranslate nohighlight">\(f'(x)=x^3 - 2x\)</span>. We look for the values of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(f'(x)=0\)</span>, so <span class="math notranslate nohighlight">\(x^3-2x=0\)</span>, and therefore <span class="math notranslate nohighlight">\(x(x^2-2)=0\)</span>. So <span class="math notranslate nohighlight">\(x=0\)</span>, or <span class="math notranslate nohighlight">\(x=\sqrt2\)</span> or <span class="math notranslate nohighlight">\(x=-\sqrt2\)</span>. As you can see on the following graph of <span class="math notranslate nohighlight">\(f(x)\)</span>, these 3 values correspond to local extrema. Two global minima <span class="math notranslate nohighlight">\(f\left(\sqrt2\right)=f\left(-\sqrt2\right)=-\dfrac{1}{2}\)</span> and one local maximum <span class="math notranslate nohighlight">\(f(0)=\dfrac{1}{2}\)</span>.</p>
@@ -6332,15 +6422,15 @@ gg==\
 </div>
 <p>In this example, we started with <span class="math notranslate nohighlight">\(x_0 = \dfrac{1}{4}\)</span>, so Gradient Descent “rolled down” towards the minimum value at <span class="math notranslate nohighlight">\(x = \sqrt2\)</span>. But if we had started at <span class="math notranslate nohighlight">\(x_0 = -\dfrac{1}{4}\)</span>, it would have gone towards <span class="math notranslate nohighlight">\(-\sqrt2\)</span>. This illustrates the fact that the initial value is important: depending on <span class="math notranslate nohighlight">\(x_0\)</span>, the algorithm may converge to a global minimum (hurray!) or to a poor local minimum (boo!) or stay stuck on a plateau, such as a horizontal inflection point (boo!).</p>
 <p>There are many variants of the Gradient Descent algorithm, discussed in Chapter 11 of the book. These are the ones we care about in Deep Learning. They all rely on the derivative of the cost function with regards to the model parameters (we will discuss functions with multiple parameters later in this notebook).</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="higher-order-derivatives">
-<h1>Higher order derivatives<a class="headerlink" href="#higher-order-derivatives" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="higher-order-derivatives">
+<h1>Higher order derivatives<a class="headerlink" href="#higher-order-derivatives" title="Permalink to this headline">#</a></h1>
 <p>What happens if we try to differentiate the function <span class="math notranslate nohighlight">\(f'(x)\)</span>? Well, we get the so-called second order derivative, noted <span class="math notranslate nohighlight">\(f''(x)\)</span>, or <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}^2f}{\mathrm{d}x^2}\)</span>. If we repeat the process by differentiating <span class="math notranslate nohighlight">\(f''(x)\)</span>, we get the third-order derivative <span class="math notranslate nohighlight">\(f'''(x)\)</span>, or <span class="math notranslate nohighlight">\(\dfrac{\mathrm{d}^3f}{\mathrm{d}x^3}\)</span>. And we could go on to get higher order derivatives.</p>
 <p>What’s the intuition behind second order derivatives? Well, since the (first order) derivative represents the instantaneous rate of change of <span class="math notranslate nohighlight">\(f\)</span> at each point, the second order derivative represents the instantaneous rate of change of the rate of change itself, in other words, you can think of it as the <strong>acceleration</strong> of the curve: if <span class="math notranslate nohighlight">\(f''(x) &lt; 0\)</span>, then the curve is accelerating “downwards”, if <span class="math notranslate nohighlight">\(f''(x) &gt; 0\)</span> then the curve is accelerating “upwards”, and if <span class="math notranslate nohighlight">\(f''(x) = 0\)</span>, then the curve is locally a straight line. Note that a curve could be going upwards (i.e., <span class="math notranslate nohighlight">\(f'(x)&gt;0\)</span>) but also be accelerating downwards (i.e., <span class="math notranslate nohighlight">\(f''(x) &lt; 0\)</span>): for example, imagine the path of a stone thrown upwards, as it is being slowed down by gravity (which constantly accelerates the stone downwards).</p>
 <p>Deep Learning generally only uses first order derivatives, but you will sometimes run into some optimization algorithms or cost functions based on second order derivatives.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="partial-derivatives">
-<h1>Partial derivatives<a class="headerlink" href="#partial-derivatives" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="partial-derivatives">
+<h1>Partial derivatives<a class="headerlink" href="#partial-derivatives" title="Permalink to this headline">#</a></h1>
 <p>Up to now, we have only considered functions with a single variable <span class="math notranslate nohighlight">\(x\)</span>. What happens when there are multiple variables? For example, let’s start with a simple function with 2 variables: <span class="math notranslate nohighlight">\(f(x,y)=\sin(xy)\)</span>. If we plot this function, using <span class="math notranslate nohighlight">\(z=f(x,y)\)</span>, we get the following 3D graph. I also plotted some point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span> on the surface, along with two lines I will describe shortly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -6416,9 +6506,9 @@ gg==\
 <p>In Deep Learning, we will generally be dealing with well-behaved functions that are totally differentiable at any point where all the partial derivatives are defined, but you should know that some functions are not that nice. For example, consider the function:</p>
 <p><span class="math notranslate nohighlight">\(h(x,y)=\begin{cases}0 \text { if } x=0 \text{ or } y=0\\1 \text { otherwise}\end{cases}\)</span></p>
 <p>At the origin (i.e., at <span class="math notranslate nohighlight">\((x,y)=(0,0)\)</span>), the partial derivatives of the function <span class="math notranslate nohighlight">\(h\)</span> with respect to <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are both perfectly defined: they are equal to 0. Yet the function can clearly not be approximated by a plane at that point. It is not totally differentiable at that point (but it is totally differentiable at any point off the axes).</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="gradients">
-<h1>Gradients<a class="headerlink" href="#gradients" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gradients">
+<h1>Gradients<a class="headerlink" href="#gradients" title="Permalink to this headline">#</a></h1>
 <p>So far we have considered only functions with a single variable <span class="math notranslate nohighlight">\(x\)</span>, or with 2 variables, <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, but the previous paragraph also applies to functions with more variables. So let’s consider a function <span class="math notranslate nohighlight">\(f\)</span> with <span class="math notranslate nohighlight">\(n\)</span> variables: <span class="math notranslate nohighlight">\(f(x_1, x_2, \dots, x_n)\)</span>. For convenience, we will define a vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> whose components are these variables:</p>
 <p><span class="math notranslate nohighlight">\(\mathbf{x}=\begin{pmatrix}
 x_1\\
@@ -6435,15 +6525,15 @@ x_n
 \dfrac{\partial f}{\partial x_n}(\mathbf{x}_\mathrm{A})\\
 \end{pmatrix}\)</span></p>
 <p>Assuming the function is totally differentiable at the point <span class="math notranslate nohighlight">\(\mathbf{x}_\mathbf{A}\)</span>, then the surface it describes can be approximated by a plane at that point (as discussed in the previous section), and the gradient vector is the one that points towards the steepest slope on that plane.</p>
-<div class="section" id="gradient-descent-revisited">
-<h2>Gradient Descent, revisited<a class="headerlink" href="#gradient-descent-revisited" title="Permalink to this headline">¶</a></h2>
+<section id="gradient-descent-revisited">
+<h2>Gradient Descent, revisited<a class="headerlink" href="#gradient-descent-revisited" title="Permalink to this headline">#</a></h2>
 <p>In Deep Learning, the Gradient Descent algorithm we discussed earlier is based on gradients instead of derivatives (hence its name). It works in much the same way, but using vectors instead of scalars: simply start with a random vector <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span>, then compute the gradient of <span class="math notranslate nohighlight">\(f\)</span> at that point, and perform a small step in the opposite direction, then repeat until convergence. More precisely, at each step <span class="math notranslate nohighlight">\(t\)</span>, compute <span class="math notranslate nohighlight">\(\mathbf{x}_t = \mathbf{x}_{t-1} - \eta \nabla f(\mathbf{x}_{t-1})\)</span>. The constant <span class="math notranslate nohighlight">\(\eta\)</span> is the learning rate, typically a small value such as <span class="math notranslate nohighlight">\(10^{-3}\)</span>. In practice, we generally use more efficient variants of this algorithm, but the general idea remains the same.</p>
 <p>In Deep Learning, the letter <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is generally used to represent the input data. When you <em>use</em> a neural network to make predictions, you feed the neural network the inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, and you get back a prediction <span class="math notranslate nohighlight">\(\hat{y} = f(\mathbf{x})\)</span>. The function <span class="math notranslate nohighlight">\(f\)</span> treats the model parameters as constants. We can use more explicit notation by writing <span class="math notranslate nohighlight">\(\hat{y} = f_\mathbf{w}(\mathbf{x})\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> represents the model parameters and indicates that the function relies on them, but treats them as constants.</p>
 <p>However, when <em>training</em> a neural network, we do quite the opposite: all the training examples are grouped in a matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, all the labels are grouped in a vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, and both <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are treated as constants, while <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> is treated as variable: specifically, we try to minimize the cost function <span class="math notranslate nohighlight">\(\mathcal L_{\mathbf{X}, \mathbf{y}}(\mathbf{w}) = g(f_{\mathbf{X}}(\mathbf{w}), \mathbf{y})\)</span>, where <span class="math notranslate nohighlight">\(g\)</span> is a function that measures the “discrepancy” between the predictions <span class="math notranslate nohighlight">\(f_{\mathbf{X}}(\mathbf{w})\)</span> and the labels <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, where <span class="math notranslate nohighlight">\(f_{\mathbf{X}}(\mathbf{w})\)</span> represents the vector containing the predictions for each training example. Minimizing the loss function is usually performed using Gradient Descent (or a variant of GD): we start with random model parameters <span class="math notranslate nohighlight">\(\mathbf{w}_0\)</span>, then we compute <span class="math notranslate nohighlight">\(\nabla \mathcal L(\mathbf{w}_0)\)</span> and we use this gradient vector to perform a Gradient Descent step, then we repeat the process until convergence. It is crucial to understand that the gradient of the loss function is with regards to the model parameters <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> (<em>not</em> the inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>).</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="jacobians">
-<h1>Jacobians<a class="headerlink" href="#jacobians" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="jacobians">
+<h1>Jacobians<a class="headerlink" href="#jacobians" title="Permalink to this headline">#</a></h1>
 <p>Until now we have only considered functions that output a scalar, but it is possible to output vectors instead. For example, a classification neural network typically outputs one probability for each class, so if there are <span class="math notranslate nohighlight">\(m\)</span> classes, the neural network will output an <span class="math notranslate nohighlight">\(d\)</span>-dimensional vector for each input.</p>
 <p>In Deep Learning we generally only need to differentiate the loss function, which almost always outputs a single scalar number. But suppose for a second that you want to differentiate a function <span class="math notranslate nohighlight">\(\mathbf{f}(\mathbf{x})\)</span> which outputs <span class="math notranslate nohighlight">\(d\)</span>-dimensional vectors. The good news is that you can treat each <em>output</em> dimension independently of the others. This will give you a partial derivative for each input dimension and each output dimension. If you put them all in a single matrix, with one column per input dimension and one row per output dimension, you get the so-called <strong>Jacobian matrix</strong>.</p>
 <p><span class="math notranslate nohighlight">\(
@@ -6464,9 +6554,9 @@ x_n
 \end{pmatrix}
 \)</span></p>
 <p>The partial derivatives themselves are often called the <strong>Jacobians</strong>. It’s just the first order partial derivatives of the function <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="hessians">
-<h1>Hessians<a class="headerlink" href="#hessians" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="hessians">
+<h1>Hessians<a class="headerlink" href="#hessians" title="Permalink to this headline">#</a></h1>
 <p>Let’s come back to a function <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> which takes an <span class="math notranslate nohighlight">\(n\)</span>-dimensional vector as input and outputs a scalar. If you determine the equation of the partial derivative of <span class="math notranslate nohighlight">\(f\)</span> with regards to <span class="math notranslate nohighlight">\(x_i\)</span> (the <span class="math notranslate nohighlight">\(i^\text{th}\)</span> component of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>), you will get a new function of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>: <span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial x_i}\)</span>. You can then compute the partial derivative of this function with regards to <span class="math notranslate nohighlight">\(x_j\)</span> (the <span class="math notranslate nohighlight">\(j^\text{th}\)</span> component of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>). The result is a partial derivative of a partial derivative: in other words, it is a <strong>second order partial derivatives</strong>, also called a <strong>Hessian</strong>. It is noted <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>: <span class="math notranslate nohighlight">\(\dfrac{\partial^2 f}{\partial x_jx_i}\)</span>. If <span class="math notranslate nohighlight">\(i\neq j\)</span> then it is called a <strong>mixed second order partial derivative</strong>.
 Or else, if <span class="math notranslate nohighlight">\(j=i\)</span>, it is noted <span class="math notranslate nohighlight">\(\dfrac{\partial^2 f}{\partial {x_i}^2}\)</span></p>
 <p>Let’s look at an example: <span class="math notranslate nohighlight">\(f(x, y)=\sin(xy)\)</span>. As we showed earlier, the first order partial derivatives of <span class="math notranslate nohighlight">\(f\)</span> are: <span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial x}=y\cos(xy)\)</span> and <span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial y}=x\cos(xy)\)</span>. So we can now compute all the Hessians (using the derivative rules we discussed earlier):</p>
@@ -6496,12 +6586,12 @@ Or else, if <span class="math notranslate nohighlight">\(j=i\)</span>, it is not
 \end{pmatrix}
 \)</span></p>
 <p>There are great optimization algorithms which take advantage of the Hessians, but in practice Deep Learning almost never uses them. Indeed, if a function has <span class="math notranslate nohighlight">\(n\)</span> variables, there are <span class="math notranslate nohighlight">\(n^2\)</span> Hessians: since neural networks typically have several millions of parameters, the number of Hessians would exceed thousands of billions. Even if we had the necessary amount of RAM, the computations would be prohibitively slow.</p>
-<div class="section" id="a-few-proofs">
-<h2>A few proofs<a class="headerlink" href="#a-few-proofs" title="Permalink to this headline">¶</a></h2>
+<section id="a-few-proofs">
+<h2>A few proofs<a class="headerlink" href="#a-few-proofs" title="Permalink to this headline">#</a></h2>
 <p>Let’s finish by proving all the derivative rules we listed earlier. You don’t have to go through all these proofs to be a good Deep Learning practitioner, but it may help you get a deeper understanding of derivatives.</p>
-</div>
-<div class="section" id="constant-f-x-c">
-<h2>Constant: <span class="math notranslate nohighlight">\(f(x)=c\)</span><a class="headerlink" href="#constant-f-x-c" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="constant-f-x-c">
+<h2>Constant: <span class="math notranslate nohighlight">\(f(x)=c\)</span><a class="headerlink" href="#constant-f-x-c" title="Permalink to this headline">#</a></h2>
 <p><span class="math notranslate nohighlight">\(
 \begin{align*}
 f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon} &amp;&amp; \quad\text{by definition}\\
@@ -6510,9 +6600,9 @@ f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon
 &amp; = 0 &amp;&amp; \quad \text{since the limit of a constant is that constant}
 \end{align*}
 \)</span></p>
-</div>
-<div class="section" id="product-rule-f-x-g-x-h-x">
-<h2>Product rule: <span class="math notranslate nohighlight">\(f(x)=g(x)h(x)\)</span><a class="headerlink" href="#product-rule-f-x-g-x-h-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="product-rule-f-x-g-x-h-x">
+<h2>Product rule: <span class="math notranslate nohighlight">\(f(x)=g(x)h(x)\)</span><a class="headerlink" href="#product-rule-f-x-g-x-h-x" title="Permalink to this headline">#</a></h2>
 <p><span class="math notranslate nohighlight">\(
 \begin{align*}
 f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon} &amp;&amp; \quad\text{by definition}\\
@@ -6529,9 +6619,9 @@ f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon
 \)</span></p>
 <p>Note that if <span class="math notranslate nohighlight">\(g(x)=c\)</span> (a constant), then <span class="math notranslate nohighlight">\(g'(x)=0\)</span>, so the equation simplifies to:</p>
 <p><span class="math notranslate nohighlight">\(f'(x)=c \, h'(x)\)</span></p>
-</div>
-<div class="section" id="chain-rule-f-x-g-h-x">
-<h2>Chain rule: <span class="math notranslate nohighlight">\(f(x)=g(h(x))\)</span><a class="headerlink" href="#chain-rule-f-x-g-h-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="chain-rule-f-x-g-h-x">
+<h2>Chain rule: <span class="math notranslate nohighlight">\(f(x)=g(h(x))\)</span><a class="headerlink" href="#chain-rule-f-x-g-h-x" title="Permalink to this headline">#</a></h2>
 <p><span class="math notranslate nohighlight">\(
 \begin{align*}
 f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon} &amp;&amp; \quad\text{by definition}\\
@@ -6546,9 +6636,9 @@ f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon
 &amp; = h'(x)g'(h(x)) &amp;&amp; \quad \text{ since } v = h(x)
 \end{align*}
 \)</span></p>
-</div>
-<div class="section" id="exponential-f-x-exp-x-e-x">
-<h2>Exponential: <span class="math notranslate nohighlight">\(f(x)=\exp(x)=e^x\)</span><a class="headerlink" href="#exponential-f-x-exp-x-e-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="exponential-f-x-exp-x-e-x">
+<h2>Exponential: <span class="math notranslate nohighlight">\(f(x)=\exp(x)=e^x\)</span><a class="headerlink" href="#exponential-f-x-exp-x-e-x" title="Permalink to this headline">#</a></h2>
 <p>There are several equivalent definitions of the number <span class="math notranslate nohighlight">\(e\)</span>. One of them states that <span class="math notranslate nohighlight">\(e\)</span> is the unique positive number for which <span class="math notranslate nohighlight">\(\underset{\epsilon \to 0}\lim{\dfrac{e^\epsilon - 1}{\epsilon}}=1\)</span>. We will use this in this proof:</p>
 <p><span class="math notranslate nohighlight">\(
 \begin{align*}
@@ -6561,9 +6651,9 @@ f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon
 &amp; = e^x &amp;&amp; \quad \text{since } e^x \text{ does not depend on }\epsilon
 \end{align*}
 \)</span></p>
-</div>
-<div class="section" id="logarithm-f-x-ln-x">
-<h2>Logarithm: <span class="math notranslate nohighlight">\(f(x) = \ln(x)\)</span><a class="headerlink" href="#logarithm-f-x-ln-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="logarithm-f-x-ln-x">
+<h2>Logarithm: <span class="math notranslate nohighlight">\(f(x) = \ln(x)\)</span><a class="headerlink" href="#logarithm-f-x-ln-x" title="Permalink to this headline">#</a></h2>
 <p>Another definition of the number <span class="math notranslate nohighlight">\(e\)</span> is:</p>
 <p><span class="math notranslate nohighlight">\(e = \underset{n \to \infty}\lim\left(1+\dfrac{1}{n}\right)^n\)</span></p>
 <p>By defining <span class="math notranslate nohighlight">\(\epsilon = \dfrac{1}{n}\)</span>, we can rewrite the previous definition as:</p>
@@ -6584,9 +6674,9 @@ f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon
 &amp; = \dfrac{1}{x} &amp;&amp; \quad \text{since }\ln(e)=1
 \end{align*}
 \)</span></p>
-</div>
-<div class="section" id="power-rule-f-x-x-r-with-r-neq-0">
-<h2>Power rule: <span class="math notranslate nohighlight">\(f(x)=x^r\)</span>, with <span class="math notranslate nohighlight">\(r \neq 0\)</span><a class="headerlink" href="#power-rule-f-x-x-r-with-r-neq-0" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="power-rule-f-x-x-r-with-r-neq-0">
+<h2>Power rule: <span class="math notranslate nohighlight">\(f(x)=x^r\)</span>, with <span class="math notranslate nohighlight">\(r \neq 0\)</span><a class="headerlink" href="#power-rule-f-x-x-r-with-r-neq-0" title="Permalink to this headline">#</a></h2>
 <p>Let’s define <span class="math notranslate nohighlight">\(g(x)=e^x\)</span> and <span class="math notranslate nohighlight">\(h(x)=\ln(x^r)\)</span>. Since <span class="math notranslate nohighlight">\(a = e^{\ln(a)}\)</span>, we can rewrite <span class="math notranslate nohighlight">\(f\)</span> as <span class="math notranslate nohighlight">\(f(x)=g(h(x))\)</span>, which allows us to use the chain rule:</p>
 <p><span class="math notranslate nohighlight">\(f'(x) = h'(x)g'(h(x))\)</span></p>
 <p>We know the derivative of the exponential: <span class="math notranslate nohighlight">\(g'(x)=e^x\)</span>. We also know the derivative of the natural logarithm: <span class="math notranslate nohighlight">\(\ln'(x)=\dfrac{1}{x}\)</span> so <span class="math notranslate nohighlight">\(h'(x)=\dfrac{r}{x}\)</span>. Therefore:</p>
@@ -6600,18 +6690,18 @@ f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon
 <li><p>if <span class="math notranslate nohighlight">\(f(x) = \dfrac{1}{x} = x^{-1}\)</span>, then <span class="math notranslate nohighlight">\(f'(x)=-x^{-2}=-\dfrac{1}{x^2}\)</span>.</p></li>
 <li><p>if <span class="math notranslate nohighlight">\(f(x) = \sqrt(x) = x^{1/2}\)</span>, then <span class="math notranslate nohighlight">\(f'(x)=\dfrac{1}{2}x^{-1/2}=\dfrac{1}{2\sqrt{x}}\)</span></p></li>
 </ul>
-</div>
-<div class="section" id="multiplicative-inverse-f-x-dfrac-1-h-x">
-<h2>Multiplicative inverse: <span class="math notranslate nohighlight">\(f(x)=\dfrac{1}{h(x)}\)</span><a class="headerlink" href="#multiplicative-inverse-f-x-dfrac-1-h-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="multiplicative-inverse-f-x-dfrac-1-h-x">
+<h2>Multiplicative inverse: <span class="math notranslate nohighlight">\(f(x)=\dfrac{1}{h(x)}\)</span><a class="headerlink" href="#multiplicative-inverse-f-x-dfrac-1-h-x" title="Permalink to this headline">#</a></h2>
 <p>First, let’s define <span class="math notranslate nohighlight">\(g(x) = \dfrac{1}{x}\)</span>. This leads to <span class="math notranslate nohighlight">\(f(x)=g(h(x))\)</span>.
 Now we can use the chain rule:</p>
 <p><span class="math notranslate nohighlight">\(f'(x) = h'(x)g'(h(x))\)</span></p>
 <p>Since <span class="math notranslate nohighlight">\(g(x)=x^{-1}\)</span>, we can use the power rule to find <span class="math notranslate nohighlight">\(g'(x)=-\dfrac{1}{x^2}\)</span></p>
 <p>Finally, we get:</p>
 <p><span class="math notranslate nohighlight">\(f'(x) = -\dfrac{h'(x)}{h^2(x)}\)</span></p>
-</div>
-<div class="section" id="quotient-rule-f-x-dfrac-g-x-h-x">
-<h2>Quotient rule: <span class="math notranslate nohighlight">\(f(x)=\dfrac{g(x)}{h(x)}\)</span><a class="headerlink" href="#quotient-rule-f-x-dfrac-g-x-h-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="quotient-rule-f-x-dfrac-g-x-h-x">
+<h2>Quotient rule: <span class="math notranslate nohighlight">\(f(x)=\dfrac{g(x)}{h(x)}\)</span><a class="headerlink" href="#quotient-rule-f-x-dfrac-g-x-h-x" title="Permalink to this headline">#</a></h2>
 <p>Let’s rewrite <span class="math notranslate nohighlight">\(f(x)\)</span> as a product: <span class="math notranslate nohighlight">\(f(x)=g(x)u(x)\)</span> with <span class="math notranslate nohighlight">\(u(x)=\dfrac{1}{h(x)}\)</span></p>
 <p>We can now use the product rule to get:</p>
 <p><span class="math notranslate nohighlight">\(f(x) = g'(x)u(x) + g(x)u'(x)\)</span></p>
@@ -6621,9 +6711,9 @@ Now we can use the chain rule:</p>
 <p><span class="math notranslate nohighlight">\(f(x) = \dfrac{g'(x)h(x)}{h^2(x)} - \dfrac{g(x)h'(x)}{h^2(x)}\)</span></p>
 <p>And finally:</p>
 <p><span class="math notranslate nohighlight">\(f(x) = \dfrac{g'(x)h(x) - g(x)h'(x)}{h^2(x)}\)</span></p>
-</div>
-<div class="section" id="sin-f-x-sin-x">
-<h2>Sin: <span class="math notranslate nohighlight">\(f(x)=\sin(x)\)</span><a class="headerlink" href="#sin-f-x-sin-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="sin-f-x-sin-x">
+<h2>Sin: <span class="math notranslate nohighlight">\(f(x)=\sin(x)\)</span><a class="headerlink" href="#sin-f-x-sin-x" title="Permalink to this headline">#</a></h2>
 <p>For this proof we will first need to prove that <span class="math notranslate nohighlight">\(\underset{\theta \to 0}\lim\dfrac{\sin(\theta)}{\theta}=1\)</span>. One way to do that is to consider the following diagram:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -6732,9 +6822,9 @@ f'(x) &amp; = \underset{\theta \to 0}\lim\dfrac{f(x+\theta) - f(x)}{\theta} &amp
 &amp; = \cos(x) &amp;&amp; \quad \text{since }\underset{\theta \to 0}\lim\dfrac{\sin(\theta)}{\theta}=1\\
 \end{align*}
 \)</span></p>
-</div>
-<div class="section" id="cosine-f-x-cos-x">
-<h2>Cosine: <span class="math notranslate nohighlight">\(f(x)=\cos(x)\)</span><a class="headerlink" href="#cosine-f-x-cos-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cosine-f-x-cos-x">
+<h2>Cosine: <span class="math notranslate nohighlight">\(f(x)=\cos(x)\)</span><a class="headerlink" href="#cosine-f-x-cos-x" title="Permalink to this headline">#</a></h2>
 <p>Since we have proven that <span class="math notranslate nohighlight">\(\sin'(x)=\cos(x)\)</span>, proving that <span class="math notranslate nohighlight">\(\cos'(x)=-\sin(x)\)</span> will be much easier.</p>
 <p><span class="math notranslate nohighlight">\(
 \begin{align*}
@@ -6748,17 +6838,17 @@ f'(x) &amp; = \underset{\theta \to 0}\lim\dfrac{f(x+\theta) - f(x)}{\theta} &amp
 &amp; = -\sin(x) &amp;&amp; \quad \text{using this well-known rule of trigonometry}
 \end{align*}
 \)</span></p>
-</div>
-<div class="section" id="tangent-f-x-tan-x">
-<h2>Tangent: <span class="math notranslate nohighlight">\(f(x) = \tan(x)\)</span><a class="headerlink" href="#tangent-f-x-tan-x" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="tangent-f-x-tan-x">
+<h2>Tangent: <span class="math notranslate nohighlight">\(f(x) = \tan(x)\)</span><a class="headerlink" href="#tangent-f-x-tan-x" title="Permalink to this headline">#</a></h2>
 <p>Since <span class="math notranslate nohighlight">\(\tan(x)=\dfrac{\sin(x)}{\cos(x)}\)</span>, we can use the quotient rule to get:</p>
 <p><span class="math notranslate nohighlight">\(f'(x) = \dfrac{\sin'(x)\cos(x) - \sin(x)\cos'(x)}{\cos^2(x)}\)</span></p>
 <p>Since <span class="math notranslate nohighlight">\(\sin'(x)=\cos(x)\)</span> and <span class="math notranslate nohighlight">\(\cos'(x)=-\sin(x)\)</span>, we get:</p>
 <p><span class="math notranslate nohighlight">\(f'(x) = \dfrac{\cos^2(x) + \sin^2(x)}{\cos^2(x)}\)</span></p>
 <p>And finally, since <span class="math notranslate nohighlight">\(\cos^2(x) + \sin^2(x) = 1\)</span>, we get:</p>
 <p><span class="math notranslate nohighlight">\(f'(x) = \dfrac{1}{\cos^2(x)}\)</span></p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -6782,9 +6872,11 @@ f'(x) &amp; = \underset{\theta \to 0}\lim\dfrac{f(x+\theta) - f(x)}{\theta} &amp
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="math_linear_algebra.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -6800,24 +6892,28 @@ f'(x) &amp; = \underset{\theta \to 0}\lim\dfrac{f(x+\theta) - f(x)}{\theta} &amp
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

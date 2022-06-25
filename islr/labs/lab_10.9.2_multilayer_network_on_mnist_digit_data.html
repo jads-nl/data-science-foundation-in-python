@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 10.9.2: A Multilayer Network on the MNIST Digit Data &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,23 +37,21 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -968,16 +980,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,112 +1173,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/islr/labs/lab_10.9.2_multilayer_network_on_mnist_digit_data.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#attribution">
    Attribution
@@ -1336,12 +1426,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Lab 10.9.2: A Multilayer Network on the MNIST Digit Data</h1>
@@ -1390,13 +1479,14 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-10-9-2-a-multilayer-network-on-the-mnist-digit-data">
-<h1>Lab 10.9.2: A Multilayer Network on the MNIST Digit Data<a class="headerlink" href="#lab-10-9-2-a-multilayer-network-on-the-mnist-digit-data" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="attribution">
-<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-10-9-2-a-multilayer-network-on-the-mnist-digit-data">
+<h1>Lab 10.9.2: A Multilayer Network on the MNIST Digit Data<a class="headerlink" href="#lab-10-9-2-a-multilayer-network-on-the-mnist-digit-data" title="Permalink to this headline">#</a></h1>
+<section id="attribution">
+<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Original article by <a class="reference external" href="https://nextjournal.com/gkoehler/digit-recognition-with-keras">Gregor Koehler</a> (17-02-2020).</p></li>
 <li><p>Remixed by Daniel Kapitan (08-01-2022):</p>
@@ -1406,15 +1496,15 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 <p>In this article we’ll build a simple neural network and train it to recognize handwritten digits using the MNIST dataset. Training a <em>classifier</em> on the MNIST dataset is regarded as the <em>hello world</em> of image recognition. To follow along here, you should have a basic understanding of the <a class="reference external" href="https://en.wikipedia.org/wiki/Multilayer_perceptron">Multilayer Perceptron</a> class of neural networks.</p>
 <p>MNIST contains 70,000 images of handwritten digits: 60,000 for training and 10,000 for testing. The images are grayscale, 28x28 pixels, and centered to reduce preprocessing and get started quicker.</p>
 <p><a class="reference external" href="https://keras.io">Keras</a> is a high-level neural network API focused on user friendliness, fast prototyping, modularity and extensibility. It works with deep learning frameworks like <a class="reference external" href="https://tensorflow.org">Tensorflow</a>, <a class="reference external" href="http://deeplearning.net/software/theano/">Theano</a> and <a class="reference external" href="https://github.com/Microsoft/CNTK">CNTK</a>, so we can get right into building and training a neural network without a lot of fuss.</p>
-</div>
-<div class="section" id="setting-up-and-preparing-the-data">
-<h2>Setting up and preparing the data<a class="headerlink" href="#setting-up-and-preparing-the-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="setting-up-and-preparing-the-data">
+<h2>Setting up and preparing the data<a class="headerlink" href="#setting-up-and-preparing-the-data" title="Permalink to this headline">#</a></h2>
 <p>Let’s get started by setting up our environment with Keras using Tensorflow as the backend. These package imports are pretty standard — we’ll get back to the Keras-specific imports further down. Optionally we can also import the dataset to cache it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1454,23 +1544,15 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   16384/11490434 [..............................] - ETA: 0s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    8192/11490434 [..............................] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 3678208/11490434 [========&gt;.....................] - ETA: 0s
+10829824/11490434 [===========================&gt;..] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 7954432/11490434 [===================&gt;..........] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-11493376/11490434 [==============================] - 0s 0us/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-11501568/11490434 [==============================] - 0s 0us/step
+11490434/11490434 [==============================] - 0s 0us/step
 </pre></div>
 </div>
 </div>
@@ -1584,9 +1666,9 @@ Shape after one-hot encoding:  (60000, 10)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="building-the-network">
-<h2>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-the-network">
+<h2>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">#</a></h2>
 <p>Let’s turn to Keras to build a neural network.</p>
 <p>Our pixel vector serves as the input. Then, we instantiate two hidden node layers with 256 and128 units, respectively, which is sufficiently complex for recognizing digits. For the multi-class classification we add another <em>densely-connected</em> (or <em>fully-connected</em>) layer for the 10 different output classes. For this network architecture we can use the <a class="reference external" href="https://keras.io/models/sequential/">Keras Sequential Model</a>. We can stack layers using the <code class="docutils literal notranslate"><span class="pre">.add()</span></code> method.</p>
 <p>When adding the first layer in the Sequential Model we need to specify the input shape so Keras can create the appropriate matrices. For all remaining layers the shape is inferred automatically.</p>
@@ -1614,9 +1696,9 @@ Shape after one-hot encoding:  (60000, 10)
 </div>
 </div>
 <p><img alt="" src="../../_images/lab_10.9.2.png" /></p>
-</div>
-<div class="section" id="compiling-and-training-the-model">
-<h2>Compiling and training the Model<a class="headerlink" href="#compiling-and-training-the-model" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="compiling-and-training-the-model">
+<h2>Compiling and training the Model<a class="headerlink" href="#compiling-and-training-the-model" title="Permalink to this headline">#</a></h2>
 <p>Now that the model is in place we configure the learning process using <code class="docutils literal notranslate"><span class="pre">.compile()</span></code>. Here we specify our <em>loss function</em> (or <em>objective function</em>). For our setting categorical cross entropy fits the bill, but in general other <a class="reference external" href="https://keras.io/losses/">loss functions</a> are available.</p>
 <p>As for the <a class="reference external" href="https://keras.io/optimizers/">optimizer</a> of choice we’ll use <a class="reference external" href="https://arxiv.org/abs/1412.6980v8">Adam</a> with default settings. We could also instantiate an optimizer and set parameters before passing it to <code class="docutils literal notranslate"><span class="pre">model.compile()</span></code> but for this example the defaults will do.</p>
 <p>We also choose which metrics will be evaluated during training and testing. We can pass any list of <a class="reference external" href="https://keras.io/metrics/">metrics</a> - even build metrics ourselves - and have them displayed during training/testing. We’ll stick to <em>accuracy</em> for now.</p>
@@ -1651,126 +1733,126 @@ Shape after one-hot encoding:  (60000, 10)
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.3303 - accuracy: 0.9013 - val_loss: 0.1249 - val_accuracy: 0.9626 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.3357 - accuracy: 0.9013 - val_loss: 0.1355 - val_accuracy: 0.9588 - 2s/epoch - 5ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.1384 - accuracy: 0.9581 - val_loss: 0.0940 - val_accuracy: 0.9709 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.1355 - accuracy: 0.9590 - val_loss: 0.0927 - val_accuracy: 0.9714 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.1012 - accuracy: 0.9690 - val_loss: 0.0877 - val_accuracy: 0.9736 - 2s/epoch - 3ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0972 - accuracy: 0.9700 - val_loss: 0.0741 - val_accuracy: 0.9767 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0831 - accuracy: 0.9743 - val_loss: 0.0720 - val_accuracy: 0.9767 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0790 - accuracy: 0.9757 - val_loss: 0.0643 - val_accuracy: 0.9793 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0664 - accuracy: 0.9788 - val_loss: 0.0705 - val_accuracy: 0.9792 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0647 - accuracy: 0.9800 - val_loss: 0.0681 - val_accuracy: 0.9787 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0581 - accuracy: 0.9819 - val_loss: 0.0666 - val_accuracy: 0.9791 - 2s/epoch - 3ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0561 - accuracy: 0.9826 - val_loss: 0.0688 - val_accuracy: 0.9792 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0532 - accuracy: 0.9824 - val_loss: 0.0632 - val_accuracy: 0.9804 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0472 - accuracy: 0.9849 - val_loss: 0.0682 - val_accuracy: 0.9797 - 2s/epoch - 3ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0449 - accuracy: 0.9853 - val_loss: 0.0658 - val_accuracy: 0.9810 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0457 - accuracy: 0.9848 - val_loss: 0.0682 - val_accuracy: 0.9798 - 2s/epoch - 3ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0404 - accuracy: 0.9868 - val_loss: 0.0647 - val_accuracy: 0.9813 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0398 - accuracy: 0.9870 - val_loss: 0.0682 - val_accuracy: 0.9790 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0377 - accuracy: 0.9878 - val_loss: 0.0683 - val_accuracy: 0.9796 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0359 - accuracy: 0.9882 - val_loss: 0.0671 - val_accuracy: 0.9803 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0342 - accuracy: 0.9883 - val_loss: 0.0649 - val_accuracy: 0.9829 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0323 - accuracy: 0.9891 - val_loss: 0.0708 - val_accuracy: 0.9819 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0304 - accuracy: 0.9898 - val_loss: 0.0662 - val_accuracy: 0.9820 - 2s/epoch - 3ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0295 - accuracy: 0.9897 - val_loss: 0.0668 - val_accuracy: 0.9833 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0280 - accuracy: 0.9906 - val_loss: 0.0699 - val_accuracy: 0.9810 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0278 - accuracy: 0.9906 - val_loss: 0.0667 - val_accuracy: 0.9824 - 2s/epoch - 3ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0286 - accuracy: 0.9901 - val_loss: 0.0658 - val_accuracy: 0.9820 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0269 - accuracy: 0.9912 - val_loss: 0.0670 - val_accuracy: 0.9843 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0246 - accuracy: 0.9917 - val_loss: 0.0666 - val_accuracy: 0.9810 - 2s/epoch - 3ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0251 - accuracy: 0.9918 - val_loss: 0.0732 - val_accuracy: 0.9819 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0242 - accuracy: 0.9919 - val_loss: 0.0687 - val_accuracy: 0.9823 - 2s/epoch - 3ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0243 - accuracy: 0.9915 - val_loss: 0.0712 - val_accuracy: 0.9821 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0237 - accuracy: 0.9920 - val_loss: 0.0701 - val_accuracy: 0.9815 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0225 - accuracy: 0.9926 - val_loss: 0.0707 - val_accuracy: 0.9827 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0212 - accuracy: 0.9926 - val_loss: 0.0768 - val_accuracy: 0.9830 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0214 - accuracy: 0.9926 - val_loss: 0.0662 - val_accuracy: 0.9834 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0223 - accuracy: 0.9924 - val_loss: 0.0738 - val_accuracy: 0.9824 - 2s/epoch - 4ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0214 - accuracy: 0.9927 - val_loss: 0.0751 - val_accuracy: 0.9821 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0207 - accuracy: 0.9930 - val_loss: 0.0853 - val_accuracy: 0.9821 - 2s/epoch - 3ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0185 - accuracy: 0.9934 - val_loss: 0.0677 - val_accuracy: 0.9835 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saved trained model at keras_mnist.h5
-CPU times: user 49.5 s, sys: 3.07 s, total: 52.6 s
-Wall time: 34.5 s
+CPU times: user 48.4 s, sys: 3.17 s, total: 51.6 s
+Wall time: 41.7 s
 </pre></div>
 </div>
 </div>
@@ -1805,9 +1887,9 @@ Wall time: 34.5 s
 </div>
 </div>
 <p>This learning curve looks quite good! We see that the loss on the training set is decreasing rapidly for the first two epochs. This shows the network is learning to classify the digits pretty fast. For the test set the loss does not decrease as fast but stays roughly within the same range as the training loss. This means our model generalizes well to unseen data.</p>
-</div>
-<div class="section" id="evaluate-the-model-s-performance">
-<h2>Evaluate the model’s performance<a class="headerlink" href="#evaluate-the-model-s-performance" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="evaluate-the-model-s-performance">
+<h2>Evaluate the model’s performance<a class="headerlink" href="#evaluate-the-model-s-performance" title="Permalink to this headline">#</a></h2>
 <p>It’s time to reap the fruits of our neural network training. Let’s see how well we the model performs on the test set. The <code class="docutils literal notranslate"><span class="pre">model.evaluate()</span></code> method computes the loss and any metric defined when compiling the model. So in our case the accuracy is computed on the 10,000 testing examples using the network weights given by the saved model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1820,11 +1902,11 @@ Wall time: 34.5 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 1s - loss: 0.0853 - accuracy: 0.9821 - 510ms/epoch - 2ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 1s - loss: 0.0677 - accuracy: 0.9835 - 517ms/epoch - 2ms/step
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Loss 0.08529332280158997
-Test Accuracy 0.9821000099182129
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Loss 0.06771848350763321
+Test Accuracy 0.9835000038146973
 </pre></div>
 </div>
 </div>
@@ -1873,18 +1955,53 @@ Test Accuracy 0.9821000099182129
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9821  classified correctly
-179  classified incorrectly
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  1/313 [..............................] - ETA: 25s
 </pre></div>
 </div>
-<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_1.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+ 44/313 [===&gt;..........................] - ETA: 0s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+ 85/313 [=======&gt;......................] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+127/313 [===========&gt;..................] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+168/313 [===============&gt;..............] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+209/313 [===================&gt;..........] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+248/313 [======================&gt;.......] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+289/313 [==========================&gt;...] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+313/313 [==============================] - 0s 1ms/step
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9835  classified correctly
+165  classified incorrectly
+</pre></div>
+</div>
+<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_10.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_10.png" />
 </div>
 </div>
 <p>As we can see, the wrong predictions are quite forgiveable since they’re in some cases even hard to recognize for the human reader.</p>
 <p>In summary we used Keras with a Tensorflow backend on simpel CPU to train a neural network to recognize handwritten digits in under 3 minutes of training time - all that without having to spin up any compute instances, only using our browser.</p>
 <p>In the next article of this series (coming soon) we’ll harness the power of GPUs even more to train more complex neural networks which include <a class="reference external" href="https://en.wikipedia.org/wiki/Convolutional_neural_network">convolutional layers</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1908,9 +2025,11 @@ Test Accuracy 0.9821000099182129
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="lab_09.6_support_vector_machines.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1926,24 +2045,28 @@ Test Accuracy 0.9821000099182129
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

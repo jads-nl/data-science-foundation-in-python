@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Chapter 18 – Reinforcement Learning &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/handson-ml2/original/18_reinforcement_learning.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/handson-ml2/original/18_reinforcement_learning.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/18_reinforcement_learning.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/18_reinforcement_learning.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/18_reinforcement_learning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/18_reinforcement_learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/18_reinforcement_learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/18_reinforcement_learning.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/handson-ml2/original/18_reinforcement_learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    Chapter 18 – Reinforcement Learning
@@ -1442,12 +1532,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Chapter 18 – Reinforcement Learning</h1>
@@ -1604,15 +1693,16 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-18-reinforcement-learning">
-<h1>Chapter 18 – Reinforcement Learning<a class="headerlink" href="#chapter-18-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-18-reinforcement-learning">
+<h1>Chapter 18 – Reinforcement Learning<a class="headerlink" href="#chapter-18-reinforcement-learning" title="Permalink to this headline">#</a></h1>
 <p><em>This notebook contains all the sample code in chapter 18</em>.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="setup">
-<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h1>
 <p>First, let’s import a few common modules, ensure MatplotLib plots figures inline and prepare a function to save the figures. We also check that Python 3.5 or later is installed (although Python 2.x may work, it is deprecated so we strongly recommend you use Python 3 instead), as well as Scikit-Learn ≥0.20 and TensorFlow ≥2.0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1682,9 +1772,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-openai-gym">
-<h1>Introduction to OpenAI gym<a class="headerlink" href="#introduction-to-openai-gym" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction-to-openai-gym">
+<h1>Introduction to OpenAI gym<a class="headerlink" href="#introduction-to-openai-gym" title="Permalink to this headline">#</a></h1>
 <p>In this notebook we will be using <a class="reference external" href="https://gym.openai.com/">OpenAI gym</a>, a great toolkit for developing and comparing Reinforcement Learning algorithms. It provides many environments for your learning <em>agents</em> to interact with. Let’s start by importing <code class="docutils literal notranslate"><span class="pre">gym</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1905,9 +1995,9 @@ $ apt install -y xvfb
 </div>
 </div>
 <p>Now how can we make the poll remain upright? We will need to define a <em>policy</em> for that. This is the strategy that the agent will use to select an action at each step. It can use all the past actions and observations to decide what to do.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="a-simple-hard-coded-policy">
-<h1>A simple hard-coded policy<a class="headerlink" href="#a-simple-hard-coded-policy" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-simple-hard-coded-policy">
+<h1>A simple hard-coded policy<a class="headerlink" href="#a-simple-hard-coded-policy" title="Permalink to this headline">#</a></h1>
 <p>Let’s hard code a simple strategy: if the pole is tilting to the left, then push the cart to the left, and <em>vice versa</em>. Let’s see if that works:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1993,9 +2083,9 @@ $ apt install -y xvfb
 </div>
 </div>
 <p>Clearly the system is unstable and after just a few wobbles, the pole ends up too tilted: game over. We will need to be smarter than that!</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="neural-network-policies">
-<h1>Neural Network Policies<a class="headerlink" href="#neural-network-policies" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="neural-network-policies">
+<h1>Neural Network Policies<a class="headerlink" href="#neural-network-policies" title="Permalink to this headline">#</a></h1>
 <p>Let’s create a neural network that will take observations as inputs, and output the probabilities of actions to take for each observation. To choose an action, the network will estimate a probability for each action, then we will select an action randomly according to the estimated probabilities. In the case of the Cart-Pole environment, there are just two possible actions (left or right), so we only need one output neuron: it will output the probability <code class="docutils literal notranslate"><span class="pre">p</span></code> of the action 0 (left), and of course the probability of action 1 (right) will be <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">p</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2096,9 +2186,9 @@ $ apt install -y xvfb
 </div>
 </div>
 <p>Looks like it learned the policy correctly. Now let’s see if it can learn a better policy on its own. One that does not wobble as much.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="policy-gradients">
-<h1>Policy Gradients<a class="headerlink" href="#policy-gradients" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="policy-gradients">
+<h1>Policy Gradients<a class="headerlink" href="#policy-gradients" title="Permalink to this headline">#</a></h1>
 <p>To train this neural network we will need to define the target probabilities <code class="docutils literal notranslate"><span class="pre">y</span></code>. If an action is good we should increase its probability, and conversely if it is bad we should reduce it. But how do we know whether an action is good or bad? The problem is that most actions have delayed effects, so when you win or lose points in an episode, it is not clear which actions contributed to this result: was it just the last action? Or the last 10? Or just one action 50 steps earlier? This is called the <em>credit assignment problem</em>.</p>
 <p>The <em>Policy Gradients</em> algorithm tackles this problem by first playing multiple episodes, then making the actions in good episodes slightly more likely, while actions in bad episodes are made slightly less likely. First we play, then we go back and think about what we did.</p>
 <p>Let’s start by creating a function to play a single step using the model. We will also pretend for now that whatever action it takes is the right one, so we can compute the loss and its gradients (we will just save these gradients for now, and modify them later depending on how good or bad the action turned out to be):</p>
@@ -2261,9 +2351,9 @@ $ apt install -y xvfb
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="markov-chains">
-<h1>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="markov-chains">
+<h1>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -2308,9 +2398,9 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="markov-decision-process">
-<h1>Markov Decision Process<a class="headerlink" href="#markov-decision-process" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="markov-decision-process">
+<h1>Markov Decision Process<a class="headerlink" href="#markov-decision-process" title="Permalink to this headline">#</a></h1>
 <p>Let’s define some transition probabilities, rewards and possible actions. For example, in state s0, if action a0 is chosen then with proba 0.7 we will go to state s0 with reward +10, with probability 0.3 we will go to state s1 with no reward, and with never go to state s2 (so the transition probabilities are <code class="docutils literal notranslate"><span class="pre">[0.7,</span> <span class="pre">0.3,</span> <span class="pre">0.0]</span></code>, and the rewards are <code class="docutils literal notranslate"><span class="pre">[+10,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2327,9 +2417,9 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="q-value-iteration">
-<h1>Q-Value Iteration<a class="headerlink" href="#q-value-iteration" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="q-value-iteration">
+<h1>Q-Value Iteration<a class="headerlink" href="#q-value-iteration" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Q_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span> <span class="c1"># -np.inf for impossible actions</span>
@@ -2439,9 +2529,9 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 <p>Now the policy has changed! In state s1, we now prefer to go through the fire (choose action a2). This is because the discount factor is larger so the agent values the future more, and it is therefore ready to pay an immediate penalty in order to get more future rewards.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="q-learning">
-<h1>Q-Learning<a class="headerlink" href="#q-learning" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="q-learning">
+<h1>Q-Learning<a class="headerlink" href="#q-learning" title="Permalink to this headline">#</a></h1>
 <p>Q-Learning works by watching an agent play (e.g., randomly) and gradually improving its estimates of the Q-Values. Once it has accurate Q-Value estimates (or close enough), then the optimal policy consists in choosing the action that has the highest Q-Value (i.e., the greedy policy).</p>
 <p>We will need to simulate an agent moving around in the environment, so let’s define a function to perform some action and get the new state and a reward:</p>
 <div class="cell docutils container">
@@ -2545,9 +2635,9 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 <img alt="../../_images/18_reinforcement_learning_110_1.png" src="../../_images/18_reinforcement_learning_110_1.png" />
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="deep-q-network">
-<h1>Deep Q-Network<a class="headerlink" href="#deep-q-network" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="deep-q-network">
+<h1>Deep Q-Network<a class="headerlink" href="#deep-q-network" title="Permalink to this headline">#</a></h1>
 <p>Let’s build the DQN. Given a state, it will estimate, for each possible action, the sum of discounted future rewards it can expect after it plays that action (but before it sees its outcome):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2728,8 +2818,8 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 <p>Not bad at all! 😀</p>
-<div class="section" id="double-dqn">
-<h2>Double DQN<a class="headerlink" href="#double-dqn" title="Permalink to this headline">¶</a></h2>
+<section id="double-dqn">
+<h2>Double DQN<a class="headerlink" href="#double-dqn" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
@@ -2864,10 +2954,10 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="dueling-double-dqn">
-<h1>Dueling Double DQN<a class="headerlink" href="#dueling-double-dqn" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="dueling-double-dqn">
+<h1>Dueling Double DQN<a class="headerlink" href="#dueling-double-dqn" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
@@ -3002,12 +3092,12 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="using-tf-agents-to-beat-breakout">
-<h1>Using TF-Agents to Beat Breakout<a class="headerlink" href="#using-tf-agents-to-beat-breakout" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="using-tf-agents-to-beat-breakout">
+<h1>Using TF-Agents to Beat Breakout<a class="headerlink" href="#using-tf-agents-to-beat-breakout" title="Permalink to this headline">#</a></h1>
 <p>Let’s use TF-Agents to create an agent that will learn to play Breakout. We will use the Deep Q-Learning algorithm, so you can easily compare the components with the previous implementation, but TF-Agents implements many other (and more sophisticated) algorithms!</p>
-<div class="section" id="tf-agents-environments">
-<h2>TF-Agents Environments<a class="headerlink" href="#tf-agents-environments" title="Permalink to this headline">¶</a></h2>
+<section id="tf-agents-environments">
+<h2>TF-Agents Environments<a class="headerlink" href="#tf-agents-environments" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -3243,9 +3333,9 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="environment-specifications">
-<h2>Environment Specifications<a class="headerlink" href="#environment-specifications" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="environment-specifications">
+<h2>Environment Specifications<a class="headerlink" href="#environment-specifications" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">.</span><span class="n">observation_spec</span><span class="p">()</span>
@@ -3282,9 +3372,9 @@ States: 0 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 3
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="environment-wrappers">
-<h2>Environment Wrappers<a class="headerlink" href="#environment-wrappers" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="environment-wrappers">
+<h2>Environment Wrappers<a class="headerlink" href="#environment-wrappers" title="Permalink to this headline">#</a></h2>
 <p>You can wrap a TF-Agents environments in a TF-Agents wrapper:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3481,9 +3571,9 @@ TimeLimit                   End episodes after specified number of steps.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="creating-the-dqn">
-<h2>Creating the DQN<a class="headerlink" href="#creating-the-dqn" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="creating-the-dqn">
+<h2>Creating the DQN<a class="headerlink" href="#creating-the-dqn" title="Permalink to this headline">#</a></h2>
 <p>Create a small class to normalize the observations. Images are stored using bytes from 0 to 255 to use less RAM, but we want to pass floats from 0.0 to 1.0 to the neural network:</p>
 <p>Create the Q-Network:</p>
 <div class="cell docutils container">
@@ -3951,12 +4041,12 @@ INFO:absl:
 <div class="output text_html"><img src="images/rl/breakout.gif" />
 </div></div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="extra-material">
-<h1>Extra material<a class="headerlink" href="#extra-material" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="deque-vs-rotating-list">
-<h2>Deque vs Rotating List<a class="headerlink" href="#deque-vs-rotating-list" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="extra-material">
+<h1>Extra material<a class="headerlink" href="#extra-material" title="Permalink to this headline">#</a></h1>
+<section id="deque-vs-rotating-list">
+<h2>Deque vs Rotating List<a class="headerlink" href="#deque-vs-rotating-list" title="Permalink to this headline">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">deque</span></code> class offers fast append, but fairly slow random access (for large replay memories):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4061,9 +4151,9 @@ INFO:absl:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="creating-a-custom-tf-agents-environment">
-<h2>Creating a Custom TF-Agents Environment<a class="headerlink" href="#creating-a-custom-tf-agents-environment" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="creating-a-custom-tf-agents-environment">
+<h2>Creating a Custom TF-Agents Environment<a class="headerlink" href="#creating-a-custom-tf-agents-environment" title="Permalink to this headline">#</a></h2>
 <p>To create a custom TF-Agent environment, you just need to write a class that inherits from the <code class="docutils literal notranslate"><span class="pre">PyEnvironment</span></code> class and implements a few methods. For example, the following minimal environment represents a simple 4x4 grid. The agent starts in one corner (0,0) and must move to the opposite corner (3,3). The episode is done if the agent reaches the goal (it gets a +10 reward) or if the agent goes out of bounds (-1 reward). The actions are up (0), down (1), left (2) and right (3).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4139,16 +4229,16 @@ INFO:absl:
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="exercise-solutions">
-<h1>Exercise Solutions<a class="headerlink" href="#exercise-solutions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="to-7">
-<h2>1. to 7.<a class="headerlink" href="#to-7" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-solutions">
+<h1>Exercise Solutions<a class="headerlink" href="#exercise-solutions" title="Permalink to this headline">#</a></h1>
+<section id="to-7">
+<h2>1. to 7.<a class="headerlink" href="#to-7" title="Permalink to this headline">#</a></h2>
 <p>See Appendix A.</p>
-</div>
-<div class="section" id="id1">
-<h2>8.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>8.<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: Use policy gradients to solve OpenAI Gym’s LunarLander-v2 environment. You will need to install the Box2D dependencies (<code class="docutils literal notranslate"><span class="pre">%pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">gym[box2d]</span></code>).</em></p>
 <p>Let’s start by creating a LunarLander-v2 environment:</p>
 <div class="cell docutils container">
@@ -4391,9 +4481,9 @@ like we did for the CartPole-v1 environment. This is because we only had two pos
 </div>
 </div>
 <p>That’s pretty good. You can try training it for longer and/or tweaking the hyperparameters to see if you can get it to go over 200.</p>
-</div>
-<div class="section" id="id2">
-<h2>9.<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id2">
+<h2>9.<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: Use TF-Agents to train an agent that can achieve a superhuman level at SpaceInvaders-v4 using any of the available algorithms.</em></p>
 <p>Please follow the steps in the <a class="reference external" href="http://localhost:8888/notebooks/18_reinforcement_learning.ipynb#Using-TF-Agents-to-Beat-Breakout">Using TF-Agents to Beat Breakout</a> section above, replacing <code class="docutils literal notranslate"><span class="pre">&quot;Breakout-v4&quot;</span></code> with <code class="docutils literal notranslate"><span class="pre">&quot;SpaceInvaders-v4&quot;</span></code>. There will be a few things to tweak, however. For example, the Space Invaders game does not require the user to press FIRE to begin the game. Instead, the player’s laser cannon blinks for a few seconds then the game starts automatically. For better performance, you may want to skip this blinking phase (which lasts about 40 steps) at the beginning of each episode and after each life lost. Indeed, it’s impossible to do anything at all during this phase, and nothing moves. One way to do this is to use the following custom environment wrapper, instead of the <code class="docutils literal notranslate"><span class="pre">AtariPreprocessingWithAutoFire</span></code> wrapper:</p>
 <div class="cell docutils container">
@@ -4418,13 +4508,13 @@ like we did for the CartPole-v1 environment. This is because we only had two pos
 </div>
 <p>Moreover, you should always ensure that the preprocessed images contain enough information to play the game. For example, the blasts from the laser cannon and from the aliens should still be visible despite the limited resolution. In this particular case, the preprocessing we did for Breakout still works fine for Space Invaders, but that’s something you should always check if you want try other games. To do this, you can let the agent play randomly for a while, and record the preprocessed frames, then play the animation and ensure the game still looks playable.</p>
 <p>You will also need to let the agent train for quite a long time to get good performance. Sadly, the DQN algorithm is not able to reach superhuman level on Space Invaders, likely because humans are able to learn efficient long term strategies in this game, whereas DQN can only master fairly short strategies. But there has been a lot of progress over the past few years, and now many other RL algorithms are able to surpass human experts at this game. Check out the <a class="reference external" href="https://paperswithcode.com/sota/atari-games-on-atari-2600-space-invaders">State-of-the-Art for Space Invaders on paperswithcode.com</a>.</p>
-</div>
-<div class="section" id="id3">
-<h2>10.<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>10.<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: If you have about $100 to spare, you can purchase a Raspberry Pi 3 plus some cheap robotics components, install TensorFlow on the Pi, and go wild! For an example, check out this <a class="reference external" href="https://homl.info/2">fun post</a> by Lukas Biewald, or take a look at GoPiGo or BrickPi. Start with simple goals, like making the robot turn around to find the brightest angle (if it has a light sensor) or the closest object (if it has a sonar sensor), and move in that direction. Then you can start using Deep Learning: for example, if the robot has a camera, you can try to implement an object detection algorithm so it detects people and moves toward them. You can also try to use RL to make the agent learn on its own how to use the motors to achieve that goal. Have fun!</em></p>
 <p>It’s your turn now: go crazy, be creative, but most of all, be patient and move forward step by step, you can do it!</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -4448,9 +4538,11 @@ like we did for the CartPole-v1 environment. This is because we only had two pos
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="17_autoencoders_and_gans.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -4466,24 +4558,28 @@ like we did for the CartPole-v1 environment. This is because we only had two pos
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

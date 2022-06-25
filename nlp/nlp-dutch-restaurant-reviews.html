@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Analyzing Dutch restaurant reviews &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/nlp/nlp-dutch-restaurant-reviews.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/nlp/nlp-dutch-restaurant-reviews.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fnlp/nlp-dutch-restaurant-reviews.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/nlp/nlp-dutch-restaurant-reviews.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/nlp/nlp-dutch-restaurant-reviews.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/nlp/nlp-dutch-restaurant-reviews.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/nlp/nlp-dutch-restaurant-reviews.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fnlp/nlp-dutch-restaurant-reviews.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/nlp/nlp-dutch-restaurant-reviews.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-preparation">
    Data preparation
@@ -1452,12 +1542,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Analyzing Dutch restaurant reviews</h1>
@@ -1624,13 +1713,14 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="analyzing-dutch-restaurant-reviews">
-<h1>Analyzing Dutch restaurant reviews<a class="headerlink" href="#analyzing-dutch-restaurant-reviews" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="data-preparation">
-<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="analyzing-dutch-restaurant-reviews">
+<h1>Analyzing Dutch restaurant reviews<a class="headerlink" href="#analyzing-dutch-restaurant-reviews" title="Permalink to this headline">#</a></h1>
+<section id="data-preparation">
+<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">#</a></h2>
 <p>Before we delve into the analytical side of things, we need some prepared textual data. As all true data scientists know, proper data preparation takes most of your time and is most decisive for the quality of the analysis results you end up with. Since preparing textual data is another cup of tea compared to preparing structured numeric or categorical data, and our goal is to show you how to do text analytics, we also want to show you how we cleaned and prepared the data we gathered. Therefore, in this notebook we start with the data dump with all reviews and explore and prepare this data in a number of steps:</p>
 <p><img alt="" src="https://github.com/jads-nl/public-lectures/blob/main/nlp/text-preprocessing-pipeline.png?raw=true" /></p>
 <div class="cell docutils container">
@@ -1739,12 +1829,12 @@ Name: reviewText, dtype: object
 </div>
 <p>Ok, several things to solve here:</p>
 <ul class="simple">
-<li><p>Another 0,4% has the value ‘- Recensie is momenteel in behandeling -‘ (In English: The review is currently being processed) and therefore the actual review text is not published yet. Similar to empty reviews, we can delete these reviews.</p></li>
+<li><p>Another 0,4% has the value ‘- Recensie is momenteel in behandeling -’ (In English: The review is currently being processed) and therefore the actual review text is not published yet. Similar to empty reviews, we can delete these reviews.</p></li>
 <li><p>Several reviews seem very short and are not that helpful in trying to learn from the review text. Although this is very context dependent (when performing sentiment analysis, short reviews like ‘Top!’ (English: Top!), ‘Prima’ (Engish: Fine/OK) and ‘Heerlijk gegeten’ (En: Had a nice meal) might still have much value!) we will set a minimum length to reviews.</p></li>
 </ul>
 <p>Note that that reviews containing no text have already been removed from the original dataset.</p>
-<div class="section" id="simple-filtering-on-text-length">
-<h3>Simple filtering on text length<a class="headerlink" href="#simple-filtering-on-text-length" title="Permalink to this headline">¶</a></h3>
+<section id="simple-filtering-on-text-length">
+<h3>Simple filtering on text length<a class="headerlink" href="#simple-filtering-on-text-length" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validate_review</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
@@ -1777,9 +1867,9 @@ Name: reviewText, dtype: float64
 </div>
 </div>
 <p>So that looks OK, we can safely delete <code class="docutils literal notranslate"><span class="pre">is_valid</span> <span class="pre">==</span> <span class="pre">0</span></code> reviews later. Let’s do some more data prep.</p>
-</div>
-<div class="section" id="parse-localized-datestrings-with-pendulum">
-<h3>Parse localized datestrings with <code class="docutils literal notranslate"><span class="pre">pendulum</span></code><a class="headerlink" href="#parse-localized-datestrings-with-pendulum" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="parse-localized-datestrings-with-pendulum">
+<h3>Parse localized datestrings with <code class="docutils literal notranslate"><span class="pre">pendulum</span></code><a class="headerlink" href="#parse-localized-datestrings-with-pendulum" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pendulum</span><span class="o">.</span><span class="n">set_locale</span><span class="p">(</span><span class="s1">&#39;nl&#39;</span><span class="p">)</span>
@@ -1820,9 +1910,9 @@ Name: reviewDate, dtype: object
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="format-numerical-columns">
-<h3>Format numerical columns<a class="headerlink" href="#format-numerical-columns" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="format-numerical-columns">
+<h3>Format numerical columns<a class="headerlink" href="#format-numerical-columns" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># avgPrice has whitespace and euro character</span>
@@ -2038,9 +2128,9 @@ Name: reviewDate, dtype: object
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="exercise-perform-exploratory-data-analysis">
-<h3>Exercise: perform exploratory data analysis<a class="headerlink" href="#exercise-perform-exploratory-data-analysis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-perform-exploratory-data-analysis">
+<h3>Exercise: perform exploratory data analysis<a class="headerlink" href="#exercise-perform-exploratory-data-analysis" title="Permalink to this headline">#</a></h3>
 <p>Prior to diving into NLP with spaCy, perform a EDA to explore possible correlations:</p>
 <ul class="simple">
 <li><p>reviewer type vs. given scores</p></li>
@@ -2051,10 +2141,10 @@ Name: reviewDate, dtype: object
 <ul class="simple">
 <li><p>Lest you forget to always do a short EDA, before getting lost in details …</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="getting-started-with-spacy">
-<h2>Getting started with spaCy<a class="headerlink" href="#getting-started-with-spacy" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="getting-started-with-spacy">
+<h2>Getting started with spaCy<a class="headerlink" href="#getting-started-with-spacy" title="Permalink to this headline">#</a></h2>
 <p>To develop reproducible pipelines, we will follow the recommended workflow from spaCy.</p>
 <p><img alt="" src="https://spacy.io/pipeline-fde48da9b43661abcdf62ab70a546d71.svg" /></p>
 <p>When you call <code class="docutils literal notranslate"><span class="pre">nlp</span></code> on a text, spaCy first tokenizes the text to produce a <code class="docutils literal notranslate"><span class="pre">Doc</span></code> object. The <code class="docutils literal notranslate"><span class="pre">Doc</span></code> is then processed in several different steps – this is also referred to as the <strong>processing pipeline</strong>. The pipeline used by the <a class="reference external" href="https://spacy.io/models">trained pipelines</a> typically include a tagger, a lemmatizer, a parser and an entity recognizer. Each pipeline component returns the processed <code class="docutils literal notranslate"><span class="pre">Doc</span></code>, which is then passed on to the next component.</p>
@@ -2080,8 +2170,8 @@ Name: reviewDate, dtype: object
 </div>
 </div>
 <p>We will show different options of tokenizing, see <a class="reference external" href="https://www.dataquest.io/blog/tutorial-text-classification-in-python-using-spacy/">this blog by Dataquest</a> for more details.</p>
-<div class="section" id="documents-in-spacy">
-<h3>Documents in spaCy<a class="headerlink" href="#documents-in-spacy" title="Permalink to this headline">¶</a></h3>
+<section id="documents-in-spacy">
+<h3>Documents in spaCy<a class="headerlink" href="#documents-in-spacy" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create spaCy doc from one of the reviews</span>
@@ -3058,9 +3148,9 @@ Name: reviewDate, dtype: object
 </g>
 </svg></span></div></div>
 </div>
-</div>
-<div class="section" id="tokens-in-spacy">
-<h3>Tokens in spaCy<a class="headerlink" href="#tokens-in-spacy" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="tokens-in-spacy">
+<h3>Tokens in spaCy<a class="headerlink" href="#tokens-in-spacy" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_doc holds all tokens</span>
@@ -3272,9 +3362,9 @@ Each token is a &lt;class &#39;spacy.tokens.token.Token&#39;&gt; with 90 attribu
 <p>84 rows × 8 columns</p>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="simple-tokenizer">
-<h3>Simple tokenizer<a class="headerlink" href="#simple-tokenizer" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="simple-tokenizer">
+<h3>Simple tokenizer<a class="headerlink" href="#simple-tokenizer" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tokenize_simple</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -3325,9 +3415,9 @@ Each token is a &lt;class &#39;spacy.tokens.token.Token&#39;&gt; with 90 attribu
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-lemmas-as-tokens">
-<h3>Using lemmas as tokens<a class="headerlink" href="#using-lemmas-as-tokens" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-lemmas-as-tokens">
+<h3>Using lemmas as tokens<a class="headerlink" href="#using-lemmas-as-tokens" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tokenize_lemma</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -3378,30 +3468,30 @@ Each token is a &lt;class &#39;spacy.tokens.token.Token&#39;&gt; with 90 attribu
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="exercises">
-<h3>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercises">
+<h3>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h3>
 <p>Since it takes quite some computing power to process all reviews, it is suggested to do the exercises just for a given year.</p>
-<div class="section" id="remove-accents-in-the-tokens-such-that-voor-is-tokenized-as-voor">
-<h4>Remove accents in the tokens such that <code class="docutils literal notranslate"><span class="pre">vóór</span></code> is tokenized as <code class="docutils literal notranslate"><span class="pre">voor</span></code><a class="headerlink" href="#remove-accents-in-the-tokens-such-that-voor-is-tokenized-as-voor" title="Permalink to this headline">¶</a></h4>
-</div>
-<div class="section" id="explore-association-between-overall-review-score-and-length-of-text">
-<h4>Explore association between overall review score and length of text<a class="headerlink" href="#explore-association-between-overall-review-score-and-length-of-text" title="Permalink to this headline">¶</a></h4>
-</div>
-<div class="section" id="extract-adj-noun-bigrams-from-the-text">
-<h4>Extract ADJ-NOUN bigrams from the text<a class="headerlink" href="#extract-adj-noun-bigrams-from-the-text" title="Permalink to this headline">¶</a></h4>
+<section id="remove-accents-in-the-tokens-such-that-voor-is-tokenized-as-voor">
+<h4>Remove accents in the tokens such that <code class="docutils literal notranslate"><span class="pre">vóór</span></code> is tokenized as <code class="docutils literal notranslate"><span class="pre">voor</span></code><a class="headerlink" href="#remove-accents-in-the-tokens-such-that-voor-is-tokenized-as-voor" title="Permalink to this headline">#</a></h4>
+</section>
+<section id="explore-association-between-overall-review-score-and-length-of-text">
+<h4>Explore association between overall review score and length of text<a class="headerlink" href="#explore-association-between-overall-review-score-and-length-of-text" title="Permalink to this headline">#</a></h4>
+</section>
+<section id="extract-adj-noun-bigrams-from-the-text">
+<h4>Extract ADJ-NOUN bigrams from the text<a class="headerlink" href="#extract-adj-noun-bigrams-from-the-text" title="Permalink to this headline">#</a></h4>
 <p>Imagine you are advising the owner of a restaurant. We wants to mine the reviews to find specific improvement points. Assuming that ADJECTIVE - NOUN bigrams can provide useful input, for example ‘oude servies’, ‘lange wachttijd’, your task is to:</p>
 <ul class="simple">
 <li><p>Extract ADJ-NOUN bigrams for each review</p></li>
 <li><p>Find the most interesting bigrams for positive and negative reviews per restaurant</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="document-term-matrix">
-<h2>Document-Term Matrix<a class="headerlink" href="#document-term-matrix" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="unigrams-and-bag-of-words">
-<h3>Unigrams and bag-of-words<a class="headerlink" href="#unigrams-and-bag-of-words" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+<section id="document-term-matrix">
+<h2>Document-Term Matrix<a class="headerlink" href="#document-term-matrix" title="Permalink to this headline">#</a></h2>
+<section id="unigrams-and-bag-of-words">
+<h3>Unigrams and bag-of-words<a class="headerlink" href="#unigrams-and-bag-of-words" title="Permalink to this headline">#</a></h3>
 <p>Use <code class="docutils literal notranslate"><span class="pre">sklearn.feature_extraction.text.CountVectorizer</span></code> to create the DTM. Since this is a large and sparse matrix, this data is a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html"><code class="docutils literal notranslate"><span class="pre">scipy.sparse.spmatrix</span></code> object</a> instead of a pandas dataframe. We will use the spaCy’s <code class="docutils literal notranslate"><span class="pre">Defaults.stop_words</span></code>. Since creating the DTM for all reviews takes a long time, we will test it first with just 1,000 records</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3491,9 +3581,9 @@ Length: 8282, dtype: int64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="tf-idf">
-<h3>TF-IDF<a class="headerlink" href="#tf-idf" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="tf-idf">
+<h3>TF-IDF<a class="headerlink" href="#tf-idf" title="Permalink to this headline">#</a></h3>
 <p>In the same vein, we could use the <code class="docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code>. While we are at it, let’s include bigrams, too.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3571,12 +3661,12 @@ dtype: object
 </div>
 </div>
 <p>We will use the document-term matrix, with either simple counts or with TF-IDF, later on in our classification pipeline.</p>
-</div>
-</div>
-<div class="section" id="topic-modeling">
-<h2>Topic modeling<a class="headerlink" href="#topic-modeling" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="combining-dtm-with-lda">
-<h3>Combining DTM with LDA<a class="headerlink" href="#combining-dtm-with-lda" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="topic-modeling">
+<h2>Topic modeling<a class="headerlink" href="#topic-modeling" title="Permalink to this headline">#</a></h2>
+<section id="combining-dtm-with-lda">
+<h3>Combining DTM with LDA<a class="headerlink" href="#combining-dtm-with-lda" title="Permalink to this headline">#</a></h3>
 <p>The <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/applications/plot_topics_extraction_with_nmf_lda.html?highlight=topic%20modeling">sklearn example on topic modeling</a> shows how to setup a pipeline for topic modeling. We will follow along with the same parameter settings and <a class="reference external" href="https://nbviewer.jupyter.org/github/bmabey/pyLDAvis/blob/master/notebooks/sklearn.ipynb">use pyLDAvis</a> to visualize our results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3703,9 +3793,9 @@ if(typeof(LDAvis) !== "undefined"){
 }
 </script></div></div>
 </div>
-</div>
-<div class="section" id="second-iteration-topic-model">
-<h3>Second iteration topic model<a class="headerlink" href="#second-iteration-topic-model" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="second-iteration-topic-model">
+<h3>Second iteration topic model<a class="headerlink" href="#second-iteration-topic-model" title="Permalink to this headline">#</a></h3>
 <p>The results from the topic model are not really useful: frequent occuring words are included in many topics, resulting in overlapping topics. Following the <a class="reference external" href="https://www.theanalyticslab.nl/nlpblogs_1_identifying_topics_using_topic_-modeling_lda/">approach from the Analytics Lab</a> we will second topic model which uses a simple <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> including only words that occur in 5 or more documents.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3815,26 +3905,26 @@ if(typeof(LDAvis) !== "undefined"){
 </script></div></div>
 </div>
 <p>Now that looks a lot better out-of-the-box already. Remember, like with t-sne and hierarchical clustering, LDA is a non-deterministic algorithm which will yield different results depending on the seed. Furthermore, their is no objective function that you can optimize, so it’s up to you to decide what constitutes a good, i.e. useful topic model.</p>
-</div>
-<div class="section" id="id1">
-<h3>Exercises<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="improve-the-topic-model">
-<h4>Improve the topic model<a class="headerlink" href="#improve-the-topic-model" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id1">
+<h3>Exercises<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<section id="improve-the-topic-model">
+<h4>Improve the topic model<a class="headerlink" href="#improve-the-topic-model" title="Permalink to this headline">#</a></h4>
 <p>Play around and try to improve the topic model. You may use any of the following techniques:</p>
 <ul class="simple">
 <li><p>Remove frequent words by adding them to the set of stop words</p></li>
 <li><p>Use lemma’s instead of plain tokens</p></li>
 <li><p>Try different <code class="docutils literal notranslate"><span class="pre">random_state</span></code>s</p></li>
 </ul>
-</div>
-<div class="section" id="calculate-topic-probabilities-per-review">
-<h4>Calculate topic probabilities per review<a class="headerlink" href="#calculate-topic-probabilities-per-review" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="calculate-topic-probabilities-per-review">
+<h4>Calculate topic probabilities per review<a class="headerlink" href="#calculate-topic-probabilities-per-review" title="Permalink to this headline">#</a></h4>
 <p>Following the <a class="reference external" href="https://www.theanalyticslab.nl/nlpblogs_3_use_topic_modeling_results_in_predictive_modeling/">approach of the Analytics Lab</a>, calculate the topic probability per review over your chosen topic model. The topic probabilities should sum to 1.0. These topic probabilities will be used as input for the classification task.</p>
-</div>
-</div>
-</div>
-<div class="section" id="classification-challenge-predict-detractors-from-text-reviews">
-<h2>Classification challenge: predict detractors from text reviews<a class="headerlink" href="#classification-challenge-predict-detractors-from-text-reviews" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="classification-challenge-predict-detractors-from-text-reviews">
+<h2>Classification challenge: predict detractors from text reviews<a class="headerlink" href="#classification-challenge-predict-detractors-from-text-reviews" title="Permalink to this headline">#</a></h2>
 <p>As a final exercise, combine all the different techniques we have covered so far to build a model that predicts the review score using the text. Specifically, we are interested in classifying <a class="reference external" href="https://en.wikipedia.org/wiki/Net_Promoter">detractors</a>, i.e. people that have given an overall score of 6 or lower. This is an imbalanced class problems, since only 11% of the overall reviews are detractors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3902,8 +3992,8 @@ if(typeof(LDAvis) !== "undefined"){
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3927,9 +4017,11 @@ if(typeof(LDAvis) !== "undefined"){
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="dutch-restaurant-reviews.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -3945,24 +4037,28 @@ if(typeof(LDAvis) !== "undefined"){
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

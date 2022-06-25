@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Chapter 11 – Training Deep Neural Networks &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,23 +37,21 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/handson-ml2/original/11_training_deep_neural_networks.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -968,16 +980,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,112 +1173,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/handson-ml2/original/11_training_deep_neural_networks.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/11_training_deep_neural_networks.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/11_training_deep_neural_networks.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/11_training_deep_neural_networks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/11_training_deep_neural_networks.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/11_training_deep_neural_networks.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/11_training_deep_neural_networks.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/handson-ml2/original/11_training_deep_neural_networks.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    Chapter 11 – Training Deep Neural Networks
@@ -1541,12 +1631,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Chapter 11 – Training Deep Neural Networks</h1>
@@ -1800,15 +1889,16 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-11-training-deep-neural-networks">
-<h1>Chapter 11 – Training Deep Neural Networks<a class="headerlink" href="#chapter-11-training-deep-neural-networks" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-11-training-deep-neural-networks">
+<h1>Chapter 11 – Training Deep Neural Networks<a class="headerlink" href="#chapter-11-training-deep-neural-networks" title="Permalink to this headline">#</a></h1>
 <p><em>This notebook contains all the sample code and solutions to the exercises in chapter 11.</em></p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="setup">
-<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h1>
 <p>First, let’s import a few common modules, ensure MatplotLib plots figures inline and prepare a function to save the figures. We also check that Python 3.5 or later is installed (although Python 2.x may work, it is deprecated so we strongly recommend you use Python 3 instead), as well as Scikit-Learn ≥0.20 and TensorFlow ≥2.0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1864,9 +1954,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="vanishing-exploding-gradients-problem">
-<h1>Vanishing/Exploding Gradients Problem<a class="headerlink" href="#vanishing-exploding-gradients-problem" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="vanishing-exploding-gradients-problem">
+<h1>Vanishing/Exploding Gradients Problem<a class="headerlink" href="#vanishing-exploding-gradients-problem" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">logit</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
@@ -1904,8 +1994,8 @@
 <img alt="../../_images/11_training_deep_neural_networks_7_1.png" src="../../_images/11_training_deep_neural_networks_7_1.png" />
 </div>
 </div>
-<div class="section" id="xavier-and-he-initialization">
-<h2>Xavier and He Initialization<a class="headerlink" href="#xavier-and-he-initialization" title="Permalink to this headline">¶</a></h2>
+<section id="xavier-and-he-initialization">
+<h2>Xavier and He Initialization<a class="headerlink" href="#xavier-and-he-initialization" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span>
@@ -1977,11 +2067,11 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="nonsaturating-activation-functions">
-<h2>Nonsaturating Activation Functions<a class="headerlink" href="#nonsaturating-activation-functions" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="leaky-relu">
-<h3>Leaky ReLU<a class="headerlink" href="#leaky-relu" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="nonsaturating-activation-functions">
+<h2>Nonsaturating Activation Functions<a class="headerlink" href="#nonsaturating-activation-functions" title="Permalink to this headline">#</a></h2>
+<section id="leaky-relu">
+<h3>Leaky ReLU<a class="headerlink" href="#leaky-relu" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">leaky_relu</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
@@ -2181,9 +2271,9 @@ Epoch 10/10
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="elu">
-<h3>ELU<a class="headerlink" href="#elu" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="elu">
+<h3>ELU<a class="headerlink" href="#elu" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">elu</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -2227,9 +2317,9 @@ Epoch 10/10
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="selu">
-<h3>SELU<a class="headerlink" href="#selu" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="selu">
+<h3>SELU<a class="headerlink" href="#selu" title="Permalink to this headline">#</a></h3>
 <p>This activation function was proposed in this <a class="reference external" href="https://arxiv.org/pdf/1706.02515.pdf">great paper</a> by Günter Klambauer, Thomas Unterthiner and Andreas Mayr, published in June 2017. During training, a neural network composed exclusively of a stack of dense layers using the SELU activation function and LeCun initialization will self-normalize: the output of each layer will tend to preserve the same mean and variance during training, which solves the vanishing/exploding gradients problem. As a result, this activation function outperforms the other activation functions very significantly for such neural nets, so you should really try it out. Unfortunately, the self-normalizing property of the SELU activation function is easily broken: you cannot use ℓ<sub>1</sub> or ℓ<sub>2</sub> regularization, regular dropout, max-norm, skip connections or other non-sequential topologies (so recurrent neural networks won’t self-normalize). However, in practice it works quite well with sequential CNNs. If you break self-normalization, SELU will not necessarily outperform other activation functions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2436,11 +2526,11 @@ Epoch 5/5
 </div>
 </div>
 <p>Not great at all, we suffered from the vanishing/exploding gradients problem.</p>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="batch-normalization">
-<h1>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="batch-normalization">
+<h1>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
@@ -2612,8 +2702,8 @@ Epoch 10/10
 </div>
 </div>
 </div>
-<div class="section" id="gradient-clipping">
-<h2>Gradient Clipping<a class="headerlink" href="#gradient-clipping" title="Permalink to this headline">¶</a></h2>
+<section id="gradient-clipping">
+<h2>Gradient Clipping<a class="headerlink" href="#gradient-clipping" title="Permalink to this headline">#</a></h2>
 <p>All Keras optimizers accept <code class="docutils literal notranslate"><span class="pre">clipnorm</span></code> or <code class="docutils literal notranslate"><span class="pre">clipvalue</span></code> arguments:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2629,11 +2719,11 @@ Epoch 10/10
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="reusing-pretrained-layers">
-<h2>Reusing Pretrained Layers<a class="headerlink" href="#reusing-pretrained-layers" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="reusing-a-keras-model">
-<h3>Reusing a Keras model<a class="headerlink" href="#reusing-a-keras-model" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="reusing-pretrained-layers">
+<h2>Reusing Pretrained Layers<a class="headerlink" href="#reusing-pretrained-layers" title="Permalink to this headline">#</a></h2>
+<section id="reusing-a-keras-model">
+<h3>Reusing a Keras model<a class="headerlink" href="#reusing-a-keras-model" title="Permalink to this headline">#</a></h3>
 <p>Let’s split the fashion MNIST training set in two:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">X_train_A</span></code>: all images of all items except for sandals and shirts (classes 5 and 6).</p></li>
@@ -3039,13 +3129,13 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="faster-optimizers">
-<h1>Faster Optimizers<a class="headerlink" href="#faster-optimizers" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="momentum-optimization">
-<h2>Momentum optimization<a class="headerlink" href="#momentum-optimization" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="faster-optimizers">
+<h1>Faster Optimizers<a class="headerlink" href="#faster-optimizers" title="Permalink to this headline">#</a></h1>
+<section id="momentum-optimization">
+<h2>Momentum optimization<a class="headerlink" href="#momentum-optimization" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
@@ -3053,9 +3143,9 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="nesterov-accelerated-gradient">
-<h2>Nesterov Accelerated Gradient<a class="headerlink" href="#nesterov-accelerated-gradient" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="nesterov-accelerated-gradient">
+<h2>Nesterov Accelerated Gradient<a class="headerlink" href="#nesterov-accelerated-gradient" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -3063,9 +3153,9 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="adagrad">
-<h2>AdaGrad<a class="headerlink" href="#adagrad" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="adagrad">
+<h2>AdaGrad<a class="headerlink" href="#adagrad" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adagrad</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
@@ -3073,9 +3163,9 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="rmsprop">
-<h2>RMSProp<a class="headerlink" href="#rmsprop" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="rmsprop">
+<h2>RMSProp<a class="headerlink" href="#rmsprop" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
@@ -3083,9 +3173,9 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="adam-optimization">
-<h2>Adam Optimization<a class="headerlink" href="#adam-optimization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="adam-optimization">
+<h2>Adam Optimization<a class="headerlink" href="#adam-optimization" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
@@ -3093,9 +3183,9 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="adamax-optimization">
-<h2>Adamax Optimization<a class="headerlink" href="#adamax-optimization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="adamax-optimization">
+<h2>Adamax Optimization<a class="headerlink" href="#adamax-optimization" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adamax</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
@@ -3103,9 +3193,9 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="nadam-optimization">
-<h2>Nadam Optimization<a class="headerlink" href="#nadam-optimization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="nadam-optimization">
+<h2>Nadam Optimization<a class="headerlink" href="#nadam-optimization" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Nadam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
@@ -3113,11 +3203,11 @@ Epoch 16/16
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="learning-rate-scheduling">
-<h2>Learning Rate Scheduling<a class="headerlink" href="#learning-rate-scheduling" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="power-scheduling">
-<h3>Power Scheduling<a class="headerlink" href="#power-scheduling" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="learning-rate-scheduling">
+<h2>Learning Rate Scheduling<a class="headerlink" href="#learning-rate-scheduling" title="Permalink to this headline">#</a></h2>
+<section id="power-scheduling">
+<h3>Power Scheduling<a class="headerlink" href="#power-scheduling" title="Permalink to this headline">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">lr</span> <span class="pre">=</span> <span class="pre">lr0</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">steps</span> <span class="pre">/</span> <span class="pre">s)**c</span></code></p>
 <ul class="simple">
 <li><p>Keras uses <code class="docutils literal notranslate"><span class="pre">c=1</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">decay</span></code></p></li>
@@ -3230,9 +3320,9 @@ Epoch 25/25
 <img alt="../../_images/11_training_deep_neural_networks_117_0.png" src="../../_images/11_training_deep_neural_networks_117_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="exponential-scheduling">
-<h3>Exponential Scheduling<a class="headerlink" href="#exponential-scheduling" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exponential-scheduling">
+<h3>Exponential Scheduling<a class="headerlink" href="#exponential-scheduling" title="Permalink to this headline">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">lr</span> <span class="pre">=</span> <span class="pre">lr0</span> <span class="pre">*</span> <span class="pre">0.1**(epoch</span> <span class="pre">/</span> <span class="pre">s)</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3475,9 +3565,9 @@ Epoch 25/25
 <img alt="../../_images/11_training_deep_neural_networks_130_0.png" src="../../_images/11_training_deep_neural_networks_130_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="piecewise-constant-scheduling">
-<h3>Piecewise Constant Scheduling<a class="headerlink" href="#piecewise-constant-scheduling" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="piecewise-constant-scheduling">
+<h3>Piecewise Constant Scheduling<a class="headerlink" href="#piecewise-constant-scheduling" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">piecewise_constant_fn</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
@@ -3594,9 +3684,9 @@ Epoch 25/25
 <img alt="../../_images/11_training_deep_neural_networks_135_0.png" src="../../_images/11_training_deep_neural_networks_135_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="performance-scheduling">
-<h3>Performance Scheduling<a class="headerlink" href="#performance-scheduling" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="performance-scheduling">
+<h3>Performance Scheduling<a class="headerlink" href="#performance-scheduling" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -3702,9 +3792,9 @@ Epoch 25/25
 <img alt="../../_images/11_training_deep_neural_networks_139_0.png" src="../../_images/11_training_deep_neural_networks_139_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="tf-keras-schedulers">
-<h3>tf.keras schedulers<a class="headerlink" href="#tf-keras-schedulers" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="tf-keras-schedulers">
+<h3>tf.keras schedulers<a class="headerlink" href="#tf-keras-schedulers" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
@@ -3788,9 +3878,9 @@ Epoch 25/25
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="cycle-scheduling">
-<h3>1Cycle scheduling<a class="headerlink" href="#cycle-scheduling" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="cycle-scheduling">
+<h3>1Cycle scheduling<a class="headerlink" href="#cycle-scheduling" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">backend</span>
@@ -3973,13 +4063,13 @@ Epoch 25/25
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="avoiding-overfitting-through-regularization">
-<h1>Avoiding Overfitting Through Regularization<a class="headerlink" href="#avoiding-overfitting-through-regularization" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="ell-1-and-ell-2-regularization">
-<h2><span class="math notranslate nohighlight">\(\ell_1\)</span> and <span class="math notranslate nohighlight">\(\ell_2\)</span> regularization<a class="headerlink" href="#ell-1-and-ell-2-regularization" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="avoiding-overfitting-through-regularization">
+<h1>Avoiding Overfitting Through Regularization<a class="headerlink" href="#avoiding-overfitting-through-regularization" title="Permalink to this headline">#</a></h1>
+<section id="ell-1-and-ell-2-regularization">
+<h2><span class="math notranslate nohighlight">\(\ell_1\)</span> and <span class="math notranslate nohighlight">\(\ell_2\)</span> regularization<a class="headerlink" href="#ell-1-and-ell-2-regularization" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;elu&quot;</span><span class="p">,</span>
@@ -4051,9 +4141,9 @@ Epoch 2/2
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="dropout">
-<h2>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="dropout">
+<h2>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
@@ -4081,9 +4171,9 @@ Epoch 2/2
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="alpha-dropout">
-<h2>Alpha Dropout<a class="headerlink" href="#alpha-dropout" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="alpha-dropout">
+<h2>Alpha Dropout<a class="headerlink" href="#alpha-dropout" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -4198,9 +4288,9 @@ Epoch 20/20
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="mc-dropout">
-<h2>MC Dropout<a class="headerlink" href="#mc-dropout" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mc-dropout">
+<h2>MC Dropout<a class="headerlink" href="#mc-dropout" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -4583,9 +4673,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="max-norm">
-<h2>Max norm<a class="headerlink" href="#max-norm" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="max-norm">
+<h2>Max norm<a class="headerlink" href="#max-norm" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;selu&quot;</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="s2">&quot;lecun_normal&quot;</span><span class="p">,</span>
@@ -4622,18 +4712,18 @@ Epoch 2/2
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="to-7">
-<h2>1. to 7.<a class="headerlink" href="#to-7" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h1>
+<section id="to-7">
+<h2>1. to 7.<a class="headerlink" href="#to-7" title="Permalink to this headline">#</a></h2>
 <p>See appendix A.</p>
-</div>
-<div class="section" id="deep-learning-on-cifar10">
-<h2>8. Deep Learning on CIFAR10<a class="headerlink" href="#deep-learning-on-cifar10" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="a">
-<h3>a.<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="deep-learning-on-cifar10">
+<h2>8. Deep Learning on CIFAR10<a class="headerlink" href="#deep-learning-on-cifar10" title="Permalink to this headline">#</a></h2>
+<section id="a">
+<h3>a.<a class="headerlink" href="#a" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Build a DNN with 20 hidden layers of 100 neurons each (that’s too many, but it’s the point of this exercise). Use He initialization and the ELU activation function.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4651,9 +4741,9 @@ Epoch 2/2
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="b">
-<h3>b.<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="b">
+<h3>b.<a class="headerlink" href="#b" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Using Nadam optimization and early stopping, train the network on the CIFAR10 dataset. You can load it with <code class="docutils literal notranslate"><span class="pre">keras.datasets.cifar10.load_data()</span></code>. The dataset is composed of 60,000 32 × 32–pixel color images (50,000 for training, 10,000 for testing) with 10 classes, so you’ll need a softmax output layer with 10 neurons. Remember to search for the right learning rate each time you change the model’s architecture or hyperparameters.</em></p>
 <p>Let’s add the output layer to the model:</p>
 <div class="cell docutils container">
@@ -4819,9 +4909,9 @@ Epoch 47/100
 </div>
 </div>
 <p>The model with the lowest validation loss gets about 47.6% accuracy on the validation set. It took 27 epochs to reach the lowest validation loss, with roughly 8 seconds per epoch on my laptop (without a GPU). Let’s see if we can improve performance using Batch Normalization.</p>
-</div>
-<div class="section" id="c">
-<h3>c.<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="c">
+<h3>c.<a class="headerlink" href="#c" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Now try adding Batch Normalization and compare the learning curves: Is it converging faster than before? Does it produce a better model? How does it affect training speed?</em></p>
 <p>The code below is very similar to the code above, with a few changes:</p>
 <ul class="simple">
@@ -4949,9 +5039,9 @@ Epoch 49/100
 <li><p><em>Does BN produce a better model?</em> Yes! The final model is also much better, with 54.0% accuracy instead of 47.6%. It’s still not a very good model, but at least it’s much better than before (a Convolutional Neural Network would do much better, but that’s a different topic, see chapter 14).</p></li>
 <li><p><em>How does BN affect training speed?</em> Although the model converged much faster, each epoch took about 12s instead of 8s, because of the extra computations required by the BN layers. But overall the training time (wall time) was shortened significantly!</p></li>
 </ul>
-</div>
-<div class="section" id="d">
-<h3>d.<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="d">
+<h3>d.<a class="headerlink" href="#d" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Try replacing Batch Normalization with SELU, and make the necessary adjustements to ensure the network self-normalizes (i.e., standardize the input features, use LeCun normal initialization, make sure the DNN contains only a sequence of dense layers, etc.).</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5076,9 +5166,9 @@ Epoch 28/100
 </div>
 </div>
 <p>We get 47.9% accuracy, which is not much better than the original model (47.6%), and not as good as the model using batch normalization (54.0%). However, convergence was almost as fast as with the BN model, plus each epoch took only 7 seconds. So it’s by far the fastest model to train so far.</p>
-</div>
-<div class="section" id="e">
-<h3>e.<a class="headerlink" href="#e" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="e">
+<h3>e.<a class="headerlink" href="#e" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Try regularizing the model with alpha dropout. Then, without retraining your model, see if you can achieve better accuracy using MC Dropout.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5245,9 +5335,9 @@ Epoch 28/100
 </div>
 <p>We get no accuracy improvement in this case (we’re still at 48.9% accuracy).</p>
 <p>So the best model we got in this exercise is the Batch Normalization model.</p>
-</div>
-<div class="section" id="f">
-<h3>f.<a class="headerlink" href="#f" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="f">
+<h3>f.<a class="headerlink" href="#f" title="Permalink to this headline">#</a></h3>
 <p><em>Exercise: Retrain your model using 1cycle scheduling and see if it improves training speed and model accuracy.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5365,9 +5455,9 @@ Epoch 15/15
 </div>
 </div>
 <p>One cycle allowed us to train the model in just 15 epochs, each taking only 2 seconds (thanks to the larger batch size). This is several times faster than the fastest model we trained so far. Moreover, we improved the model’s performance (from 47.6% to 52.0%). The batch normalized model reaches a slightly better performance (54%), but it’s much slower to train.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -5391,9 +5481,11 @@ Epoch 15/15
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="10_neural_nets_with_keras.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -5409,24 +5501,28 @@ Epoch 15/15
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

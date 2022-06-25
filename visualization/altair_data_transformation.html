@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Data Transformation &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/visualization/altair_data_transformation.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/visualization/altair_data_transformation.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_data_transformation.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_data_transformation.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_data_transformation.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_data_transformation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_data_transformation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_data_transformation.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/visualization/altair_data_transformation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-movies-dataset">
    The Movies Dataset
@@ -1368,12 +1458,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Data Transformation</h1>
@@ -1456,11 +1545,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="data-transformation">
-<h1>Data Transformation<a class="headerlink" href="#data-transformation" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="data-transformation">
+<h1>Data Transformation<a class="headerlink" href="#data-transformation" title="Permalink to this headline">#</a></h1>
 <p>In previous notebooks we learned how to use marks and visual encodings to represent individual data records. Here we will explore methods for <em>transforming</em> data, including the use of aggregates to summarize multiple records. Data transformation is an integral part of visualization: choosing the  variables to show and their level of detail is just as important as choosing appropriate visual encodings. After all, it doesn’t matter how well chosen your visual encodings are if you are showing the wrong information!</p>
 <p>As you work through this module, we recommend that you open the <a class="reference external" href="https://altair-viz.github.io/user_guide/transform.html">Altair Data Transformations documentation</a> in another tab. It will be a useful resource if at any point you’d like more details or want to see what other transformations are available.</p>
 <p><em>This notebook is part of the <a class="reference external" href="https://github.com/uwdata/visualization-curriculum">data visualization curriculum</a>.</em></p>
@@ -1472,8 +1562,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="the-movies-dataset">
-<h2>The Movies Dataset<a class="headerlink" href="#the-movies-dataset" title="Permalink to this headline">¶</a></h2>
+<section id="the-movies-dataset">
+<h2>The Movies Dataset<a class="headerlink" href="#the-movies-dataset" title="Permalink to this headline">#</a></h2>
 <p>We will be working with a table of data about motion pictures, taken from the <a class="reference external" href="https://vega.github.io/vega-datasets/">vega-datasets</a> collection. The data includes variables such as the film name, director, genre, release date, ratings, and gross revenues. However, <em>be careful when working with this data</em>: the films are from unevenly sampled years, using data combined from multiple sources. If you dig in you will find issues with missing values and even some subtle errors! Nevertheless, the data should prove interesting to explore…</p>
 <p>Let’s retrieve the URL for the JSON data file from the vega_datasets package, and then read the data into a Pandas data frame so that we can inspect its contents.</p>
 <div class="cell docutils container">
@@ -1641,9 +1731,9 @@
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="histograms">
-<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="histograms">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">#</a></h2>
 <p>We’ll start our transformation tour by <em>binning</em> data into discrete groups and <em>counting</em> records to summarize those groups. The resulting plots are known as <a class="reference external" href="https://en.wikipedia.org/wiki/Histogram"><em>histograms</em></a>.</p>
 <p>Let’s first look at unaggregated data: a scatter plot showing movie ratings from Rotten Tomatoes versus ratings from IMDB users. We’ll provide data to Altair by passing the movies data URL to the <code class="docutils literal notranslate"><span class="pre">Chart</span></code> method. (We could also pass the Pandas data frame directly to get the same result.) We can then encode the Rotten Tomatoes and IMDB ratings fields using the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> channels:</p>
 <div class="cell docutils container">
@@ -1657,13 +1747,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a61bba66a46c43208cd7c09437b8e7ad"></div>
+<div id="altair-viz-1ba554cf3b544fe182e1036ad1cd4a5a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a61bba66a46c43208cd7c09437b8e7ad") {
-      outputDiv = document.getElementById("altair-viz-a61bba66a46c43208cd7c09437b8e7ad");
+    if (outputDiv.id !== "altair-viz-1ba554cf3b544fe182e1036ad1cd4a5a") {
+      outputDiv = document.getElementById("altair-viz-1ba554cf3b544fe182e1036ad1cd4a5a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1724,13 +1814,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-5dd635542296499a9e1920dd9a931816"></div>
+<div id="altair-viz-134740062dab41de8092088740421984"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5dd635542296499a9e1920dd9a931816") {
-      outputDiv = document.getElementById("altair-viz-5dd635542296499a9e1920dd9a931816");
+    if (outputDiv.id !== "altair-viz-134740062dab41de8092088740421984") {
+      outputDiv = document.getElementById("altair-viz-134740062dab41de8092088740421984");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1791,13 +1881,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3e2f75ea99c445098fdd74a774d07858"></div>
+<div id="altair-viz-bbb4c31ddb904633817f7f159a60a2c0"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3e2f75ea99c445098fdd74a774d07858") {
-      outputDiv = document.getElementById("altair-viz-3e2f75ea99c445098fdd74a774d07858");
+    if (outputDiv.id !== "altair-viz-bbb4c31ddb904633817f7f159a60a2c0") {
+      outputDiv = document.getElementById("altair-viz-bbb4c31ddb904633817f7f159a60a2c0");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1859,13 +1949,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-01d62cf275d6454d9def5217c8264c59"></div>
+<div id="altair-viz-64224e188c644c758cbb294a7dbd02d7"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-01d62cf275d6454d9def5217c8264c59") {
-      outputDiv = document.getElementById("altair-viz-01d62cf275d6454d9def5217c8264c59");
+    if (outputDiv.id !== "altair-viz-64224e188c644c758cbb294a7dbd02d7") {
+      outputDiv = document.getElementById("altair-viz-64224e188c644c758cbb294a7dbd02d7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1926,13 +2016,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1cfab393948446298ceee44bd50523c7"></div>
+<div id="altair-viz-e83c3ecc8b434e8a9a7866fe61243097"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1cfab393948446298ceee44bd50523c7") {
-      outputDiv = document.getElementById("altair-viz-1cfab393948446298ceee44bd50523c7");
+    if (outputDiv.id !== "altair-viz-e83c3ecc8b434e8a9a7866fe61243097") {
+      outputDiv = document.getElementById("altair-viz-e83c3ecc8b434e8a9a7866fe61243097");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1994,13 +2084,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-f597e1068f45416e98035492e614283d"></div>
+<div id="altair-viz-a3e526481d8c440aa20ee3ed2d53982e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f597e1068f45416e98035492e614283d") {
-      outputDiv = document.getElementById("altair-viz-f597e1068f45416e98035492e614283d");
+    if (outputDiv.id !== "altair-viz-a3e526481d8c440aa20ee3ed2d53982e") {
+      outputDiv = document.getElementById("altair-viz-a3e526481d8c440aa20ee3ed2d53982e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2062,13 +2152,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9c731944a4134001a52ed3a1e9f2ca5b"></div>
+<div id="altair-viz-49b3ce4182654e2dbba6a1e6ed240551"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9c731944a4134001a52ed3a1e9f2ca5b") {
-      outputDiv = document.getElementById("altair-viz-9c731944a4134001a52ed3a1e9f2ca5b");
+    if (outputDiv.id !== "altair-viz-49b3ce4182654e2dbba6a1e6ed240551") {
+      outputDiv = document.getElementById("altair-viz-49b3ce4182654e2dbba6a1e6ed240551");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2131,13 +2221,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c1d6963890fa4460b5b4f74fae97053c"></div>
+<div id="altair-viz-9b6d8efce35843338284cbc6fbb88347"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c1d6963890fa4460b5b4f74fae97053c") {
-      outputDiv = document.getElementById("altair-viz-c1d6963890fa4460b5b4f74fae97053c");
+    if (outputDiv.id !== "altair-viz-9b6d8efce35843338284cbc6fbb88347") {
+      outputDiv = document.getElementById("altair-viz-9b6d8efce35843338284cbc6fbb88347");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2199,13 +2289,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-bef260ffd8334782b67859c245adde68"></div>
+<div id="altair-viz-466ecac8c35c4dc8a4181b661cf03528"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-bef260ffd8334782b67859c245adde68") {
-      outputDiv = document.getElementById("altair-viz-bef260ffd8334782b67859c245adde68");
+    if (outputDiv.id !== "altair-viz-466ecac8c35c4dc8a4181b661cf03528") {
+      outputDiv = document.getElementById("altair-viz-466ecac8c35c4dc8a4181b661cf03528");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2255,13 +2345,13 @@
 </script></div></div>
 </div>
 <p>Compare the <em>size</em> and <em>color</em>-based 2D histograms above. Which encoding do you think should be preferred? Why? In which plot can you more precisely compare the magnitude of individual values? In which plot can you more accurately see the overall density of ratings?</p>
-</div>
-<div class="section" id="aggregation">
-<h2>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="aggregation">
+<h2>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this headline">#</a></h2>
 <p>Counts are just one type of aggregate. We might also calculate summaries using measures such as the <code class="docutils literal notranslate"><span class="pre">average</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, or <code class="docutils literal notranslate"><span class="pre">max</span></code>. The Altair documentation includes the <a class="reference external" href="https://altair-viz.github.io/user_guide/encoding.html#encoding-aggregates">full set of available aggregation functions</a>.</p>
 <p>Let’s look at some examples!</p>
-<div class="section" id="averages-and-sorting">
-<h3>Averages and Sorting<a class="headerlink" href="#averages-and-sorting" title="Permalink to this headline">¶</a></h3>
+<section id="averages-and-sorting">
+<h3>Averages and Sorting<a class="headerlink" href="#averages-and-sorting" title="Permalink to this headline">#</a></h3>
 <p><em>Do different genres of films receive consistently different ratings from critics?</em> As a first step towards answering this question, we might examine the <a class="reference external" href="https://en.wikipedia.org/wiki/Arithmetic_mean"><em>average</em> (a.k.a. the <em>arithmetic mean</em>)</a> rating for each genre of movie.</p>
 <p>Let’s visualize genre along the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis and plot <code class="docutils literal notranslate"><span class="pre">average</span></code> Rotten Tomatoes ratings along the <code class="docutils literal notranslate"><span class="pre">x</span></code> axis.</p>
 <div class="cell docutils container">
@@ -2275,13 +2365,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-44dc041dec7a4052baf1be7af004b2ff"></div>
+<div id="altair-viz-1102765bf7144d6d8bfaba6bbbb6deb2"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-44dc041dec7a4052baf1be7af004b2ff") {
-      outputDiv = document.getElementById("altair-viz-44dc041dec7a4052baf1be7af004b2ff");
+    if (outputDiv.id !== "altair-viz-1102765bf7144d6d8bfaba6bbbb6deb2") {
+      outputDiv = document.getElementById("altair-viz-1102765bf7144d6d8bfaba6bbbb6deb2");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2345,13 +2435,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e0b474e577ff480da14b8edf611d7d9e"></div>
+<div id="altair-viz-469a1cc20d644aeb936249ddce9d9742"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e0b474e577ff480da14b8edf611d7d9e") {
-      outputDiv = document.getElementById("altair-viz-e0b474e577ff480da14b8edf611d7d9e");
+    if (outputDiv.id !== "altair-viz-469a1cc20d644aeb936249ddce9d9742") {
+      outputDiv = document.getElementById("altair-viz-469a1cc20d644aeb936249ddce9d9742");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2401,9 +2491,9 @@
 </script></div></div>
 </div>
 <p><em>The sorted plot suggests that critics think highly of documentaries, musicals, westerns, and dramas, but look down upon romantic comedies and horror films… and who doesn’t love <code class="docutils literal notranslate"><span class="pre">null</span></code> movies!?</em></p>
-</div>
-<div class="section" id="medians-and-the-inter-quartile-range">
-<h3>Medians and the Inter-Quartile Range<a class="headerlink" href="#medians-and-the-inter-quartile-range" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="medians-and-the-inter-quartile-range">
+<h3>Medians and the Inter-Quartile Range<a class="headerlink" href="#medians-and-the-inter-quartile-range" title="Permalink to this headline">#</a></h3>
 <p>While averages are a common way to summarize data, they can sometimes mislead. For example, very large or very small values (<a class="reference external" href="https://en.wikipedia.org/wiki/Outlier"><em>outliers</em></a>) might skew the average. To be safe, we can compare the genres according to the <a class="reference external" href="https://en.wikipedia.org/wiki/Median"><em>median</em></a> ratings as well.</p>
 <p>The median is a point that splits the data evenly, such that half of the values are less than the median and the other half are greater. The median is less sensitive to outliers and so is referred to as a <a class="reference external" href="https://en.wikipedia.org/wiki/Robust_statistics"><em>robust</em> statistic</a>. For example, arbitrarily increasing the largest rating value will not cause the median to change.</p>
 <p>Let’s update our plot to use a <code class="docutils literal notranslate"><span class="pre">median</span></code> aggregate and sort by those values:</p>
@@ -2420,13 +2510,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-81c0411b37cc46108bfe969ac5a76d3a"></div>
+<div id="altair-viz-11ab9c300ac54afdb8a3d922cf2c98a9"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-81c0411b37cc46108bfe969ac5a76d3a") {
-      outputDiv = document.getElementById("altair-viz-81c0411b37cc46108bfe969ac5a76d3a");
+    if (outputDiv.id !== "altair-viz-11ab9c300ac54afdb8a3d922cf2c98a9") {
+      outputDiv = document.getElementById("altair-viz-11ab9c300ac54afdb8a3d922cf2c98a9");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2493,13 +2583,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d29a6855ce804ddaaedda50f8ef07056"></div>
+<div id="altair-viz-54a52b11c6cd4ceea13eadc5e680661f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d29a6855ce804ddaaedda50f8ef07056") {
-      outputDiv = document.getElementById("altair-viz-d29a6855ce804ddaaedda50f8ef07056");
+    if (outputDiv.id !== "altair-viz-54a52b11c6cd4ceea13eadc5e680661f") {
+      outputDiv = document.getElementById("altair-viz-54a52b11c6cd4ceea13eadc5e680661f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2548,9 +2638,9 @@
   })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "mark": "bar", "encoding": {"x": {"aggregate": "q1", "field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "x2": {"aggregate": "q3", "field": "Rotten_Tomatoes_Rating"}, "y": {"field": "Major_Genre", "sort": {"field": "Rotten_Tomatoes_Rating", "op": "median", "order": "descending"}, "type": "nominal"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-<div class="section" id="time-units">
-<h3>Time Units<a class="headerlink" href="#time-units" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="time-units">
+<h3>Time Units<a class="headerlink" href="#time-units" title="Permalink to this headline">#</a></h3>
 <p><em>Now let’s ask a completely different question: do box office returns vary by season?</em></p>
 <p>To get an initial answer, let’s plot the median U.S. gross revenue by month.</p>
 <p>To make this chart, use the <code class="docutils literal notranslate"><span class="pre">timeUnit</span></code> transform to map release dates to the <code class="docutils literal notranslate"><span class="pre">month</span></code> of the year. The result is similar to binning, but using meaningful time intervals. Other valid time units include <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">quarter</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code> (numeric day in month), <code class="docutils literal notranslate"><span class="pre">day</span></code> (day of the week), and <code class="docutils literal notranslate"><span class="pre">hours</span></code>, as well as compound units such as <code class="docutils literal notranslate"><span class="pre">yearmonth</span></code> or <code class="docutils literal notranslate"><span class="pre">hoursminutes</span></code>. See the Altair documentation for a <a class="reference external" href="https://altair-viz.github.io/user_guide/transform.html#timeunit-transform">complete list of time units</a>.</p>
@@ -2565,13 +2655,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-881354961b1044248da2525835da8fff"></div>
+<div id="altair-viz-75ab1048f4734e6990a4af2c1db8470f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-881354961b1044248da2525835da8fff") {
-      outputDiv = document.getElementById("altair-viz-881354961b1044248da2525835da8fff");
+    if (outputDiv.id !== "altair-viz-75ab1048f4734e6990a4af2c1db8470f") {
+      outputDiv = document.getElementById("altair-viz-75ab1048f4734e6990a4af2c1db8470f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2632,13 +2722,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-82069f1bbd4f4dc1a90a3a8a79469237"></div>
+<div id="altair-viz-2e3be597a9554445b29fdc67ed55e8b9"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-82069f1bbd4f4dc1a90a3a8a79469237") {
-      outputDiv = document.getElementById("altair-viz-82069f1bbd4f4dc1a90a3a8a79469237");
+    if (outputDiv.id !== "altair-viz-2e3be597a9554445b29fdc67ed55e8b9") {
+      outputDiv = document.getElementById("altair-viz-2e3be597a9554445b29fdc67ed55e8b9");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2688,14 +2778,14 @@
 </script></div></div>
 </div>
 <p><em>Yes!</em></p>
-</div>
-</div>
-<div class="section" id="advanced-data-transformation">
-<h2>Advanced Data Transformation<a class="headerlink" href="#advanced-data-transformation" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="advanced-data-transformation">
+<h2>Advanced Data Transformation<a class="headerlink" href="#advanced-data-transformation" title="Permalink to this headline">#</a></h2>
 <p>The examples above all use transformations (<em>bin</em>, <em>timeUnit</em>, <em>aggregate</em>, <em>sort</em>) that are defined relative to an encoding channel. However, at times you may want to apply a chain of multiple transformations prior to visualization, or use transformations that don’t integrate into encoding definitions. For such cases, Altair and Vega-Lite support data transformations defined separately from encodings. These transformations are applied to the data <em>before</em> any encodings are considered.</p>
 <p>We <em>could</em> also perform transformations using Pandas directly, and then visualize the result. However, using the built-in transforms allows our visualizations to be published more easily in other contexts; for example, exporting the Vega-Lite JSON to use in a stand-alone web interface. Let’s look at the built-in transforms supported by Altair, such as <code class="docutils literal notranslate"><span class="pre">calculate</span></code>, <code class="docutils literal notranslate"><span class="pre">filter</span></code>, <code class="docutils literal notranslate"><span class="pre">aggregate</span></code>, and <code class="docutils literal notranslate"><span class="pre">window</span></code>.</p>
-<div class="section" id="calculate">
-<h3>Calculate<a class="headerlink" href="#calculate" title="Permalink to this headline">¶</a></h3>
+<section id="calculate">
+<h3>Calculate<a class="headerlink" href="#calculate" title="Permalink to this headline">#</a></h3>
 <p><em>Think back to our comparison of U.S. gross and worldwide gross. Doesn’t worldwide revenue include the U.S.? (Indeed it does.) How might we get a better sense of trends outside the U.S.?</em></p>
 <p>With the <code class="docutils literal notranslate"><span class="pre">calculate</span></code> transform we can derive new fields. Here we want to subtract U.S. gross from worldwide gross. The <code class="docutils literal notranslate"><span class="pre">calculate</span></code> transform takes a <a class="reference external" href="https://vega.github.io/vega/docs/expressions/">Vega expression string</a> to define a formula over a single record. Vega expressions use JavaScript syntax. The <code class="docutils literal notranslate"><span class="pre">datum.</span></code> prefix accesses a field value on the input record.</p>
 <div class="cell docutils container">
@@ -2711,13 +2801,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-839728a8c266408ea6bfc7bc9fff9406"></div>
+<div id="altair-viz-7888b78b7f1649f3b3d52522d9dfd04b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-839728a8c266408ea6bfc7bc9fff9406") {
-      outputDiv = document.getElementById("altair-viz-839728a8c266408ea6bfc7bc9fff9406");
+    if (outputDiv.id !== "altair-viz-7888b78b7f1649f3b3d52522d9dfd04b") {
+      outputDiv = document.getElementById("altair-viz-7888b78b7f1649f3b3d52522d9dfd04b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2767,9 +2857,9 @@
 </script></div></div>
 </div>
 <p><em>We can see that seasonal trends hold outside the U.S., but with a more pronounced decline in the non-peak months.</em></p>
-</div>
-<div class="section" id="filter">
-<h3>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="filter">
+<h3>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">#</a></h3>
 <p>The <em>filter</em> transform creates a new table with a subset of the original data, removing rows that fail to meet a provided <a class="reference external" href="https://en.wikipedia.org/wiki/Predicate_%28mathematical_logic%29"><em>predicate</em></a> test. Similar to the <em>calculate</em> transform, filter predicates are expressed using the <a class="reference external" href="https://vega.github.io/vega/docs/expressions/">Vega expression language</a>.</p>
 <p>Below we add a filter to limit our initial scatter plot of IMDB vs. Rotten Tomatoes ratings to only films in the major genre of “Romantic Comedy”.</p>
 <div class="cell docutils container">
@@ -2783,13 +2873,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6a6f279d0a254cd0876380380ad9c145"></div>
+<div id="altair-viz-0200600acdde4a6ca2265c8aa1a017c7"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6a6f279d0a254cd0876380380ad9c145") {
-      outputDiv = document.getElementById("altair-viz-6a6f279d0a254cd0876380380ad9c145");
+    if (outputDiv.id !== "altair-viz-0200600acdde4a6ca2265c8aa1a017c7") {
+      outputDiv = document.getElementById("altair-viz-0200600acdde4a6ca2265c8aa1a017c7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2851,13 +2941,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-fd88f9a48ad44446866be0141860ca5f"></div>
+<div id="altair-viz-02a68ad433a44afc82b70b34b8a0dbe8"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-fd88f9a48ad44446866be0141860ca5f") {
-      outputDiv = document.getElementById("altair-viz-fd88f9a48ad44446866be0141860ca5f");
+    if (outputDiv.id !== "altair-viz-02a68ad433a44afc82b70b34b8a0dbe8") {
+      outputDiv = document.getElementById("altair-viz-02a68ad433a44afc82b70b34b8a0dbe8");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2907,9 +2997,9 @@
 </script></div></div>
 </div>
 <p><em>They seem to score unusually high! Are older films simply better, or is there a <a class="reference external" href="https://en.wikipedia.org/wiki/Selection%5Fbias">selection bias</a> towards more highly-rated older films in this dataset?</em></p>
-</div>
-<div class="section" id="aggregate">
-<h3>Aggregate<a class="headerlink" href="#aggregate" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="aggregate">
+<h3>Aggregate<a class="headerlink" href="#aggregate" title="Permalink to this headline">#</a></h3>
 <p>We have already seen <code class="docutils literal notranslate"><span class="pre">aggregate</span></code> transforms such as <code class="docutils literal notranslate"><span class="pre">count</span></code> and <code class="docutils literal notranslate"><span class="pre">average</span></code>  in the context of encoding channels. We can also specify aggregates separately, as a pre-processing step for other transforms (as in the <code class="docutils literal notranslate"><span class="pre">window</span></code> transform examples below). The output of an <code class="docutils literal notranslate"><span class="pre">aggregate</span></code> transform is a new data table with records that contain both the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> fields and the computed <code class="docutils literal notranslate"><span class="pre">aggregate</span></code> measures.</p>
 <p>Let’s recreate our plot of average ratings by genre, but this time using a separate <code class="docutils literal notranslate"><span class="pre">aggregate</span></code> transform. The output table from the aggregate transform contains 13 rows, one for each genre.</p>
 <p>To order the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis we must include a required aggregate operation in our sorting instructions. Here we use the <code class="docutils literal notranslate"><span class="pre">max</span></code> operator, which works fine because there is only one output record per genre. We could similarly use the <code class="docutils literal notranslate"><span class="pre">min</span></code> operator and end up with the same plot.</p>
@@ -2930,13 +3020,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-0e7aa275c1074e2d86555846ed481a7e"></div>
+<div id="altair-viz-8c75d62787844aa998db45995c92c421"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-0e7aa275c1074e2d86555846ed481a7e") {
-      outputDiv = document.getElementById("altair-viz-0e7aa275c1074e2d86555846ed481a7e");
+    if (outputDiv.id !== "altair-viz-8c75d62787844aa998db45995c92c421") {
+      outputDiv = document.getElementById("altair-viz-8c75d62787844aa998db45995c92c421");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2985,9 +3075,9 @@
   })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "mark": "bar", "encoding": {"x": {"field": "Average_Rating", "type": "quantitative"}, "y": {"field": "Major_Genre", "sort": {"field": "Average_Rating", "op": "max", "order": "descending"}, "type": "nominal"}}, "transform": [{"aggregate": [{"op": "average", "field": "Rotten_Tomatoes_Rating", "as": "Average_Rating"}], "groupby": ["Major_Genre"]}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-<div class="section" id="window">
-<h3>Window<a class="headerlink" href="#window" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="window">
+<h3>Window<a class="headerlink" href="#window" title="Permalink to this headline">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">window</span></code> transform performs calculations over sorted groups of data records. Window transforms are quite powerful, supporting tasks such as ranking, lead/lag analysis, cumulative totals, and running sums or averages. Values calculated by a <code class="docutils literal notranslate"><span class="pre">window</span></code> transform are written back to the input data table as new fields. Window operations include the aggregate operations we’ve seen earlier, as well as specialized operations such as <code class="docutils literal notranslate"><span class="pre">rank</span></code>, <code class="docutils literal notranslate"><span class="pre">row_number</span></code>, <code class="docutils literal notranslate"><span class="pre">lead</span></code>, and <code class="docutils literal notranslate"><span class="pre">lag</span></code>. The Vega-Lite documentation lists <a class="reference external" href="https://vega.github.io/vega-lite/docs/window.html#ops">all valid window operations</a>.</p>
 <p>One use case for a <code class="docutils literal notranslate"><span class="pre">window</span></code> transform is to calculate top-k lists. Let’s plot the top 20 directors in terms of total worldwide gross.</p>
 <p>We first use a <code class="docutils literal notranslate"><span class="pre">filter</span></code> transform to remove records for which we don’t know the director. Otherwise, the director <code class="docutils literal notranslate"><span class="pre">null</span></code> would dominate the list! We then apply an <code class="docutils literal notranslate"><span class="pre">aggregate</span></code> to sum up the worldwide gross for all films, grouped by director. At this point we could plot a sorted bar chart, but we’d end up with hundreds and hundreds of directors. How can we limit the display to the top 20?</p>
@@ -3015,13 +3105,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7f0eee89b2f6483c8d96393adcb70308"></div>
+<div id="altair-viz-1e7e8905efca476885f0f52765cc9422"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7f0eee89b2f6483c8d96393adcb70308") {
-      outputDiv = document.getElementById("altair-viz-7f0eee89b2f6483c8d96393adcb70308");
+    if (outputDiv.id !== "altair-viz-1e7e8905efca476885f0f52765cc9422") {
+      outputDiv = document.getElementById("altair-viz-1e7e8905efca476885f0f52765cc9422");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3092,13 +3182,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-941ef70cb45d44ba803171ecd0e14586"></div>
+<div id="altair-viz-77808987a54f48e0a51dc37f292b2964"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-941ef70cb45d44ba803171ecd0e14586") {
-      outputDiv = document.getElementById("altair-viz-941ef70cb45d44ba803171ecd0e14586");
+    if (outputDiv.id !== "altair-viz-77808987a54f48e0a51dc37f292b2964") {
+      outputDiv = document.getElementById("altair-viz-77808987a54f48e0a51dc37f292b2964");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3148,14 +3238,14 @@
 </script></div></div>
 </div>
 <p><em>Let’s examine the cumulative distribution of film lengths. We can see that films under 110 minutes make up about half of all the films for which we have running times. We see a steady accumulation of films between 90 minutes and 2 hours, after which the distribution begins to taper off. Though rare, the dataset does contain multiple films more than 3 hours long!</em></p>
-</div>
-</div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <p>We’ve only scratched the surface of what data transformations can do! For more details, including all the available transformations and their parameters, see the <a class="reference external" href="https://altair-viz.github.io/user_guide/transform.html">Altair data transformation documentation</a>.</p>
 <p>Sometimes you will need to perform significant data transformation to prepare your data <em>prior</em> to using visualization tools. To engage in <a class="reference external" href="https://en.wikipedia.org/wiki/Data_wrangling"><em>data wrangling</em></a> right here in Python, you can use the <a class="reference external" href="https://pandas.pydata.org/">Pandas library</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3179,9 +3269,11 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="altair_marks_encoding.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -3197,24 +3289,28 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

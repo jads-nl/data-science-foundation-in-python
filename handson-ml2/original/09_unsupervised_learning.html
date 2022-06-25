@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Chapter 9 – Unsupervised Learning &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,23 +37,21 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/handson-ml2/original/09_unsupervised_learning.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -968,16 +980,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,112 +1173,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/handson-ml2/original/09_unsupervised_learning.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/09_unsupervised_learning.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/09_unsupervised_learning.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/09_unsupervised_learning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/handson-ml2/original/09_unsupervised_learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/handson-ml2/original/09_unsupervised_learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fhandson-ml2/original/09_unsupervised_learning.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/handson-ml2/original/09_unsupervised_learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    Chapter 9 – Unsupervised Learning
@@ -1461,12 +1551,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Chapter 9 – Unsupervised Learning</h1>
@@ -1640,15 +1729,16 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-9-unsupervised-learning">
-<h1>Chapter 9 – Unsupervised Learning<a class="headerlink" href="#chapter-9-unsupervised-learning" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-9-unsupervised-learning">
+<h1>Chapter 9 – Unsupervised Learning<a class="headerlink" href="#chapter-9-unsupervised-learning" title="Permalink to this headline">#</a></h1>
 <p><em>This notebook contains all the sample code in chapter 9.</em></p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="setup">
-<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h1>
 <p>First, let’s import a few common modules, ensure MatplotLib plots figures inline and prepare a function to save the figures. We also check that Python 3.5 or later is installed (although Python 2.x may work, it is deprecated so we strongly recommend you use Python 3 instead), as well as Scikit-Learn ≥0.20.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1691,9 +1781,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="clustering">
-<h1>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="clustering">
+<h1>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">#</a></h1>
 <p><strong>Introduction – Classification <em>vs</em> Clustering</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1829,8 +1919,8 @@
 </div>
 </div>
 <p><strong>Note</strong>: the results in this notebook may differ slightly from the book. This is because algorithms can sometimes be tweaked a bit between Scikit-Learn versions.</p>
-<div class="section" id="k-means">
-<h2>K-Means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h2>
+<section id="k-means">
+<h2>K-Means<a class="headerlink" href="#k-means" title="Permalink to this headline">#</a></h2>
 <p>Let’s start by generating some blobs:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2070,8 +2160,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="the-k-means-algorithm">
-<h3>The K-Means Algorithm<a class="headerlink" href="#the-k-means-algorithm" title="Permalink to this headline">¶</a></h3>
+<section id="the-k-means-algorithm">
+<h3>The K-Means Algorithm<a class="headerlink" href="#the-k-means-algorithm" title="Permalink to this headline">#</a></h3>
 <p>The K-Means algorithm is one of the fastest clustering algorithms, and also one of the simplest:</p>
 <ul class="simple">
 <li><p>First initialize <span class="math notranslate nohighlight">\(k\)</span> centroids randomly: <span class="math notranslate nohighlight">\(k\)</span> distinct instances are chosen randomly from the dataset and the centroids are placed at their locations.</p></li>
@@ -2193,9 +2283,9 @@
 <img alt="../../_images/09_unsupervised_learning_60_1.png" src="../../_images/09_unsupervised_learning_60_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="inertia">
-<h3>Inertia<a class="headerlink" href="#inertia" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="inertia">
+<h3>Inertia<a class="headerlink" href="#inertia" title="Permalink to this headline">#</a></h3>
 <p>To select the best model, we will need a way to evaluate a K-Mean model’s performance. Unfortunately, clustering is an unsupervised task, so we do not have the targets. But at least we can measure the distance between each instance and its centroid. This is the idea behind the <em>inertia</em> metric:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2236,9 +2326,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="multiple-initializations">
-<h3>Multiple Initializations<a class="headerlink" href="#multiple-initializations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="multiple-initializations">
+<h3>Multiple Initializations<a class="headerlink" href="#multiple-initializations" title="Permalink to this headline">#</a></h3>
 <p>So one approach to solve the variability issue is to simply run the K-Means algorithm multiple times with different random initializations, and select the solution that minimizes the inertia. For example, here are the inertias of the two “bad” models shown in the previous figure:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2293,9 +2383,9 @@
 <img alt="../../_images/09_unsupervised_learning_76_0.png" src="../../_images/09_unsupervised_learning_76_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="centroid-initialization-methods">
-<h3>Centroid initialization methods<a class="headerlink" href="#centroid-initialization-methods" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="centroid-initialization-methods">
+<h3>Centroid initialization methods<a class="headerlink" href="#centroid-initialization-methods" title="Permalink to this headline">#</a></h3>
 <p>Instead of initializing the centroids entirely randomly, it is preferable to initialize them using the following algorithm, proposed in a <a class="reference external" href="https://goo.gl/eNUPw6">2006 paper</a> by David Arthur and Sergei Vassilvitskii:</p>
 <ul class="simple">
 <li><p>Take one centroid <span class="math notranslate nohighlight">\(c_1\)</span>, chosen uniformly at random from the dataset.</p></li>
@@ -2331,9 +2421,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="accelerated-k-means">
-<h3>Accelerated K-Means<a class="headerlink" href="#accelerated-k-means" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="accelerated-k-means">
+<h3>Accelerated K-Means<a class="headerlink" href="#accelerated-k-means" title="Permalink to this headline">#</a></h3>
 <p>The K-Means algorithm can be significantly accelerated by avoiding many unnecessary distance calculations: this is achieved by exploiting the triangle inequality (given three points A, B and C, the distance AC is always such that AC ≤ AB + BC) and by keeping track of lower and upper bounds for distances between instances and centroids (see this <a class="reference external" href="https://www.aaai.org/Papers/ICML/2003/ICML03-022.pdf">2003 paper</a> by Charles Elkan for more details).</p>
 <p>To use Elkan’s variant of K-Means, just set <code class="docutils literal notranslate"><span class="pre">algorithm=&quot;elkan&quot;</span></code>. Note that it does not support sparse data, so by default, Scikit-Learn uses <code class="docutils literal notranslate"><span class="pre">&quot;elkan&quot;</span></code> for dense data, and <code class="docutils literal notranslate"><span class="pre">&quot;full&quot;</span></code> (the regular K-Means algorithm) for sparse data.</p>
 <div class="cell docutils container">
@@ -2361,9 +2451,9 @@
 </div>
 </div>
 <p>There’s no big difference in this case, as the dataset is fairly small.</p>
-</div>
-<div class="section" id="mini-batch-k-means">
-<h3>Mini-Batch K-Means<a class="headerlink" href="#mini-batch-k-means" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="mini-batch-k-means">
+<h3>Mini-Batch K-Means<a class="headerlink" href="#mini-batch-k-means" title="Permalink to this headline">#</a></h3>
 <p>Scikit-Learn also implements a variant of the K-Means algorithm that supports mini-batches (see <a class="reference external" href="http://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf">this paper</a>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2587,9 +2677,9 @@
 <img alt="../../_images/09_unsupervised_learning_113_1.png" src="../../_images/09_unsupervised_learning_113_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="finding-the-optimal-number-of-clusters">
-<h3>Finding the optimal number of clusters<a class="headerlink" href="#finding-the-optimal-number-of-clusters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="finding-the-optimal-number-of-clusters">
+<h3>Finding the optimal number of clusters<a class="headerlink" href="#finding-the-optimal-number-of-clusters" title="Permalink to this headline">#</a></h3>
 <p>What if the number of clusters was set to a lower or greater value than 5?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2785,10 +2875,10 @@
 </div>
 </div>
 <p>As you can see, <span class="math notranslate nohighlight">\(k=5\)</span> looks like the best option here, as all clusters are roughly the same size, and they all cross the dashed line, which represents the mean silhouette score.</p>
-</div>
-</div>
-<div class="section" id="limits-of-k-means">
-<h2>Limits of K-Means<a class="headerlink" href="#limits-of-k-means" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="limits-of-k-means">
+<h2>Limits of K-Means<a class="headerlink" href="#limits-of-k-means" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -2850,9 +2940,9 @@
 <img alt="../../_images/09_unsupervised_learning_139_1.png" src="../../_images/09_unsupervised_learning_139_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="using-clustering-for-image-segmentation">
-<h2>Using Clustering for Image Segmentation<a class="headerlink" href="#using-clustering-for-image-segmentation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-clustering-for-image-segmentation">
+<h2>Using Clustering for Image Segmentation<a class="headerlink" href="#using-clustering-for-image-segmentation" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the ladybug image</span>
@@ -2940,9 +3030,9 @@
 <img alt="../../_images/09_unsupervised_learning_145_1.png" src="../../_images/09_unsupervised_learning_145_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="using-clustering-for-preprocessing">
-<h2>Using Clustering for Preprocessing<a class="headerlink" href="#using-clustering-for-preprocessing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-clustering-for-preprocessing">
+<h2>Using Clustering for Preprocessing<a class="headerlink" href="#using-clustering-for-preprocessing" title="Permalink to this headline">#</a></h2>
 <p>Let’s tackle the <em>digits dataset</em> which is a simple MNIST-like dataset containing 1,797 grayscale 8×8 images representing digits 0 to 9.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3194,9 +3284,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-clustering-for-semi-supervised-learning">
-<h2>Using Clustering for Semi-Supervised Learning<a class="headerlink" href="#using-clustering-for-semi-supervised-learning" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-clustering-for-semi-supervised-learning">
+<h2>Using Clustering for Semi-Supervised Learning<a class="headerlink" href="#using-clustering-for-semi-supervised-learning" title="Permalink to this headline">#</a></h2>
 <p>Another use case for clustering is in semi-supervised learning, when we have plenty of unlabeled instances and very few labeled instances.</p>
 <p>Let’s look at the performance of a logistic regression model when we only have 50 labeled instances:</p>
 <div class="cell docutils container">
@@ -3405,9 +3495,9 @@
 <li><p>Manually label the instances that the classifier is least sure about, if possible by picking them in distinct clusters.</p></li>
 <li><p>Train a new model with these additional labels.</p></li>
 </ol>
-</div>
-<div class="section" id="dbscan">
-<h2>DBSCAN<a class="headerlink" href="#dbscan" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="dbscan">
+<h2>DBSCAN<a class="headerlink" href="#dbscan" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
@@ -3657,11 +3747,11 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="other-clustering-algorithms">
-<h2>Other Clustering Algorithms<a class="headerlink" href="#other-clustering-algorithms" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="spectral-clustering">
-<h3>Spectral Clustering<a class="headerlink" href="#spectral-clustering" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="other-clustering-algorithms">
+<h2>Other Clustering Algorithms<a class="headerlink" href="#other-clustering-algorithms" title="Permalink to this headline">#</a></h2>
+<section id="spectral-clustering">
+<h3>Spectral Clustering<a class="headerlink" href="#spectral-clustering" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">SpectralClustering</span>
@@ -3745,9 +3835,9 @@
 <img alt="../../_images/09_unsupervised_learning_225_0.png" src="../../_images/09_unsupervised_learning_225_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="agglomerative-clustering">
-<h3>Agglomerative Clustering<a class="headerlink" href="#agglomerative-clustering" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="agglomerative-clustering">
+<h3>Agglomerative Clustering<a class="headerlink" href="#agglomerative-clustering" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span>
@@ -3803,11 +3893,11 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="gaussian-mixtures">
-<h1>Gaussian Mixtures<a class="headerlink" href="#gaussian-mixtures" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gaussian-mixtures">
+<h1>Gaussian Mixtures<a class="headerlink" href="#gaussian-mixtures" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -4137,8 +4227,8 @@
 <img alt="../../_images/09_unsupervised_learning_263_0.png" src="../../_images/09_unsupervised_learning_263_0.png" />
 </div>
 </div>
-<div class="section" id="anomaly-detection-using-gaussian-mixtures">
-<h2>Anomaly Detection Using Gaussian Mixtures<a class="headerlink" href="#anomaly-detection-using-gaussian-mixtures" title="Permalink to this headline">¶</a></h2>
+<section id="anomaly-detection-using-gaussian-mixtures">
+<h2>Anomaly Detection Using Gaussian Mixtures<a class="headerlink" href="#anomaly-detection-using-gaussian-mixtures" title="Permalink to this headline">#</a></h2>
 <p>Gaussian Mixtures can be used for <em>anomaly detection</em>: instances located in low-density regions can be considered anomalies. You must define what density threshold you want to use. For example, in a manufacturing company that tries to detect defective products, the ratio of defective products is usually well-known. Say it is equal to 4%, then you can set the density threshold to be the value that results in having 4% of the instances located in areas below that threshold density:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4169,9 +4259,9 @@
 <img alt="../../_images/09_unsupervised_learning_267_1.png" src="../../_images/09_unsupervised_learning_267_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="selecting-the-number-of-clusters">
-<h2>Selecting the Number of Clusters<a class="headerlink" href="#selecting-the-number-of-clusters" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="selecting-the-number-of-clusters">
+<h2>Selecting the Number of Clusters<a class="headerlink" href="#selecting-the-number-of-clusters" title="Permalink to this headline">#</a></h2>
 <p>We cannot use the inertia or the silhouette score because they both assume that the clusters are spherical. Instead, we can try to find the model that minimizes a theoretical information criterion such as the Bayesian Information Criterion (BIC) or the Akaike Information Criterion (AIC):</p>
 <p><span class="math notranslate nohighlight">\({BIC} = {\log(m)p - 2\log({\hat L})}\)</span></p>
 <p><span class="math notranslate nohighlight">\({AIC} = 2p - 2\log(\hat L)\)</span></p>
@@ -4333,9 +4423,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="bayesian-gaussian-mixture-models">
-<h2>Bayesian Gaussian Mixture Models<a class="headerlink" href="#bayesian-gaussian-mixture-models" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="bayesian-gaussian-mixture-models">
+<h2>Bayesian Gaussian Mixture Models<a class="headerlink" href="#bayesian-gaussian-mixture-models" title="Permalink to this headline">#</a></h2>
 <p>Rather than manually searching for the optimal number of clusters, it is possible to use instead the <code class="docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code> class which is capable of giving weights equal (or close) to zero to unnecessary clusters. Just set the number of components to a value that you believe is greater than the optimal number of clusters, and the algorithm will eliminate the unnecessary clusters automatically.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4588,16 +4678,16 @@
 <img alt="../../_images/09_unsupervised_learning_304_1.png" src="../../_images/09_unsupervised_learning_304_1.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="exercise-solutions">
-<h1>Exercise solutions<a class="headerlink" href="#exercise-solutions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="to-9">
-<h2>1. to 9.<a class="headerlink" href="#to-9" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-solutions">
+<h1>Exercise solutions<a class="headerlink" href="#exercise-solutions" title="Permalink to this headline">#</a></h1>
+<section id="to-9">
+<h2>1. to 9.<a class="headerlink" href="#to-9" title="Permalink to this headline">#</a></h2>
 <p>See Appendix A.</p>
-</div>
-<div class="section" id="cluster-the-olivetti-faces-dataset">
-<h2>10. Cluster the Olivetti Faces Dataset<a class="headerlink" href="#cluster-the-olivetti-faces-dataset" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cluster-the-olivetti-faces-dataset">
+<h2>10. Cluster the Olivetti Faces Dataset<a class="headerlink" href="#cluster-the-olivetti-faces-dataset" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: The classic Olivetti faces dataset contains 400 grayscale 64 × 64–pixel images of faces. Each image is flattened to a 1D vector of size 4,096. 40 different people were photographed (10 times each), and the usual task is to train a model that can predict which person is represented in each picture. Load the dataset using the <code class="docutils literal notranslate"><span class="pre">sklearn.datasets.fetch_olivetti_faces()</span></code> function.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5374,9 +5464,9 @@ k=145
 </div>
 <p>About 2 out of 3 clusters are useful: that is, they contain at least 2 pictures, all of the same person. However, the rest of the clusters have either one or more intruders, or they have just a single picture.</p>
 <p>Clustering images this way may be too imprecise to be directly useful when training a model (as we will see below), but it can be tremendously useful when labeling images in a new dataset: it will usually make labelling much faster.</p>
-</div>
-<div class="section" id="using-clustering-as-preprocessing-for-classification">
-<h2>11. Using Clustering as Preprocessing for Classification<a class="headerlink" href="#using-clustering-as-preprocessing-for-classification" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-clustering-as-preprocessing-for-classification">
+<h2>11. Using Clustering as Preprocessing for Classification<a class="headerlink" href="#using-clustering-as-preprocessing-for-classification" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: Continuing with the Olivetti faces dataset, train a classifier to predict which person is represented in each picture, and evaluate it on the validation set.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5491,9 +5581,9 @@ k=145
 </div>
 </div>
 <p>That’s a bit better, but still worse than without the cluster features. The clusters are not useful to directly train a classifier in this case (but they can still help when labelling new training instances).</p>
-</div>
-<div class="section" id="a-gaussian-mixture-model-for-the-olivetti-faces-dataset">
-<h2>12. A Gaussian Mixture Model for the Olivetti Faces Dataset<a class="headerlink" href="#a-gaussian-mixture-model-for-the-olivetti-faces-dataset" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="a-gaussian-mixture-model-for-the-olivetti-faces-dataset">
+<h2>12. A Gaussian Mixture Model for the Olivetti Faces Dataset<a class="headerlink" href="#a-gaussian-mixture-model-for-the-olivetti-faces-dataset" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: Train a Gaussian mixture model on the Olivetti faces dataset. To speed up the algorithm, you should probably reduce the dataset’s dimensionality (e.g., use PCA, preserving 99% of the variance).</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5590,9 +5680,9 @@ k=145
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-dimensionality-reduction-techniques-for-anomaly-detection">
-<h2>13. Using Dimensionality Reduction Techniques for Anomaly Detection<a class="headerlink" href="#using-dimensionality-reduction-techniques-for-anomaly-detection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-dimensionality-reduction-techniques-for-anomaly-detection">
+<h2>13. Using Dimensionality Reduction Techniques for Anomaly Detection<a class="headerlink" href="#using-dimensionality-reduction-techniques-for-anomaly-detection" title="Permalink to this headline">#</a></h2>
 <p><em>Exercise: Some dimensionality reduction techniques can also be used for anomaly detection. For example, take the Olivetti faces dataset and reduce it with PCA, preserving 99% of the variance. Then compute the reconstruction error for each image. Next, take some of the modified images you built in the previous exercise, and look at their reconstruction error: notice how much larger the reconstruction error is. If you plot a reconstructed image, you will see why: it tries to reconstruct a normal face.</em></p>
 <p>We already reduced the dataset using PCA earlier:</p>
 <div class="cell docutils container">
@@ -5675,8 +5765,8 @@ k=145
 <img alt="../../_images/09_unsupervised_learning_363_0.png" src="../../_images/09_unsupervised_learning_363_0.png" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -5700,9 +5790,11 @@ k=145
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="08_dimensionality_reduction.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -5718,24 +5810,28 @@ k=145
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

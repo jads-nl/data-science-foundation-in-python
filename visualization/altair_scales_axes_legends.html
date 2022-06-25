@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Scales, Axes, and Legends &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,20 +37,18 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/visualization/altair_scales_axes_legends.html" />
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
@@ -67,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -76,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -96,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -966,16 +978,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -997,33 +999,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1040,8 +1015,8 @@
   <a class="reference internal" href="altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1099,8 +1074,8 @@
   <a class="reference internal" href="../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1160,8 +1135,8 @@
   <a class="reference internal" href="../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1196,112 +1171,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/visualization/altair_scales_axes_legends.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_scales_axes_legends.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_scales_axes_legends.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_scales_axes_legends.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/visualization/altair_scales_axes_legends.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/visualization/altair_scales_axes_legends.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fvisualization/altair_scales_axes_legends.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/visualization/altair_scales_axes_legends.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#antibiotics-data">
    Antibiotics Data
@@ -1363,12 +1453,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Scales, Axes, and Legends</h1>
@@ -1446,11 +1535,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="scales-axes-and-legends">
-<h1>Scales, Axes, and Legends<a class="headerlink" href="#scales-axes-and-legends" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="scales-axes-and-legends">
+<h1>Scales, Axes, and Legends<a class="headerlink" href="#scales-axes-and-legends" title="Permalink to this headline">#</a></h1>
 <p>Visual encoding – mapping data to visual variables such as position, size, shape, or color – is the beating heart of data visualization. The workhorse that actually performs this mapping is the <em>scale</em>: a function that takes a data value as input (the scale <em>domain</em>) and returns a visual value, such as a pixel position or RGB color, as output (the scale <em>range</em>).  Of course, a visualization is useless if no one can figure out what it conveys! In addition to graphical marks, a chart needs reference elements, or <em>guides</em>, that allow readers to decode the graphic. Guides such as <em>axes</em> (which visualize scales with spatial ranges) and <em>legends</em> (which visualize scales with color, size, or shape ranges), are the unsung heroes of effective data visualization!</p>
 <p>In this notebook, we will explore the options Altair provides to support customized designs of scale mappings, axes, and legends, using a running example about the effectiveness of antibiotic drugs.</p>
 <p><em>This notebook is part of the <a class="reference external" href="https://github.com/uwdata/visualization-curriculum">data visualization curriculum</a>.</em></p>
@@ -1462,8 +1552,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="antibiotics-data">
-<h2>Antibiotics Data<a class="headerlink" href="#antibiotics-data" title="Permalink to this headline">¶</a></h2>
+<section id="antibiotics-data">
+<h2>Antibiotics Data<a class="headerlink" href="#antibiotics-data" title="Permalink to this headline">#</a></h2>
 <p>After World War II, antibiotics were considered “wonder drugs”, as they were an easy remedy for what had been intractable ailments. To learn which drug worked most effectively for which bacterial infection, performance of the three most popular antibiotics on 16 bacteria were gathered.</p>
 <p>We will be using an antibiotics dataset from the <a class="reference external" href="https://github.com/vega/vega-datasets">vega-datasets collection</a>. In the examples below, we will pass the URL directly to Altair:</p>
 <div class="cell docutils container">
@@ -1658,11 +1748,11 @@
 </div>
 <p>The numeric values in the table indicate the <a class="reference external" href="https://en.wikipedia.org/wiki/Minimum_inhibitory_concentration">minimum inhibitory concentration (MIC)</a>, a measure of the effectiveness of the antibiotic, which represents the concentration of antibiotic (in micrograms per milliliter) required to prevent growth in vitro. The reaction of the bacteria to a procedure called <a class="reference external" href="https://en.wikipedia.org/wiki/Gram_stain">Gram staining</a> is described by the nominal field <code class="docutils literal notranslate"><span class="pre">Gram_Staining</span></code>. Bacteria that turn dark blue or violet are Gram-positive. Otherwise, they are Gram-negative.</p>
 <p>As we examine different visualizations of this dataset, ask yourself: What might we learn about the relative effectiveness of the antibiotics? What might we learn about the bacterial species based on their antibiotic response?</p>
-</div>
-<div class="section" id="configuring-scales-and-axes">
-<h2>Configuring Scales and Axes<a class="headerlink" href="#configuring-scales-and-axes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="plotting-antibiotic-resistance-adjusting-the-scale-type">
-<h3>Plotting Antibiotic Resistance: Adjusting the Scale Type<a class="headerlink" href="#plotting-antibiotic-resistance-adjusting-the-scale-type" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="configuring-scales-and-axes">
+<h2>Configuring Scales and Axes<a class="headerlink" href="#configuring-scales-and-axes" title="Permalink to this headline">#</a></h2>
+<section id="plotting-antibiotic-resistance-adjusting-the-scale-type">
+<h3>Plotting Antibiotic Resistance: Adjusting the Scale Type<a class="headerlink" href="#plotting-antibiotic-resistance-adjusting-the-scale-type" title="Permalink to this headline">#</a></h3>
 <p>Let’s start by looking at a simple dot plot of the MIC for Neomycin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1674,13 +1764,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-86edf6af9c4f49b8bed2858ec283fdcd"></div>
+<div id="altair-viz-7c4084da05b44baabe5b2a54583a4c10"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-86edf6af9c4f49b8bed2858ec283fdcd") {
-      outputDiv = document.getElementById("altair-viz-86edf6af9c4f49b8bed2858ec283fdcd");
+    if (outputDiv.id !== "altair-viz-7c4084da05b44baabe5b2a54583a4c10") {
+      outputDiv = document.getElementById("altair-viz-7c4084da05b44baabe5b2a54583a4c10");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1744,13 +1834,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-6edad74a774d47ad82377d6dc3522171"></div>
+<div id="altair-viz-f16de901f9af4915912fc51e947325db"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-6edad74a774d47ad82377d6dc3522171") {
-      outputDiv = document.getElementById("altair-viz-6edad74a774d47ad82377d6dc3522171");
+    if (outputDiv.id !== "altair-viz-f16de901f9af4915912fc51e947325db") {
+      outputDiv = document.getElementById("altair-viz-f16de901f9af4915912fc51e947325db");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1812,13 +1902,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1bb3cb817329431db50f4ca5e49d5f92"></div>
+<div id="altair-viz-ca3a574ba28b4cd5a097a7b2e2bc0b4b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1bb3cb817329431db50f4ca5e49d5f92") {
-      outputDiv = document.getElementById("altair-viz-1bb3cb817329431db50f4ca5e49d5f92");
+    if (outputDiv.id !== "altair-viz-ca3a574ba28b4cd5a097a7b2e2bc0b4b") {
+      outputDiv = document.getElementById("altair-viz-ca3a574ba28b4cd5a097a7b2e2bc0b4b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1869,9 +1959,9 @@
 </div>
 <p><em>Now the data is much more evenly distributed and we can see the very large differences in concentrations required for different bacteria.</em></p>
 <p>In a standard linear scale, a visual (pixel) distance of 10 units might correspond to an <em>addition</em> of 10 units in the data domain. A logarithmic transform maps between multiplication and addition, such that <code class="docutils literal notranslate"><span class="pre">log(u)</span> <span class="pre">+</span> <span class="pre">log(v)</span> <span class="pre">=</span> <span class="pre">log(u*v)</span></code>. As a result, in a logarithmic scale, a visual distance of 10 units instead corresponds to <em>multiplication</em> by 10 units in the data domain, assuming a base 10 logarithm. The <code class="docutils literal notranslate"><span class="pre">log</span></code> scale above defaults to using the logarithm base 10, but we can adjust this by providing a <code class="docutils literal notranslate"><span class="pre">base</span></code> parameter to the scale.</p>
-</div>
-<div class="section" id="styling-an-axis">
-<h3>Styling an Axis<a class="headerlink" href="#styling-an-axis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="styling-an-axis">
+<h3>Styling an Axis<a class="headerlink" href="#styling-an-axis" title="Permalink to this headline">#</a></h3>
 <p>Lower dosages indicate higher effectiveness. However, some people may expect values that are “better” to be “up and to the right” within a chart. If we want to cater to this convention, we can reverse the axis to encode “effectiveness” as a reversed MIC scale.</p>
 <p>To do this, we can set the encoding <code class="docutils literal notranslate"><span class="pre">sort</span></code> property to <code class="docutils literal notranslate"><span class="pre">'descending'</span></code>:</p>
 <div class="cell docutils container">
@@ -1886,13 +1976,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-825720eea264474d973cc66bf6985b7a"></div>
+<div id="altair-viz-a572db0348fb4731afc56e50d3413f86"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-825720eea264474d973cc66bf6985b7a") {
-      outputDiv = document.getElementById("altair-viz-825720eea264474d973cc66bf6985b7a");
+    if (outputDiv.id !== "altair-viz-a572db0348fb4731afc56e50d3413f86") {
+      outputDiv = document.getElementById("altair-viz-a572db0348fb4731afc56e50d3413f86");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1956,13 +2046,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-331f7ffe474e44cab050308d47cc7d8e"></div>
+<div id="altair-viz-cd36f7516b3b442baed0270ea5ed2b38"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-331f7ffe474e44cab050308d47cc7d8e") {
-      outputDiv = document.getElementById("altair-viz-331f7ffe474e44cab050308d47cc7d8e");
+    if (outputDiv.id !== "altair-viz-cd36f7516b3b442baed0270ea5ed2b38") {
+      outputDiv = document.getElementById("altair-viz-cd36f7516b3b442baed0270ea5ed2b38");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2027,13 +2117,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-60f105abe385435dac9612ea7d181e5d"></div>
+<div id="altair-viz-b567122de02a4c5799c340209dd3035e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-60f105abe385435dac9612ea7d181e5d") {
-      outputDiv = document.getElementById("altair-viz-60f105abe385435dac9612ea7d181e5d");
+    if (outputDiv.id !== "altair-viz-b567122de02a4c5799c340209dd3035e") {
+      outputDiv = document.getElementById("altair-viz-b567122de02a4c5799c340209dd3035e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2083,9 +2173,9 @@
 </script></div></div>
 </div>
 <p>Similarly, the y-axis defaults to a <code class="docutils literal notranslate"><span class="pre">'left'</span></code> orientation, but can be set to <code class="docutils literal notranslate"><span class="pre">'right'</span></code>.</p>
-</div>
-<div class="section" id="comparing-antibiotics-adjusting-grid-lines-tick-counts-and-sizing">
-<h3>Comparing Antibiotics: Adjusting Grid Lines, Tick Counts, and Sizing<a class="headerlink" href="#comparing-antibiotics-adjusting-grid-lines-tick-counts-and-sizing" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="comparing-antibiotics-adjusting-grid-lines-tick-counts-and-sizing">
+<h3>Comparing Antibiotics: Adjusting Grid Lines, Tick Counts, and Sizing<a class="headerlink" href="#comparing-antibiotics-adjusting-grid-lines-tick-counts-and-sizing" title="Permalink to this headline">#</a></h3>
 <p><em>How does neomycin compare to other antibiotics, such as streptomycin and penicillin?</em></p>
 <p>To start answering this question, we can create scatter plots, adding a y-axis encoding for another antibiotic that mirrors the design of our x-axis for neomycin.</p>
 <div class="cell docutils container">
@@ -2105,13 +2195,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7f282bc3ba454290a7ada1dfa57c686c"></div>
+<div id="altair-viz-b612f7a4b2c941e9a661a8e5c171db2e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7f282bc3ba454290a7ada1dfa57c686c") {
-      outputDiv = document.getElementById("altair-viz-7f282bc3ba454290a7ada1dfa57c686c");
+    if (outputDiv.id !== "altair-viz-b612f7a4b2c941e9a661a8e5c171db2e") {
+      outputDiv = document.getElementById("altair-viz-b612f7a4b2c941e9a661a8e5c171db2e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2179,13 +2269,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d0bd09e35d8c4960983307d2209bae4e"></div>
+<div id="altair-viz-1af56140722643d59b49fdbcab98b182"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d0bd09e35d8c4960983307d2209bae4e") {
-      outputDiv = document.getElementById("altair-viz-d0bd09e35d8c4960983307d2209bae4e");
+    if (outputDiv.id !== "altair-viz-1af56140722643d59b49fdbcab98b182") {
+      outputDiv = document.getElementById("altair-viz-1af56140722643d59b49fdbcab98b182");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2254,13 +2344,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8cb4ccb1cb224419b4c638b9354c127c"></div>
+<div id="altair-viz-2863951afb2e4da5a6d4c3ec5f450843"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8cb4ccb1cb224419b4c638b9354c127c") {
-      outputDiv = document.getElementById("altair-viz-8cb4ccb1cb224419b4c638b9354c127c");
+    if (outputDiv.id !== "altair-viz-2863951afb2e4da5a6d4c3ec5f450843") {
+      outputDiv = document.getElementById("altair-viz-2863951afb2e4da5a6d4c3ec5f450843");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2331,13 +2421,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e43894389f854fbd877d5aef06dbae88"></div>
+<div id="altair-viz-6ed0bde7aebb44afb13622e27ae74ae9"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e43894389f854fbd877d5aef06dbae88") {
-      outputDiv = document.getElementById("altair-viz-e43894389f854fbd877d5aef06dbae88");
+    if (outputDiv.id !== "altair-viz-6ed0bde7aebb44afb13622e27ae74ae9") {
+      outputDiv = document.getElementById("altair-viz-6ed0bde7aebb44afb13622e27ae74ae9");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2407,13 +2497,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a462f3cf375e4d8fb96f0037fda99cc1"></div>
+<div id="altair-viz-610bcb75e69e420c9e410f3bd072ede4"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a462f3cf375e4d8fb96f0037fda99cc1") {
-      outputDiv = document.getElementById("altair-viz-a462f3cf375e4d8fb96f0037fda99cc1");
+    if (outputDiv.id !== "altair-viz-610bcb75e69e420c9e410f3bd072ede4") {
+      outputDiv = document.getElementById("altair-viz-610bcb75e69e420c9e410f3bd072ede4");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2463,12 +2553,12 @@
 </script></div></div>
 </div>
 <p>Here we’ve set the circle mark area to 80 pixels. <em>Further adjust the value as you see fit!</em></p>
-</div>
-</div>
-<div class="section" id="configuring-color-legends">
-<h2>Configuring Color Legends<a class="headerlink" href="#configuring-color-legends" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="color-by-gram-staining">
-<h3>Color by Gram Staining<a class="headerlink" href="#color-by-gram-staining" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="configuring-color-legends">
+<h2>Configuring Color Legends<a class="headerlink" href="#configuring-color-legends" title="Permalink to this headline">#</a></h2>
+<section id="color-by-gram-staining">
+<h3>Color by Gram Staining<a class="headerlink" href="#color-by-gram-staining" title="Permalink to this headline">#</a></h3>
 <p><em>Above we saw that neomycin is more effective for some bacteria, while penicillin is more effective for others. But how can we tell which antibiotic to use if we don’t know the specific species of bacteria? Gram staining serves as a diagnostic for discriminating classes of bacteria!</em></p>
 <p>Let’s encode <code class="docutils literal notranslate"><span class="pre">Gram_Staining</span></code> on the <code class="docutils literal notranslate"><span class="pre">color</span></code> channel as a nominal data type:</p>
 <div class="cell docutils container">
@@ -2491,13 +2581,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c99665c36f324852bb283b9acbcbbf0b"></div>
+<div id="altair-viz-bb04b2f061934d45a966cc78709bf88f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c99665c36f324852bb283b9acbcbbf0b") {
-      outputDiv = document.getElementById("altair-viz-c99665c36f324852bb283b9acbcbbf0b");
+    if (outputDiv.id !== "altair-viz-bb04b2f061934d45a966cc78709bf88f") {
+      outputDiv = document.getElementById("altair-viz-bb04b2f061934d45a966cc78709bf88f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2571,13 +2661,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-746da13928144bc695ec970c976ee0c5"></div>
+<div id="altair-viz-14cfddab24484447a548a54d26f24fd2"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-746da13928144bc695ec970c976ee0c5") {
-      outputDiv = document.getElementById("altair-viz-746da13928144bc695ec970c976ee0c5");
+    if (outputDiv.id !== "altair-viz-14cfddab24484447a548a54d26f24fd2") {
+      outputDiv = document.getElementById("altair-viz-14cfddab24484447a548a54d26f24fd2");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2650,13 +2740,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e8287567b9d440939101782c8677629b"></div>
+<div id="altair-viz-5aecaeae346f4d1f9cb3c4bf5ab4e284"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e8287567b9d440939101782c8677629b") {
-      outputDiv = document.getElementById("altair-viz-e8287567b9d440939101782c8677629b");
+    if (outputDiv.id !== "altair-viz-5aecaeae346f4d1f9cb3c4bf5ab4e284") {
+      outputDiv = document.getElementById("altair-viz-5aecaeae346f4d1f9cb3c4bf5ab4e284");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2729,13 +2819,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1fb82561bcf341cbb4f6b420c6612a66"></div>
+<div id="altair-viz-b887f45ab0614593b19565e94a1f77f9"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1fb82561bcf341cbb4f6b420c6612a66") {
-      outputDiv = document.getElementById("altair-viz-1fb82561bcf341cbb4f6b420c6612a66");
+    if (outputDiv.id !== "altair-viz-b887f45ab0614593b19565e94a1f77f9") {
+      outputDiv = document.getElementById("altair-viz-b887f45ab0614593b19565e94a1f77f9");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2784,9 +2874,9 @@
   })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/burtin.json"}, "mark": {"type": "circle", "size": 80}, "encoding": {"color": {"field": "Gram_Staining", "legend": null, "scale": {"domain": ["negative", "positive"], "range": ["hotpink", "purple"]}, "type": "nominal"}, "x": {"axis": {"tickCount": 5}, "field": "Neomycin", "scale": {"domain": [0.001, 1000], "type": "log"}, "sort": "descending", "title": "Neomycin MIC (\u03bcg/ml, reverse log scale)", "type": "quantitative"}, "y": {"axis": {"tickCount": 5}, "field": "Penicillin", "scale": {"domain": [0.001, 1000], "type": "log"}, "sort": "descending", "title": "Penicillin MIC (\u03bcg/ml, reverse log scale)", "type": "quantitative"}}, "height": 250, "width": 250, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-<div class="section" id="color-by-species">
-<h3>Color by Species<a class="headerlink" href="#color-by-species" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="color-by-species">
+<h3>Color by Species<a class="headerlink" href="#color-by-species" title="Permalink to this headline">#</a></h3>
 <p><em>So far we’ve considered the effectiveness of antibiotics. Let’s turn around and ask a different question: what might antibiotic response teach us about the different species of bacteria?</em></p>
 <p>To start, let’s encode <code class="docutils literal notranslate"><span class="pre">Bacteria</span></code> (a nominal data field) using the <code class="docutils literal notranslate"><span class="pre">color</span></code> channel:</p>
 <div class="cell docutils container">
@@ -2809,13 +2899,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-25d9aa9ce1884ab190baccdca4a2a4ba"></div>
+<div id="altair-viz-161627f201cf4e70a70ad3b5a73147f7"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-25d9aa9ce1884ab190baccdca4a2a4ba") {
-      outputDiv = document.getElementById("altair-viz-25d9aa9ce1884ab190baccdca4a2a4ba");
+    if (outputDiv.id !== "altair-viz-161627f201cf4e70a70ad3b5a73147f7") {
+      outputDiv = document.getElementById("altair-viz-161627f201cf4e70a70ad3b5a73147f7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2888,13 +2978,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-172a06c5a4654cafb2611373e93dc607"></div>
+<div id="altair-viz-59aa885789404f4f83553ce2a1a5fd4b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-172a06c5a4654cafb2611373e93dc607") {
-      outputDiv = document.getElementById("altair-viz-172a06c5a4654cafb2611373e93dc607");
+    if (outputDiv.id !== "altair-viz-59aa885789404f4f83553ce2a1a5fd4b") {
+      outputDiv = document.getElementById("altair-viz-59aa885789404f4f83553ce2a1a5fd4b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2965,13 +3055,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-bf1e83cf90fd4e9cbe5b07e81d862a26"></div>
+<div id="altair-viz-ebcd03efd6ab440ba924d0bcc10b3da3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-bf1e83cf90fd4e9cbe5b07e81d862a26") {
-      outputDiv = document.getElementById("altair-viz-bf1e83cf90fd4e9cbe5b07e81d862a26");
+    if (outputDiv.id !== "altair-viz-ebcd03efd6ab440ba924d0bcc10b3da3") {
+      outputDiv = document.getElementById("altair-viz-ebcd03efd6ab440ba924d0bcc10b3da3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3043,13 +3133,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7e76aa2b42364d6784796aeaea16bdac"></div>
+<div id="altair-viz-9548becd1abd4e1fbb5973c6ce1e1c22"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7e76aa2b42364d6784796aeaea16bdac") {
-      outputDiv = document.getElementById("altair-viz-7e76aa2b42364d6784796aeaea16bdac");
+    if (outputDiv.id !== "altair-viz-9548becd1abd4e1fbb5973c6ce1e1c22") {
+      outputDiv = document.getElementById("altair-viz-9548becd1abd4e1fbb5973c6ce1e1c22");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3099,9 +3189,9 @@
 </script></div></div>
 </div>
 <p><em>Bacteria from the same genus now have more similar colors than before, but the chart still remains confusing. There are many colors, they are hard to look up in the legend accurately, and two bacteria may have similar colors but different genus.</em></p>
-</div>
-<div class="section" id="color-by-genus">
-<h3>Color by Genus<a class="headerlink" href="#color-by-genus" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="color-by-genus">
+<h3>Color by Genus<a class="headerlink" href="#color-by-genus" title="Permalink to this headline">#</a></h3>
 <p>Let’s try to color by genus instead of bacteria. To do so, we will add a <code class="docutils literal notranslate"><span class="pre">calculate</span></code> transform that splits up the bacteria name on space characters and takes the first word in the resulting array. We can then encode the resulting <code class="docutils literal notranslate"><span class="pre">Genus</span></code> field using the <code class="docutils literal notranslate"><span class="pre">tableau20</span></code> color scheme.</p>
 <p>(Note that the antibiotics dataset includes a pre-calculated <code class="docutils literal notranslate"><span class="pre">Genus</span></code> field, but we will ignore it here in order to further explore Altair’s data transformations.)</p>
 <div class="cell docutils container">
@@ -3127,13 +3217,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-55ab7a5d5646466794548c4bb761844d"></div>
+<div id="altair-viz-84dcd667e39649b58244159eccc20075"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-55ab7a5d5646466794548c4bb761844d") {
-      outputDiv = document.getElementById("altair-viz-55ab7a5d5646466794548c4bb761844d");
+    if (outputDiv.id !== "altair-viz-84dcd667e39649b58244159eccc20075") {
+      outputDiv = document.getElementById("altair-viz-84dcd667e39649b58244159eccc20075");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3214,13 +3304,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-5ac8d061c57e4d92990a72048aebabd7"></div>
+<div id="altair-viz-add11040acd7467182dd6f9752059864"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5ac8d061c57e4d92990a72048aebabd7") {
-      outputDiv = document.getElementById("altair-viz-5ac8d061c57e4d92990a72048aebabd7");
+    if (outputDiv.id !== "altair-viz-add11040acd7467182dd6f9752059864") {
+      outputDiv = document.getElementById("altair-viz-add11040acd7467182dd6f9752059864");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3274,9 +3364,9 @@
 <p>As it so happens, the underlying dataset actually contains errors. The dataset reflects the species designations used in the early 1950s. However, the scientific consensus has since been overturned. That gray point in the upper-left? It’s now considered a Streptococcus! That red point towards the middle-right? It’s no longer considered a Streptococcus!</p>
 <p>Of course, on its own, this dataset doesn’t fully justify these reclassifications. Nevertheless, the data contain valuable biological clues that went overlooked for decades! Visualization, when used by an appropriately skilled and inquisitive viewer, can be a powerful tool for discovery.</p>
 <p>This example also reinforces an important lesson: <strong><em>always be skeptical of your data!</em></strong></p>
-</div>
-<div class="section" id="color-by-antibiotic-response">
-<h3>Color by Antibiotic Response<a class="headerlink" href="#color-by-antibiotic-response" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="color-by-antibiotic-response">
+<h3>Color by Antibiotic Response<a class="headerlink" href="#color-by-antibiotic-response" title="Permalink to this headline">#</a></h3>
 <p>We might also use the <code class="docutils literal notranslate"><span class="pre">color</span></code> channel to encode quantitative values. Though keep in mind that typically color is not as effective for conveying quantities as position or size encodings!</p>
 <p>Here is a basic heatmap of penicillin MIC values for each bacteria. We’ll use a <code class="docutils literal notranslate"><span class="pre">rect</span></code> mark and sort the bacteria by descending MIC values (from most to least resistant):</p>
 <div class="cell docutils container">
@@ -3292,13 +3382,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c3c48ef562a24bcda9199bc18b95f994"></div>
+<div id="altair-viz-15d6f16510b547a79ca1e679cf4a6cb3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c3c48ef562a24bcda9199bc18b95f994") {
-      outputDiv = document.getElementById("altair-viz-c3c48ef562a24bcda9199bc18b95f994");
+    if (outputDiv.id !== "altair-viz-15d6f16510b547a79ca1e679cf4a6cb3") {
+      outputDiv = document.getElementById("altair-viz-15d6f16510b547a79ca1e679cf4a6cb3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3372,13 +3462,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a8021e6e673740a4903b6f2c5556ec6f"></div>
+<div id="altair-viz-091308d92a3841cdad4eb15957b0f473"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a8021e6e673740a4903b6f2c5556ec6f") {
-      outputDiv = document.getElementById("altair-viz-a8021e6e673740a4903b6f2c5556ec6f");
+    if (outputDiv.id !== "altair-viz-091308d92a3841cdad4eb15957b0f473") {
+      outputDiv = document.getElementById("altair-viz-091308d92a3841cdad4eb15957b0f473");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3449,13 +3539,13 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-5a708aadd3904de195af5af415ae9b2e"></div>
+<div id="altair-viz-db9f477acb5445829758599021ccc914"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5a708aadd3904de195af5af415ae9b2e") {
-      outputDiv = document.getElementById("altair-viz-5a708aadd3904de195af5af415ae9b2e");
+    if (outputDiv.id !== "altair-viz-db9f477acb5445829758599021ccc914") {
+      outputDiv = document.getElementById("altair-viz-db9f477acb5445829758599021ccc914");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3504,10 +3594,10 @@
   })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}, "title": {"anchor": "start", "offset": 5}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/burtin.json"}, "mark": "rect", "encoding": {"color": {"field": "Penicillin", "legend": {"tickCount": 5, "titleOrient": "right"}, "scale": {"nice": true, "scheme": "plasma", "type": "log"}, "title": "Penicillin MIC (\u03bcg/ml)", "type": "quantitative"}, "y": {"axis": {"orient": "right", "title": null}, "field": "Bacteria", "sort": {"field": "Penicillin", "op": "max", "order": "descending"}, "type": "nominal"}}, "title": "Penicillin Resistance of Bacterial Strains", "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <p>Integrating what we’ve learned across the notebooks so far about encodings, data transforms, and customization, you should now be prepared to make a wide variety of statistical graphics. Now you can put Altair into everyday use for exploring and communicating data!</p>
 <p>Interested in learning more about this topic?</p>
 <ul class="simple">
@@ -3516,8 +3606,8 @@
 <li><p>For a more in-depth exploration of all the ways axes and legends can be styled by the underlying Vega library (which powers Altair and Vega-Lite), see <a class="reference external" href="https://beta.observablehq.com/&#64;jheer/a-guide-to-guides-axes-legends-in-vega">“A Guide to Guides: Axes &amp; Legends in Vega”</a>.</p></li>
 <li><p>For a fascinating history of the antibiotics dataset, see <a class="reference external" href="https://www.americanscientist.org/article/thats-funny">Wainer &amp; Lysen’s “That’s Funny…”</a> in the <em>American Scientist</em>.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3541,9 +3631,11 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="altair_data_transformation.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -3559,24 +3651,28 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

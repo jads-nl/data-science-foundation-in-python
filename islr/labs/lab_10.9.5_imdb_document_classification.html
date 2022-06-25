@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 10.9.5: IMDb Document Classification &#8212; Data Science Foundation Curriculum</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,23 +37,21 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://jads-nl.github.io/data-science-foundation-curriculum/islr/labs/lab_10.9.5_imdb_document_classification.html" />
     <link rel="shortcut icon" href="../../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -69,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -78,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -98,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../index.html">
-   Why this JupyterBook?
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Why this JupyterBook?
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Introduction to Statistical Learning
  </span>
@@ -968,16 +980,6 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/overfitting.html">
-     Overfitting vs. underfitting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/effective-python-and-idiomatic-pandas.html">
-     Effective Python and idiomatic pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../handson-ml2/original/math_linear_algebra.html">
      Math primer - Linear Algebra
     </a>
@@ -999,33 +1001,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../handson-ml2/projects.html">
-   Discover projects
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/pandas-profiling.html">
-     Pandas profiling
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/ames-housing.html">
-     Ames Housing case - examples of possible solutions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../handson-ml2/extra/pima-indians-diabetes.html">
-     Pima Indians Diabetes
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1042,8 +1017,8 @@
   <a class="reference internal" href="../../visualization/altair_get_started.html">
    Getting Started with Altair
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-  <label for="toctree-checkbox-15">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1101,8 +1076,8 @@
   <a class="reference internal" href="../../iml/introduction.html">
    Introduction to IML
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-  <label for="toctree-checkbox-16">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1162,8 +1137,8 @@
   <a class="reference internal" href="../../nlp/dutch-restaurant-reviews.html">
    Dutch restaurant reviews
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-  <label for="toctree-checkbox-17">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1198,112 +1173,227 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/islr/labs/lab_10.9.5_imdb_document_classification.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/labs/lab_10.9.5_imdb_document_classification.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/islr/labs/lab_10.9.5_imdb_document_classification.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/islr/labs/lab_10.9.5_imdb_document_classification.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/jads-nl/data-science-foundation-curriculum/main?urlpath=tree/data_science_foundation_curriculum/islr/labs/lab_10.9.5_imdb_document_classification.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/jads-nl/data-science-foundation-curriculum/blob/main/data_science_foundation_curriculum/islr/labs/lab_10.9.5_imdb_document_classification.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/jads-nl/data-science-foundation-curriculum/issues/new?title=Issue%20on%20page%20%2Fislr/labs/lab_10.9.5_imdb_document_classification.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/islr/labs/lab_10.9.5_imdb_document_classification.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#attribution">
    Attribution
@@ -1331,12 +1421,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Lab 10.9.5: IMDb Document Classification</h1>
@@ -1380,17 +1469,18 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-10-9-5-imdb-document-classification">
-<h1>Lab 10.9.5: IMDb Document Classification<a class="headerlink" href="#lab-10-9-5-imdb-document-classification" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="attribution">
-<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-10-9-5-imdb-document-classification">
+<h1>Lab 10.9.5: IMDb Document Classification<a class="headerlink" href="#lab-10-9-5-imdb-document-classification" title="Permalink to this headline">#</a></h1>
+<section id="attribution">
+<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">#</a></h2>
 <p>This notebook follows lab 10.9.5 from ISLRv2. The R-code has been ported to Python by Daniel Kapitan (23-01-2022).</p>
-</div>
-<div class="section" id="data-preparation">
-<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="data-preparation">
+<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">#</a></h2>
 <p>We perform document classification on the IMDb dataset, which is available as part of the <code class="docutils literal notranslate"><span class="pre">tensorflow.keras</span></code> package. We limit the dictionary size to the 10,000 most frequently-used words and tokens.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1422,46 +1512,22 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-02-18 16:22:22.048803: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-02-18 16:22:22.048839: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-06-25 16:30:34.649427: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-06-25 16:30:34.649483: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb.npz
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   16384/17464789 [..............................] - ETA: 0s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    8192/17464789 [..............................] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 1187840/17464789 [=&gt;............................] - ETA: 0s
+ 9256960/17464789 [==============&gt;...............] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 4202496/17464789 [======&gt;.......................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 8060928/17464789 [============&gt;.................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 9420800/17464789 [===============&gt;..............] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-13246464/17464789 [=====================&gt;........] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-17326080/17464789 [============================&gt;.] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-17465344/17464789 [==============================] - 0s 0us/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-17473536/17464789 [==============================] - 0s 0us/step
+17464789/17464789 [==============================] - 0s 0us/step
 </pre></div>
 </div>
 </div>
@@ -1506,15 +1572,11 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb_word_index.json
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  16384/1641221 [..............................] - ETA: 0s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   8192/1641221 [..............................] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-1646592/1641221 [==============================] - 0s 0us/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-1654784/1641221 [==============================] - 0s 0us/step
+1641221/1641221 [==============================] - 0s 0us/step
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;&lt;START&gt; this film was just brilliant casting location scenery story direction everyone&#39;s really suited the part they played and you could just imagine being there robert &lt;UNK&gt; is an amazing actor and now the same being director &lt;UNK&gt; father came from the same scottish island as myself so i loved the fact there was a real connection with this film the witty remarks throughout the film were great it was just brilliant so much that i bought the film as soon as it was released for &lt;UNK&gt; and would recommend it to everyone to watch and the fly fishing was amazing really cried at the end it was so sad and you know what they say if you cry at a film it must have been good and this definitely was also &lt;UNK&gt; to the two little boy&#39;s that played the &lt;UNK&gt; of norman and paul they were just brilliant children are often left out of the &lt;UNK&gt; list i think because the stars that play them all grown up are such a big profile for the whole film but these children are amazing and should be praised for what they have done don&#39;t you think the whole story was so lovely because it was true and was someone&#39;s life after all that was shared with us all&quot;
@@ -1522,9 +1584,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-spare-binary-matrices">
-<h2>Using spare binary matrices<a class="headerlink" href="#using-spare-binary-matrices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-spare-binary-matrices">
+<h2>Using spare binary matrices<a class="headerlink" href="#using-spare-binary-matrices" title="Permalink to this headline">#</a></h2>
 <p>Next we write a function to “one-hot” encode each document in a list of documents, and return a binary matrix in sparse-matrix format.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1576,9 +1638,9 @@
 </div>
 </div>
 <p>Only 1.3% of the entries are nonzero, so this amounts to considerable savings in memory. We create a validation set of size 2,000, leaving 23,000 for training.</p>
-</div>
-<div class="section" id="fit-lasso-logistic-regression">
-<h2>Fit Lasso Logistic Regression<a class="headerlink" href="#fit-lasso-logistic-regression" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="fit-lasso-logistic-regression">
+<h2>Fit Lasso Logistic Regression<a class="headerlink" href="#fit-lasso-logistic-regression" title="Permalink to this headline">#</a></h2>
 <p>First we fit a lasso logistic regression model using <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.LogisticRegression()</span></code> on the training data, and evaluate its performance on the validation data. In order to plot the accuracy as a function of the shrinkage parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, we iterate over different values of <span class="math notranslate nohighlight">\(-log \lambda = [1, 2, .. 20]\)</span>. Note that <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> uses <code class="docutils literal notranslate"><span class="pre">C</span></code> as the regularization parameter, which is the inverse of lambda. Similar espressions compute the performance on the test data, and were used to produce the left plot in Figure 10.11. The code takes advantage of the sparse-matrix format of <code class="docutils literal notranslate"><span class="pre">x_train_1h</span></code>and runs in about two minutes; in the usual dense format it would take about over orders of magnitude longer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1608,7 +1670,7 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fitting LogisticRegression with C = 0.707
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:814: ConvergenceWarning: lbfgs failed to converge (status=1):
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
 STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
 
 Increase the number of iterations (max_iter) or scale the data as shown in:
@@ -1691,8 +1753,8 @@ fitting LogisticRegression with C = 0.001
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... done
-CPU times: user 2min 50s, sys: 55.4 s, total: 3min 45s
-Wall time: 1min 53s
+CPU times: user 2min 47s, sys: 53 s, total: 3min 40s
+Wall time: 1min 50s
 </pre></div>
 </div>
 </div>
@@ -1723,13 +1785,13 @@ Wall time: 1min 53s
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ff0b36bc89644cec98bfbe66ca8f8a53"></div>
+<div id="altair-viz-1ddcc7bbeb2f4bfabc4ea7e68c37c88c"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ff0b36bc89644cec98bfbe66ca8f8a53") {
-      outputDiv = document.getElementById("altair-viz-ff0b36bc89644cec98bfbe66ca8f8a53");
+    if (outputDiv.id !== "altair-viz-1ddcc7bbeb2f4bfabc4ea7e68c37c88c") {
+      outputDiv = document.getElementById("altair-viz-1ddcc7bbeb2f4bfabc4ea7e68c37c88c");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1775,12 +1837,12 @@ Wall time: 1min 53s
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-ad11ca24cc6e05504138064677ac2f48"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "x": {"field": "log_C", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "transform": [{"calculate": "log(datum.C)", "as": "log_C"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-ad11ca24cc6e05504138064677ac2f48": [{"C": 0.7071067811865475, "fold": "train", "accuracy": 0.9908165475416938}, {"C": 0.7071067811865475, "fold": "validation", "accuracy": 0.8745}, {"C": 0.5, "fold": "train", "accuracy": 0.9873510937838423}, {"C": 0.5, "fold": "validation", "accuracy": 0.877}, {"C": 0.35355339059327373, "fold": "train", "accuracy": 0.9829759584145549}, {"C": 0.35355339059327373, "fold": "validation", "accuracy": 0.8775}, {"C": 0.25, "fold": "train", "accuracy": 0.9777344596058046}, {"C": 0.25, "fold": "validation", "accuracy": 0.881}, {"C": 0.17677669529663687, "fold": "train", "accuracy": 0.972666233484947}, {"C": 0.17677669529663687, "fold": "validation", "accuracy": 0.884}, {"C": 0.125, "fold": "train", "accuracy": 0.9672514619883041}, {"C": 0.125, "fold": "validation", "accuracy": 0.8855}, {"C": 0.08838834764831843, "fold": "train", "accuracy": 0.9612302360840372}, {"C": 0.08838834764831843, "fold": "validation", "accuracy": 0.8865}, {"C": 0.0625, "fold": "train", "accuracy": 0.9548191466320122}, {"C": 0.0625, "fold": "validation", "accuracy": 0.8845}, {"C": 0.044194173824159216, "fold": "train", "accuracy": 0.948104829976175}, {"C": 0.044194173824159216, "fold": "validation", "accuracy": 0.887}, {"C": 0.03125, "fold": "train", "accuracy": 0.9416071041802035}, {"C": 0.03125, "fold": "validation", "accuracy": 0.8875}, {"C": 0.022097086912079608, "fold": "train", "accuracy": 0.9347195148364739}, {"C": 0.022097086912079608, "fold": "validation", "accuracy": 0.889}, {"C": 0.015625, "fold": "train", "accuracy": 0.927745289148798}, {"C": 0.015625, "fold": "validation", "accuracy": 0.8865}, {"C": 0.011048543456039804, "fold": "train", "accuracy": 0.9199913363656054}, {"C": 0.011048543456039804, "fold": "validation", "accuracy": 0.884}, {"C": 0.0078125, "fold": "train", "accuracy": 0.9127138834741174}, {"C": 0.0078125, "fold": "validation", "accuracy": 0.879}, {"C": 0.005524271728019902, "fold": "train", "accuracy": 0.9050898852068443}, {"C": 0.005524271728019902, "fold": "validation", "accuracy": 0.871}, {"C": 0.00390625, "fold": "train", "accuracy": 0.8972926142516786}, {"C": 0.00390625, "fold": "validation", "accuracy": 0.866}, {"C": 0.002762135864009951, "fold": "train", "accuracy": 0.8887589343729695}, {"C": 0.002762135864009951, "fold": "validation", "accuracy": 0.8585}, {"C": 0.001953125, "fold": "train", "accuracy": 0.8815681178254278}, {"C": 0.001953125, "fold": "validation", "accuracy": 0.8535}, {"C": 0.0013810679320049755, "fold": "train", "accuracy": 0.8726878925709335}, {"C": 0.0013810679320049755, "fold": "validation", "accuracy": 0.849}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-a90d4a9340f113b5700e2226335aa751"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "x": {"field": "log_C", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "transform": [{"calculate": "log(datum.C)", "as": "log_C"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-a90d4a9340f113b5700e2226335aa751": [{"C": 0.7071067811865475, "fold": "train", "accuracy": 0.9907732293697206}, {"C": 0.7071067811865475, "fold": "validation", "accuracy": 0.8745}, {"C": 0.5, "fold": "train", "accuracy": 0.9873510937838423}, {"C": 0.5, "fold": "validation", "accuracy": 0.877}, {"C": 0.35355339059327373, "fold": "train", "accuracy": 0.9829326402425818}, {"C": 0.35355339059327373, "fold": "validation", "accuracy": 0.8775}, {"C": 0.25, "fold": "train", "accuracy": 0.9776911414338315}, {"C": 0.25, "fold": "validation", "accuracy": 0.8805}, {"C": 0.17677669529663687, "fold": "train", "accuracy": 0.9726229153129738}, {"C": 0.17677669529663687, "fold": "validation", "accuracy": 0.884}, {"C": 0.125, "fold": "train", "accuracy": 0.9672081438163309}, {"C": 0.125, "fold": "validation", "accuracy": 0.885}, {"C": 0.08838834764831843, "fold": "train", "accuracy": 0.961143599740091}, {"C": 0.08838834764831843, "fold": "validation", "accuracy": 0.8865}, {"C": 0.0625, "fold": "train", "accuracy": 0.9548191466320122}, {"C": 0.0625, "fold": "validation", "accuracy": 0.8845}, {"C": 0.044194173824159216, "fold": "train", "accuracy": 0.948104829976175}, {"C": 0.044194173824159216, "fold": "validation", "accuracy": 0.887}, {"C": 0.03125, "fold": "train", "accuracy": 0.9415637860082304}, {"C": 0.03125, "fold": "validation", "accuracy": 0.8875}, {"C": 0.022097086912079608, "fold": "train", "accuracy": 0.9346761966645007}, {"C": 0.022097086912079608, "fold": "validation", "accuracy": 0.889}, {"C": 0.015625, "fold": "train", "accuracy": 0.927745289148798}, {"C": 0.015625, "fold": "validation", "accuracy": 0.8865}, {"C": 0.011048543456039804, "fold": "train", "accuracy": 0.9200346545375785}, {"C": 0.011048543456039804, "fold": "validation", "accuracy": 0.884}, {"C": 0.0078125, "fold": "train", "accuracy": 0.9127138834741174}, {"C": 0.0078125, "fold": "validation", "accuracy": 0.879}, {"C": 0.005524271728019902, "fold": "train", "accuracy": 0.9051332033788174}, {"C": 0.005524271728019902, "fold": "validation", "accuracy": 0.871}, {"C": 0.00390625, "fold": "train", "accuracy": 0.8973359324236517}, {"C": 0.00390625, "fold": "validation", "accuracy": 0.866}, {"C": 0.002762135864009951, "fold": "train", "accuracy": 0.8888455707169157}, {"C": 0.002762135864009951, "fold": "validation", "accuracy": 0.8585}, {"C": 0.001953125, "fold": "train", "accuracy": 0.8816114359974009}, {"C": 0.001953125, "fold": "validation", "accuracy": 0.8535}, {"C": 0.0013810679320049755, "fold": "train", "accuracy": 0.8726878925709335}, {"C": 0.0013810679320049755, "fold": "validation", "accuracy": 0.849}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
-</div>
-<div class="section" id="build-a-two-layer-feedforward-network">
-<h2>Build a two-layer feedforward network<a class="headerlink" href="#build-a-two-layer-feedforward-network" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="build-a-two-layer-feedforward-network">
+<h2>Build a two-layer feedforward network<a class="headerlink" href="#build-a-two-layer-feedforward-network" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># building a linear stack of layers with the sequential model</span>
@@ -1838,10 +1900,10 @@ Wall time: 1min 53s
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-02-18 16:24:24.144529: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-02-18 16:24:24.144562: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
-2022-02-18 16:24:24.144584: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az28-943): /proc/driver/nvidia/version does not exist
-2022-02-18 16:24:24.144849: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-06-25 16:32:33.933570: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-06-25 16:32:33.933620: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
+2022-06-25 16:32:33.933643: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az39-932): /proc/driver/nvidia/version does not exist
+2022-06-25 16:32:33.933902: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 </pre></div>
 </div>
@@ -1866,125 +1928,125 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
   warnings.warn(
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 2s - loss: 0.5110 - accuracy: 0.7812 - val_loss: 0.3883 - val_accuracy: 0.8580 - 2s/epoch - 34ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 2s - loss: 0.4988 - accuracy: 0.7855 - val_loss: 0.3463 - val_accuracy: 0.8760 - 2s/epoch - 35ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.3128 - accuracy: 0.8937 - val_loss: 0.3021 - val_accuracy: 0.8885 - 566ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.2932 - accuracy: 0.8965 - val_loss: 0.2897 - val_accuracy: 0.8880 - 632ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.2458 - accuracy: 0.9157 - val_loss: 0.3165 - val_accuracy: 0.8820 - 559ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.2276 - accuracy: 0.9189 - val_loss: 0.2852 - val_accuracy: 0.8865 - 618ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.2026 - accuracy: 0.9291 - val_loss: 0.3401 - val_accuracy: 0.8765 - 562ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1876 - accuracy: 0.9335 - val_loss: 0.2956 - val_accuracy: 0.8885 - 614ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1757 - accuracy: 0.9388 - val_loss: 0.2879 - val_accuracy: 0.8890 - 552ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1603 - accuracy: 0.9438 - val_loss: 0.3052 - val_accuracy: 0.8840 - 630ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1556 - accuracy: 0.9459 - val_loss: 0.3061 - val_accuracy: 0.8805 - 547ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1379 - accuracy: 0.9520 - val_loss: 0.3247 - val_accuracy: 0.8850 - 620ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1364 - accuracy: 0.9537 - val_loss: 0.4809 - val_accuracy: 0.8540 - 557ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1219 - accuracy: 0.9582 - val_loss: 0.3292 - val_accuracy: 0.8835 - 615ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1229 - accuracy: 0.9595 - val_loss: 0.3482 - val_accuracy: 0.8835 - 593ms/epoch - 13ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1053 - accuracy: 0.9643 - val_loss: 0.3520 - val_accuracy: 0.8780 - 622ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1084 - accuracy: 0.9648 - val_loss: 0.3904 - val_accuracy: 0.8775 - 586ms/epoch - 13ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0983 - accuracy: 0.9670 - val_loss: 0.4272 - val_accuracy: 0.8740 - 636ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0983 - accuracy: 0.9677 - val_loss: 0.5692 - val_accuracy: 0.8490 - 570ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0844 - accuracy: 0.9717 - val_loss: 0.3991 - val_accuracy: 0.8755 - 632ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0930 - accuracy: 0.9701 - val_loss: 0.4012 - val_accuracy: 0.8655 - 587ms/epoch - 13ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0738 - accuracy: 0.9756 - val_loss: 0.4074 - val_accuracy: 0.8820 - 626ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0784 - accuracy: 0.9757 - val_loss: 0.4417 - val_accuracy: 0.8775 - 579ms/epoch - 13ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0668 - accuracy: 0.9786 - val_loss: 0.4427 - val_accuracy: 0.8780 - 640ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0701 - accuracy: 0.9779 - val_loss: 0.4686 - val_accuracy: 0.8645 - 566ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0613 - accuracy: 0.9793 - val_loss: 0.4530 - val_accuracy: 0.8795 - 646ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0598 - accuracy: 0.9820 - val_loss: 0.4982 - val_accuracy: 0.8710 - 564ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0462 - accuracy: 0.9865 - val_loss: 0.5017 - val_accuracy: 0.8735 - 636ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0592 - accuracy: 0.9818 - val_loss: 0.4906 - val_accuracy: 0.8725 - 545ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0445 - accuracy: 0.9869 - val_loss: 0.5174 - val_accuracy: 0.8780 - 621ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0513 - accuracy: 0.9844 - val_loss: 0.6022 - val_accuracy: 0.8560 - 545ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0394 - accuracy: 0.9888 - val_loss: 0.5483 - val_accuracy: 0.8765 - 637ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0420 - accuracy: 0.9882 - val_loss: 0.5361 - val_accuracy: 0.8685 - 544ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0353 - accuracy: 0.9902 - val_loss: 0.6042 - val_accuracy: 0.8665 - 647ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0361 - accuracy: 0.9901 - val_loss: 0.5588 - val_accuracy: 0.8670 - 569ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0377 - accuracy: 0.9888 - val_loss: 0.6072 - val_accuracy: 0.8750 - 671ms/epoch - 15ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0378 - accuracy: 0.9897 - val_loss: 0.5793 - val_accuracy: 0.8650 - 539ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0280 - accuracy: 0.9925 - val_loss: 0.6446 - val_accuracy: 0.8715 - 636ms/epoch - 14ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0283 - accuracy: 0.9929 - val_loss: 0.6176 - val_accuracy: 0.8690 - 559ms/epoch - 12ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0262 - accuracy: 0.9929 - val_loss: 0.6887 - val_accuracy: 0.8680 - 639ms/epoch - 14ms/step
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 15.2 s, sys: 589 ms, total: 15.8 s
-Wall time: 12.6 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 18.2 s, sys: 698 ms, total: 18.9 s
+Wall time: 17.7 s
 </pre></div>
 </div>
 </div>
@@ -2023,13 +2085,13 @@ Wall time: 12.6 s
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8e816df6a5bf464285bee15c0eb40109"></div>
+<div id="altair-viz-d47e5be5687542cf8389813f71f42a0a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8e816df6a5bf464285bee15c0eb40109") {
-      outputDiv = document.getElementById("altair-viz-8e816df6a5bf464285bee15c0eb40109");
+    if (outputDiv.id !== "altair-viz-d47e5be5687542cf8389813f71f42a0a") {
+      outputDiv = document.getElementById("altair-viz-d47e5be5687542cf8389813f71f42a0a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2075,7 +2137,7 @@ Wall time: 12.6 s
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-18292ec9338304925b8d9666a06e8fda"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-18292ec9338304925b8d9666a06e8fda": [{"epoch": 1, "loss": 0.510996401309967, "accuracy": 0.781156599521637, "fold": "training"}, {"epoch": 2, "loss": 0.31281760334968567, "accuracy": 0.8937405347824097, "fold": "training"}, {"epoch": 3, "loss": 0.2458314448595047, "accuracy": 0.9157028198242188, "fold": "training"}, {"epoch": 4, "loss": 0.20262372493743896, "accuracy": 0.9290881752967834, "fold": "training"}, {"epoch": 5, "loss": 0.17567327618598938, "accuracy": 0.9387913942337036, "fold": "training"}, {"epoch": 6, "loss": 0.15562036633491516, "accuracy": 0.9458522796630859, "fold": "training"}, {"epoch": 7, "loss": 0.13643187284469604, "accuracy": 0.9537361860275269, "fold": "training"}, {"epoch": 8, "loss": 0.12285535782575607, "accuracy": 0.959540843963623, "fold": "training"}, {"epoch": 9, "loss": 0.10838702321052551, "accuracy": 0.9647822976112366, "fold": "training"}, {"epoch": 10, "loss": 0.09828448295593262, "accuracy": 0.9677279591560364, "fold": "training"}, {"epoch": 11, "loss": 0.09296757727861404, "accuracy": 0.9700671434402466, "fold": "training"}, {"epoch": 12, "loss": 0.07840755581855774, "accuracy": 0.975655198097229, "fold": "training"}, {"epoch": 13, "loss": 0.07013443857431412, "accuracy": 0.9778643846511841, "fold": "training"}, {"epoch": 14, "loss": 0.0597853921353817, "accuracy": 0.9820229411125183, "fold": "training"}, {"epoch": 15, "loss": 0.05924084782600403, "accuracy": 0.9818063974380493, "fold": "training"}, {"epoch": 16, "loss": 0.05133810266852379, "accuracy": 0.9844487905502319, "fold": "training"}, {"epoch": 17, "loss": 0.04199957847595215, "accuracy": 0.9881741404533386, "fold": "training"}, {"epoch": 18, "loss": 0.03613133728504181, "accuracy": 0.990123450756073, "fold": "training"}, {"epoch": 19, "loss": 0.037786535918712616, "accuracy": 0.9896903038024902, "fold": "training"}, {"epoch": 20, "loss": 0.02828855812549591, "accuracy": 0.9929391145706177, "fold": "training"}, {"epoch": 1, "loss": 0.38834068179130554, "accuracy": 0.8579999804496765, "fold": "validation"}, {"epoch": 2, "loss": 0.3021460175514221, "accuracy": 0.8884999752044678, "fold": "validation"}, {"epoch": 3, "loss": 0.31647589802742004, "accuracy": 0.8820000290870667, "fold": "validation"}, {"epoch": 4, "loss": 0.3401122987270355, "accuracy": 0.8765000104904175, "fold": "validation"}, {"epoch": 5, "loss": 0.28791674971580505, "accuracy": 0.8889999985694885, "fold": "validation"}, {"epoch": 6, "loss": 0.3061152994632721, "accuracy": 0.8805000185966492, "fold": "validation"}, {"epoch": 7, "loss": 0.4809066653251648, "accuracy": 0.8539999723434448, "fold": "validation"}, {"epoch": 8, "loss": 0.3482394516468048, "accuracy": 0.8834999799728394, "fold": "validation"}, {"epoch": 9, "loss": 0.3904051184654236, "accuracy": 0.8774999976158142, "fold": "validation"}, {"epoch": 10, "loss": 0.5691827535629272, "accuracy": 0.8489999771118164, "fold": "validation"}, {"epoch": 11, "loss": 0.4011593163013458, "accuracy": 0.8654999732971191, "fold": "validation"}, {"epoch": 12, "loss": 0.44168034195899963, "accuracy": 0.8774999976158142, "fold": "validation"}, {"epoch": 13, "loss": 0.4685508906841278, "accuracy": 0.8644999861717224, "fold": "validation"}, {"epoch": 14, "loss": 0.4982425570487976, "accuracy": 0.8709999918937683, "fold": "validation"}, {"epoch": 15, "loss": 0.490621417760849, "accuracy": 0.8725000023841858, "fold": "validation"}, {"epoch": 16, "loss": 0.602223813533783, "accuracy": 0.8560000061988831, "fold": "validation"}, {"epoch": 17, "loss": 0.5360573530197144, "accuracy": 0.8684999942779541, "fold": "validation"}, {"epoch": 18, "loss": 0.5588164329528809, "accuracy": 0.8669999837875366, "fold": "validation"}, {"epoch": 19, "loss": 0.5793382525444031, "accuracy": 0.8650000095367432, "fold": "validation"}, {"epoch": 20, "loss": 0.6175697445869446, "accuracy": 0.8690000176429749, "fold": "validation"}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-2c3ba653ec9223dad26b8ac7f73a1ea9"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-2c3ba653ec9223dad26b8ac7f73a1ea9": [{"epoch": 1, "loss": 0.4988216161727905, "accuracy": 0.7854884266853333, "fold": "training"}, {"epoch": 2, "loss": 0.2931584417819977, "accuracy": 0.8964695930480957, "fold": "training"}, {"epoch": 3, "loss": 0.2275874763727188, "accuracy": 0.9189083576202393, "fold": "training"}, {"epoch": 4, "loss": 0.18760555982589722, "accuracy": 0.9335499405860901, "fold": "training"}, {"epoch": 5, "loss": 0.16032014787197113, "accuracy": 0.9438163042068481, "fold": "training"}, {"epoch": 6, "loss": 0.13788457214832306, "accuracy": 0.952046811580658, "fold": "training"}, {"epoch": 7, "loss": 0.12189759314060211, "accuracy": 0.9582412838935852, "fold": "training"}, {"epoch": 8, "loss": 0.10530249029397964, "accuracy": 0.9643491506576538, "fold": "training"}, {"epoch": 9, "loss": 0.09832202643156052, "accuracy": 0.9669915437698364, "fold": "training"}, {"epoch": 10, "loss": 0.08439952880144119, "accuracy": 0.9717132449150085, "fold": "training"}, {"epoch": 11, "loss": 0.07376164197921753, "accuracy": 0.9756118655204773, "fold": "training"}, {"epoch": 12, "loss": 0.06676457822322845, "accuracy": 0.9786441326141357, "fold": "training"}, {"epoch": 13, "loss": 0.06130082905292511, "accuracy": 0.979337215423584, "fold": "training"}, {"epoch": 14, "loss": 0.046245280653238297, "accuracy": 0.9865280389785767, "fold": "training"}, {"epoch": 15, "loss": 0.044468190521001816, "accuracy": 0.9868745803833008, "fold": "training"}, {"epoch": 16, "loss": 0.03937171399593353, "accuracy": 0.9887806177139282, "fold": "training"}, {"epoch": 17, "loss": 0.03530318662524223, "accuracy": 0.9901667833328247, "fold": "training"}, {"epoch": 18, "loss": 0.03768492117524147, "accuracy": 0.9887806177139282, "fold": "training"}, {"epoch": 19, "loss": 0.028014643117785454, "accuracy": 0.9925493001937866, "fold": "training"}, {"epoch": 20, "loss": 0.02623322792351246, "accuracy": 0.9929391145706177, "fold": "training"}, {"epoch": 1, "loss": 0.34633588790893555, "accuracy": 0.8759999871253967, "fold": "validation"}, {"epoch": 2, "loss": 0.2896694540977478, "accuracy": 0.8880000114440918, "fold": "validation"}, {"epoch": 3, "loss": 0.28516602516174316, "accuracy": 0.8865000009536743, "fold": "validation"}, {"epoch": 4, "loss": 0.29560160636901855, "accuracy": 0.8884999752044678, "fold": "validation"}, {"epoch": 5, "loss": 0.3052031993865967, "accuracy": 0.8840000033378601, "fold": "validation"}, {"epoch": 6, "loss": 0.3246925473213196, "accuracy": 0.8849999904632568, "fold": "validation"}, {"epoch": 7, "loss": 0.329159140586853, "accuracy": 0.8834999799728394, "fold": "validation"}, {"epoch": 8, "loss": 0.3520219326019287, "accuracy": 0.878000020980835, "fold": "validation"}, {"epoch": 9, "loss": 0.4272127151489258, "accuracy": 0.8740000128746033, "fold": "validation"}, {"epoch": 10, "loss": 0.3991474211215973, "accuracy": 0.8755000233650208, "fold": "validation"}, {"epoch": 11, "loss": 0.4074461758136749, "accuracy": 0.8820000290870667, "fold": "validation"}, {"epoch": 12, "loss": 0.4426909387111664, "accuracy": 0.878000020980835, "fold": "validation"}, {"epoch": 13, "loss": 0.45299452543258667, "accuracy": 0.8794999718666077, "fold": "validation"}, {"epoch": 14, "loss": 0.5016531944274902, "accuracy": 0.8734999895095825, "fold": "validation"}, {"epoch": 15, "loss": 0.5174009799957275, "accuracy": 0.878000020980835, "fold": "validation"}, {"epoch": 16, "loss": 0.5483468174934387, "accuracy": 0.8765000104904175, "fold": "validation"}, {"epoch": 17, "loss": 0.6041597127914429, "accuracy": 0.8665000200271606, "fold": "validation"}, {"epoch": 18, "loss": 0.6072078943252563, "accuracy": 0.875, "fold": "validation"}, {"epoch": 19, "loss": 0.6446375846862793, "accuracy": 0.8715000152587891, "fold": "validation"}, {"epoch": 20, "loss": 0.6886874437332153, "accuracy": 0.8679999709129333, "fold": "validation"}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>To compute the test accuracy, we rerun the entire sequence above, replacing the last line with</p>
@@ -2092,127 +2154,127 @@ Wall time: 12.6 s
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0272 - accuracy: 0.9932 - val_loss: 0.6905 - val_accuracy: 0.8526 - 955ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0247 - accuracy: 0.9944 - val_loss: 0.7229 - val_accuracy: 0.8530 - 1s/epoch - 22ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0210 - accuracy: 0.9951 - val_loss: 0.7228 - val_accuracy: 0.8513 - 803ms/epoch - 17ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0186 - accuracy: 0.9954 - val_loss: 0.7860 - val_accuracy: 0.8498 - 897ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0211 - accuracy: 0.9948 - val_loss: 0.7532 - val_accuracy: 0.8507 - 804ms/epoch - 17ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0174 - accuracy: 0.9959 - val_loss: 0.7774 - val_accuracy: 0.8540 - 887ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0169 - accuracy: 0.9961 - val_loss: 0.7677 - val_accuracy: 0.8514 - 794ms/epoch - 17ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0194 - accuracy: 0.9953 - val_loss: 0.8086 - val_accuracy: 0.8538 - 892ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0159 - accuracy: 0.9964 - val_loss: 0.8769 - val_accuracy: 0.8394 - 828ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0178 - accuracy: 0.9959 - val_loss: 0.8250 - val_accuracy: 0.8510 - 893ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0139 - accuracy: 0.9967 - val_loss: 0.9043 - val_accuracy: 0.8442 - 841ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0170 - accuracy: 0.9961 - val_loss: 0.8656 - val_accuracy: 0.8524 - 893ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0168 - accuracy: 0.9964 - val_loss: 0.8667 - val_accuracy: 0.8476 - 808ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0068 - accuracy: 0.9989 - val_loss: 0.9416 - val_accuracy: 0.8445 - 888ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0045 - accuracy: 0.9997 - val_loss: 1.0449 - val_accuracy: 0.8381 - 800ms/epoch - 17ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0180 - accuracy: 0.9965 - val_loss: 0.9357 - val_accuracy: 0.8492 - 883ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0125 - accuracy: 0.9966 - val_loss: 0.9409 - val_accuracy: 0.8460 - 815ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0033 - accuracy: 0.9997 - val_loss: 0.9959 - val_accuracy: 0.8489 - 874ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0103 - accuracy: 0.9974 - val_loss: 1.0377 - val_accuracy: 0.8420 - 816ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0157 - accuracy: 0.9968 - val_loss: 1.0020 - val_accuracy: 0.8479 - 877ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0142 - accuracy: 0.9971 - val_loss: 0.9948 - val_accuracy: 0.8461 - 814ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0023 - accuracy: 0.9999 - val_loss: 1.0650 - val_accuracy: 0.8470 - 890ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0023 - accuracy: 0.9998 - val_loss: 1.0208 - val_accuracy: 0.8475 - 814ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0109 - accuracy: 0.9978 - val_loss: 1.0907 - val_accuracy: 0.8477 - 894ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0136 - accuracy: 0.9969 - val_loss: 1.0617 - val_accuracy: 0.8452 - 804ms/epoch - 17ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0193 - accuracy: 0.9966 - val_loss: 1.1034 - val_accuracy: 0.8472 - 912ms/epoch - 20ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0016 - accuracy: 0.9999 - val_loss: 1.1218 - val_accuracy: 0.8449 - 804ms/epoch - 17ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0014 - accuracy: 1.0000 - val_loss: 1.1677 - val_accuracy: 0.8470 - 884ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0106 - accuracy: 0.9977 - val_loss: 1.1280 - val_accuracy: 0.8464 - 816ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0092 - accuracy: 0.9976 - val_loss: 1.1965 - val_accuracy: 0.8479 - 896ms/epoch - 19ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0021 - accuracy: 0.9998 - val_loss: 1.6273 - val_accuracy: 0.8216 - 811ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 9.7738e-04 - accuracy: 1.0000 - val_loss: 1.2435 - val_accuracy: 0.8466 - 898ms/epoch - 20ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0025 - accuracy: 0.9995 - val_loss: 1.1952 - val_accuracy: 0.8449 - 804ms/epoch - 17ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0117 - accuracy: 0.9975 - val_loss: 1.2575 - val_accuracy: 0.8463 - 918ms/epoch - 20ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0165 - accuracy: 0.9974 - val_loss: 1.2347 - val_accuracy: 0.8433 - 807ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 7.0872e-04 - accuracy: 1.0000 - val_loss: 1.4223 - val_accuracy: 0.8391 - 925ms/epoch - 20ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 6.8611e-04 - accuracy: 1.0000 - val_loss: 1.2617 - val_accuracy: 0.8433 - 825ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0122 - accuracy: 0.9977 - val_loss: 1.3122 - val_accuracy: 0.8462 - 906ms/epoch - 20ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0074 - accuracy: 0.9983 - val_loss: 1.3215 - val_accuracy: 0.8411 - 844ms/epoch - 18ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0145 - accuracy: 0.9974 - val_loss: 1.3447 - val_accuracy: 0.8460 - 896ms/epoch - 19ms/step
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2236,9 +2298,11 @@ Wall time: 12.6 s
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="lab_10.9.3_convolutional_neural_networks.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2254,24 +2318,28 @@ Wall time: 12.6 s
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Kapitan<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Daniel Kapitan<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
