@@ -4,14 +4,14 @@ Whilst teaching data science courses at [Jheronimus Academy of Data Science](htt
 
 This foundational data science curriculum is based on the following textbooks and online courses:
 
-- [Introduction to Statistical Learning with Applications in R, Second Edition (ISLRv2)](https://statlearning.com) by James, Witten, Hastie, Tibshirani (2021).
-- [Hands-on Machine Learning with Scikit-Learn, Keras and Tensorflow, Second Edition (handson-ml2)](https://github.com/ageron/handson-ml2) by Aurélien Géron (2019).
+- [Introduction to Statistical Learning with Applications in R, 2nd Edition (ISLRv2)](https://statlearning.com) by James, Witten, Hastie, Tibshirani (2021).
+- [Hands-on Machine Learning with Scikit-Learn, Keras and Tensorflow, 2nd Edition (handson-ml2)](https://github.com/ageron/handson-ml2) by Aurélien Géron (2019).
 - [Altair Visualization Curriculum](https://uwdata.github.io/visualization-curriculum/intro.html), developed at the University of Washington by Jeffrey Heer, Dominik Moritz, Jake VanderPlas, and Brock Craft.
-- [Interpretable Machine Learning (IML)](https://christophm.github.io/interpretable-ml-book/) by Christoph Molnar (2021).
-- [Forecasting: Principles and Practice, Third Edition (fpp3)](https://otexts.com/fpp3/) by Rob J Hyndman and George Athanasopoulos (2021).
+- [Interpretable Machine Learning, 2nd Edition (IMLv2)](https://christophm.github.io/interpretable-ml-book/) by Christoph Molnar (2022).
+- [Forecasting: Principles and Practice, 3rd Edition (fpp3)](https://otexts.com/fpp3/) by Rob J Hyndman and George Athanasopoulos (2021).
 - [Advanced NLP with spaCy](https://course.spacy.io/en/).
 
-Since three of these use R (ISLRv2, fpp3 and IML), and we have chosen Python as our primary language for instruction, the main contribution of this JupyterBook is to provide a wide set of Python-based notebooks with exercises and examples. Besides my own work, I have integrated various respositories, blog posts etc. which I found useful and fitting within this curriculum. Attributions and links are provided in each section separately.
+Since three of these use R (ISLRv2, fpp3 and IMLv2), and we have chosen Python as our primary language for instruction, the main contribution of this JupyterBook is to provide a wide set of Python-based notebooks with exercises and examples. Besides my own work, I have integrated various respositories, blog posts etc. which I found useful and fitting within this curriculum. Attributions and links are provided in each section separately.
 
 ## Getting started with Python for Data Science
 
