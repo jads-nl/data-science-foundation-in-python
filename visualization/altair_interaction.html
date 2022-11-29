@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1573,8 +1573,8 @@ title="Print to PDF"
 <p><em>This notebook is part of the <a class="reference external" href="https://github.com/uwdata/visualization-curriculum">data visualization curriculum</a>.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import altair as alt
 </pre></div>
 </div>
 </div>
@@ -1591,11 +1591,11 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/cars.json&#39;</span>
-<span class="n">movies</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json&#39;</span>
-<span class="n">sp500</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/sp500.csv&#39;</span>
-<span class="n">stocks</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/stocks.csv&#39;</span>
-<span class="n">flights</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/flights-5k.json&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cars = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/cars.json&#39;
+movies = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json&#39;
+sp500 = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/sp500.csv&#39;
+stocks = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/stocks.csv&#39;
+flights = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/flights-5k.json&#39;
 </pre></div>
 </div>
 </div>
@@ -1613,28 +1613,28 @@ title="Print to PDF"
 <p><em>Try clicking different points in the chart below. What happens? (Click the background to clear the selection state and return to an “empty” selection.)</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_single</span><span class="p">();</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>selection = alt.selection_single();
   
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">selection</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Horsepower:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Miles_per_Gallon:Q&#39;</span><span class="p">,</span>
-    <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="s1">&#39;Cylinders:O&#39;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;grey&#39;</span><span class="p">)),</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
-<span class="p">)</span>
+alt.Chart(cars).mark_circle().add_selection(
+    selection
+).encode(
+    x=&#39;Horsepower:Q&#39;,
+    y=&#39;Miles_per_Gallon:Q&#39;,
+    color=alt.condition(selection, &#39;Cylinders:O&#39;, alt.value(&#39;grey&#39;)),
+    opacity=alt.condition(selection, alt.value(0.8), alt.value(0.1))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-cb724d86ffea4880b472c6c726845b71"></div>
+<div id="altair-viz-abfed88766bb462ca1dd3bdb0e10d5b6"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-cb724d86ffea4880b472c6c726845b71") {
-      outputDiv = document.getElementById("altair-viz-cb724d86ffea4880b472c6c726845b71");
+    if (outputDiv.id !== "altair-viz-abfed88766bb462ca1dd3bdb0e10d5b6") {
+      outputDiv = document.getElementById("altair-viz-abfed88766bb462ca1dd3bdb0e10d5b6");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1692,18 +1692,18 @@ title="Print to PDF"
 <p>Let’s compare each of these selection types side-by-side. To keep our code tidy we’ll first define a function (<code class="docutils literal notranslate"><span class="pre">plot</span></code>) that generates a scatter plot specification just like the one above. We can pass a selection to the <code class="docutils literal notranslate"><span class="pre">plot</span></code> function to have it applied to the chart:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">selection</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-        <span class="n">selection</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Horsepower:Q&#39;</span><span class="p">,</span>
-        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Miles_per_Gallon:Q&#39;</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="s1">&#39;Cylinders:O&#39;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;grey&#39;</span><span class="p">)),</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mi">180</span>
-    <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot(selection):
+    return alt.Chart(cars).mark_circle().add_selection(
+        selection
+    ).encode(
+        x=&#39;Horsepower:Q&#39;,
+        y=&#39;Miles_per_Gallon:Q&#39;,
+        color=alt.condition(selection, &#39;Cylinders:O&#39;, alt.value(&#39;grey&#39;)),
+        opacity=alt.condition(selection, alt.value(0.8), alt.value(0.1))
+    ).properties(
+        width=240,
+        height=180
+    )
 </pre></div>
 </div>
 </div>
@@ -1713,23 +1713,23 @@ title="Print to PDF"
 <p><em>Try interacting with each of the charts below!</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">hconcat</span><span class="p">(</span>
-  <span class="n">plot</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">selection_single</span><span class="p">())</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Single (Click)&#39;</span><span class="p">),</span>
-  <span class="n">plot</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">selection_multi</span><span class="p">())</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Multi (Shift-Click)&#39;</span><span class="p">),</span>
-  <span class="n">plot</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">())</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Interval (Drag)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.hconcat(
+  plot(alt.selection_single()).properties(title=&#39;Single (Click)&#39;),
+  plot(alt.selection_multi()).properties(title=&#39;Multi (Shift-Click)&#39;),
+  plot(alt.selection_interval()).properties(title=&#39;Interval (Drag)&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-c9eae50f025b4ad1954554956ecfc798"></div>
+<div id="altair-viz-4e1a73fd5147448ba891c02a783a1341"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c9eae50f025b4ad1954554956ecfc798") {
-      outputDiv = document.getElementById("altair-viz-c9eae50f025b4ad1954554956ecfc798");
+    if (outputDiv.id !== "altair-viz-4e1a73fd5147448ba891c02a783a1341") {
+      outputDiv = document.getElementById("altair-viz-4e1a73fd5147448ba891c02a783a1341");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1782,22 +1782,22 @@ title="Print to PDF"
 <p><em>Hold down the shift key in the second chart to “paint” with data!</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">hconcat</span><span class="p">(</span>
-  <span class="n">plot</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">selection_single</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;mouseover&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Single (Mouseover)&#39;</span><span class="p">),</span>
-  <span class="n">plot</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">selection_multi</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;mouseover&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Multi (Shift-Mouseover)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.hconcat(
+  plot(alt.selection_single(on=&#39;mouseover&#39;)).properties(title=&#39;Single (Mouseover)&#39;),
+  plot(alt.selection_multi(on=&#39;mouseover&#39;)).properties(title=&#39;Multi (Shift-Mouseover)&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-22fa5ede36934bc89546a48096f47fa4"></div>
+<div id="altair-viz-c4d0f60082dc4d9a8a7230933d873868"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-22fa5ede36934bc89546a48096f47fa4") {
-      outputDiv = document.getElementById("altair-viz-22fa5ede36934bc89546a48096f47fa4");
+    if (outputDiv.id !== "altair-viz-c4d0f60082dc4d9a8a7230933d873868") {
+      outputDiv = document.getElementById("altair-viz-c4d0f60082dc4d9a8a7230933d873868");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1863,10 +1863,10 @@ title="Print to PDF"
 <p>To start, let’s extract the unique (non-null) genres from the <code class="docutils literal notranslate"><span class="pre">movies</span></code> data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span> <span class="c1"># load movies data</span>
-<span class="n">genres</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Major_Genre&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1"># get unique field values</span>
-<span class="n">genres</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">genres</span><span class="p">))</span> <span class="c1"># filter out None values</span>
-<span class="n">genres</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span> <span class="c1"># sort alphabetically</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = pd.read_json(movies) # load movies data
+genres = df[&#39;Major_Genre&#39;].unique() # get unique field values
+genres = list(filter(lambda d: d is not None, genres)) # filter out None values
+genres.sort() # sort alphabetically
 </pre></div>
 </div>
 </div>
@@ -1874,7 +1874,7 @@ title="Print to PDF"
 <p>For later use, let’s also define a list of unique <code class="docutils literal notranslate"><span class="pre">MPAA_Rating</span></code> values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpaa</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;PG&#39;</span><span class="p">,</span> <span class="s1">&#39;PG-13&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;NC-17&#39;</span><span class="p">,</span> <span class="s1">&#39;Not Rated&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mpaa = [&#39;G&#39;, &#39;PG&#39;, &#39;PG-13&#39;, &#39;R&#39;, &#39;NC-17&#39;, &#39;Not Rated&#39;]
 </pre></div>
 </div>
 </div>
@@ -1883,33 +1883,33 @@ title="Print to PDF"
 <p><em>Use the dynamic query menu below to explore the data. How do ratings vary by genre? How would you revise the code to filter <code class="docutils literal notranslate"><span class="pre">MPAA_Rating</span></code> (G, PG, PG-13, etc.) instead of <code class="docutils literal notranslate"><span class="pre">Major_Genre</span></code>?</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selectGenre</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_single</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Select&#39;</span><span class="p">,</span> <span class="c1"># name the selection &#39;Select&#39;</span>
-    <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Major_Genre&#39;</span><span class="p">],</span> <span class="c1"># limit selection to the Major_Genre field</span>
-    <span class="n">init</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Major_Genre&#39;</span><span class="p">:</span> <span class="n">genres</span><span class="p">[</span><span class="mi">0</span><span class="p">]},</span> <span class="c1"># use first genre entry as initial value</span>
-    <span class="n">bind</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">binding_select</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">genres</span><span class="p">)</span> <span class="c1"># bind to a menu of unique genre values</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>selectGenre = alt.selection_single(
+    name=&#39;Select&#39;, # name the selection &#39;Select&#39;
+    fields=[&#39;Major_Genre&#39;], # limit selection to the Major_Genre field
+    init={&#39;Major_Genre&#39;: genres[0]}, # use first genre entry as initial value
+    bind=alt.binding_select(options=genres) # bind to a menu of unique genre values
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">selectGenre</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Title:N&#39;</span><span class="p">,</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">selectGenre</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.75</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.05</span><span class="p">))</span>
-<span class="p">)</span>
+alt.Chart(movies).mark_circle().add_selection(
+    selectGenre
+).encode(
+    x=&#39;Rotten_Tomatoes_Rating:Q&#39;,
+    y=&#39;IMDB_Rating:Q&#39;,
+    tooltip=&#39;Title:N&#39;,
+    opacity=alt.condition(selectGenre, alt.value(0.75), alt.value(0.05))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-efa27f33bf614aa8a779654aed2db9bb"></div>
+<div id="altair-viz-3c9c7421b13b417c96a7d6fc50cd8530"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-efa27f33bf614aa8a779654aed2db9bb") {
-      outputDiv = document.getElementById("altair-viz-efa27f33bf614aa8a779654aed2db9bb");
+    if (outputDiv.id !== "altair-viz-3c9c7421b13b417c96a7d6fc50cd8530") {
+      outputDiv = document.getElementById("altair-viz-3c9c7421b13b417c96a7d6fc50cd8530");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1972,36 +1972,36 @@ title="Print to PDF"
 <p><em>Look for surprising conjunctions of genre and rating. Are there any G or PG-rated horror films?</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># single-value selection over [Major_Genre, MPAA_Rating] pairs</span>
-<span class="c1"># use specific hard-wired values as the initial selected values</span>
-<span class="n">selection</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_single</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Select&#39;</span><span class="p">,</span>
-    <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Major_Genre&#39;</span><span class="p">,</span> <span class="s1">&#39;MPAA_Rating&#39;</span><span class="p">],</span>
-    <span class="n">init</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Major_Genre&#39;</span><span class="p">:</span> <span class="s1">&#39;Drama&#39;</span><span class="p">,</span> <span class="s1">&#39;MPAA_Rating&#39;</span><span class="p">:</span> <span class="s1">&#39;R&#39;</span><span class="p">},</span>
-    <span class="n">bind</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Major_Genre&#39;</span><span class="p">:</span> <span class="n">alt</span><span class="o">.</span><span class="n">binding_select</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">genres</span><span class="p">),</span> <span class="s1">&#39;MPAA_Rating&#39;</span><span class="p">:</span> <span class="n">alt</span><span class="o">.</span><span class="n">binding_radio</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">mpaa</span><span class="p">)}</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># single-value selection over [Major_Genre, MPAA_Rating] pairs
+# use specific hard-wired values as the initial selected values
+selection = alt.selection_single(
+    name=&#39;Select&#39;,
+    fields=[&#39;Major_Genre&#39;, &#39;MPAA_Rating&#39;],
+    init={&#39;Major_Genre&#39;: &#39;Drama&#39;, &#39;MPAA_Rating&#39;: &#39;R&#39;},
+    bind={&#39;Major_Genre&#39;: alt.binding_select(options=genres), &#39;MPAA_Rating&#39;: alt.binding_radio(options=mpaa)}
+)
   
-<span class="c1"># scatter plot, modify opacity based on selection</span>
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">selection</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Title:N&#39;</span><span class="p">,</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.75</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.05</span><span class="p">))</span>
-<span class="p">)</span>
+# scatter plot, modify opacity based on selection
+alt.Chart(movies).mark_circle().add_selection(
+    selection
+).encode(
+    x=&#39;Rotten_Tomatoes_Rating:Q&#39;,
+    y=&#39;IMDB_Rating:Q&#39;,
+    tooltip=&#39;Title:N&#39;,
+    opacity=alt.condition(selection, alt.value(0.75), alt.value(0.05))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3a21607736204e4aac9fcb24ab73233a"></div>
+<div id="altair-viz-a3007873a0df4f34a002c514ed5740da"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3a21607736204e4aac9fcb24ab73233a") {
-      outputDiv = document.getElementById("altair-viz-3a21607736204e4aac9fcb24ab73233a");
+    if (outputDiv.id !== "altair-viz-a3007873a0df4f34a002c514ed5740da") {
+      outputDiv = document.getElementById("altair-viz-a3007873a0df4f34a002c514ed5740da");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2060,45 +2060,45 @@ title="Print to PDF"
 <p><em>The years range from 1930 to 2040! Are future films in pre-production, or are there “off-by-one century” errors? Also, depending on which time zone you’re in, you may see a small bump in either 1969 or 1970. Why might that be? (See the end of the notebook for an explanation!)</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brush</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">(</span>
-    <span class="n">encodings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="c1"># limit selection to x-axis (year) values</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>brush = alt.selection_interval(
+    encodings=[&#39;x&#39;] # limit selection to x-axis (year) values
+)
 
-<span class="c1"># dynamic query histogram</span>
-<span class="n">years</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">brush</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;year(Release_Date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Films by Release Year&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count():Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">50</span>
-<span class="p">)</span>
+# dynamic query histogram
+years = alt.Chart(movies).mark_bar().add_selection(
+    brush
+).encode(
+    alt.X(&#39;year(Release_Date):T&#39;, title=&#39;Films by Release Year&#39;),
+    alt.Y(&#39;count():Q&#39;, title=None)
+).properties(
+    width=650,
+    height=50
+)
 
-<span class="c1"># scatter plot, modify opacity based on selection</span>
-<span class="n">ratings</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Title:N&#39;</span><span class="p">,</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">brush</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.75</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.05</span><span class="p">))</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
-<span class="p">)</span>
+# scatter plot, modify opacity based on selection
+ratings = alt.Chart(movies).mark_circle().encode(
+    x=&#39;Rotten_Tomatoes_Rating:Q&#39;,
+    y=&#39;IMDB_Rating:Q&#39;,
+    tooltip=&#39;Title:N&#39;,
+    opacity=alt.condition(brush, alt.value(0.75), alt.value(0.05))
+).properties(
+    width=650,
+    height=400
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">vconcat</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">ratings</span><span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+alt.vconcat(years, ratings).properties(spacing=5)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-501f82aa9a8e4da69b71d145164a426f"></div>
+<div id="altair-viz-0074bd766023480885228ba276185f1b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-501f82aa9a8e4da69b71d145164a426f") {
-      outputDiv = document.getElementById("altair-viz-501f82aa9a8e4da69b71d145164a426f");
+    if (outputDiv.id !== "altair-viz-0074bd766023480885228ba276185f1b") {
+      outputDiv = document.getElementById("altair-viz-0074bd766023480885228ba276185f1b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2164,28 +2164,28 @@ title="Print to PDF"
 <p><em>In the chart below, click and drag to pan (translate) the view, or scroll to zoom (scale) the view. What can you discover about the precision of the provided rating values?</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="s1">&#39;scales&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">minExtent</span><span class="o">=</span><span class="mi">30</span><span class="p">)),</span> <span class="c1"># use min extent to stabilize axis title placement</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Title:N&#39;</span><span class="p">,</span> <span class="s1">&#39;Release_Date:N&#39;</span><span class="p">,</span> <span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies).mark_circle().add_selection(
+    alt.selection_interval(bind=&#39;scales&#39;)
+).encode(
+    x=&#39;Rotten_Tomatoes_Rating:Q&#39;,
+    y=alt.Y(&#39;IMDB_Rating:Q&#39;, axis=alt.Axis(minExtent=30)), # use min extent to stabilize axis title placement
+    tooltip=[&#39;Title:N&#39;, &#39;Release_Date:N&#39;, &#39;IMDB_Rating:Q&#39;, &#39;Rotten_Tomatoes_Rating:Q&#39;]
+).properties(
+    width=600,
+    height=400
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-f81b3f527c9c45eca91b012954ffbc25"></div>
+<div id="altair-viz-85556c7b11b74aa8914540c8f32be2e2"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f81b3f527c9c45eca91b012954ffbc25") {
-      outputDiv = document.getElementById("altair-viz-f81b3f527c9c45eca91b012954ffbc25");
+    if (outputDiv.id !== "altair-viz-85556c7b11b74aa8914540c8f32be2e2") {
+      outputDiv = document.getElementById("altair-viz-85556c7b11b74aa8914540c8f32be2e2");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2239,26 +2239,26 @@ title="Print to PDF"
 <p>Altair also includes a shorthand for adding panning and zooming to a plot. Instead of directly creating a selection, you can call <code class="docutils literal notranslate"><span class="pre">.interactive()</span></code> to have Altair automatically generate an interval selection bound to the chart’s scales:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">minExtent</span><span class="o">=</span><span class="mi">30</span><span class="p">)),</span> <span class="c1"># use min extent to stabilize axis title placement</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Title:N&#39;</span><span class="p">,</span> <span class="s1">&#39;Release_Date:N&#39;</span><span class="p">,</span> <span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
-<span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies).mark_circle().encode(
+    x=&#39;Rotten_Tomatoes_Rating:Q&#39;,
+    y=alt.Y(&#39;IMDB_Rating:Q&#39;, axis=alt.Axis(minExtent=30)), # use min extent to stabilize axis title placement
+    tooltip=[&#39;Title:N&#39;, &#39;Release_Date:N&#39;, &#39;IMDB_Rating:Q&#39;, &#39;Rotten_Tomatoes_Rating:Q&#39;]
+).properties(
+    width=600,
+    height=400
+).interactive()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e6da29647dfa4bb8a2b62f6b3f31ef4b"></div>
+<div id="altair-viz-df96d7f4f2dc428bbd4c0d807698f221"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e6da29647dfa4bb8a2b62f6b3f31ef4b") {
-      outputDiv = document.getElementById("altair-viz-e6da29647dfa4bb8a2b62f6b3f31ef4b");
+    if (outputDiv.id !== "altair-viz-df96d7f4f2dc428bbd4c0d807698f221") {
+      outputDiv = document.getElementById("altair-viz-df96d7f4f2dc428bbd4c0d807698f221");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2310,28 +2310,28 @@ title="Print to PDF"
 <p>By default, scale bindings for selections include both the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> encoding channels. What if we want to limit panning and zooming along a single dimension? We can invoke <code class="docutils literal notranslate"><span class="pre">encodings=['x']</span></code> to constrain the selection to the <code class="docutils literal notranslate"><span class="pre">x</span></code> channel only:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="s1">&#39;scales&#39;</span><span class="p">,</span> <span class="n">encodings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">])</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">minExtent</span><span class="o">=</span><span class="mi">30</span><span class="p">)),</span> <span class="c1"># use min extent to stabilize axis title placement</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Title:N&#39;</span><span class="p">,</span> <span class="s1">&#39;Release_Date:N&#39;</span><span class="p">,</span> <span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies).mark_circle().add_selection(
+    alt.selection_interval(bind=&#39;scales&#39;, encodings=[&#39;x&#39;])
+).encode(
+    x=&#39;Rotten_Tomatoes_Rating:Q&#39;,
+    y=alt.Y(&#39;IMDB_Rating:Q&#39;, axis=alt.Axis(minExtent=30)), # use min extent to stabilize axis title placement
+    tooltip=[&#39;Title:N&#39;, &#39;Release_Date:N&#39;, &#39;IMDB_Rating:Q&#39;, &#39;Rotten_Tomatoes_Rating:Q&#39;]
+).properties(
+    width=600,
+    height=400
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1aefcb67c46841df9c847811f6a76f16"></div>
+<div id="altair-viz-2fd6830dfad94f4680f255af4f39df38"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1aefcb67c46841df9c847811f6a76f16") {
-      outputDiv = document.getElementById("altair-viz-1aefcb67c46841df9c847811f6a76f16");
+    if (outputDiv.id !== "altair-viz-2fd6830dfad94f4680f255af4f39df38") {
+      outputDiv = document.getElementById("altair-viz-2fd6830dfad94f4680f255af4f39df38");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2388,32 +2388,32 @@ title="Print to PDF"
 <p>Below we have two area charts showing a decade of price fluctuations for the S&amp;P 500 stock index. Initially both charts show the same data range. <em>Click and drag in the bottom overview chart to update the focus display and examine specific time spans.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brush</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">(</span><span class="n">encodings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>brush = alt.selection_interval(encodings=[&#39;x&#39;]);
 
-<span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_area</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;date:T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;price:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">700</span>
-<span class="p">)</span>
+base = alt.Chart().mark_area().encode(
+    alt.X(&#39;date:T&#39;, title=None),
+    alt.Y(&#39;price:Q&#39;)
+).properties(
+    width=700
+)
   
-<span class="n">alt</span><span class="o">.</span><span class="n">vconcat</span><span class="p">(</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;date:T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">brush</span><span class="p">))),</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">brush</span><span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">),</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">sp500</span>
-<span class="p">)</span>
+alt.vconcat(
+    base.encode(alt.X(&#39;date:T&#39;, title=None, scale=alt.Scale(domain=brush))),
+    base.add_selection(brush).properties(height=60),
+    data=sp500
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3f670f40247f410a9647fae88dc2a9c5"></div>
+<div id="altair-viz-493fa585ec3b4fa6805fb2462d456bc3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3f670f40247f410a9647fae88dc2a9c5") {
-      outputDiv = document.getElementById("altair-viz-3f670f40247f410a9647fae88dc2a9c5");
+    if (outputDiv.id !== "altair-viz-493fa585ec3b4fa6805fb2462d456bc3") {
+      outputDiv = document.getElementById("altair-viz-493fa585ec3b4fa6805fb2462d456bc3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2471,50 +2471,50 @@ title="Print to PDF"
 <p><em>Mouse over points in the scatter plot below to see a highlight and title label. Shift-click points to make annotations persistent and view multiple labels at once. Which movies are loved by Rotten Tomatoes critics, but not the general audience on IMDB (or vice versa)? See if you can find possible errors, where two different movies with the same name were accidentally combined!</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hover</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_single</span><span class="p">(</span>
-    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span>  <span class="c1"># select on mouseover</span>
-    <span class="n">nearest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># select nearest point to mouse cursor</span>
-    <span class="n">empty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span>     <span class="c1"># empty selection should match nothing</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hover = alt.selection_single(
+    on=&#39;mouseover&#39;,  # select on mouseover
+    nearest=True,    # select nearest point to mouse cursor
+    empty=&#39;none&#39;     # empty selection should match nothing
+)
 
-<span class="n">click</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_multi</span><span class="p">(</span>
-    <span class="n">empty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span> <span class="c1"># empty selection matches no points</span>
-<span class="p">)</span>
+click = alt.selection_multi(
+    empty=&#39;none&#39; # empty selection matches no points
+)
 
-<span class="c1"># scatter plot encodings shared by all marks</span>
-<span class="n">plot</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span>
-<span class="p">)</span>
+# scatter plot encodings shared by all marks
+plot = alt.Chart().mark_circle().encode(
+    x=&#39;Rotten_Tomatoes_Rating:Q&#39;,
+    y=&#39;IMDB_Rating:Q&#39;
+)
   
-<span class="c1"># shared base for new layers</span>
-<span class="n">base</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-    <span class="n">hover</span> <span class="o">|</span> <span class="n">click</span> <span class="c1"># filter to points in either selection</span>
-<span class="p">)</span>
+# shared base for new layers
+base = plot.transform_filter(
+    hover | click # filter to points in either selection
+)
 
-<span class="c1"># layer scatter plot points, halo annotations, and title labels</span>
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span>
-    <span class="n">plot</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">hover</span><span class="p">)</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">click</span><span class="p">),</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">mark_point</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">,</span> <span class="n">strokeWidth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">mark_text</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mi">8</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">strokeWidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Title:N&#39;</span><span class="p">),</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">mark_text</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mi">8</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Title:N&#39;</span><span class="p">),</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">movies</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">450</span>
-<span class="p">)</span>
+# layer scatter plot points, halo annotations, and title labels
+alt.layer(
+    plot.add_selection(hover).add_selection(click),
+    base.mark_point(size=100, stroke=&#39;firebrick&#39;, strokeWidth=1),
+    base.mark_text(dx=4, dy=-8, align=&#39;right&#39;, stroke=&#39;white&#39;, strokeWidth=2).encode(text=&#39;Title:N&#39;),
+    base.mark_text(dx=4, dy=-8, align=&#39;right&#39;).encode(text=&#39;Title:N&#39;),
+    data=movies
+).properties(
+    width=600,
+    height=450
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2a1afc462398479083e7256355b3ebd3"></div>
+<div id="altair-viz-eda11b49fc03497bbfff8416347a0ef0"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2a1afc462398479083e7256355b3ebd3") {
-      outputDiv = document.getElementById("altair-viz-2a1afc462398479083e7256355b3ebd3");
+    if (outputDiv.id !== "altair-viz-eda11b49fc03497bbfff8416347a0ef0") {
+      outputDiv = document.getElementById("altair-viz-eda11b49fc03497bbfff8416347a0ef0");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2572,61 +2572,61 @@ title="Print to PDF"
 <p>Using selections and layers, we can realize a number of different designs for details on demand! For example, here is a log-scaled time series of technology stock prices, annotated with a guideline and labels for the date nearest the mouse cursor:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select a point for which to provide details-on-demand</span>
-<span class="n">label</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_single</span><span class="p">(</span>
-    <span class="n">encodings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="c1"># limit selection to x-axis value</span>
-    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span>  <span class="c1"># select on mouseover events</span>
-    <span class="n">nearest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># select data point nearest the cursor</span>
-    <span class="n">empty</span><span class="o">=</span><span class="s1">&#39;none&#39;</span>     <span class="c1"># empty selection includes no data points</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># select a point for which to provide details-on-demand
+label = alt.selection_single(
+    encodings=[&#39;x&#39;], # limit selection to x-axis value
+    on=&#39;mouseover&#39;,  # select on mouseover events
+    nearest=True,    # select data point nearest the cursor
+    empty=&#39;none&#39;     # empty selection includes no data points
+)
 
-<span class="c1"># define our base line chart of stock prices</span>
-<span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;date:T&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;price:Q&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;symbol:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+# define our base line chart of stock prices
+base = alt.Chart().mark_line().encode(
+    alt.X(&#39;date:T&#39;),
+    alt.Y(&#39;price:Q&#39;, scale=alt.Scale(type=&#39;log&#39;)),
+    alt.Color(&#39;symbol:N&#39;)
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span>
-    <span class="n">base</span><span class="p">,</span> <span class="c1"># base line chart</span>
+alt.layer(
+    base, # base line chart
     
-    <span class="c1"># add a rule mark to serve as a guide line</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_rule</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#aaa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;date:T&#39;</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+    # add a rule mark to serve as a guide line
+    alt.Chart().mark_rule(color=&#39;#aaa&#39;).encode(
+        x=&#39;date:T&#39;
+    ).transform_filter(label),
     
-    <span class="c1"># add circle marks for selected time points, hide unselected points</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+    # add circle marks for selected time points, hide unselected points
+    base.mark_circle().encode(
+        opacity=alt.condition(label, alt.value(1), alt.value(0))
+    ).add_selection(label),
 
-    <span class="c1"># add white stroked text to provide a legible background for labels</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">mark_text</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">strokeWidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-        <span class="n">text</span><span class="o">=</span><span class="s1">&#39;price:Q&#39;</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+    # add white stroked text to provide a legible background for labels
+    base.mark_text(align=&#39;left&#39;, dx=5, dy=-5, stroke=&#39;white&#39;, strokeWidth=2).encode(
+        text=&#39;price:Q&#39;
+    ).transform_filter(label),
 
-    <span class="c1"># add text labels for stock prices</span>
-    <span class="n">base</span><span class="o">.</span><span class="n">mark_text</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-        <span class="n">text</span><span class="o">=</span><span class="s1">&#39;price:Q&#39;</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+    # add text labels for stock prices
+    base.mark_text(align=&#39;left&#39;, dx=5, dy=-5).encode(
+        text=&#39;price:Q&#39;
+    ).transform_filter(label),
     
-    <span class="n">data</span><span class="o">=</span><span class="n">stocks</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
-<span class="p">)</span>
+    data=stocks
+).properties(
+    width=700,
+    height=400
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9f6769fd9d42459e9079429700776bf9"></div>
+<div id="altair-viz-a89b9b418d9f487bb4a399d26adc8e0b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9f6769fd9d42459e9079429700776bf9") {
-      outputDiv = document.getElementById("altair-viz-9f6769fd9d42459e9079429700776bf9");
+    if (outputDiv.id !== "altair-viz-a89b9b418d9f487bb4a399d26adc8e0b") {
+      outputDiv = document.getElementById("altair-viz-a89b9b418d9f487bb4a399d26adc8e0b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2684,36 +2684,36 @@ title="Print to PDF"
 <p><em>Click and drag in any of the plots below to perform brushing &amp; linking!</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brush</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">(</span>
-    <span class="n">resolve</span><span class="o">=</span><span class="s1">&#39;global&#39;</span> <span class="c1"># resolve all selections to a single global instance</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>brush = alt.selection_interval(
+    resolve=&#39;global&#39; # resolve all selections to a single global instance
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">brush</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;column&#39;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">),</span>
-    <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">brush</span><span class="p">,</span> <span class="s1">&#39;Cylinders:O&#39;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;grey&#39;</span><span class="p">)),</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">brush</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">140</span>
-<span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-    <span class="n">column</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;Horsepower&#39;</span><span class="p">,</span> <span class="s1">&#39;Miles_per_Gallon&#39;</span><span class="p">],</span>
-    <span class="n">row</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Miles_per_Gallon&#39;</span><span class="p">,</span> <span class="s1">&#39;Horsepower&#39;</span><span class="p">,</span> <span class="s1">&#39;Acceleration&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+alt.Chart(cars).mark_circle().add_selection(
+    brush
+).encode(
+    alt.X(alt.repeat(&#39;column&#39;), type=&#39;quantitative&#39;),
+    alt.Y(alt.repeat(&#39;row&#39;), type=&#39;quantitative&#39;),
+    color=alt.condition(brush, &#39;Cylinders:O&#39;, alt.value(&#39;grey&#39;)),
+    opacity=alt.condition(brush, alt.value(0.8), alt.value(0.1))
+).properties(
+    width=140,
+    height=140
+).repeat(
+    column=[&#39;Acceleration&#39;, &#39;Horsepower&#39;, &#39;Miles_per_Gallon&#39;],
+    row=[&#39;Miles_per_Gallon&#39;, &#39;Horsepower&#39;, &#39;Acceleration&#39;]
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7da06927732c4090a5bfcd5a5a3dc938"></div>
+<div id="altair-viz-e75697b33f384fb8ada358ed9dede02e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7da06927732c4090a5bfcd5a5a3dc938") {
-      outputDiv = document.getElementById("altair-viz-7da06927732c4090a5bfcd5a5a3dc938");
+    if (outputDiv.id !== "altair-viz-e75697b33f384fb8ada358ed9dede02e") {
+      outputDiv = document.getElementById("altair-viz-e75697b33f384fb8ada358ed9dede02e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2772,46 +2772,46 @@ title="Print to PDF"
 <p><em>Drag out brush intervals in the charts below. As you select flights with longer or shorter arrival delays, how do the distance and time distributions respond?</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brush</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">(</span>
-    <span class="n">encodings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span>
-    <span class="n">resolve</span><span class="o">=</span><span class="s1">&#39;intersect&#39;</span>
-<span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>brush = alt.selection_interval(
+    encodings=[&#39;x&#39;],
+    resolve=&#39;intersect&#39;
+);
 
-<span class="n">hist</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">,</span>
-        <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Bin</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">minstep</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="c1"># up to 100 bins</span>
-        <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">titleAnchor</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">)</span> <span class="c1"># integer format, left-aligned title</span>
-    <span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count():Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1"># no y-axis title</span>
-<span class="p">)</span>
+hist = alt.Chart().mark_bar().encode(
+    alt.X(alt.repeat(&#39;row&#39;), type=&#39;quantitative&#39;,
+        bin=alt.Bin(maxbins=100, minstep=1), # up to 100 bins
+        axis=alt.Axis(format=&#39;d&#39;, titleAnchor=&#39;start&#39;) # integer format, left-aligned title
+    ),
+    alt.Y(&#39;count():Q&#39;, title=None) # no y-axis title
+)
   
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span>
-    <span class="n">hist</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">brush</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">)),</span>
-    <span class="n">hist</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">brush</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">100</span>
-<span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-    <span class="n">row</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;delay&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">],</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">flights</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-    <span class="n">delay</span><span class="o">=</span><span class="s1">&#39;datum.delay &lt; 180 ? datum.delay : 180&#39;</span><span class="p">,</span> <span class="c1"># clamp delays &gt; 3 hours</span>
-    <span class="n">time</span><span class="o">=</span><span class="s1">&#39;hours(datum.date) + minutes(datum.date) / 60&#39;</span> <span class="c1"># fractional hours</span>
-<span class="p">)</span><span class="o">.</span><span class="n">configure_view</span><span class="p">(</span>
-    <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;transparent&#39;</span> <span class="c1"># no outline</span>
-<span class="p">)</span>
+alt.layer(
+    hist.add_selection(brush).encode(color=alt.value(&#39;lightgrey&#39;)),
+    hist.transform_filter(brush)
+).properties(
+    width=900,
+    height=100
+).repeat(
+    row=[&#39;delay&#39;, &#39;distance&#39;, &#39;time&#39;],
+    data=flights
+).transform_calculate(
+    delay=&#39;datum.delay &lt; 180 ? datum.delay : 180&#39;, # clamp delays &gt; 3 hours
+    time=&#39;hours(datum.date) + minutes(datum.date) / 60&#39; # fractional hours
+).configure_view(
+    stroke=&#39;transparent&#39; # no outline
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8878ccfdf8ca4d1fa95a21d1bdf2352c"></div>
+<div id="altair-viz-50121291a1164ac9a6e90bb87d61cfdb"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8878ccfdf8ca4d1fa95a21d1bdf2352c") {
-      outputDiv = document.getElementById("altair-viz-8878ccfdf8ca4d1fa95a21d1bdf2352c");
+    if (outputDiv.id !== "altair-viz-50121291a1164ac9a6e90bb87d61cfdb") {
+      outputDiv = document.getElementById("altair-viz-50121291a1164ac9a6e90bb87d61cfdb");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",

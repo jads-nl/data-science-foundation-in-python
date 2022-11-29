@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1601,41 +1601,41 @@ title="Print to PDF"
 <p>First, let’s import a few common modules, ensure MatplotLib plots figures inline and prepare a function to save the figures. We also check that Python 3.5 or later is installed (although Python 2.x may work, it is deprecated so we strongly recommend you use Python 3 instead), as well as Scikit-Learn ≥0.20.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Python ≥3.5 is required</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">assert</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Python ≥3.5 is required
+import sys
+assert sys.version_info &gt;= (3, 5)
 
-<span class="c1"># Scikit-Learn ≥0.20 is required</span>
-<span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="k">assert</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&gt;=</span> <span class="s2">&quot;0.20&quot;</span>
+# Scikit-Learn ≥0.20 is required
+import sklearn
+assert sklearn.__version__ &gt;= &quot;0.20&quot;
 
-<span class="c1"># Common imports</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
+# Common imports
+import numpy as np
+import os
 
-<span class="c1"># to make this notebook&#39;s output stable across runs</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+# to make this notebook&#39;s output stable across runs
+np.random.seed(42)
 
-<span class="c1"># To plot pretty figures</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;xtick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;ytick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+# To plot pretty figures
+%matplotlib inline
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+mpl.rc(&#39;axes&#39;, labelsize=14)
+mpl.rc(&#39;xtick&#39;, labelsize=12)
+mpl.rc(&#39;ytick&#39;, labelsize=12)
 
-<span class="c1"># Where to save the figures</span>
-<span class="n">PROJECT_ROOT_DIR</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
-<span class="n">CHAPTER_ID</span> <span class="o">=</span> <span class="s2">&quot;ensembles&quot;</span>
-<span class="n">IMAGES_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PROJECT_ROOT_DIR</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">CHAPTER_ID</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">IMAGES_PATH</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+# Where to save the figures
+PROJECT_ROOT_DIR = &quot;.&quot;
+CHAPTER_ID = &quot;ensembles&quot;
+IMAGES_PATH = os.path.join(PROJECT_ROOT_DIR, &quot;images&quot;, CHAPTER_ID)
+os.makedirs(IMAGES_PATH, exist_ok=True)
 
-<span class="k">def</span> <span class="nf">save_fig</span><span class="p">(</span><span class="n">fig_id</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fig_extension</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">IMAGES_PATH</span><span class="p">,</span> <span class="n">fig_id</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">fig_extension</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving figure&quot;</span><span class="p">,</span> <span class="n">fig_id</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">tight_layout</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">fig_extension</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">resolution</span><span class="p">)</span>
+def save_fig(fig_id, tight_layout=True, fig_extension=&quot;png&quot;, resolution=300):
+    path = os.path.join(IMAGES_PATH, fig_id + &quot;.&quot; + fig_extension)
+    print(&quot;Saving figure&quot;, fig_id)
+    if tight_layout:
+        plt.tight_layout()
+    plt.savefig(path, format=fig_extension, dpi=resolution)
 </pre></div>
 </div>
 </div>
@@ -1645,9 +1645,9 @@ title="Print to PDF"
 <h1>Voting Classifiers<a class="headerlink" href="#voting-classifiers" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heads_proba</span> <span class="o">=</span> <span class="mf">0.51</span>
-<span class="n">coin_tosses</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">heads_proba</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
-<span class="n">cumulative_heads_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">coin_tosses</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10001</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>heads_proba = 0.51
+coin_tosses = (np.random.rand(10000, 10) &lt; heads_proba).astype(np.int32)
+cumulative_heads_ratio = np.cumsum(coin_tosses, axis=0) / np.arange(1, 10001).reshape(-1, 1)
 </pre></div>
 </div>
 </div>
@@ -1655,16 +1655,16 @@ title="Print to PDF"
 <p><strong>Code to generate Figure 7–3. The law of large numbers:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mf">3.5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cumulative_heads_ratio</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.51</span><span class="p">,</span> <span class="mf">0.51</span><span class="p">],</span> <span class="s2">&quot;k--&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;51%&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="s2">&quot;k-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;50%&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of coin tosses&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Heads ratio&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mf">0.42</span><span class="p">,</span> <span class="mf">0.58</span><span class="p">])</span>
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;law_of_large_numbers_plot&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(8,3.5))
+plt.plot(cumulative_heads_ratio)
+plt.plot([0, 10000], [0.51, 0.51], &quot;k--&quot;, linewidth=2, label=&quot;51%&quot;)
+plt.plot([0, 10000], [0.5, 0.5], &quot;k-&quot;, label=&quot;50%&quot;)
+plt.xlabel(&quot;Number of coin tosses&quot;)
+plt.ylabel(&quot;Heads ratio&quot;)
+plt.legend(loc=&quot;lower right&quot;)
+plt.axis([0, 10000, 0.42, 0.58])
+save_fig(&quot;law_of_large_numbers_plot&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1678,11 +1678,11 @@ title="Print to PDF"
 <p>Let’s use the moons dataset:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.model_selection import train_test_split
+from sklearn.datasets import make_moons
 
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+X, y = make_moons(n_samples=500, noise=0.30, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 </pre></div>
 </div>
 </div>
@@ -1691,25 +1691,25 @@ title="Print to PDF"
 <p><strong>Code examples:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">VotingClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import VotingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
 
-<span class="n">log_clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lbfgs&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">svm_clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+log_clf = LogisticRegression(solver=&quot;lbfgs&quot;, random_state=42)
+rnd_clf = RandomForestClassifier(n_estimators=100, random_state=42)
+svm_clf = SVC(gamma=&quot;scale&quot;, random_state=42)
 
-<span class="n">voting_clf</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span>
-    <span class="n">estimators</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">log_clf</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">rnd_clf</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;svc&#39;</span><span class="p">,</span> <span class="n">svm_clf</span><span class="p">)],</span>
-    <span class="n">voting</span><span class="o">=</span><span class="s1">&#39;hard&#39;</span><span class="p">)</span>
+voting_clf = VotingClassifier(
+    estimators=[(&#39;lr&#39;, log_clf), (&#39;rf&#39;, rnd_clf), (&#39;svc&#39;, svm_clf)],
+    voting=&#39;hard&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
@@ -1723,12 +1723,12 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import accuracy_score
 
-<span class="k">for</span> <span class="n">clf</span> <span class="ow">in</span> <span class="p">(</span><span class="n">log_clf</span><span class="p">,</span> <span class="n">rnd_clf</span><span class="p">,</span> <span class="n">svm_clf</span><span class="p">,</span> <span class="n">voting_clf</span><span class="p">):</span>
-    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+for clf in (log_clf, rnd_clf, svm_clf, voting_clf):
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    print(clf.__class__.__name__, accuracy_score(y_test, y_pred))
 </pre></div>
 </div>
 </div>
@@ -1745,14 +1745,14 @@ VotingClassifier 0.912
 <p>Soft voting:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lbfgs&quot;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">svm_clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>log_clf = LogisticRegression(solver=&quot;lbfgs&quot;, random_state=42)
+rnd_clf = RandomForestClassifier(n_estimators=100, random_state=42)
+svm_clf = SVC(gamma=&quot;scale&quot;, probability=True, random_state=42)
 
-<span class="n">voting_clf</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span>
-    <span class="n">estimators</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">log_clf</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">rnd_clf</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;svc&#39;</span><span class="p">,</span> <span class="n">svm_clf</span><span class="p">)],</span>
-    <span class="n">voting</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">)</span>
-<span class="n">voting_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+voting_clf = VotingClassifier(
+    estimators=[(&#39;lr&#39;, log_clf), (&#39;rf&#39;, rnd_clf), (&#39;svc&#39;, svm_clf)],
+    voting=&#39;soft&#39;)
+voting_clf.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
@@ -1767,12 +1767,12 @@ VotingClassifier 0.912
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import accuracy_score
 
-<span class="k">for</span> <span class="n">clf</span> <span class="ow">in</span> <span class="p">(</span><span class="n">log_clf</span><span class="p">,</span> <span class="n">rnd_clf</span><span class="p">,</span> <span class="n">svm_clf</span><span class="p">,</span> <span class="n">voting_clf</span><span class="p">):</span>
-    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+for clf in (log_clf, rnd_clf, svm_clf, voting_clf):
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    print(clf.__class__.__name__, accuracy_score(y_test, y_pred))
 </pre></div>
 </div>
 </div>
@@ -1792,22 +1792,22 @@ VotingClassifier 0.92
 <h2>Bagging and Pasting in Scikit-Learn<a class="headerlink" href="#bagging-and-pasting-in-scikit-learn" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
 
-<span class="n">bag_clf</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span>
-    <span class="n">DecisionTreeClassifier</span><span class="p">(),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-    <span class="n">max_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">bootstrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">bag_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">bag_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+bag_clf = BaggingClassifier(
+    DecisionTreeClassifier(), n_estimators=500,
+    max_samples=100, bootstrap=True, random_state=42)
+bag_clf.fit(X_train, y_train)
+y_pred = bag_clf.predict(X_test)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import accuracy_score
+print(accuracy_score(y_test, y_pred))
 </pre></div>
 </div>
 </div>
@@ -1819,10 +1819,10 @@ VotingClassifier 0.92
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree_clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">tree_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred_tree</span> <span class="o">=</span> <span class="n">tree_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_tree</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tree_clf = DecisionTreeClassifier(random_state=42)
+tree_clf.fit(X_train, y_train)
+y_pred_tree = tree_clf.predict(X_test)
+print(accuracy_score(y_test, y_pred_tree))
 </pre></div>
 </div>
 </div>
@@ -1835,40 +1835,40 @@ VotingClassifier 0.92
 <p><strong>Code to generate Figure 7–5. A single Decision Tree (left) versus a bagging ensemble of 500 trees (right):</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from matplotlib.colors import ListedColormap
 
-<span class="k">def</span> <span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.45</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">contour</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="n">x1s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">x2s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1s</span><span class="p">,</span> <span class="n">x2s</span><span class="p">)</span>
-    <span class="n">X_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x1</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">x2</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="n">custom_cmap</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">([</span><span class="s1">&#39;#fafab0&#39;</span><span class="p">,</span><span class="s1">&#39;#9898ff&#39;</span><span class="p">,</span><span class="s1">&#39;#a0faa0&#39;</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">custom_cmap</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">contour</span><span class="p">:</span>
-        <span class="n">custom_cmap2</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">([</span><span class="s1">&#39;#7d7d58&#39;</span><span class="p">,</span><span class="s1">&#39;#4c4c7f&#39;</span><span class="p">,</span><span class="s1">&#39;#507d50&#39;</span><span class="p">])</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">custom_cmap2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;yo&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;bs&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+def plot_decision_boundary(clf, X, y, axes=[-1.5, 2.45, -1, 1.5], alpha=0.5, contour=True):
+    x1s = np.linspace(axes[0], axes[1], 100)
+    x2s = np.linspace(axes[2], axes[3], 100)
+    x1, x2 = np.meshgrid(x1s, x2s)
+    X_new = np.c_[x1.ravel(), x2.ravel()]
+    y_pred = clf.predict(X_new).reshape(x1.shape)
+    custom_cmap = ListedColormap([&#39;#fafab0&#39;,&#39;#9898ff&#39;,&#39;#a0faa0&#39;])
+    plt.contourf(x1, x2, y_pred, alpha=0.3, cmap=custom_cmap)
+    if contour:
+        custom_cmap2 = ListedColormap([&#39;#7d7d58&#39;,&#39;#4c4c7f&#39;,&#39;#507d50&#39;])
+        plt.contour(x1, x2, y_pred, cmap=custom_cmap2, alpha=0.8)
+    plt.plot(X[:, 0][y==0], X[:, 1][y==0], &quot;yo&quot;, alpha=alpha)
+    plt.plot(X[:, 0][y==1], X[:, 1][y==1], &quot;bs&quot;, alpha=alpha)
+    plt.axis(axes)
+    plt.xlabel(r&quot;$x_1$&quot;, fontsize=18)
+    plt.ylabel(r&quot;$x_2$&quot;, fontsize=18, rotation=0)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fix</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">tree_clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Decision Tree&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">bag_clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Decision Trees with Bagging&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;decision_tree_without_and_with_bagging_plot&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fix, axes = plt.subplots(ncols=2, figsize=(10,4), sharey=True)
+plt.sca(axes[0])
+plot_decision_boundary(tree_clf, X, y)
+plt.title(&quot;Decision Tree&quot;, fontsize=14)
+plt.sca(axes[1])
+plot_decision_boundary(bag_clf, X, y)
+plt.title(&quot;Decision Trees with Bagging&quot;, fontsize=14)
+plt.ylabel(&quot;&quot;)
+save_fig(&quot;decision_tree_without_and_with_bagging_plot&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1884,11 +1884,11 @@ VotingClassifier 0.92
 <h2>Out-of-Bag evaluation<a class="headerlink" href="#out-of-bag-evaluation" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag_clf</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span>
-    <span class="n">DecisionTreeClassifier</span><span class="p">(),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-    <span class="n">bootstrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-<span class="n">bag_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">bag_clf</span><span class="o">.</span><span class="n">oob_score_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>bag_clf = BaggingClassifier(
+    DecisionTreeClassifier(), n_estimators=500,
+    bootstrap=True, oob_score=True, random_state=40)
+bag_clf.fit(X_train, y_train)
+bag_clf.oob_score_
 </pre></div>
 </div>
 </div>
@@ -1900,7 +1900,7 @@ VotingClassifier 0.92
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag_clf</span><span class="o">.</span><span class="n">oob_decision_function_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>bag_clf.oob_decision_function_
 </pre></div>
 </div>
 </div>
@@ -2286,9 +2286,9 @@ VotingClassifier 0.92
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">bag_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import accuracy_score
+y_pred = bag_clf.predict(X_test)
+accuracy_score(y_test, y_pred)
 </pre></div>
 </div>
 </div>
@@ -2304,12 +2304,12 @@ VotingClassifier 0.92
 <h1>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import RandomForestClassifier
 
-<span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">rnd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+rnd_clf = RandomForestClassifier(n_estimators=500, max_leaf_nodes=16, random_state=42)
+rnd_clf.fit(X_train, y_train)
 
-<span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">rnd_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+y_pred_rf = rnd_clf.predict(X_test)
 </pre></div>
 </div>
 </div>
@@ -2317,24 +2317,24 @@ VotingClassifier 0.92
 <p>A Random Forest is equivalent to a bag of decision trees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag_clf</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span>
-    <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_features</span><span class="o">=</span><span class="s2">&quot;sqrt&quot;</span><span class="p">,</span> <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">16</span><span class="p">),</span>
-    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>bag_clf = BaggingClassifier(
+    DecisionTreeClassifier(max_features=&quot;sqrt&quot;, max_leaf_nodes=16),
+    n_estimators=500, random_state=42)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">bag_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>bag_clf.fit(X_train, y_train)
+y_pred = bag_clf.predict(X_test)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">y_pred_rf</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>  <span class="c1"># very similar predictions</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.sum(y_pred == y_pred_rf) / len(y_pred)  # very similar predictions
 </pre></div>
 </div>
 </div>
@@ -2348,12 +2348,12 @@ VotingClassifier 0.92
 <h2>Feature Importance<a class="headerlink" href="#feature-importance" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
-<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
-<span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">rnd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">iris</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">iris</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span> <span class="n">rnd_clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.datasets import load_iris
+iris = load_iris()
+rnd_clf = RandomForestClassifier(n_estimators=500, random_state=42)
+rnd_clf.fit(iris[&quot;data&quot;], iris[&quot;target&quot;])
+for name, score in zip(iris[&quot;feature_names&quot;], rnd_clf.feature_importances_):
+    print(name, score)
 </pre></div>
 </div>
 </div>
@@ -2368,7 +2368,7 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rnd_clf</span><span class="o">.</span><span class="n">feature_importances_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rnd_clf.feature_importances_
 </pre></div>
 </div>
 </div>
@@ -2381,15 +2381,15 @@ petal width (cm) 0.4233579963547682
 <p>The following figure overlays the decision boundaries of 15 decision trees. As you can see, even though each decision tree is imperfect, the ensemble defines a pretty good decision boundary:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(6, 4))
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
-    <span class="n">tree_clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
-    <span class="n">indices_with_replacement</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>
-    <span class="n">tree_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">indices_with_replacement</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">indices_with_replacement</span><span class="p">])</span>
-    <span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">tree_clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.45</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">contour</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+for i in range(15):
+    tree_clf = DecisionTreeClassifier(max_leaf_nodes=16, random_state=42 + i)
+    indices_with_replacement = np.random.randint(0, len(X_train), len(X_train))
+    tree_clf.fit(X_train[indices_with_replacement], y_train[indices_with_replacement])
+    plot_decision_boundary(tree_clf, X, y, axes=[-1.5, 2.45, -1, 1.5], alpha=0.02, contour=False)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2401,18 +2401,18 @@ petal width (cm) 0.4233579963547682
 <p><strong>Warning:</strong> since Scikit-Learn 0.24, <code class="docutils literal notranslate"><span class="pre">fetch_openml()</span></code> returns a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> by default. To avoid this and keep the same code as in the book, we use <code class="docutils literal notranslate"><span class="pre">as_frame=False</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.datasets import fetch_openml
 
-<span class="n">mnist</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="s1">&#39;mnist_784&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">mnist</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+mnist = fetch_openml(&#39;mnist_784&#39;, version=1, as_frame=False)
+mnist.target = mnist.target.astype(np.uint8)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rnd_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">rnd_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mnist</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">mnist</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rnd_clf = RandomForestClassifier(n_estimators=100, random_state=42)
+rnd_clf.fit(mnist[&quot;data&quot;], mnist[&quot;target&quot;])
 </pre></div>
 </div>
 </div>
@@ -2424,24 +2424,24 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_digit</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">hot</span><span class="p">,</span>
-               <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_digit(data):
+    image = data.reshape(28, 28)
+    plt.imshow(image, cmap = mpl.cm.hot,
+               interpolation=&quot;nearest&quot;)
+    plt.axis(&quot;off&quot;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_digit</span><span class="p">(</span><span class="n">rnd_clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_digit(rnd_clf.feature_importances_)
 
-<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="n">rnd_clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">rnd_clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;Not important&#39;</span><span class="p">,</span> <span class="s1">&#39;Very important&#39;</span><span class="p">])</span>
+cbar = plt.colorbar(ticks=[rnd_clf.feature_importances_.min(), rnd_clf.feature_importances_.max()])
+cbar.ax.set_yticklabels([&#39;Not important&#39;, &#39;Very important&#39;])
 
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;mnist_feature_importance_plot&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+save_fig(&quot;mnist_feature_importance_plot&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2460,12 +2460,12 @@ petal width (cm) 0.4233579963547682
 <h2>AdaBoost<a class="headerlink" href="#adaboost" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">AdaBoostClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import AdaBoostClassifier
 
-<span class="n">ada_clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span>
-    <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;SAMME.R&quot;</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">ada_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+ada_clf = AdaBoostClassifier(
+    DecisionTreeClassifier(max_depth=1), n_estimators=200,
+    algorithm=&quot;SAMME.R&quot;, learning_rate=0.5, random_state=42)
+ada_clf.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
@@ -2478,7 +2478,7 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">ada_clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_decision_boundary(ada_clf, X, y)
 </pre></div>
 </div>
 </div>
@@ -2489,35 +2489,35 @@ petal width (cm) 0.4233579963547682
 <p><strong>Code to generate Figure 7–8. Decision boundaries of consecutive predictors:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m = len(X_train)
 
-<span class="n">fix</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">subplot</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)):</span>
-    <span class="n">sample_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">subplot</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-        <span class="n">svm_clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-        <span class="n">svm_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weights</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span>
-        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">svm_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+fix, axes = plt.subplots(ncols=2, figsize=(10,4), sharey=True)
+for subplot, learning_rate in ((0, 1), (1, 0.5)):
+    sample_weights = np.ones(m) / m
+    plt.sca(axes[subplot])
+    for i in range(5):
+        svm_clf = SVC(kernel=&quot;rbf&quot;, C=0.2, gamma=0.6, random_state=42)
+        svm_clf.fit(X_train, y_train, sample_weight=sample_weights * m)
+        y_pred = svm_clf.predict(X_train)
 
-        <span class="n">r</span> <span class="o">=</span> <span class="n">sample_weights</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">!=</span> <span class="n">y_train</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">sample_weights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># equation 7-1</span>
-        <span class="n">alpha</span> <span class="o">=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span><span class="p">)</span> <span class="c1"># equation 7-2</span>
-        <span class="n">sample_weights</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">!=</span> <span class="n">y_train</span><span class="p">]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="c1"># equation 7-3</span>
-        <span class="n">sample_weights</span> <span class="o">/=</span> <span class="n">sample_weights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># normalization step</span>
+        r = sample_weights[y_pred != y_train].sum() / sample_weights.sum() # equation 7-1
+        alpha = learning_rate * np.log((1 - r) / r) # equation 7-2
+        sample_weights[y_pred != y_train] *= np.exp(alpha) # equation 7-3
+        sample_weights /= sample_weights.sum() # normalization step
 
-        <span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">svm_clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;learning_rate = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">subplot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">1.05</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">1.45</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.36</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        plot_decision_boundary(svm_clf, X, y, alpha=0.2)
+        plt.title(&quot;learning_rate = {}&quot;.format(learning_rate), fontsize=16)
+    if subplot == 0:
+        plt.text(-0.75, -0.95, &quot;1&quot;, fontsize=14)
+        plt.text(-1.05, -0.95, &quot;2&quot;, fontsize=14)
+        plt.text(1.0, -0.95, &quot;3&quot;, fontsize=14)
+        plt.text(-1.45, -0.5, &quot;4&quot;, fontsize=14)
+        plt.text(1.36,  -0.95, &quot;5&quot;, fontsize=14)
+    else:
+        plt.ylabel(&quot;&quot;)
 
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;boosting_plot&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+save_fig(&quot;boosting_plot&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2534,9 +2534,9 @@ petal width (cm) 0.4233579963547682
 <p>Let create a simple quadratic dataset:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.random.seed(42)
+X = np.random.rand(100, 1) - 0.5
+y = 3*X[:, 0]**2 + 0.05 * np.random.randn(100)
 </pre></div>
 </div>
 </div>
@@ -2544,10 +2544,10 @@ petal width (cm) 0.4233579963547682
 <p>Now let’s train a decision tree regressor on this dataset:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.tree import DecisionTreeRegressor
 
-<span class="n">tree_reg1</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">tree_reg1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+tree_reg1 = DecisionTreeRegressor(max_depth=2, random_state=42)
+tree_reg1.fit(X, y)
 </pre></div>
 </div>
 </div>
@@ -2559,9 +2559,9 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">tree_reg1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">tree_reg2</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">tree_reg2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y2 = y - tree_reg1.predict(X)
+tree_reg2 = DecisionTreeRegressor(max_depth=2, random_state=42)
+tree_reg2.fit(X, y2)
 </pre></div>
 </div>
 </div>
@@ -2573,9 +2573,9 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y3</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">tree_reg2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">tree_reg3</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">tree_reg3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y3 = y2 - tree_reg2.predict(X)
+tree_reg3 = DecisionTreeRegressor(max_depth=2, random_state=42)
+tree_reg3.fit(X, y3)
 </pre></div>
 </div>
 </div>
@@ -2587,21 +2587,21 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.8</span><span class="p">]])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_new = np.array([[0.8]])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tree_reg1</span><span class="p">,</span> <span class="n">tree_reg2</span><span class="p">,</span> <span class="n">tree_reg3</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_pred = sum(tree.predict(X_new) for tree in (tree_reg1, tree_reg2, tree_reg3))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_pred
 </pre></div>
 </div>
 </div>
@@ -2614,52 +2614,52 @@ petal width (cm) 0.4233579963547682
 <p><strong>Code to generate Figure 7–9. In this depiction of Gradient Boosting, the first predictor (top left) is trained normally, then each consecutive predictor (middle left and lower left) is trained on the previous predictor’s residuals; the right column shows the resulting ensemble’s predictions:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_predictions</span><span class="p">(</span><span class="n">regressors</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="n">data_style</span><span class="o">=</span><span class="s2">&quot;b.&quot;</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">500</span><span class="p">)</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">regressor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">regressor</span> <span class="ow">in</span> <span class="n">regressors</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">data_style</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">data_label</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">label</span> <span class="ow">or</span> <span class="n">data_label</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper center&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_predictions(regressors, X, y, axes, label=None, style=&quot;r-&quot;, data_style=&quot;b.&quot;, data_label=None):
+    x1 = np.linspace(axes[0], axes[1], 500)
+    y_pred = sum(regressor.predict(x1.reshape(-1, 1)) for regressor in regressors)
+    plt.plot(X[:, 0], y, data_style, label=data_label)
+    plt.plot(x1, y_pred, style, linewidth=2, label=label)
+    if label or data_label:
+        plt.legend(loc=&quot;upper center&quot;, fontsize=16)
+    plt.axis(axes)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(11,11))
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">321</span><span class="p">)</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">tree_reg1</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$h_1(x_1)$&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;g-&quot;</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s2">&quot;Training set&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Residuals and tree predictions&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+plt.subplot(321)
+plot_predictions([tree_reg1], X, y, axes=[-0.5, 0.5, -0.1, 0.8], label=&quot;$h_1(x_1)$&quot;, style=&quot;g-&quot;, data_label=&quot;Training set&quot;)
+plt.ylabel(&quot;$y$&quot;, fontsize=16, rotation=0)
+plt.title(&quot;Residuals and tree predictions&quot;, fontsize=16)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">322</span><span class="p">)</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">tree_reg1</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$h(x_1) = h_1(x_1)$&quot;</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s2">&quot;Training set&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Ensemble predictions&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+plt.subplot(322)
+plot_predictions([tree_reg1], X, y, axes=[-0.5, 0.5, -0.1, 0.8], label=&quot;$h(x_1) = h_1(x_1)$&quot;, data_label=&quot;Training set&quot;)
+plt.ylabel(&quot;$y$&quot;, fontsize=16, rotation=0)
+plt.title(&quot;Ensemble predictions&quot;, fontsize=16)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">323</span><span class="p">)</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">tree_reg2</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$h_2(x_1)$&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;g-&quot;</span><span class="p">,</span> <span class="n">data_style</span><span class="o">=</span><span class="s2">&quot;k+&quot;</span><span class="p">,</span> <span class="n">data_label</span><span class="o">=</span><span class="s2">&quot;Residuals&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y - h_1(x_1)$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+plt.subplot(323)
+plot_predictions([tree_reg2], X, y2, axes=[-0.5, 0.5, -0.5, 0.5], label=&quot;$h_2(x_1)$&quot;, style=&quot;g-&quot;, data_style=&quot;k+&quot;, data_label=&quot;Residuals&quot;)
+plt.ylabel(&quot;$y - h_1(x_1)$&quot;, fontsize=16)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">324</span><span class="p">)</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">tree_reg1</span><span class="p">,</span> <span class="n">tree_reg2</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$h(x_1) = h_1(x_1) + h_2(x_1)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+plt.subplot(324)
+plot_predictions([tree_reg1, tree_reg2], X, y, axes=[-0.5, 0.5, -0.1, 0.8], label=&quot;$h(x_1) = h_1(x_1) + h_2(x_1)$&quot;)
+plt.ylabel(&quot;$y$&quot;, fontsize=16, rotation=0)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">325</span><span class="p">)</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">tree_reg3</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$h_3(x_1)$&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;g-&quot;</span><span class="p">,</span> <span class="n">data_style</span><span class="o">=</span><span class="s2">&quot;k+&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y - h_1(x_1) - h_2(x_1)$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+plt.subplot(325)
+plot_predictions([tree_reg3], X, y3, axes=[-0.5, 0.5, -0.5, 0.5], label=&quot;$h_3(x_1)$&quot;, style=&quot;g-&quot;, data_style=&quot;k+&quot;)
+plt.ylabel(&quot;$y - h_1(x_1) - h_2(x_1)$&quot;, fontsize=16)
+plt.xlabel(&quot;$x_1$&quot;, fontsize=16)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">326</span><span class="p">)</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">tree_reg1</span><span class="p">,</span> <span class="n">tree_reg2</span><span class="p">,</span> <span class="n">tree_reg3</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$h(x_1) = h_1(x_1) + h_2(x_1) + h_3(x_1)$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+plt.subplot(326)
+plot_predictions([tree_reg1, tree_reg2, tree_reg3], X, y, axes=[-0.5, 0.5, -0.1, 0.8], label=&quot;$h(x_1) = h_1(x_1) + h_2(x_1) + h_3(x_1)$&quot;)
+plt.xlabel(&quot;$x_1$&quot;, fontsize=16)
+plt.ylabel(&quot;$y$&quot;, fontsize=16, rotation=0)
 
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;gradient_boosting_plot&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+save_fig(&quot;gradient_boosting_plot&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2673,10 +2673,10 @@ petal width (cm) 0.4233579963547682
 <p>Now let’s try a gradient boosting regressor:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingRegressor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import GradientBoostingRegressor
 
-<span class="n">gbrt</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">gbrt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+gbrt = GradientBoostingRegressor(max_depth=2, n_estimators=3, learning_rate=1.0, random_state=42)
+gbrt.fit(X, y)
 </pre></div>
 </div>
 </div>
@@ -2690,8 +2690,8 @@ petal width (cm) 0.4233579963547682
 <p><strong>Code to generate Figure 7–10. GBRT ensembles with not enough predictors (left) and too many (right):</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gbrt_slow</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">gbrt_slow</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gbrt_slow = GradientBoostingRegressor(max_depth=2, n_estimators=200, learning_rate=0.1, random_state=42)
+gbrt_slow.fit(X, y)
 </pre></div>
 </div>
 </div>
@@ -2703,21 +2703,21 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fix</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fix, axes = plt.subplots(ncols=2, figsize=(10,4), sharey=True)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">gbrt</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ensemble predictions&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;learning_rate=</span><span class="si">{}</span><span class="s2">, n_estimators=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gbrt</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">gbrt</span><span class="o">.</span><span class="n">n_estimators</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+plt.sca(axes[0])
+plot_predictions([gbrt], X, y, axes=[-0.5, 0.5, -0.1, 0.8], label=&quot;Ensemble predictions&quot;)
+plt.title(&quot;learning_rate={}, n_estimators={}&quot;.format(gbrt.learning_rate, gbrt.n_estimators), fontsize=14)
+plt.xlabel(&quot;$x_1$&quot;, fontsize=16)
+plt.ylabel(&quot;$y$&quot;, fontsize=16, rotation=0)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">gbrt_slow</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;learning_rate=</span><span class="si">{}</span><span class="s2">, n_estimators=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gbrt_slow</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">gbrt_slow</span><span class="o">.</span><span class="n">n_estimators</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+plt.sca(axes[1])
+plot_predictions([gbrt_slow], X, y, axes=[-0.5, 0.5, -0.1, 0.8])
+plt.title(&quot;learning_rate={}, n_estimators={}&quot;.format(gbrt_slow.learning_rate, gbrt_slow.n_estimators), fontsize=14)
+plt.xlabel(&quot;$x_1$&quot;, fontsize=16)
 
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;gbrt_learning_rate_plot&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+save_fig(&quot;gbrt_learning_rate_plot&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2731,21 +2731,21 @@ petal width (cm) 0.4233579963547682
 <p><strong>Gradient Boosting with Early stopping:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">49</span><span class="p">)</span>
+X_train, X_val, y_train, y_val = train_test_split(X, y, random_state=49)
 
-<span class="n">gbrt</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">gbrt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+gbrt = GradientBoostingRegressor(max_depth=2, n_estimators=120, random_state=42)
+gbrt.fit(X_train, y_train)
 
-<span class="n">errors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-          <span class="k">for</span> <span class="n">y_pred</span> <span class="ow">in</span> <span class="n">gbrt</span><span class="o">.</span><span class="n">staged_predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)]</span>
-<span class="n">bst_n_estimators</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+errors = [mean_squared_error(y_val, y_pred)
+          for y_pred in gbrt.staged_predict(X_val)]
+bst_n_estimators = np.argmin(errors) + 1
 
-<span class="n">gbrt_best</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="n">bst_n_estimators</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">gbrt_best</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+gbrt_best = GradientBoostingRegressor(max_depth=2, n_estimators=bst_n_estimators, random_state=42)
+gbrt_best.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
@@ -2758,34 +2758,34 @@ petal width (cm) 0.4233579963547682
 <p><strong>Code to generate Figure 7–11. Tuning the number of trees using early stopping:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>min_error = np.min(errors)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(10, 4))
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="s2">&quot;b.-&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">bst_n_estimators</span><span class="p">,</span> <span class="n">bst_n_estimators</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_error</span><span class="p">],</span> <span class="s2">&quot;k--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">],</span> <span class="p">[</span><span class="n">min_error</span><span class="p">,</span> <span class="n">min_error</span><span class="p">],</span> <span class="s2">&quot;k--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bst_n_estimators</span><span class="p">,</span> <span class="n">min_error</span><span class="p">,</span> <span class="s2">&quot;ko&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bst_n_estimators</span><span class="p">,</span> <span class="n">min_error</span><span class="o">*</span><span class="mf">1.2</span><span class="p">,</span> <span class="s2">&quot;Minimum&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of trees&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Validation error&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+plt.subplot(121)
+plt.plot(errors, &quot;b.-&quot;)
+plt.plot([bst_n_estimators, bst_n_estimators], [0, min_error], &quot;k--&quot;)
+plt.plot([0, 120], [min_error, min_error], &quot;k--&quot;)
+plt.plot(bst_n_estimators, min_error, &quot;ko&quot;)
+plt.text(bst_n_estimators, min_error*1.2, &quot;Minimum&quot;, ha=&quot;center&quot;, fontsize=14)
+plt.axis([0, 120, 0, 0.01])
+plt.xlabel(&quot;Number of trees&quot;)
+plt.ylabel(&quot;Error&quot;, fontsize=16)
+plt.title(&quot;Validation error&quot;, fontsize=14)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
-<span class="n">plot_predictions</span><span class="p">([</span><span class="n">gbrt_best</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Best model (</span><span class="si">%d</span><span class="s2"> trees)&quot;</span> <span class="o">%</span> <span class="n">bst_n_estimators</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+plt.subplot(122)
+plot_predictions([gbrt_best], X, y, axes=[-0.5, 0.5, -0.1, 0.8])
+plt.title(&quot;Best model (%d trees)&quot; % bst_n_estimators, fontsize=14)
+plt.ylabel(&quot;$y$&quot;, fontsize=16, rotation=0)
+plt.xlabel(&quot;$x_1$&quot;, fontsize=16)
 
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;early_stopping_gbrt_plot&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+save_fig(&quot;early_stopping_gbrt_plot&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2799,29 +2799,29 @@ petal width (cm) 0.4233579963547682
 <p>Early stopping with some patience (interrupts training only after there’s no improvement for 5 epochs):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gbrt</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gbrt = GradientBoostingRegressor(max_depth=2, warm_start=True, random_state=42)
 
-<span class="n">min_val_error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
-<span class="n">error_going_up</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">n_estimators</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">120</span><span class="p">):</span>
-    <span class="n">gbrt</span><span class="o">.</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="n">n_estimators</span>
-    <span class="n">gbrt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">gbrt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
-    <span class="n">val_error</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">val_error</span> <span class="o">&lt;</span> <span class="n">min_val_error</span><span class="p">:</span>
-        <span class="n">min_val_error</span> <span class="o">=</span> <span class="n">val_error</span>
-        <span class="n">error_going_up</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">error_going_up</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">error_going_up</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-            <span class="k">break</span>  <span class="c1"># early stopping</span>
+min_val_error = float(&quot;inf&quot;)
+error_going_up = 0
+for n_estimators in range(1, 120):
+    gbrt.n_estimators = n_estimators
+    gbrt.fit(X_train, y_train)
+    y_pred = gbrt.predict(X_val)
+    val_error = mean_squared_error(y_val, y_pred)
+    if val_error &lt; min_val_error:
+        min_val_error = val_error
+        error_going_up = 0
+    else:
+        error_going_up += 1
+        if error_going_up == 5:
+            break  # early stopping
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gbrt</span><span class="o">.</span><span class="n">n_estimators</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(gbrt.n_estimators)
 </pre></div>
 </div>
 </div>
@@ -2833,7 +2833,7 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum validation MSE:&quot;</span><span class="p">,</span> <span class="n">min_val_error</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot;Minimum validation MSE:&quot;, min_val_error)
 </pre></div>
 </div>
 </div>
@@ -2846,23 +2846,23 @@ petal width (cm) 0.4233579963547682
 <p><strong>Using XGBoost:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">xgboost</span>
-<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: the xgboost library is not installed.&quot;</span><span class="p">)</span>
-    <span class="n">xgboost</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>try:
+    import xgboost
+except ImportError as ex:
+    print(&quot;Error: the xgboost library is not installed.&quot;)
+    xgboost = None
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">xgboost</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># not shown in the book</span>
-    <span class="n">xgb_reg</span> <span class="o">=</span> <span class="n">xgboost</span><span class="o">.</span><span class="n">XGBRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-    <span class="n">xgb_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">xgb_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
-    <span class="n">val_error</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="c1"># Not shown</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation MSE:&quot;</span><span class="p">,</span> <span class="n">val_error</span><span class="p">)</span>           <span class="c1"># Not shown</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>if xgboost is not None:  # not shown in the book
+    xgb_reg = xgboost.XGBRegressor(random_state=42)
+    xgb_reg.fit(X_train, y_train)
+    y_pred = xgb_reg.predict(X_val)
+    val_error = mean_squared_error(y_val, y_pred) # Not shown
+    print(&quot;Validation MSE:&quot;, val_error)           # Not shown
 </pre></div>
 </div>
 </div>
@@ -2874,12 +2874,12 @@ petal width (cm) 0.4233579963547682
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">xgboost</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># not shown in the book</span>
-    <span class="n">xgb_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
-                <span class="n">eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)],</span> <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">xgb_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
-    <span class="n">val_error</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>  <span class="c1"># Not shown</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation MSE:&quot;</span><span class="p">,</span> <span class="n">val_error</span><span class="p">)</span>            <span class="c1"># Not shown</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>if xgboost is not None:  # not shown in the book
+    xgb_reg.fit(X_train, y_train,
+                eval_set=[(X_val, y_val)], early_stopping_rounds=2)
+    y_pred = xgb_reg.predict(X_val)
+    val_error = mean_squared_error(y_val, y_pred)  # Not shown
+    print(&quot;Validation MSE:&quot;, val_error)            # Not shown
 </pre></div>
 </div>
 </div>
@@ -2905,7 +2905,7 @@ Validation MSE: 0.0026308690413069744
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> xgboost.XGBRegressor().fit(X_train, y_train) if xgboost is not None else None
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%timeit xgboost.XGBRegressor().fit(X_train, y_train) if xgboost is not None else None
 </pre></div>
 </div>
 </div>
@@ -2917,7 +2917,7 @@ Validation MSE: 0.0026308690413069744
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> GradientBoostingRegressor().fit(X_train, y_train)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%timeit GradientBoostingRegressor().fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
@@ -2941,17 +2941,17 @@ Validation MSE: 0.0026308690413069744
 <p>The MNIST dataset was loaded earlier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.model_selection import train_test_split
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_val</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train_val</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-    <span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">mnist</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-    <span class="n">X_train_val</span><span class="p">,</span> <span class="n">y_train_val</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_val, X_test, y_train_val, y_test = train_test_split(
+    mnist.data, mnist.target, test_size=10000, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(
+    X_train_val, y_train_val, test_size=10000, random_state=42)
 </pre></div>
 </div>
 </div>
@@ -2959,29 +2959,29 @@ Validation MSE: 0.0026308690413069744
 <p>Exercise: <em>Then train various classifiers, such as a Random Forest classifier, an Extra-Trees classifier, and an SVM.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">ExtraTreesClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
-<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
+from sklearn.svm import LinearSVC
+from sklearn.neural_network import MLPClassifier
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_forest_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">extra_trees_clf</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">svm_clf</span> <span class="o">=</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">mlp_clf</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>random_forest_clf = RandomForestClassifier(n_estimators=100, random_state=42)
+extra_trees_clf = ExtraTreesClassifier(n_estimators=100, random_state=42)
+svm_clf = LinearSVC(max_iter=100, tol=20, random_state=42)
+mlp_clf = MLPClassifier(random_state=42)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[</span><span class="n">random_forest_clf</span><span class="p">,</span> <span class="n">extra_trees_clf</span><span class="p">,</span> <span class="n">svm_clf</span><span class="p">,</span> <span class="n">mlp_clf</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="n">estimators</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training the&quot;</span><span class="p">,</span> <span class="n">estimator</span><span class="p">)</span>
-    <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>estimators = [random_forest_clf, extra_trees_clf, svm_clf, mlp_clf]
+for estimator in estimators:
+    print(&quot;Training the&quot;, estimator)
+    estimator.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
@@ -2996,7 +2996,7 @@ Training the MLPClassifier(random_state=42)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">estimator</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="n">estimators</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>[estimator.score(X_val, y_val) for estimator in estimators]
 </pre></div>
 </div>
 </div>
@@ -3010,33 +3010,33 @@ Training the MLPClassifier(random_state=42)
 <p>Exercise: <em>Next, try to combine them into an ensemble that outperforms them all on the validation set, using a soft or hard voting classifier.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">VotingClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import VotingClassifier
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">named_estimators</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;random_forest_clf&quot;</span><span class="p">,</span> <span class="n">random_forest_clf</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;extra_trees_clf&quot;</span><span class="p">,</span> <span class="n">extra_trees_clf</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;svm_clf&quot;</span><span class="p">,</span> <span class="n">svm_clf</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;mlp_clf&quot;</span><span class="p">,</span> <span class="n">mlp_clf</span><span class="p">),</span>
-<span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>named_estimators = [
+    (&quot;random_forest_clf&quot;, random_forest_clf),
+    (&quot;extra_trees_clf&quot;, extra_trees_clf),
+    (&quot;svm_clf&quot;, svm_clf),
+    (&quot;mlp_clf&quot;, mlp_clf),
+]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">named_estimators</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf = VotingClassifier(named_estimators)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
@@ -3054,7 +3054,7 @@ Training the MLPClassifier(random_state=42)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.score(X_val, y_val)
 </pre></div>
 </div>
 </div>
@@ -3066,7 +3066,7 @@ Training the MLPClassifier(random_state=42)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">estimator</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="n">voting_clf</span><span class="o">.</span><span class="n">estimators_</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>[estimator.score(X_val, y_val) for estimator in voting_clf.estimators_]
 </pre></div>
 </div>
 </div>
@@ -3079,7 +3079,7 @@ Training the MLPClassifier(random_state=42)
 <p>Let’s remove the SVM to see if performance improves. It is possible to remove an estimator by setting it to <code class="docutils literal notranslate"><span class="pre">None</span></code> using <code class="docutils literal notranslate"><span class="pre">set_params()</span></code> like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">svm_clf</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.set_params(svm_clf=None)
 </pre></div>
 </div>
 </div>
@@ -3097,7 +3097,7 @@ Training the MLPClassifier(random_state=42)
 <p>This updated the list of estimators:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">estimators</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.estimators
 </pre></div>
 </div>
 </div>
@@ -3113,7 +3113,7 @@ Training the MLPClassifier(random_state=42)
 <p>However, it did not update the list of <em>trained</em> estimators:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">estimators_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.estimators_
 </pre></div>
 </div>
 </div>
@@ -3129,7 +3129,7 @@ Training the MLPClassifier(random_state=42)
 <p>So we can either fit the <code class="docutils literal notranslate"><span class="pre">VotingClassifier</span></code> again, or just remove the SVM from the list of trained estimators:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">voting_clf</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>del voting_clf.estimators_[2]
 </pre></div>
 </div>
 </div>
@@ -3137,7 +3137,7 @@ Training the MLPClassifier(random_state=42)
 <p>Now let’s evaluate the <code class="docutils literal notranslate"><span class="pre">VotingClassifier</span></code> again:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.score(X_val, y_val)
 </pre></div>
 </div>
 </div>
@@ -3150,14 +3150,14 @@ Training the MLPClassifier(random_state=42)
 <p>A bit better! The SVM was hurting performance. Now let’s try using a soft voting classifier. We do not actually need to retrain the classifier, we can just set <code class="docutils literal notranslate"><span class="pre">voting</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;soft&quot;</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">voting</span> <span class="o">=</span> <span class="s2">&quot;soft&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.voting = &quot;soft&quot;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.score(X_val, y_val)
 </pre></div>
 </div>
 </div>
@@ -3171,8 +3171,8 @@ Training the MLPClassifier(random_state=42)
 <p><em>Once you have found one, try it on the test set. How much better does it perform compared to the individual classifiers?</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voting_clf</span><span class="o">.</span><span class="n">voting</span> <span class="o">=</span> <span class="s2">&quot;hard&quot;</span>
-<span class="n">voting_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>voting_clf.voting = &quot;hard&quot;
+voting_clf.score(X_test, y_test)
 </pre></div>
 </div>
 </div>
@@ -3184,7 +3184,7 @@ Training the MLPClassifier(random_state=42)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">estimator</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="k">for</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="n">voting_clf</span><span class="o">.</span><span class="n">estimators_</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>[estimator.score(X_test, y_test) for estimator in voting_clf.estimators_]
 </pre></div>
 </div>
 </div>
@@ -3201,17 +3201,17 @@ Training the MLPClassifier(random_state=42)
 <p>Exercise: <em>Run the individual classifiers from the previous exercise to make predictions on the validation set, and create a new training set with the resulting predictions: each training instance is a vector containing the set of predictions from all your classifiers for an image, and the target is the image’s class. Train a classifier on this new training set.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_val_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">estimators</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_val_predictions = np.empty((len(X_val), len(estimators)), dtype=np.float32)
 
-<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">estimators</span><span class="p">):</span>
-    <span class="n">X_val_predictions</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+for index, estimator in enumerate(estimators):
+    X_val_predictions[:, index] = estimator.predict(X_val)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_val_predictions</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_val_predictions
 </pre></div>
 </div>
 </div>
@@ -3229,8 +3229,8 @@ Training the MLPClassifier(random_state=42)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rnd_forest_blender</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">rnd_forest_blender</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_val_predictions</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rnd_forest_blender = RandomForestClassifier(n_estimators=200, oob_score=True, random_state=42)
+rnd_forest_blender.fit(X_val_predictions, y_val)
 </pre></div>
 </div>
 </div>
@@ -3242,7 +3242,7 @@ Training the MLPClassifier(random_state=42)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rnd_forest_blender</span><span class="o">.</span><span class="n">oob_score_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rnd_forest_blender.oob_score_
 </pre></div>
 </div>
 </div>
@@ -3256,31 +3256,31 @@ Training the MLPClassifier(random_state=42)
 <p>Exercise: <em>Congratulations, you have just trained a blender, and together with the classifiers they form a stacking ensemble! Now let’s evaluate the ensemble on the test set. For each image in the test set, make predictions with all your classifiers, then feed the predictions to the blender to get the ensemble’s predictions. How does it compare to the voting classifier you trained earlier?</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">estimators</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_test_predictions = np.empty((len(X_test), len(estimators)), dtype=np.float32)
 
-<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">estimators</span><span class="p">):</span>
-    <span class="n">X_test_predictions</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+for index, estimator in enumerate(estimators):
+    X_test_predictions[:, index] = estimator.predict(X_test)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">rnd_forest_blender</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_predictions</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_pred = rnd_forest_blender.predict(X_test_predictions)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import accuracy_score
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>accuracy_score(y_test, y_pred)
 </pre></div>
 </div>
 </div>

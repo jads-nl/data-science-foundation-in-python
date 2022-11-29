@@ -1160,7 +1160,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1824,15 +1824,15 @@ title="Print to PDF"
 <h1>Slope of a straight line<a class="headerlink" href="#slope-of-a-straight-line" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+%matplotlib inline
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 
-<span class="c1"># To get smooth animations</span>
-<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;animation&#39;</span><span class="p">,</span> <span class="n">html</span><span class="o">=</span><span class="s1">&#39;jshtml&#39;</span><span class="p">)</span>
+# To get smooth animations
+import matplotlib.animation as animation
+mpl.rc(&#39;animation&#39;, html=&#39;jshtml&#39;)
 </pre></div>
 </div>
 </div>
@@ -1840,42 +1840,42 @@ title="Print to PDF"
 <p>What is the slope of the following line?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="k">def</span> <span class="nf">get_AB_line</span><span class="p">(</span><span class="n">A_pos</span><span class="p">,</span> <span class="n">B_pos</span><span class="p">,</span> <span class="n">x_min</span><span class="o">=-</span><span class="mi">1000</span><span class="p">,</span> <span class="n">x_max</span><span class="o">=+</span><span class="mi">1000</span><span class="p">):</span>
-    <span class="n">rise</span> <span class="o">=</span> <span class="n">B_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">A_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">run</span> <span class="o">=</span> <span class="n">B_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">A_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">slope</span> <span class="o">=</span> <span class="n">rise</span> <span class="o">/</span> <span class="n">run</span>
-    <span class="n">offset</span> <span class="o">=</span> <span class="n">A_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">A_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">],</span> <span class="p">[</span><span class="n">x_min</span> <span class="o">*</span> <span class="n">slope</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">*</span> <span class="n">slope</span> <span class="o">+</span> <span class="n">offset</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+def get_AB_line(A_pos, B_pos, x_min=-1000, x_max=+1000):
+    rise = B_pos[1] - A_pos[1]
+    run = B_pos[0] - A_pos[0]
+    slope = rise / run
+    offset = A_pos[1] - slope * A_pos[0]
+    return [x_min, x_max], [x_min * slope + offset, x_max * slope + offset]
 
-<span class="k">def</span> <span class="nf">plot_AB_line</span><span class="p">(</span><span class="n">A_pos</span><span class="p">,</span> <span class="n">B_pos</span><span class="p">,</span> <span class="n">A_name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">B_name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">point</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">((</span><span class="n">A_pos</span><span class="p">,</span> <span class="n">A_name</span><span class="p">),</span> <span class="p">(</span><span class="n">B_pos</span><span class="p">,</span> <span class="n">B_name</span><span class="p">)):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">,</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">get_AB_line</span><span class="p">(</span><span class="n">A_pos</span><span class="p">,</span> <span class="n">B_pos</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+def plot_AB_line(A_pos, B_pos, A_name=&quot;A&quot;, B_name=&quot;B&quot;):
+    for point, name in ((A_pos, A_name), (B_pos, B_name)):
+        plt.plot(point[0], point[1], &quot;bo&quot;)
+        plt.text(point[0] - 0.35, point[1], name, fontsize=14)
+    xs, ys = get_AB_line(A_pos, B_pos)
+    plt.plot(xs, ys)
 
-<span class="k">def</span> <span class="nf">plot_rise_over_run</span><span class="p">(</span><span class="n">A_pos</span><span class="p">,</span> <span class="n">B_pos</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">A_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">B_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">A_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">A_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s2">&quot;k--&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">A_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">B_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">A_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">B_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">B_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">A_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">B_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s2">&quot;k--&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">B_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="p">(</span><span class="n">A_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">B_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;rise&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+def plot_rise_over_run(A_pos, B_pos):
+    plt.plot([A_pos[0], B_pos[0]], [A_pos[1], A_pos[1]], &quot;k--&quot;)
+    plt.text((A_pos[0] + B_pos[0]) / 2, A_pos[1] - 0.4, &quot;run&quot;, fontsize=14)
+    plt.plot([B_pos[0], B_pos[0]], [A_pos[1], B_pos[1]], &quot;k--&quot;)
+    plt.text(B_pos[0] + 0.2, (A_pos[1] + B_pos[1]) / 2, &quot;rise&quot;, fontsize=14)
 
-<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$y$&quot;</span><span class="p">):</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+def show(axis=&quot;equal&quot;, ax=None, title=None, xlabel=&quot;$x$&quot;, ylabel=&quot;$y$&quot;):
+    ax = ax or plt.gca()
+    ax.axis(axis)
+    ax.grid()
+    ax.set_title(title, fontsize=14)
+    ax.set_xlabel(xlabel, fontsize=14)
+    ax.set_ylabel(ylabel, fontsize=14, rotation=0)
+    ax.axhline(y=0, color=&#39;k&#39;)
+    ax.axvline(x=0, color=&#39;k&#39;)
 
-<span class="n">A_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">B_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plot_AB_line</span><span class="p">(</span><span class="n">A_pos</span><span class="p">,</span> <span class="n">B_pos</span><span class="p">)</span>
-<span class="n">plot_rise_over_run</span><span class="p">(</span><span class="n">A_pos</span><span class="p">,</span> <span class="n">B_pos</span><span class="p">)</span>
-<span class="n">show</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Slope = rise / run&quot;</span><span class="p">)</span>
+A_pos = np.array([1, 1])
+B_pos = np.array([7, 4])
+plot_AB_line(A_pos, B_pos)
+plot_rise_over_run(A_pos, B_pos)
+show([0, 8.4, 0, 5.5], title=&quot;Slope = rise / run&quot;)
 </pre></div>
 </div>
 </div>
@@ -1892,15 +1892,15 @@ title="Print to PDF"
 <p>But what if you want to know the slope of something else than a straight line? For example, let’s consider the curve defined by <span class="math notranslate nohighlight">\(y = f(x) = x^2\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">ys</span> <span class="o">=</span> <span class="n">xs</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+xs = np.linspace(-2.1, 2.1, 500)
+ys = xs**2
+plt.plot(xs, ys)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;k--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">show</span><span class="p">([</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Slope of the curve $y = x^2$&quot;</span><span class="p">)</span>
+plt.plot([0, 0], [0, 3], &quot;k--&quot;)
+plt.arrow(-1.4, 2.5, 0.5, -1.3, head_width=0.1)
+plt.arrow(0.85, 1.05, 0.5, 1.3, head_width=0.1)
+show([-2.1, 2.1, 0, 2.8], title=&quot;Slope of the curve $y = x^2$&quot;)
 </pre></div>
 </div>
 </div>
@@ -1912,65 +1912,65 @@ title="Print to PDF"
 <p>How can we put numbers on these intuitions? Well, say we want to estimate the slope of the curve at a point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span>, we can do this by taking another point <span class="math notranslate nohighlight">\(\mathrm{B}\)</span> on the curve, not too far away, and then computing the slope between these two points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="k">def</span> <span class="nf">animate_AB_line</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">f_str</span><span class="p">,</span> <span class="n">x_A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">y_A</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_A</span><span class="p">)</span>
-    <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-4</span>
-    <span class="n">x_B_range</span> <span class="o">=</span> <span class="mf">1.5</span>
-    <span class="n">x_B</span> <span class="o">=</span> <span class="n">x_A</span> <span class="o">+</span> <span class="n">eps</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+def animate_AB_line(f, fp, f_str, x_A, axis=None):
+    y_A = f(x_A)
+    eps = 1e-4
+    x_B_range = 1.5
+    x_B = x_A + eps
 
-    <span class="n">n_frames</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="n">text_offset_A</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span>
-    <span class="n">text_offset_B</span> <span class="o">=</span> <span class="o">+</span><span class="mf">0.1</span>
-    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span>
+    n_frames = 200
+    text_offset_A = -0.2
+    text_offset_B = +0.1
+    x_min, x_max = -1000, 1000
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    fig, ax = plt.subplots()
 
-    <span class="c1"># plot f(x)</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-    <span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+    # plot f(x)
+    xs = np.linspace(-2.1, 2.1, 500)
+    ys = f(xs)
+    ax.plot(xs, ys)
 
-    <span class="c1"># plot the tangent to the curve at point A</span>
-    <span class="k">if</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="n">slope</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x_A</span><span class="p">)</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="n">y_A</span> <span class="o">-</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_A</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">],</span> <span class="p">[</span><span class="n">slope</span><span class="o">*</span><span class="n">x_min</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">slope</span><span class="o">*</span><span class="n">x_max</span> <span class="o">+</span> <span class="n">offset</span><span class="p">],</span>
-                <span class="s2">&quot;y--&quot;</span><span class="p">)</span>
+    # plot the tangent to the curve at point A
+    if fp:
+        slope = fp(x_A)
+        offset = y_A - slope * x_A
+        ax.plot([x_min, x_max], [slope*x_min + offset, slope*x_max + offset],
+                &quot;y--&quot;)
 
-    <span class="c1"># plot the line AB and the labels A and B so they can be animated</span>
-    <span class="n">y_A</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_A</span><span class="p">)</span>
-    <span class="n">y_B</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_B</span><span class="p">)</span>
-    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">get_AB_line</span><span class="p">([</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">],</span> <span class="p">[</span><span class="n">x_B</span><span class="p">,</span> <span class="n">y_B</span><span class="p">])</span>
-    <span class="n">line_inf</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
-    <span class="n">line_AB</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x_A</span><span class="p">,</span> <span class="n">x_B</span><span class="p">],</span> <span class="p">[</span><span class="n">y_A</span><span class="p">,</span> <span class="n">y_B</span><span class="p">],</span> <span class="s2">&quot;bo-&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_A</span> <span class="o">+</span> <span class="n">text_offset_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">B_text</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_B</span> <span class="o">+</span> <span class="n">text_offset_B</span><span class="p">,</span> <span class="n">y_B</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    # plot the line AB and the labels A and B so they can be animated
+    y_A = f(x_A)
+    y_B = f(x_B)
+    xs, ys = get_AB_line([x_A, y_A], [x_B, y_B])
+    line_inf, = ax.plot(xs, ys, &quot;-&quot;)
+    line_AB, = ax.plot([x_A, x_B], [y_A, y_B], &quot;bo-&quot;)
+    ax.text(x_A + text_offset_A, y_A, &quot;A&quot;, fontsize=14)
+    B_text = ax.text(x_B + text_offset_B, y_B, &quot;B&quot;, fontsize=14)
 
-    <span class="c1"># plot the grid and axis labels</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Slope of the curve $y = </span><span class="si">{}</span><span class="s2">$ at $x_\mathrm{{A}} = </span><span class="si">{}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_str</span><span class="p">,</span> <span class="n">x_A</span><span class="p">)</span>
-    <span class="n">show</span><span class="p">(</span><span class="n">axis</span> <span class="ow">or</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+    # plot the grid and axis labels
+    title = r&quot;Slope of the curve $y = {}$ at $x_\mathrm{{A}} = {}$&quot;.format(f_str, x_A)
+    show(axis or [-2.1, 2.1, 0, 2.8], title=title)
 
-    <span class="k">def</span> <span class="nf">update_graph</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-        <span class="n">x_B</span> <span class="o">=</span> <span class="n">x_A</span> <span class="o">+</span> <span class="n">x_B_range</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">n_frames</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_B</span> <span class="o">-</span> <span class="n">x_A</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span>
-            <span class="n">x_B</span> <span class="o">=</span> <span class="n">x_A</span> <span class="o">+</span> <span class="n">eps</span> <span class="c1"># to avoid division by 0</span>
-        <span class="n">y_B</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_B</span><span class="p">)</span>
-        <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">get_AB_line</span><span class="p">([</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">],</span> <span class="p">[</span><span class="n">x_B</span><span class="p">,</span> <span class="n">y_B</span><span class="p">])</span>
-        <span class="n">line_inf</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
-        <span class="n">line_AB</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">x_A</span><span class="p">,</span> <span class="n">x_B</span><span class="p">],</span> <span class="p">[</span><span class="n">y_A</span><span class="p">,</span> <span class="n">y_B</span><span class="p">])</span>
-        <span class="n">B_text</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">x_B</span> <span class="o">+</span> <span class="n">text_offset_B</span><span class="p">,</span> <span class="n">y_B</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">line_inf</span><span class="p">,</span> <span class="n">line_AB</span>
+    def update_graph(i):
+        x_B = x_A + x_B_range * np.cos(i * 2 * np.pi / n_frames) ** 3
+        if np.abs(x_B - x_A) &lt; eps:
+            x_B = x_A + eps # to avoid division by 0
+        y_B = f(x_B)
+        xs, ys = get_AB_line([x_A, y_A], [x_B, y_B])
+        line_inf.set_data(xs, ys)
+        line_AB.set_data([x_A, x_B], [y_A, y_B])
+        B_text.set_position([x_B + text_offset_B, y_B])
+        return line_inf, line_AB
 
-    <span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">update_graph</span><span class="p">,</span>
-                                  <span class="n">init_func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">update_graph</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-                                  <span class="n">frames</span><span class="o">=</span><span class="n">n_frames</span><span class="p">,</span>
-                                  <span class="n">interval</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                                  <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">anim</span>
+    anim = animation.FuncAnimation(fig, update_graph,
+                                  init_func=lambda: update_graph(0),
+                                  frames=n_frames,
+                                  interval=20,
+                                  blit=True)
+    plt.close()
+    return anim
 
-<span class="n">animate_AB_line</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;x^2&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+animate_AB_line(lambda x: x**2, lambda x: 2*x, &quot;x^2&quot;, -1)
 </pre></div>
 </div>
 </div>
@@ -2609,8 +2609,8 @@ IYQQVun/AUrgnKx9Gj5qAAAAAElFTkSuQmCC\
 <p>Note that some functions are not quite as well-behaved as <span class="math notranslate nohighlight">\(x^2\)</span>: for example, consider the function <span class="math notranslate nohighlight">\(f(x)=|x|\)</span>, the absolute value of <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="n">animate_AB_line</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;|x|&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+animate_AB_line(lambda x: np.abs(x), None, &quot;|x|&quot;, 0)
 </pre></div>
 </div>
 </div>
@@ -3158,9 +3158,9 @@ IiKCYzpChI0KjBBCiCDRQRyEEEIEiQqMEEKIIFGBEUIIEaT/A6ydFC6zusxTAAAAAElFTkSuQmCC\
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="n">animate_AB_line</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">cbrt</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\sqrt[3]</span><span class="si">{x}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+animate_AB_line(lambda x: np.cbrt(x), None, r&quot;\sqrt[3]{x}&quot;, 0,
+                axis=[-2.1, 2.1, -1.4, 1.4])
 </pre></div>
 </div>
 </div>
@@ -3799,61 +3799,61 @@ f'(x) \, &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x + \epsilon) - f(x)}{\ep
 <p>Let’s use the equation <span class="math notranslate nohighlight">\(f'(x) = 2x\)</span> to plot the tangent to the <span class="math notranslate nohighlight">\(y=x^2\)</span> curve at various values of <span class="math notranslate nohighlight">\(x\)</span> (you can click on the play button under the graphs to play the animation):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="k">def</span> <span class="nf">animate_tangent</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">f_str</span><span class="p">):</span>
-    <span class="n">n_frames</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+def animate_tangent(f, fp, f_str):
+    n_frames = 200
+    x_min, x_max = -1000, 1000
 
-    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(5, 8), sharex=True)
 
-    <span class="c1"># plot f</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-    <span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+    # plot f
+    xs = np.linspace(-2.1, 2.1, 500)
+    ys = f(xs)
+    ax1.plot(xs, ys)
 
-    <span class="c1"># plot tangent</span>
-    <span class="n">line_tangent</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    # plot tangent
+    line_tangent, = ax1.plot([x_min, x_max], [0, 0])
 
-    <span class="c1"># plot f&#39;</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-    <span class="n">ys</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
+    # plot f&#39;
+    xs = np.linspace(-2.1, 2.1, 500)
+    ys = fp(xs)
+    ax2.plot(xs, ys, &quot;r-&quot;)
 
-    <span class="c1"># plot points A</span>
-    <span class="n">point_A1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
-    <span class="n">point_A2</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
+    # plot points A
+    point_A1, = ax1.plot(0, 0, &quot;bo&quot;)
+    point_A2, = ax2.plot(0, 0, &quot;bo&quot;)
 
-    <span class="n">show</span><span class="p">([</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$f(x)$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$y=f(x)=&quot;</span> <span class="o">+</span> <span class="n">f_str</span> <span class="o">+</span> <span class="s2">&quot;$ and the tangent at $x=x_\mathrm</span><span class="si">{A}</span><span class="s2">$&quot;</span><span class="p">)</span>
-    <span class="n">show</span><span class="p">([</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$f&#39;(x)$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;y=f&#39;(x) and the slope of the tangent at $x=x_\mathrm</span><span class="si">{A}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    show([-2.1, 2.1, 0, 2.8], ax=ax1, ylabel=&quot;$f(x)$&quot;,
+        title=r&quot;$y=f(x)=&quot; + f_str + &quot;$ and the tangent at $x=x_\mathrm{A}$&quot;)
+    show([-2.1, 2.1, -4.2, 4.2], ax=ax2, ylabel=&quot;$f&#39;(x)$&quot;,
+        title=r&quot;y=f&#39;(x) and the slope of the tangent at $x=x_\mathrm{A}$&quot;)
 
-    <span class="k">def</span> <span class="nf">update_graph</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">n_frames</span><span class="p">)</span>
-        <span class="n">f_x</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">df_dx</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="n">f_x</span> <span class="o">-</span> <span class="n">df_dx</span> <span class="o">*</span> <span class="n">x</span>
-        <span class="n">line_tangent</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">],</span>
-                              <span class="p">[</span><span class="n">df_dx</span> <span class="o">*</span> <span class="n">x_min</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">df_dx</span> <span class="o">*</span> <span class="n">x_max</span> <span class="o">+</span> <span class="n">offset</span><span class="p">])</span>
-        <span class="n">point_A1</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f_x</span><span class="p">)</span>
-        <span class="n">point_A2</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">line_tangent</span><span class="p">,</span> <span class="n">point_A1</span><span class="p">,</span> <span class="n">point_A2</span>
+    def update_graph(i):
+        x = 1.5 * np.sin(2 * np.pi * i / n_frames)
+        f_x = f(x)
+        df_dx = fp(x)
+        offset = f_x - df_dx * x
+        line_tangent.set_data([x_min, x_max],
+                              [df_dx * x_min + offset, df_dx * x_max + offset])
+        point_A1.set_data(x, f_x)
+        point_A2.set_data(x, df_dx)
+        return line_tangent, point_A1, point_A2
 
-    <span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">update_graph</span><span class="p">,</span>
-                                  <span class="n">init_func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">update_graph</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-                                  <span class="n">frames</span><span class="o">=</span><span class="n">n_frames</span><span class="p">,</span>
-                                  <span class="n">interval</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                                  <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">anim</span>
+    anim = animation.FuncAnimation(fig, update_graph,
+                                  init_func=lambda: update_graph(0),
+                                  frames=n_frames,
+                                  interval=20,
+                                  blit=True)
+    plt.close()
+    return anim
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+def f(x):
+  return x**2
 
-<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-  <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+def fp(x):
+  return 2*x
 
-<span class="n">animate_tangent</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="s2">&quot;x^2&quot;</span><span class="p">)</span>
+animate_tangent(f, fp, &quot;x^2&quot;)
 </pre></div>
 </div>
 </div>
@@ -4653,8 +4653,8 @@ f'(x) &amp; = \underset{\epsilon \to 0}\lim\dfrac{f(x+\epsilon) - f(x)}{\epsilon
 <p>Let’s plot <span class="math notranslate nohighlight">\(f\)</span> followed by <span class="math notranslate nohighlight">\(f'\)</span>, and let’s use <span class="math notranslate nohighlight">\(f'(x_\mathbf{A})\)</span> to find the slope of the tangent at some point <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="n">animate_tangent</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="sa">r</span><span class="s2">&quot;\sin(2x^2)+1&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+animate_tangent(lambda x: np.sin(2*x**2) + 1, lambda x: 4*x*np.cos(2*x**2), r&quot;\sin(2x^2)+1&quot;)
 </pre></div>
 </div>
 </div>
@@ -5527,20 +5527,20 @@ P4//i9gxDgAAAABJRU5ErkJggg==\
 <p>So one way to optimize a function is to differentiate it and analytically find all the values for which the derivative is 0, then determine which of these values optimize the function (if any). For example, consider the function <span class="math notranslate nohighlight">\(f(x)=\dfrac{1}{4}x^4 - x^2 + \dfrac{1}{2}\)</span>. Using the derivative rules (specifically, the sum rule, the product rule, the power rule and the constant rule), we find that <span class="math notranslate nohighlight">\(f'(x)=x^3 - 2x\)</span>. We look for the values of <span class="math notranslate nohighlight">\(x\)</span> for which <span class="math notranslate nohighlight">\(f'(x)=0\)</span>, so <span class="math notranslate nohighlight">\(x^3-2x=0\)</span>, and therefore <span class="math notranslate nohighlight">\(x(x^2-2)=0\)</span>. So <span class="math notranslate nohighlight">\(x=0\)</span>, or <span class="math notranslate nohighlight">\(x=\sqrt2\)</span> or <span class="math notranslate nohighlight">\(x=-\sqrt2\)</span>. As you can see on the following graph of <span class="math notranslate nohighlight">\(f(x)\)</span>, these 3 values correspond to local extrema. Two global minima <span class="math notranslate nohighlight">\(f\left(\sqrt2\right)=f\left(-\sqrt2\right)=-\dfrac{1}{2}\)</span> and one local maximum <span class="math notranslate nohighlight">\(f(0)=\dfrac{1}{2}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-  <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+def f(x):
+  return 1/4 * x**4 - x**2 + 1/2
 
-<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))],</span> <span class="s2">&quot;k--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))],</span> <span class="s2">&quot;k--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$-\sqrt</span><span class="si">{2}</span><span class="s2">$&quot;</span><span class="p">,</span>
-         <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\sqrt</span><span class="si">{2}</span><span class="s2">$&quot;</span><span class="p">,</span>
-         <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
-<span class="n">show</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$y=f(x)=\dfrac</span><span class="si">{1}{4}</span><span class="s2">x^4 - x^2 + 5$&quot;</span><span class="p">)</span>
+xs = np.linspace(-2.1, 2.1, 500)
+ys = f(xs)
+plt.plot(xs, ys)
+plt.plot([np.sqrt(2), np.sqrt(2)], [0, f(np.sqrt(2))], &quot;k--&quot;)
+plt.plot([-np.sqrt(2), -np.sqrt(2)], [0, f(-np.sqrt(2))], &quot;k--&quot;)
+plt.text(-np.sqrt(2), 0.1, r&quot;$-\sqrt{2}$&quot;,
+         fontsize=14, horizontalalignment=&quot;center&quot;)
+plt.text(np.sqrt(2), 0.1, r&quot;$\sqrt{2}$&quot;,
+         fontsize=14, horizontalalignment=&quot;center&quot;)
+show(axis=[-2.1, 2.1, -1.4, 1.4], title=r&quot;$y=f(x)=\dfrac{1}{4}x^4 - x^2 + 5$&quot;)
 </pre></div>
 </div>
 </div>
@@ -5551,14 +5551,14 @@ P4//i9gxDgAAAABJRU5ErkJggg==\
 <p>If a function has a local extremum at a point <span class="math notranslate nohighlight">\(x_\mathrm{A}\)</span> and is differentiable at that point, then <span class="math notranslate nohighlight">\(f'(x_\mathrm{A})=0\)</span>. However, the reverse is not always true. For example, consider <span class="math notranslate nohighlight">\(f(x)=x^3\)</span>. Its derivative is <span class="math notranslate nohighlight">\(f'(x)=x^2\)</span>, which is equal to 0 at <span class="math notranslate nohighlight">\(x_\mathrm{A}=0\)</span>. Yet, this point is <em>not</em> an extremum, as you can see on the following diagram. It’s just a single point where the slope is 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+def f(x):
+  return x**3
 
-<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
-<span class="n">show</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$f(x)=x^3$&quot;</span><span class="p">)</span>
+xs = np.linspace(-1.05, 1.05, 500)
+ys = f(xs)
+plt.plot(xs, ys)
+show(axis=[-1.05, 1.05, -0.7, 0.7], title=r&quot;$f(x)=x^3$&quot;)
 </pre></div>
 </div>
 </div>
@@ -5572,70 +5572,70 @@ P4//i9gxDgAAAABJRU5ErkJggg==\
 <p>Here is an animation of this process on the function <span class="math notranslate nohighlight">\(f(x)=\dfrac{1}{4}x^4 - x^2 + \dfrac{1}{2}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="k">def</span> <span class="nf">animate_gradient_descent</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">f_str</span><span class="p">,</span> <span class="n">x_0</span><span class="p">):</span>
-    <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
-    <span class="n">n_frames</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+def animate_gradient_descent(f, fp, f_str, x_0):
+    learning_rate = 0.01
+    n_frames = 200
+    x_min, x_max = -1000, 1000
 
-    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(5, 8), sharex=True)
 
-    <span class="c1"># plot f</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-    <span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+    # plot f
+    xs = np.linspace(-2.1, 2.1, 500)
+    ys = f(xs)
+    ax1.plot(xs, ys)
 
-    <span class="c1"># plot tangent</span>
-    <span class="n">line_tangent</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    # plot tangent
+    line_tangent, = ax1.plot([x_min, x_max], [0, 0])
 
-    <span class="c1"># plot f&#39;</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-    <span class="n">ys</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
+    # plot f&#39;
+    xs = np.linspace(-2.1, 2.1, 500)
+    ys = fp(xs)
+    ax2.plot(xs, ys, &quot;r-&quot;)
 
-    <span class="c1"># plot points A</span>
-    <span class="n">point_A1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
-    <span class="n">point_A2</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
+    # plot points A
+    point_A1, = ax1.plot(0, 0, &quot;bo&quot;)
+    point_A2, = ax2.plot(0, 0, &quot;bo&quot;)
 
-    <span class="n">show</span><span class="p">([</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$f(x)$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$y=f(x)=&quot;</span> <span class="o">+</span> <span class="n">f_str</span> <span class="o">+</span> <span class="s2">&quot;$ and the tangent at $x=x_\mathrm</span><span class="si">{A}</span><span class="s2">$&quot;</span><span class="p">)</span>
-    <span class="n">show</span><span class="p">([</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;$f&#39;(x)$&quot;</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$y=f&#39;(x)$ and the slope of the tangent at $x=x_\mathrm</span><span class="si">{A}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    show([-2.1, 2.1, -1.4, 1.4], ax=ax1, ylabel=&quot;$f(x)$&quot;,
+        title=r&quot;$y=f(x)=&quot; + f_str + &quot;$ and the tangent at $x=x_\mathrm{A}$&quot;)
+    show([-2.1, 2.1, -4.2, 4.2], ax=ax2, ylabel=&quot;$f&#39;(x)$&quot;,
+        title=r&quot;$y=f&#39;(x)$ and the slope of the tangent at $x=x_\mathrm{A}$&quot;)
 
-    <span class="n">xs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">x_0</span>
-    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_frames</span><span class="p">):</span>
-      <span class="n">xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-      <span class="n">slope</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-      <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">learning_rate</span>
+    xs = []
+    x = x_0
+    for index in range(n_frames):
+      xs.append(x)
+      slope = fp(x)
+      x = x - slope * learning_rate
 
-    <span class="k">def</span> <span class="nf">update_graph</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">f_x</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">df_dx</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="n">f_x</span> <span class="o">-</span> <span class="n">df_dx</span> <span class="o">*</span> <span class="n">x</span>
-        <span class="n">line_tangent</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">],</span>
-                              <span class="p">[</span><span class="n">df_dx</span> <span class="o">*</span> <span class="n">x_min</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">df_dx</span> <span class="o">*</span> <span class="n">x_max</span> <span class="o">+</span> <span class="n">offset</span><span class="p">])</span>
-        <span class="n">point_A1</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f_x</span><span class="p">)</span>
-        <span class="n">point_A2</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">line_tangent</span><span class="p">,</span> <span class="n">point_A1</span><span class="p">,</span> <span class="n">point_A2</span>
+    def update_graph(i):
+        x = xs[i]
+        f_x = f(x)
+        df_dx = fp(x)
+        offset = f_x - df_dx * x
+        line_tangent.set_data([x_min, x_max],
+                              [df_dx * x_min + offset, df_dx * x_max + offset])
+        point_A1.set_data(x, f_x)
+        point_A2.set_data(x, df_dx)
+        return line_tangent, point_A1, point_A2
 
-    <span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">update_graph</span><span class="p">,</span>
-                                  <span class="n">init_func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">update_graph</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-                                  <span class="n">frames</span><span class="o">=</span><span class="n">n_frames</span><span class="p">,</span>
-                                  <span class="n">interval</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                                  <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">anim</span>
+    anim = animation.FuncAnimation(fig, update_graph,
+                                  init_func=lambda: update_graph(0),
+                                  frames=n_frames,
+                                  interval=20,
+                                  blit=True)
+    plt.close()
+    return anim
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-  <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+def f(x):
+  return 1/4 * x**4 - x**2 + 1/2
 
-<span class="k">def</span> <span class="nf">fp</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+def fp(x):
+  return x**3 - 2*x
 
-<span class="n">animate_gradient_descent</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\dfrac</span><span class="si">{1}{4}</span><span class="s2">x^4 - x^2 + \dfrac</span><span class="si">{1}{2}</span><span class="s2">&quot;</span><span class="p">,</span>
-                         <span class="n">x_0</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+animate_gradient_descent(f, fp, r&quot;\dfrac{1}{4}x^4 - x^2 + \dfrac{1}{2}&quot;,
+                         x_0=1/4)
 </pre></div>
 </div>
 </div>
@@ -6439,56 +6439,56 @@ gg==\
 <p>Up to now, we have only considered functions with a single variable <span class="math notranslate nohighlight">\(x\)</span>. What happens when there are multiple variables? For example, let’s start with a simple function with 2 variables: <span class="math notranslate nohighlight">\(f(x,y)=\sin(xy)\)</span>. If we plot this function, using <span class="math notranslate nohighlight">\(z=f(x,y)\)</span>, we get the following 3D graph. I also plotted some point <span class="math notranslate nohighlight">\(\mathrm{A}\)</span> on the surface, along with two lines I will describe shortly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+from mpl_toolkits.mplot3d import Axes3D
 
-<span class="k">def</span> <span class="nf">plot_3d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+def plot_3d(f, title):
+    fig = plt.figure(figsize=(8, 5))
+    ax = fig.add_subplot(111, projection=&#39;3d&#39;)
 
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
-    <span class="n">zs</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+    xs = np.linspace(-2.1, 2.1, 100)
+    ys = np.linspace(-2.1, 2.1, 100)
+    xs, ys = np.meshgrid(xs, ys)
+    zs = f(xs, ys)
 
-    <span class="n">surface</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">zs</span><span class="p">,</span>
-                              <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span>
-                              <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    surface = ax.plot_surface(xs, ys, zs,
+                              cmap=mpl.cm.coolwarm,
+                              linewidth=0.3, edgecolor=&#39;k&#39;)
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;$z$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ax</span>
+    ax.set_xlabel(&quot;$x$&quot;, fontsize=14)
+    ax.set_ylabel(&quot;$y$&quot;, fontsize=14)
+    ax.set_zlabel(&quot;$z$&quot;, fontsize=14)
+    ax.set_title(title, fontsize=14)
+    return ax
 
-<span class="k">def</span> <span class="nf">plot_tangents</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">,</span> <span class="n">df_dy</span><span class="p">):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot3D</span><span class="p">([</span><span class="n">x_A</span><span class="p">],</span> <span class="p">[</span><span class="n">y_A</span><span class="p">],</span> <span class="n">f</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">),</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span>
-    <span class="n">slope_x</span> <span class="o">=</span> <span class="n">df_dx</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">)</span>
-    <span class="n">offset_x</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">)</span> <span class="o">-</span> <span class="n">slope_x</span> <span class="o">*</span> <span class="n">x_A</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot3D</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">],</span> <span class="p">[</span><span class="n">y_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">],</span>
-              <span class="p">[</span><span class="n">slope_x</span> <span class="o">*</span> <span class="n">x_min</span> <span class="o">+</span> <span class="n">offset_x</span><span class="p">,</span> <span class="n">slope_x</span> <span class="o">*</span> <span class="n">x_max</span> <span class="o">+</span> <span class="n">offset_x</span><span class="p">],</span> <span class="s2">&quot;b-.&quot;</span><span class="p">,</span>
-              <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.1</span>
-    <span class="n">slope_y</span> <span class="o">=</span> <span class="n">df_dy</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">)</span>
-    <span class="n">offset_y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A</span><span class="p">)</span> <span class="o">-</span> <span class="n">slope_y</span> <span class="o">*</span> <span class="n">y_A</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot3D</span><span class="p">([</span><span class="n">x_A</span><span class="p">,</span> <span class="n">x_A</span><span class="p">],</span> <span class="p">[</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">],</span>
-              <span class="p">[</span><span class="n">slope_y</span> <span class="o">*</span> <span class="n">y_min</span> <span class="o">+</span> <span class="n">offset_y</span><span class="p">,</span> <span class="n">slope_y</span> <span class="o">*</span> <span class="n">y_max</span> <span class="o">+</span> <span class="n">offset_y</span><span class="p">],</span> <span class="s2">&quot;r-&quot;</span><span class="p">,</span>
-              <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+def plot_tangents(ax, x_A, y_A, f, df_dx, df_dy):
+    ax.plot3D([x_A], [y_A], f(x_A, y_A), &quot;bo&quot;, zorder=10)
+    x_min, x_max = -2.1, 2.1
+    slope_x = df_dx(x_A, y_A)
+    offset_x = f(x_A, y_A) - slope_x * x_A
+    ax.plot3D([x_min, x_max], [y_A, y_A],
+              [slope_x * x_min + offset_x, slope_x * x_max + offset_x], &quot;b-.&quot;,
+              zorder=5)
+    y_min, y_max = -2.1, 2.1
+    slope_y = df_dy(x_A, y_A)
+    offset_y = f(x_A, y_A) - slope_y * y_A
+    ax.plot3D([x_A, x_A], [y_min, y_max],
+              [slope_y * y_min + offset_y, slope_y * y_max + offset_y], &quot;r-&quot;,
+              zorder=5)
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+def f(x, y):
+    return np.sin(x * y)
 
-<span class="k">def</span> <span class="nf">df_dx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+def df_dx(x, y):
+    return y * np.cos(x * y)
 
-<span class="k">def</span> <span class="nf">df_dy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+def df_dy(x, y):
+    return x * np.cos(x * y)
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plot_3d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$z = f(x, y) = \sin(xy)$&quot;</span><span class="p">)</span>
-<span class="n">plot_tangents</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">df_dx</span><span class="p">,</span> <span class="n">df_dy</span><span class="p">)</span>
+ax = plot_3d(f, r&quot;$z = f(x, y) = \sin(xy)$&quot;)
+plot_tangents(ax, 0.1, -1, f, df_dx, df_dy)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -6722,46 +6722,46 @@ Now we can use the chain rule:</p>
 <p>For this proof we will first need to prove that <span class="math notranslate nohighlight">\(\underset{\theta \to 0}\lim\dfrac{\sin(\theta)}{\theta}=1\)</span>. One way to do that is to consider the following diagram:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
-<span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">5</span>
-<span class="n">A_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title
+angle = np.pi/5
+A_pos = [np.cos(angle), np.sin(angle)]
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+fig, ax = plt.subplots(figsize=(6, 6))
 
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="n">ax_text</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                  <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+from functools import partial
+ax_text = partial(ax.text, color=&quot;w&quot;, fontsize=18, zorder=4,
+                  horizontalalignment=&#39;center&#39;, verticalalignment=&#39;center&#39;)
 
-<span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span>
-                    <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
-<span class="n">triangle1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">angle</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                        <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">arc_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span> 
-              <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="mi">50</span><span class="p">)])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">arc_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">arc_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">triangle2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">A_pos</span><span class="p">,</span> <span class="p">[</span><span class="n">A_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]],</span>
-                        <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">ax_text</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
-<span class="n">ax_text</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">)</span>
-<span class="n">ax_text</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="s2">&quot;C&quot;</span><span class="p">)</span>
-<span class="n">ax_text</span><span class="p">(</span><span class="mf">0.25</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="sa">r</span><span class="s2">&quot;$\theta$&quot;</span><span class="p">)</span>
-<span class="n">arc</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">patches</span><span class="o">.</span><span class="n">Arc</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">theta1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">theta2</span><span class="o">=</span><span class="n">angle</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
-                      <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ax_text</span><span class="p">(</span><span class="mf">0.03</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">ax_text</span><span class="p">(</span><span class="mf">1.03</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+circle = plt.Circle((0, 0), 1,
+                    zorder=0, facecolor=&#39;w&#39;, edgecolor=&#39;k&#39;, linestyle=&quot;--&quot;)
+triangle1 = plt.Polygon([[0, 0], [1, np.tan(angle)], [1, 0]],
+                        zorder=1, facecolor=&#39;r&#39;, edgecolor=&#39;k&#39;)
+arc_points = np.array([[0, 0]] + [[np.cos(a), np.sin(a)] 
+              for a in np.linspace(0, angle, 50)])
+ax.fill(arc_points[:, 0], arc_points[:, 1],
+        zorder=2, facecolor=&#39;c&#39;, edgecolor=&#39;k&#39;)
+triangle2 = plt.Polygon([[0, 0], A_pos, [A_pos[0], 0]],
+                        zorder=3, facecolor=&#39;b&#39;, edgecolor=&#39;k&#39;)
+ax_text(2*np.cos(angle)/3, np.sin(angle)/4, &quot;A&quot;)
+ax_text((1+np.cos(angle))/2, np.sin(angle)/4, &quot;B&quot;)
+ax_text((1+np.cos(angle))/2, 0.9*np.sin(angle), &quot;C&quot;)
+ax_text(0.25*np.cos(angle/2), 0.25*np.sin(angle/2), r&quot;$\theta$&quot;)
+arc = mpl.patches.Arc([0, 0], 2*0.2, 2*0.2, theta1=0, theta2=angle*180/np.pi,
+                      zorder=5, color=&#39;y&#39;, linewidth=3)
+ax_text(0.03, -0.05, &quot;0&quot;, color=&#39;k&#39;)
+ax_text(1.03, -0.05, &quot;1&quot;, color=&#39;k&#39;)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">triangle1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">triangle2</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arc</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+ax.axhline(y=0, color=&#39;k&#39;, zorder=4)
+ax.axvline(x=0, color=&#39;k&#39;, zorder=4)
+ax.axvline(x=1, color=&#39;k&#39;, zorder=4, linewidth=1, linestyle=&#39;--&#39;)
+ax.axis(&#39;equal&#39;)
+ax.axis([-0.1, 1.1, -0.1, 1.1])
+ax.axis(&#39;off&#39;)
+ax.add_artist(circle)
+ax.add_artist(triangle1)
+ax.add_artist(triangle2)
+ax.add_patch(arc)
+plt.show()
 </pre></div>
 </div>
 </div>

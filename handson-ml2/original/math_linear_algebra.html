@@ -1160,7 +1160,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1909,7 +1909,7 @@ title="Print to PDF"
 <p>In python, a vector can be represented in many ways, the simplest being a regular python list of numbers:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>[10.5, 5.2, 3.25, 7.0]
 </pre></div>
 </div>
 </div>
@@ -1922,9 +1922,9 @@ title="Print to PDF"
 <p>Since we plan to do quite a lot of scientific calculations, it is much better to use NumPy’s <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>, which provides a lot of convenient and optimized implementations of essential mathematical operations on vectors (for more details about NumPy, check out the <span class="xref myst">NumPy tutorial</span>). For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">video</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
-<span class="n">video</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+video = np.array([10.5, 5.2, 3.25, 7.0])
+video
 </pre></div>
 </div>
 </div>
@@ -1937,7 +1937,7 @@ title="Print to PDF"
 <p>The size of a vector can be obtained using the <code class="docutils literal notranslate"><span class="pre">size</span></code> attribute:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">video</span><span class="o">.</span><span class="n">size</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>video.size
 </pre></div>
 </div>
 </div>
@@ -1951,7 +1951,7 @@ title="Print to PDF"
 <p>Note that indices in mathematics generally start at 1, but in programming they usually start at 0. So to access <span class="math notranslate nohighlight">\(\textbf{video}_3\)</span> programmatically, we would write:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">video</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># 3rd element</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>video[2]  # 3rd element
 </pre></div>
 </div>
 </div>
@@ -1967,8 +1967,8 @@ title="Print to PDF"
 <p>To plot vectors we will use matplotlib, so let’s start by importing it (for details about matplotlib, check the <span class="xref myst">matplotlib tutorial</span>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
+import matplotlib.pyplot as plt
 </pre></div>
 </div>
 </div>
@@ -1978,8 +1978,8 @@ title="Print to PDF"
 <p>Let’s create a couple very simple 2D vectors to plot:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u = np.array([2, 5])
+v = np.array([3, 1])
 </pre></div>
 </div>
 </div>
@@ -1987,11 +1987,11 @@ title="Print to PDF"
 <p>These vectors each have 2 elements, so they can easily be represented graphically on a 2D graph, for example as points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x_coords, y_coords = zip(u, v)
+plt.scatter(x_coords, y_coords, color=[&quot;r&quot;,&quot;b&quot;])
+plt.axis([0, 9, 0, 6])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2002,10 +2002,10 @@ title="Print to PDF"
 <p>Vectors can also be represented as arrows. Let’s create a small convenience function to draw nice arrows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_vector2d</span><span class="p">(</span><span class="n">vector2d</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vector2d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vector2d</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-              <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-              <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_vector2d(vector2d, origin=[0, 0], **options):
+    return plt.arrow(origin[0], origin[1], vector2d[0], vector2d[1],
+              head_width=0.2, head_length=0.3, length_includes_head=True,
+              **options)
 </pre></div>
 </div>
 </div>
@@ -2013,11 +2013,11 @@ title="Print to PDF"
 <p>Now let’s draw the vectors <strong>u</strong> and <strong>v</strong> as arrows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_vector2d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_vector2d(u, color=&quot;r&quot;)
+plot_vector2d(v, color=&quot;b&quot;)
+plt.axis([0, 9, 0, 6])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2031,8 +2031,8 @@ title="Print to PDF"
 <p>Plotting 3D vectors is also relatively straightforward. First let’s create two 3D vectors:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>a = np.array([1, 2, 8])
+b = np.array([5, 6, 3])
 </pre></div>
 </div>
 </div>
@@ -2040,13 +2040,13 @@ title="Print to PDF"
 <p>Now let’s plot them using matplotlib’s <code class="docutils literal notranslate"><span class="pre">Axes3D</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from mpl_toolkits.mplot3d import Axes3D
 
-<span class="n">subplot3d</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-<span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="n">z_coords</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
-<span class="n">subplot3d</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="n">z_coords</span><span class="p">)</span>
-<span class="n">subplot3d</span><span class="o">.</span><span class="n">set_zlim3d</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+subplot3d = plt.subplot(111, projection=&#39;3d&#39;)
+x_coords, y_coords, z_coords = zip(a,b)
+subplot3d.scatter(x_coords, y_coords, z_coords)
+subplot3d.set_zlim3d([0, 9])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2057,17 +2057,17 @@ title="Print to PDF"
 <p>It is a bit hard to visualize exactly where in space these two points are, so let’s add vertical lines. We’ll create a small convenience function to plot a list of 3d vectors with vertical lines attached:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_vectors3d</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">vectors3d</span><span class="p">,</span> <span class="n">z0</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors3d</span><span class="p">:</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">y</span><span class="p">],</span> <span class="p">[</span><span class="n">z0</span><span class="p">,</span> <span class="n">z</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
-    <span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="n">z_coords</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">vectors3d</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="n">z_coords</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_vectors3d(ax, vectors3d, z0, **options):
+    for v in vectors3d:
+        x, y, z = v
+        ax.plot([x,x], [y,y], [z0, z], color=&quot;gray&quot;, linestyle=&#39;dotted&#39;, marker=&quot;.&quot;)
+    x_coords, y_coords, z_coords = zip(*vectors3d)
+    ax.scatter(x_coords, y_coords, z_coords, **options)
 
-<span class="n">subplot3d</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-<span class="n">subplot3d</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
-<span class="n">plot_vectors3d</span><span class="p">(</span><span class="n">subplot3d</span><span class="p">,</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+subplot3d = plt.subplot(111, projection=&#39;3d&#39;)
+subplot3d.set_zlim([0, 9])
+plot_vectors3d(subplot3d, [a,b], 0, color=(&quot;r&quot;,&quot;b&quot;))
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2084,12 +2084,12 @@ title="Print to PDF"
 <p>We could implement this easily in pure python, recalling that <span class="math notranslate nohighlight">\(\sqrt x = x^{\frac{1}{2}}\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vector_norm</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
-    <span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">vector</span><span class="p">]</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def vector_norm(vector):
+    squares = [element**2 for element in vector]
+    return sum(squares)**0.5
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;||&quot;</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="s2">&quot;|| =&quot;</span><span class="p">)</span>
-<span class="n">vector_norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+print(&quot;||&quot;, u, &quot;|| =&quot;)
+vector_norm(u)
 </pre></div>
 </div>
 </div>
@@ -2105,8 +2105,8 @@ title="Print to PDF"
 <p>However, it is much more efficient to use NumPy’s <code class="docutils literal notranslate"><span class="pre">norm</span></code> function, available in the <code class="docutils literal notranslate"><span class="pre">linalg</span></code> (<strong>Lin</strong>ear <strong>Alg</strong>ebra) module:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">LA</span>
-<span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy.linalg as LA
+LA.norm(u)
 </pre></div>
 </div>
 </div>
@@ -2119,12 +2119,12 @@ title="Print to PDF"
 <p>Let’s plot a little diagram to confirm that the length of vector <span class="math notranslate nohighlight">\(\textbf{v}\)</span> is indeed <span class="math notranslate nohighlight">\(\approx5.4\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radius</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#DDDDDD&quot;</span><span class="p">))</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">8.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>radius = LA.norm(u)
+plt.gca().add_artist(plt.Circle((0,0), radius, color=&quot;#DDDDDD&quot;))
+plot_vector2d(u, color=&quot;red&quot;)
+plt.axis([0, 8.7, 0, 6])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2139,10 +2139,10 @@ title="Print to PDF"
 <p>Vectors of same size can be added together. Addition is performed <em>elementwise</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">u</span> <span class="o">+</span> <span class="n">v</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot; &quot;, u)
+print(&quot;+&quot;, v)
+print(&quot;-&quot;*10)
+u + v
 </pre></div>
 </div>
 </div>
@@ -2160,19 +2160,19 @@ title="Print to PDF"
 <p>Let’s look at what vector addition looks like graphically:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_vector2d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">u</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="n">v</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">5.6</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="s2">&quot;u+v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_vector2d(u, color=&quot;r&quot;)
+plot_vector2d(v, color=&quot;b&quot;)
+plot_vector2d(v, origin=u, color=&quot;b&quot;, linestyle=&quot;dotted&quot;)
+plot_vector2d(u, origin=v, color=&quot;r&quot;, linestyle=&quot;dotted&quot;)
+plot_vector2d(u+v, color=&quot;g&quot;)
+plt.axis([0, 9, 0, 7])
+plt.text(0.7, 3, &quot;u&quot;, color=&quot;r&quot;, fontsize=18)
+plt.text(4, 3, &quot;u&quot;, color=&quot;r&quot;, fontsize=18)
+plt.text(1.8, 0.2, &quot;v&quot;, color=&quot;b&quot;, fontsize=18)
+plt.text(3.1, 5.6, &quot;v&quot;, color=&quot;b&quot;, fontsize=18)
+plt.text(2.4, 2.5, &quot;u+v&quot;, color=&quot;g&quot;, fontsize=18)
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2185,31 +2185,31 @@ title="Print to PDF"
 <p>If you have a shape defined by a number of points (vectors), and you add a vector <span class="math notranslate nohighlight">\(\textbf{v}\)</span> to all of these points, then the whole shape gets shifted by <span class="math notranslate nohighlight">\(\textbf{v}\)</span>. This is called a <a class="reference external" href="https://en.wikipedia.org/wiki/Translation_%28geometry%29">geometric translation</a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
-<span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">])</span>
-<span class="n">t3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>t1 = np.array([2, 0.25])
+t2 = np.array([2.5, 3.5])
+t3 = np.array([1, 2])
 
-<span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="s2">&quot;c--&quot;</span><span class="p">,</span> <span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="s2">&quot;co&quot;</span><span class="p">)</span>
+x_coords, y_coords = zip(t1, t2, t3, t1)
+plt.plot(x_coords, y_coords, &quot;c--&quot;, x_coords, y_coords, &quot;co&quot;)
 
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">t3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+plot_vector2d(v, t1, color=&quot;r&quot;, linestyle=&quot;:&quot;)
+plot_vector2d(v, t2, color=&quot;r&quot;, linestyle=&quot;:&quot;)
+plot_vector2d(v, t3, color=&quot;r&quot;, linestyle=&quot;:&quot;)
 
-<span class="n">t1b</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">v</span>
-<span class="n">t2b</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">+</span> <span class="n">v</span>
-<span class="n">t3b</span> <span class="o">=</span> <span class="n">t3</span> <span class="o">+</span> <span class="n">v</span>
+t1b = t1 + v
+t2b = t2 + v
+t3b = t3 + v
 
-<span class="n">x_coords_b</span><span class="p">,</span> <span class="n">y_coords_b</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t1b</span><span class="p">,</span> <span class="n">t2b</span><span class="p">,</span> <span class="n">t3b</span><span class="p">,</span> <span class="n">t1b</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords_b</span><span class="p">,</span> <span class="n">y_coords_b</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span> <span class="n">x_coords_b</span><span class="p">,</span> <span class="n">y_coords_b</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
+x_coords_b, y_coords_b = zip(t1b, t2b, t3b, t1b)
+plt.plot(x_coords_b, y_coords_b, &quot;b-&quot;, x_coords_b, y_coords_b, &quot;bo&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+plt.text(4, 4.2, &quot;v&quot;, color=&quot;r&quot;, fontsize=18)
+plt.text(3, 2.3, &quot;v&quot;, color=&quot;r&quot;, fontsize=18)
+plt.text(3.5, 0.4, &quot;v&quot;, color=&quot;r&quot;, fontsize=18)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.axis([0, 6, 0, 5])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2224,9 +2224,9 @@ title="Print to PDF"
 <p>Vectors can be multiplied by scalars. All elements in the vector are multiplied by that number, for example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1.5 *&quot;</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot;1.5 *&quot;, u, &quot;=&quot;)
 
-<span class="mf">1.5</span> <span class="o">*</span> <span class="n">u</span>
+1.5 * u
 </pre></div>
 </div>
 </div>
@@ -2242,27 +2242,27 @@ title="Print to PDF"
 <p>Graphically, scalar multiplication results in changing the scale of a figure, hence the name <em>scalar</em>. The distance from the origin (the point at coordinates equal to zero) is also multiplied by the scalar. For example, let’s scale up by a factor of <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">2.5</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mf">2.5</span>
-<span class="n">t1c</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">t1</span>
-<span class="n">t2c</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">t2</span>
-<span class="n">t3c</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">t3</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>k = 2.5
+t1c = k * t1
+t2c = k * t2
+t3c = k * t3
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="s2">&quot;c--&quot;</span><span class="p">,</span> <span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">,</span> <span class="s2">&quot;co&quot;</span><span class="p">)</span>
+plt.plot(x_coords, y_coords, &quot;c--&quot;, x_coords, y_coords, &quot;co&quot;)
 
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+plot_vector2d(t1, color=&quot;r&quot;)
+plot_vector2d(t2, color=&quot;r&quot;)
+plot_vector2d(t3, color=&quot;r&quot;)
 
-<span class="n">x_coords_c</span><span class="p">,</span> <span class="n">y_coords_c</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t1c</span><span class="p">,</span> <span class="n">t2c</span><span class="p">,</span> <span class="n">t3c</span><span class="p">,</span> <span class="n">t1c</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords_c</span><span class="p">,</span> <span class="n">y_coords_c</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span> <span class="n">x_coords_c</span><span class="p">,</span> <span class="n">y_coords_c</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
+x_coords_c, y_coords_c = zip(t1c, t2c, t3c, t1c)
+plt.plot(x_coords_c, y_coords_c, &quot;b-&quot;, x_coords_c, y_coords_c, &quot;bo&quot;)
 
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">t1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">t2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">t3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+plot_vector2d(k * t1, color=&quot;b&quot;, linestyle=&quot;:&quot;)
+plot_vector2d(k * t2, color=&quot;b&quot;, linestyle=&quot;:&quot;)
+plot_vector2d(k * t3, color=&quot;b&quot;, linestyle=&quot;:&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.axis([0, 9, 0, 9])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2285,15 +2285,15 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ko&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;$\hat</span><span class="si">{u}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s2">&quot;$u$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.gca().add_artist(plt.Circle((0,0),1,color=&#39;c&#39;))
+plt.plot(0, 0, &quot;ko&quot;)
+plot_vector2d(v / LA.norm(v), color=&quot;k&quot;)
+plot_vector2d(v, color=&quot;b&quot;, linestyle=&quot;:&quot;)
+plt.text(0.3, 0.3, &quot;$\hat{u}$&quot;, color=&quot;k&quot;, fontsize=18)
+plt.text(1.5, 0.7, &quot;$u$&quot;, color=&quot;b&quot;, fontsize=18)
+plt.axis([-1.5, 5.5, -1.5, 3.5])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2317,10 +2317,10 @@ title="Print to PDF"
 <p>The dot product is pretty simple to implement:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dot_product</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">v1i</span> <span class="o">*</span> <span class="n">v2i</span> <span class="k">for</span> <span class="n">v1i</span><span class="p">,</span> <span class="n">v2i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def dot_product(v1, v2):
+    return sum(v1i * v2i for v1i, v2i in zip(v1, v2))
 
-<span class="n">dot_product</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+dot_product(u, v)
 </pre></div>
 </div>
 </div>
@@ -2333,7 +2333,7 @@ title="Print to PDF"
 <p>But a <em>much</em> more efficient implementation is provided by NumPy with the <code class="docutils literal notranslate"><span class="pre">dot</span></code> function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.dot(u,v)
 </pre></div>
 </div>
 </div>
@@ -2346,7 +2346,7 @@ title="Print to PDF"
 <p>Equivalently, you can use the <code class="docutils literal notranslate"><span class="pre">dot</span></code> method of <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>s:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u.dot(v)
 </pre></div>
 </div>
 </div>
@@ -2359,11 +2359,11 @@ title="Print to PDF"
 <p><strong>Caution</strong>: the <code class="docutils literal notranslate"><span class="pre">*</span></code> operator will perform an <em>elementwise</em> multiplication, <em>NOT</em> a dot product:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;* &quot;</span><span class="p">,</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;(NOT a dot product)&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot;  &quot;,u)
+print(&quot;* &quot;,v, &quot;(NOT a dot product)&quot;)
+print(&quot;-&quot;*10)
 
-<span class="n">u</span> <span class="o">*</span> <span class="n">v</span>
+u * v
 </pre></div>
 </div>
 </div>
@@ -2397,13 +2397,13 @@ title="Print to PDF"
 <p>Let’s use this formula to calculate the angle between <span class="math notranslate nohighlight">\(\textbf{u}\)</span> and <span class="math notranslate nohighlight">\(\textbf{v}\)</span> (in radians):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vector_angle</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-    <span class="n">cos_theta</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">/</span> <span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">cos_theta</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def vector_angle(u, v):
+    cos_theta = u.dot(v) / LA.norm(u) / LA.norm(v)
+    return np.arccos(np.clip(cos_theta, -1, 1))
 
-<span class="n">theta</span> <span class="o">=</span> <span class="n">vector_angle</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Angle =&quot;</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="s2">&quot;radians&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;      =&quot;</span><span class="p">,</span> <span class="n">theta</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s2">&quot;degrees&quot;</span><span class="p">)</span>
+theta = vector_angle(u, v)
+print(&quot;Angle =&quot;, theta, &quot;radians&quot;)
+print(&quot;      =&quot;, theta * 180 / np.pi, &quot;degrees&quot;)
 </pre></div>
 </div>
 </div>
@@ -2424,24 +2424,24 @@ title="Print to PDF"
 <p><span class="math notranslate nohighlight">\(\textbf{proj}_{\textbf{u}}{\textbf{v}} = (\textbf{v} \cdot \hat{\textbf{u}}) \times \hat{\textbf{u}}\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u_normalized</span> <span class="o">=</span> <span class="n">u</span> <span class="o">/</span> <span class="n">LA</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-<span class="n">proj</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u_normalized</span><span class="p">)</span> <span class="o">*</span> <span class="n">u_normalized</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u_normalized = u / LA.norm(u)
+proj = v.dot(u_normalized) * u_normalized
 
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+plot_vector2d(u, color=&quot;r&quot;)
+plot_vector2d(v, color=&quot;b&quot;)
 
-<span class="n">plot_vector2d</span><span class="p">(</span><span class="n">proj</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">proj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;ko&quot;</span><span class="p">)</span>
+plot_vector2d(proj, color=&quot;k&quot;, linestyle=&quot;:&quot;)
+plt.plot(proj[0], proj[1], &quot;ko&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">proj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">proj</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s2">&quot;b:&quot;</span><span class="p">)</span>
+plt.plot([proj[0], v[0]], [proj[1], v[1]], &quot;b:&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;$proj_u v$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$v$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;$u$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+plt.text(1, 2, &quot;$proj_u v$&quot;, color=&quot;k&quot;, fontsize=18)
+plt.text(1.8, 0.2, &quot;$v$&quot;, color=&quot;b&quot;, fontsize=18)
+plt.text(0.8, 3, &quot;$u$&quot;, color=&quot;r&quot;, fontsize=18)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.axis([0, 8, 0, 5.5])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2463,10 +2463,10 @@ title="Print to PDF"
 <p>In python, a matrix can be represented in various ways. The simplest is just a list of python lists:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
-<span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>[
+    [10, 20, 30],
+    [40, 50, 60]
+]
 </pre></div>
 </div>
 </div>
@@ -2479,11 +2479,11 @@ title="Print to PDF"
 <p>A much more efficient way is to use the NumPy library which provides optimized implementations of many matrix operations:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">]</span>
-<span class="p">])</span>
-<span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A = np.array([
+    [10,20,30],
+    [40,50,60]
+])
+A
 </pre></div>
 </div>
 </div>
@@ -2503,7 +2503,7 @@ title="Print to PDF"
 <p>To get a matrix’s size in NumPy:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.shape
 </pre></div>
 </div>
 </div>
@@ -2516,7 +2516,7 @@ title="Print to PDF"
 <p><strong>Caution</strong>: the <code class="docutils literal notranslate"><span class="pre">size</span></code> attribute represents the number of elements in the <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>, not the matrix’s size:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">size</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.size
 </pre></div>
 </div>
 </div>
@@ -2540,7 +2540,7 @@ title="Print to PDF"
 <p>However in this notebook we will use the <span class="math notranslate nohighlight">\(X_{i,j}\)</span> notation, as it matches fairly well NumPy’s notation. Note that in math indices generally start at 1, but in programming they usually start at 0. So to access <span class="math notranslate nohighlight">\(A_{2,3}\)</span> programmatically, we need to write this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># 2nd row, 3rd column</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A[1,2]  # 2nd row, 3rd column
 </pre></div>
 </div>
 </div>
@@ -2553,7 +2553,7 @@ title="Print to PDF"
 <p>The <span class="math notranslate nohighlight">\(i^{th}\)</span> row vector is sometimes noted <span class="math notranslate nohighlight">\(M_i\)</span> or <span class="math notranslate nohighlight">\(M_{i,*}\)</span>, but again there is no standard notation so people often prefer to explicitely define their own names, for example: “<em>let <strong>x</strong><span class="math notranslate nohighlight">\(_{i}\)</span> be the <span class="math notranslate nohighlight">\(i^{th}\)</span> row vector of matrix <span class="math notranslate nohighlight">\(X\)</span></em>”. We will use the <span class="math notranslate nohighlight">\(M_{i,*}\)</span>, for the same reason as above. For example, to access <span class="math notranslate nohighlight">\(A_{2,*}\)</span> (ie. <span class="math notranslate nohighlight">\(A\)</span>’s 2nd row vector):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 2nd row vector (as a 1D array)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A[1, :]  # 2nd row vector (as a 1D array)
 </pre></div>
 </div>
 </div>
@@ -2566,7 +2566,7 @@ title="Print to PDF"
 <p>Similarly, the <span class="math notranslate nohighlight">\(j^{th}\)</span> column vector is sometimes noted <span class="math notranslate nohighlight">\(M^j\)</span> or <span class="math notranslate nohighlight">\(M_{*,j}\)</span>, but there is no standard notation. We will use <span class="math notranslate nohighlight">\(M_{*,j}\)</span>. For example, to access <span class="math notranslate nohighlight">\(A_{*,3}\)</span> (ie. <span class="math notranslate nohighlight">\(A\)</span>’s 3rd column vector):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># 3rd column vector (as a 1D array)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A[:, 2]  # 3rd column vector (as a 1D array)
 </pre></div>
 </div>
 </div>
@@ -2579,7 +2579,7 @@ title="Print to PDF"
 <p>Note that the result is actually a one-dimensional NumPy array: there is no such thing as a <em>vertical</em> or <em>horizontal</em> one-dimensional array. If you need to actually represent a row vector as a one-row matrix (ie. a 2D NumPy array), or a column vector as a one-column matrix, then you need to use a slice instead of an integer when accessing the row or column, for example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># rows 2 to 3 (excluded): this returns row 2 as a one-row matrix</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A[1:2, :]  # rows 2 to 3 (excluded): this returns row 2 as a one-row matrix
 </pre></div>
 </div>
 </div>
@@ -2591,7 +2591,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># columns 3 to 4 (excluded): this returns column 3 as a one-column matrix</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A[:, 2:3]  # columns 3 to 4 (excluded): this returns column 3 as a one-column matrix
 </pre></div>
 </div>
 </div>
@@ -2633,7 +2633,7 @@ title="Print to PDF"
 <p>You can construct a diagonal matrix using NumPy’s <code class="docutils literal notranslate"><span class="pre">diag</span></code> function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.diag([4, 5, 6])
 </pre></div>
 </div>
 </div>
@@ -2648,12 +2648,12 @@ title="Print to PDF"
 <p>If you pass a matrix to the <code class="docutils literal notranslate"><span class="pre">diag</span></code> function, it will happily extract the diagonal values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
-    <span class="p">])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>D = np.array([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+    ])
+np.diag(D)
 </pre></div>
 </div>
 </div>
@@ -2672,7 +2672,7 @@ title="Print to PDF"
 <p>Numpy’s <code class="docutils literal notranslate"><span class="pre">eye</span></code> function returns the identity matrix of the desired size:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.eye(3)
 </pre></div>
 </div>
 </div>
@@ -2700,8 +2700,8 @@ title="Print to PDF"
 <p>For example, let’s create a <span class="math notranslate nohighlight">\(2 \times 3\)</span> matrix <span class="math notranslate nohighlight">\(B\)</span> and compute <span class="math notranslate nohighlight">\(A + B\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
-<span class="n">B</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>B = np.array([[1,2,3], [4, 5, 6]])
+B
 </pre></div>
 </div>
 </div>
@@ -2714,7 +2714,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A
 </pre></div>
 </div>
 </div>
@@ -2727,7 +2727,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A + B
 </pre></div>
 </div>
 </div>
@@ -2741,7 +2741,7 @@ title="Print to PDF"
 <p><strong>Addition is <em>commutative</em></strong>, meaning that <span class="math notranslate nohighlight">\(A + B = B + A\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">+</span> <span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>B + A
 </pre></div>
 </div>
 </div>
@@ -2755,9 +2755,9 @@ title="Print to PDF"
 <p><strong>It is also <em>associative</em></strong>, meaning that <span class="math notranslate nohighlight">\(A + (B + C) = (A + B) + C\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">600</span><span class="p">]])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>C = np.array([[100,200,300], [400, 500, 600]])
 
-<span class="n">A</span> <span class="o">+</span> <span class="p">(</span><span class="n">B</span> <span class="o">+</span> <span class="n">C</span><span class="p">)</span>
+A + (B + C)
 </pre></div>
 </div>
 </div>
@@ -2770,7 +2770,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span> <span class="o">+</span> <span class="n">C</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(A + B) + C
 </pre></div>
 </div>
 </div>
@@ -2798,7 +2798,7 @@ title="Print to PDF"
 <p>In NumPy, simply use the <code class="docutils literal notranslate"><span class="pre">*</span></code> operator to multiply a matrix by a scalar. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">*</span> <span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>2 * A
 </pre></div>
 </div>
 </div>
@@ -2812,7 +2812,7 @@ title="Print to PDF"
 <p>Scalar multiplication is also defined on the right hand side, and gives the same result: <span class="math notranslate nohighlight">\(M \lambda = \lambda M\)</span>. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">*</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A * 2
 </pre></div>
 </div>
 </div>
@@ -2827,7 +2827,7 @@ title="Print to PDF"
 <p>It is also <strong>associative</strong>, meaning that <span class="math notranslate nohighlight">\(\alpha (\beta M) = (\alpha \times \beta) M\)</span>, where <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are scalars. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>2 * (3 * A)
 </pre></div>
 </div>
 </div>
@@ -2840,7 +2840,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(2 * 3) * A
 </pre></div>
 </div>
 </div>
@@ -2854,7 +2854,7 @@ title="Print to PDF"
 <p>Finally, it is <strong>distributive over addition</strong> of matrices, meaning that <span class="math notranslate nohighlight">\(\lambda (Q + R) = \lambda Q + \lambda R\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>2 * (A + B)
 </pre></div>
 </div>
 </div>
@@ -2867,7 +2867,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">*</span> <span class="n">A</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">B</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>2 * A + 2 * B
 </pre></div>
 </div>
 </div>
@@ -2927,13 +2927,13 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 \end{bmatrix}\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">7</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">23</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">37</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">E</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
-<span class="n">E</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>D = np.array([
+        [ 2,  3,  5,  7],
+        [11, 13, 17, 19],
+        [23, 29, 31, 37]
+    ])
+E = A.dot(D)
+E
 </pre></div>
 </div>
 </div>
@@ -2947,7 +2947,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p>Let’s check this result by looking at one element, just to be sure: looking at <span class="math notranslate nohighlight">\(E_{2,3}\)</span> for example, we need to multiply elements in <span class="math notranslate nohighlight">\(A\)</span>’s <span class="math notranslate nohighlight">\(2^{nd}\)</span> row by elements in <span class="math notranslate nohighlight">\(D\)</span>’s <span class="math notranslate nohighlight">\(3^{rd}\)</span> column, and sum up these products:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">40</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">50</span><span class="o">*</span><span class="mi">17</span> <span class="o">+</span> <span class="mi">60</span><span class="o">*</span><span class="mi">31</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>40*5 + 50*17 + 60*31
 </pre></div>
 </div>
 </div>
@@ -2959,7 +2959,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># row 2, column 3</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>E[1,2]  # row 2, column 3
 </pre></div>
 </div>
 </div>
@@ -2973,10 +2973,10 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p>We multiplied a <span class="math notranslate nohighlight">\(2 \times 3\)</span> matrix by a <span class="math notranslate nohighlight">\(3 \times 4\)</span> matrix, so the result is a <span class="math notranslate nohighlight">\(2 \times 4\)</span> matrix. The first matrix’s number of columns has to be equal to the second matrix’s number of rows. If we try to multiply <span class="math notranslate nohighlight">\(D\)</span> by <span class="math notranslate nohighlight">\(A\)</span>, we get an error because D has 4 columns while A has 2 rows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">D</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ValueError:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>try:
+    D.dot(A)
+except ValueError as e:
+    print(&quot;ValueError:&quot;, e)
 </pre></div>
 </div>
 </div>
@@ -2990,12 +2990,12 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p>In fact, <span class="math notranslate nohighlight">\(QR\)</span> and <span class="math notranslate nohighlight">\(RQ\)</span> are only <em>both</em> defined if <span class="math notranslate nohighlight">\(Q\)</span> has size <span class="math notranslate nohighlight">\(m \times n\)</span> and <span class="math notranslate nohighlight">\(R\)</span> has size <span class="math notranslate nohighlight">\(n \times m\)</span>. Let’s look at an example where both <em>are</em> defined and show that they are (in general) <em>NOT</em> equal:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F = np.array([
+        [5,2],
+        [4,1],
+        [9,3]
+    ])
+A.dot(F)
 </pre></div>
 </div>
 </div>
@@ -3008,7 +3008,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F.dot(A)
 </pre></div>
 </div>
 </div>
@@ -3023,12 +3023,12 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p>On the other hand, <strong>matrix multiplication <em>is</em> associative</strong>, meaning that <span class="math notranslate nohighlight">\(Q(RS) = (QR)S\)</span>. Let’s create a <span class="math notranslate nohighlight">\(4 \times 5\)</span> matrix <span class="math notranslate nohighlight">\(G\)</span> to illustrate this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">8</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">5</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">5</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">]])</span>
-<span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>     <span class="c1"># (AB)G</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>G = np.array([
+        [8,  7,  4,  2,  5],
+        [2,  5,  1,  0,  5],
+        [9, 11, 17, 21,  0],
+        [0,  1,  0,  1,  2]])
+A.dot(D).dot(G)     # (AB)G
 </pre></div>
 </div>
 </div>
@@ -3041,7 +3041,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>     <span class="c1"># A(BG)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.dot(D.dot(G))     # A(BG)
 </pre></div>
 </div>
 </div>
@@ -3055,7 +3055,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p>It is also <strong><em>distributive</em> over addition</strong> of matrices, meaning that <span class="math notranslate nohighlight">\((Q + R)S = QS + RS\)</span>. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(A + B).dot(D)
 </pre></div>
 </div>
 </div>
@@ -3068,7 +3068,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="o">+</span> <span class="n">B</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.dot(D) + B.dot(D)
 </pre></div>
 </div>
 </div>
@@ -3086,7 +3086,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p>For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.dot(np.eye(3))
 </pre></div>
 </div>
 </div>
@@ -3099,7 +3099,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.eye(2).dot(A)
 </pre></div>
 </div>
 </div>
@@ -3113,7 +3113,7 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p><strong>Caution</strong>: NumPy’s <code class="docutils literal notranslate"><span class="pre">*</span></code> operator performs elementwise multiplication, <em>NOT</em> a matrix multiplication:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">*</span> <span class="n">B</span>   <span class="c1"># NOT a matrix multiplication</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A * B   # NOT a matrix multiplication
 </pre></div>
 </div>
 </div>
@@ -3128,14 +3128,14 @@ Q_{m,*} \cdot R_{*,1} &amp; Q_{m,*} \cdot R_{*,2} &amp; \cdots &amp; Q_{m,*} \cd
 <p>Python 3.5 <a class="reference external" href="https://docs.python.org/3/whatsnew/3.5.html#pep-465-a-dedicated-infix-operator-for-matrix-multiplication">introduced</a> the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> infix operator for matrix multiplication, and NumPy 1.10 added support for it. If you are using Python 3.5+ and NumPy 1.10+, you can simply write <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">D</span></code> instead of <code class="docutils literal notranslate"><span class="pre">A.dot(D)</span></code>, making your code much more readable (but less portable). This operator also works for vector dot products.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version: </span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numpy version:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
+print(&quot;Python version: {}.{}.{}&quot;.format(*sys.version_info))
+print(&quot;Numpy version:&quot;, np.version.version)
 
-<span class="c1"># Uncomment the following line if your Python version is ≥3.5</span>
-<span class="c1"># and your NumPy version is ≥1.10:</span>
+# Uncomment the following line if your Python version is ≥3.5
+# and your NumPy version is ≥1.10:
 
-<span class="c1">#A @ D</span>
+#A @ D
 </pre></div>
 </div>
 </div>
@@ -3167,7 +3167,7 @@ Numpy version: 1.12.1
 <p>In NumPy, a matrix’s transpose can be obtained simply using the <code class="docutils literal notranslate"><span class="pre">T</span></code> attribute:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A
 </pre></div>
 </div>
 </div>
@@ -3180,7 +3180,7 @@ Numpy version: 1.12.1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.T
 </pre></div>
 </div>
 </div>
@@ -3195,7 +3195,7 @@ Numpy version: 1.12.1
 <p>As you might expect, transposing a matrix twice returns the original matrix:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.T.T
 </pre></div>
 </div>
 </div>
@@ -3209,7 +3209,7 @@ Numpy version: 1.12.1
 <p>Transposition is distributive over addition of matrices, meaning that <span class="math notranslate nohighlight">\((Q + R)^T = Q^T + R^T\)</span>. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(A + B).T
 </pre></div>
 </div>
 </div>
@@ -3223,7 +3223,7 @@ Numpy version: 1.12.1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">B</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A.T + B.T
 </pre></div>
 </div>
 </div>
@@ -3238,7 +3238,7 @@ Numpy version: 1.12.1
 <p>Moreover, <span class="math notranslate nohighlight">\((Q \cdot R)^T = R^T \cdot Q^T\)</span>. Note that the order is reversed. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(A.dot(D)).T
 </pre></div>
 </div>
 </div>
@@ -3253,7 +3253,7 @@ Numpy version: 1.12.1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>D.T.dot(A.T)
 </pre></div>
 </div>
 </div>
@@ -3276,7 +3276,7 @@ Numpy version: 1.12.1
 <p>The product of a matrix by its transpose is always a symmetric matrix, for example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>D.dot(D.T)
 </pre></div>
 </div>
 </div>
@@ -3294,7 +3294,7 @@ Numpy version: 1.12.1
 <p>As we mentionned earlier, in NumPy (as opposed to Matlab, for example), 1D really means 1D: there is no such thing as a vertical 1D-array or a horizontal 1D-array. So you should not be surprised to see that transposing a 1D array does not do anything:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u
 </pre></div>
 </div>
 </div>
@@ -3306,7 +3306,7 @@ Numpy version: 1.12.1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u.T
 </pre></div>
 </div>
 </div>
@@ -3319,8 +3319,8 @@ Numpy version: 1.12.1
 <p>We want to convert <span class="math notranslate nohighlight">\(\textbf{u}\)</span> into a row vector before transposing it. There are a few ways to do this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="p">])</span>
-<span class="n">u_row</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u_row = np.array([u])
+u_row
 </pre></div>
 </div>
 </div>
@@ -3333,7 +3333,7 @@ Numpy version: 1.12.1
 <p>Notice the extra square brackets: this is a 2D array with just one row (ie. a 1x2 matrix). In other words it really is a <strong>row vector</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u[np.newaxis, :]
 </pre></div>
 </div>
 </div>
@@ -3346,7 +3346,7 @@ Numpy version: 1.12.1
 <p>This is quite explicit: we are asking for a new vertical axis, keeping the existing data as the horizontal axis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u[np.newaxis]
 </pre></div>
 </div>
 </div>
@@ -3359,7 +3359,7 @@ Numpy version: 1.12.1
 <p>This is equivalent, but a little less explicit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u[None]
 </pre></div>
 </div>
 </div>
@@ -3373,7 +3373,7 @@ Numpy version: 1.12.1
 <p>Ok, now let’s transpose our row vector:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u_row</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u_row.T
 </pre></div>
 </div>
 </div>
@@ -3388,7 +3388,7 @@ Numpy version: 1.12.1
 <p>Rather than creating a row vector then transposing it, it is also possible to convert a 1D array directly into a column vector:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>u[:, np.newaxis]
 </pre></div>
 </div>
 </div>
@@ -3405,14 +3405,14 @@ Numpy version: 1.12.1
 <p>We have already seen that vectors can be represented as points or arrows in N-dimensional space. Is there a good graphical representation of matrices? Well you can simply see a matrix as a list of vectors, so plotting a matrix results in many points or arrows. For example, let’s create a <span class="math notranslate nohighlight">\(2 \times 4\)</span> matrix <code class="docutils literal notranslate"><span class="pre">P</span></code> and plot it as points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.6</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">x_coords_P</span><span class="p">,</span> <span class="n">y_coords_P</span> <span class="o">=</span> <span class="n">P</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_coords_P</span><span class="p">,</span> <span class="n">y_coords_P</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>P = np.array([
+        [3.0, 4.0, 1.0, 4.6],
+        [0.2, 3.5, 2.0, 0.5]
+    ])
+x_coords_P, y_coords_P = P
+plt.scatter(x_coords_P, y_coords_P)
+plt.axis([0, 5, 0, 4])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3424,11 +3424,11 @@ Numpy version: 1.12.1
 <p>Since the vectors are ordered, you can see the matrix as a path and represent it with connected dots:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords_P</span><span class="p">,</span> <span class="n">y_coords_P</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords_P</span><span class="p">,</span> <span class="n">y_coords_P</span><span class="p">,</span> <span class="s2">&quot;b--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.plot(x_coords_P, y_coords_P, &quot;bo&quot;)
+plt.plot(x_coords_P, y_coords_P, &quot;b--&quot;)
+plt.axis([0, 5, 0, 4])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3439,11 +3439,11 @@ Numpy version: 1.12.1
 <p>Or you can represent it as a polygon: matplotlib’s <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> class expects an <span class="math notranslate nohighlight">\(n \times 2\)</span> NumPy array, not a <span class="math notranslate nohighlight">\(2 \times n\)</span> array, so we just need to give it <span class="math notranslate nohighlight">\(P^T\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from matplotlib.patches import Polygon
+plt.gca().add_artist(Polygon(P.T))
+plt.axis([0, 5, 0, 4])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3461,27 +3461,27 @@ Numpy version: 1.12.1
 <p>First, adding two matrices together is equivalent to adding all their vectors together. For example, let’s create a <span class="math notranslate nohighlight">\(2 \times 4\)</span> matrix <span class="math notranslate nohighlight">\(H\)</span> and add it to <span class="math notranslate nohighlight">\(P\)</span>, and look at the result:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">],</span>
-        <span class="p">[</span> <span class="mf">0.4</span><span class="p">,</span>  <span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">P_moved</span> <span class="o">=</span> <span class="n">P</span> <span class="o">+</span> <span class="n">H</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>H = np.array([
+        [ 0.5, -0.2, 0.2, -0.1],
+        [ 0.4,  0.4, 1.5, 0.6]
+    ])
+P_moved = P + H
 
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P_moved</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">vector</span><span class="p">,</span> <span class="n">origin</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-    <span class="n">plot_vector2d</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">)</span>
+plt.gca().add_artist(Polygon(P.T, alpha=0.2))
+plt.gca().add_artist(Polygon(P_moved.T, alpha=0.3, color=&quot;r&quot;))
+for vector, origin in zip(H.T, P.T):
+    plot_vector2d(vector, origin=origin)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="s2">&quot;$P+H$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;$H_{*,1}$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">4.1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="s2">&quot;$H_{*,2}$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">,</span> <span class="s2">&quot;$H_{*,3}$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">4.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;$H_{*,4}$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+plt.text(2.2, 1.8, &quot;$P$&quot;, color=&quot;b&quot;, fontsize=18)
+plt.text(2.0, 3.2, &quot;$P+H$&quot;, color=&quot;r&quot;, fontsize=18)
+plt.text(2.5, 0.5, &quot;$H_{*,1}$&quot;, color=&quot;k&quot;, fontsize=18)
+plt.text(4.1, 3.5, &quot;$H_{*,2}$&quot;, color=&quot;k&quot;, fontsize=18)
+plt.text(0.4, 2.6, &quot;$H_{*,3}$&quot;, color=&quot;k&quot;, fontsize=18)
+plt.text(4.4, 0.2, &quot;$H_{*,4}$&quot;, color=&quot;k&quot;, fontsize=18)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.axis([0, 5, 0, 4])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3492,20 +3492,20 @@ Numpy version: 1.12.1
 <p>If we add a matrix full of identical vectors, we get a simple geometric translation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span>
-        <span class="p">[</span> <span class="mf">0.4</span><span class="p">,</span>  <span class="mf">0.4</span><span class="p">,</span>  <span class="mf">0.4</span><span class="p">,</span>  <span class="mf">0.4</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">P_translated</span> <span class="o">=</span> <span class="n">P</span> <span class="o">+</span> <span class="n">H2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>H2 = np.array([
+        [-0.5, -0.5, -0.5, -0.5],
+        [ 0.4,  0.4,  0.4,  0.4]
+    ])
+P_translated = P + H2
 
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P_translated</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">vector</span><span class="p">,</span> <span class="n">origin</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">H2</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-    <span class="n">plot_vector2d</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">)</span>
+plt.gca().add_artist(Polygon(P.T, alpha=0.2))
+plt.gca().add_artist(Polygon(P_translated.T, alpha=0.3, color=&quot;r&quot;))
+for vector, origin in zip(H2.T, P.T):
+    plot_vector2d(vector, origin=origin)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.axis([0, 5, 0, 4])
+plt.grid()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3516,7 +3516,7 @@ Numpy version: 1.12.1
 <p>Although matrices can only be added together if they have the same size, NumPy allows adding a row vector or a column vector to a matrix: this is called <em>broadcasting</em> and is explained in further details in the <span class="xref myst">NumPy tutorial</span>. We could have obtained the same result as above with:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P</span> <span class="o">+</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">]]</span>  <span class="c1"># same as P + H2, thanks to NumPy broadcasting</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>P + [[-0.5], [0.4]]  # same as P + H2, thanks to NumPy broadcasting
 </pre></div>
 </div>
 </div>
@@ -3533,21 +3533,21 @@ Numpy version: 1.12.1
 <p>Multiplying a matrix by a scalar results in all its vectors being multiplied by that scalar, so unsurprisingly, the geometric result is a rescaling of the entire figure. For example, let’s rescale our polygon by a factor of 60% (zooming out, centered on the origin):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_transformation</span><span class="p">(</span><span class="n">P_before</span><span class="p">,</span> <span class="n">P_after</span><span class="p">,</span> <span class="n">text_before</span><span class="p">,</span> <span class="n">text_after</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">arrows</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">vector_before</span><span class="p">,</span> <span class="n">vector_after</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">P_before</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P_after</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-            <span class="n">plot_vector2d</span><span class="p">(</span><span class="n">vector_before</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
-            <span class="n">plot_vector2d</span><span class="p">(</span><span class="n">vector_after</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P_before</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P_after</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">P_before</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">P_before</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">text_before</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">P_after</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">P_after</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">text_after</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_transformation(P_before, P_after, text_before, text_after, axis = [0, 5, 0, 4], arrows=False):
+    if arrows:
+        for vector_before, vector_after in zip(P_before.T, P_after.T):
+            plot_vector2d(vector_before, color=&quot;blue&quot;, linestyle=&quot;--&quot;)
+            plot_vector2d(vector_after, color=&quot;red&quot;, linestyle=&quot;-&quot;)
+    plt.gca().add_artist(Polygon(P_before.T, alpha=0.2))
+    plt.gca().add_artist(Polygon(P_after.T, alpha=0.3, color=&quot;r&quot;))
+    plt.text(P_before[0].mean(), P_before[1].mean(), text_before, fontsize=18, color=&quot;blue&quot;)
+    plt.text(P_after[0].mean(), P_after[1].mean(), text_after, fontsize=18, color=&quot;red&quot;)
+    plt.axis(axis)
+    plt.grid()
 
-<span class="n">P_rescaled</span> <span class="o">=</span> <span class="mf">0.60</span> <span class="o">*</span> <span class="n">P</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">P_rescaled</span><span class="p">,</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$0.6 P$&quot;</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+P_rescaled = 0.60 * P
+plot_transformation(P, P_rescaled, &quot;$P$&quot;, &quot;$0.6 P$&quot;, arrows=True)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3562,7 +3562,7 @@ Numpy version: 1.12.1
 <p>Let’s start simple, by defining a <span class="math notranslate nohighlight">\(1 \times 2\)</span> matrix <span class="math notranslate nohighlight">\(U = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}\)</span>. This row vector is just the horizontal unit vector.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>U = np.array([[1, 0]])
 </pre></div>
 </div>
 </div>
@@ -3570,7 +3570,7 @@ Numpy version: 1.12.1
 <p>Now let’s look at the dot product <span class="math notranslate nohighlight">\(U \cdot P\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>U.dot(P)
 </pre></div>
 </div>
 </div>
@@ -3583,23 +3583,23 @@ Numpy version: 1.12.1
 <p>These are the horizontal coordinates of the vectors in <span class="math notranslate nohighlight">\(P\)</span>. In other words, we just projected <span class="math notranslate nohighlight">\(P\)</span> onto the horizontal axis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_projection</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">P</span><span class="p">):</span>
-    <span class="n">U_P</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_projection(U, P):
+    U_P = U.dot(P)
     
-    <span class="n">axis_end</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">U</span>
-    <span class="n">plot_vector2d</span><span class="p">(</span><span class="n">axis_end</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    axis_end = 100 * U
+    plot_vector2d(axis_end[0], color=&quot;black&quot;)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">vector</span><span class="p">,</span> <span class="n">proj_coordinate</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">U_P</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-        <span class="n">proj_point</span> <span class="o">=</span> <span class="n">proj_coordinate</span> <span class="o">*</span> <span class="n">U</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">proj_point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;ro&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="s2">&quot;r--&quot;</span><span class="p">)</span>
+    plt.gca().add_artist(Polygon(P.T, alpha=0.2))
+    for vector, proj_coordinate in zip(P.T, U_P.T):
+        proj_point = proj_coordinate * U
+        plt.plot(proj_point[0][0], proj_point[0][1], &quot;ro&quot;)
+        plt.plot([vector[0], proj_point[0][0]], [vector[1], proj_point[0][1]], &quot;r--&quot;)
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    plt.axis([0, 5, 0, 4])
+    plt.grid()
+    plt.show()
 
-<span class="n">plot_projection</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+plot_projection(U, P)
 </pre></div>
 </div>
 </div>
@@ -3610,10 +3610,10 @@ Numpy version: 1.12.1
 <p>We can actually project on any other axis by just replacing <span class="math notranslate nohighlight">\(U\)</span> with any other unit vector. For example, let’s project on the axis that is at a 30° angle above the horizontal axis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle30</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>  <span class="c1"># angle in radians</span>
-<span class="n">U_30</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle30</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle30</span><span class="p">)]])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>angle30 = 30 * np.pi / 180  # angle in radians
+U_30 = np.array([[np.cos(angle30), np.sin(angle30)]])
 
-<span class="n">plot_projection</span><span class="p">(</span><span class="n">U_30</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+plot_projection(U_30, P)
 </pre></div>
 </div>
 </div>
@@ -3629,12 +3629,12 @@ Numpy version: 1.12.1
 <p><span class="math notranslate nohighlight">\(V = \begin{bmatrix} \cos(30°) &amp; \sin(30°) \\ \cos(120°) &amp; \sin(120°) \end{bmatrix}\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle120</span> <span class="o">=</span> <span class="mi">120</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
-<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle30</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle30</span><span class="p">)],</span>
-        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle120</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle120</span><span class="p">)]</span>
-    <span class="p">])</span>
-<span class="n">V</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>angle120 = 120 * np.pi / 180
+V = np.array([
+        [np.cos(angle30), np.sin(angle30)],
+        [np.cos(angle120), np.sin(angle120)]
+    ])
+V
 </pre></div>
 </div>
 </div>
@@ -3648,7 +3648,7 @@ Numpy version: 1.12.1
 <p>Let’s look at the product <span class="math notranslate nohighlight">\(VP\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>V.dot(P)
 </pre></div>
 </div>
 </div>
@@ -3662,9 +3662,9 @@ Numpy version: 1.12.1
 <p>The first row is equal to <span class="math notranslate nohighlight">\(V_{1,*} P\)</span>, which is the coordinates of the projection of <span class="math notranslate nohighlight">\(P\)</span> onto the 30° axis, as we have seen above. The second row is <span class="math notranslate nohighlight">\(V_{2,*} P\)</span>, which is the coordinates of the projection of <span class="math notranslate nohighlight">\(P\)</span> onto the 120° axis. So basically we obtained the coordinates of <span class="math notranslate nohighlight">\(P\)</span> after rotating the horizontal and vertical axes by 30° (or equivalently after rotating the polygon by -30° around the origin)! Let’s plot <span class="math notranslate nohighlight">\(VP\)</span> to see this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P_rotated</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">P_rotated</span><span class="p">,</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$VP$&quot;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>P_rotated = V.dot(P)
+plot_transformation(P, P_rotated, &quot;$P$&quot;, &quot;$VP$&quot;, [-2, 6, -2, 4], arrows=True)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3695,13 +3695,13 @@ d &amp; e &amp; f
 <p>To summarize, the matrix on the left hand side of a dot product specifies what linear transormation to apply to the right hand side vectors. We have already shown that this can be used to perform projections and rotations, but any other linear transformation is possible. For example, here is a transformation known as a <em>shear mapping</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_shear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{shear}</span><span class="s2"> P$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_shear = np.array([
+        [1, 1.5],
+        [0, 1]
+    ])
+plot_transformation(P, F_shear.dot(P), &quot;$P$&quot;, &quot;$F_{shear} P$&quot;,
+                    axis=[0, 10, 0, 7])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3712,13 +3712,13 @@ d &amp; e &amp; f
 <p>Let’s look at how this transformation affects the <strong>unit square</strong>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Square</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">Square</span><span class="p">,</span> <span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Square</span><span class="p">),</span> <span class="s2">&quot;$Square$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{shear}</span><span class="s2"> Square$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Square = np.array([
+        [0, 0, 1, 1],
+        [0, 1, 1, 0]
+    ])
+plot_transformation(Square, F_shear.dot(Square), &quot;$Square$&quot;, &quot;$F_{shear} Square$&quot;,
+                    axis=[0, 2.6, 0, 1.8])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3729,13 +3729,13 @@ d &amp; e &amp; f
 <p>Now let’s look at a <strong>squeeze mapping</strong>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_squeeze</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mf">1.4</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">F_squeeze</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{squeeze}</span><span class="s2"> P$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_squeeze = np.array([
+        [1.4, 0],
+        [0, 1/1.4]
+    ])
+plot_transformation(P, F_squeeze.dot(P), &quot;$P$&quot;, &quot;$F_{squeeze} P$&quot;,
+                    axis=[0, 7, 0, 5])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3746,9 +3746,9 @@ d &amp; e &amp; f
 <p>The effect on the unit square is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_transformation</span><span class="p">(</span><span class="n">Square</span><span class="p">,</span> <span class="n">F_squeeze</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Square</span><span class="p">),</span> <span class="s2">&quot;$Square$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{squeeze}</span><span class="s2"> Square$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_transformation(Square, F_squeeze.dot(Square), &quot;$Square$&quot;, &quot;$F_{squeeze} Square$&quot;,
+                    axis=[0, 1.8, 0, 1.2])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3759,13 +3759,13 @@ d &amp; e &amp; f
 <p>Let’s show a last one: reflection through the horizontal axis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_reflect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">F_reflect</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{reflect}</span><span class="s2"> P$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_reflect = np.array([
+        [1, 0],
+        [0, -1]
+    ])
+plot_transformation(P, F_reflect.dot(P), &quot;$P$&quot;, &quot;$F_{reflect} P$&quot;,
+                    axis=[-2, 9, -4.5, 4.5])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3781,16 +3781,16 @@ d &amp; e &amp; f
 <p>For example, the rotation, the shear mapping and the squeeze mapping above all have inverse transformations. Let’s demonstrate this on the shear mapping:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_inv_shear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="p">])</span>
-<span class="n">P_sheared</span> <span class="o">=</span> <span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
-<span class="n">P_unsheared</span> <span class="o">=</span> <span class="n">F_inv_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P_sheared</span><span class="p">)</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P_sheared</span><span class="p">,</span> <span class="n">P_unsheared</span><span class="p">,</span> <span class="s2">&quot;$P_</span><span class="si">{sheared}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="s2">&quot;$P_</span><span class="si">{unsheared}</span><span class="s2">$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;b--&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_inv_shear = np.array([
+    [1, -1.5],
+    [0, 1]
+])
+P_sheared = F_shear.dot(P)
+P_unsheared = F_inv_shear.dot(P_sheared)
+plot_transformation(P_sheared, P_unsheared, &quot;$P_{sheared}$&quot;, &quot;$P_{unsheared}$&quot;,
+                    axis=[0, 10, 0, 7])
+plt.plot(P[0], P[1], &quot;b--&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3802,8 +3802,8 @@ d &amp; e &amp; f
 <p>We defined the inverse matrix <span class="math notranslate nohighlight">\(F_{shear}^{-1}\)</span> manually this time, but NumPy provides an <code class="docutils literal notranslate"><span class="pre">inv</span></code> function to compute a matrix’s inverse, so we could have written instead:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_inv_shear</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_shear</span><span class="p">)</span>
-<span class="n">F_inv_shear</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_inv_shear = LA.inv(F_shear)
+F_inv_shear
 </pre></div>
 </div>
 </div>
@@ -3817,11 +3817,11 @@ d &amp; e &amp; f
 <p>Only square matrices can be inversed. This makes sense when you think about it: if you have a transformation that reduces the number of dimensions, then some information is lost and there is no way that you can get it back. For example say you use a <span class="math notranslate nohighlight">\(2 \times 3\)</span> matrix to project a 3D object onto a plane. The result may look like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
-         <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
-         <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.plot([0, 0, 1, 1, 0, 0.1, 0.1, 0, 0.1, 1.1, 1.0, 1.1, 1.1, 1.0, 1.1, 0.1],
+         [0, 1, 1, 0, 0, 0.1, 1.1, 1.0, 1.1, 1.1, 1.0, 1.1, 0.1, 0, 0.1, 0.1],
+         &quot;r-&quot;)
+plt.axis([-0.5, 2.1, -0.5, 1.5])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3833,13 +3833,13 @@ d &amp; e &amp; f
 <p>Even square transformation matrices can lose information. For example, consider this transformation matrix:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_project</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">F_project</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{project}</span><span class="s2"> \cdot P$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_project = np.array([
+        [1, 0],
+        [0, 0]
+    ])
+plot_transformation(P, F_project.dot(P), &quot;$P$&quot;, &quot;$F_{project} \cdot P$&quot;,
+                    axis=[0, 6, -1, 4])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3850,10 +3850,10 @@ d &amp; e &amp; f
 <p>This transformation matrix performs a projection onto the horizontal axis. Our polygon gets entirely flattened out so some information is entirely lost and it is impossible to go back to the original polygon using a linear transformation. In other words, <span class="math notranslate nohighlight">\(F_{project}\)</span> has no inverse. Such a square matrix that cannot be inversed is called a <strong>singular matrix</strong> (aka degenerate matrix). If we ask NumPy to calculate its inverse, it raises an exception:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_project</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">LA</span><span class="o">.</span><span class="n">LinAlgError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LinAlgError:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>try:
+    LA.inv(F_project)
+except LA.LinAlgError as e:
+    print(&quot;LinAlgError:&quot;, e)
 </pre></div>
 </div>
 </div>
@@ -3866,14 +3866,14 @@ d &amp; e &amp; f
 <p>Here is another example of a singular matrix. This one performs a projection onto the axis at a 30° angle above the horizontal axis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle30</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
-<span class="n">F_project_30</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-               <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle30</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">angle30</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>
-               <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">angle30</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle30</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">]</span>
-         <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">F_project_30</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_{project\_30} \cdot P$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>angle30 = 30 * np.pi / 180
+F_project_30 = np.array([
+               [np.cos(angle30)**2, np.sin(2*angle30)/2],
+               [np.sin(2*angle30)/2, np.sin(angle30)**2]
+         ])
+plot_transformation(P, F_project_30.dot(P), &quot;$P$&quot;, &quot;$F_{project\_30} \cdot P$&quot;,
+                    axis=[0, 6, -1, 4])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3884,7 +3884,7 @@ d &amp; e &amp; f
 <p>But this time, due to floating point rounding errors, NumPy manages to calculate an inverse (notice how large the elements are, though):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_project_30</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.inv(F_project_30)
 </pre></div>
 </div>
 </div>
@@ -3900,7 +3900,7 @@ d &amp; e &amp; f
 <p>This makes sense since doing a linear transformation followed by the inverse transformation results in no change at all.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_shear</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_shear.dot(LA.inv(F_shear))
 </pre></div>
 </div>
 </div>
@@ -3915,7 +3915,7 @@ d &amp; e &amp; f
 <p><span class="math notranslate nohighlight">\(((M)^{-1})^{-1} = M\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_shear</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.inv(LA.inv(F_shear))
 </pre></div>
 </div>
 </div>
@@ -3932,13 +3932,13 @@ d &amp; e &amp; f
 <p>A matrix that is its own inverse is called an <strong>involution</strong>. The simplest examples are reflection matrices, or a rotation by 180°, but there are also more complex involutions, for example imagine a transformation that squeezes horizontally, then  reflects over the vertical axis and finally rotates by 90° clockwise. Pick up a napkin and try doing that twice: you will end up in the original position. Here is the corresponding involutory matrix:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_involution</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
-        <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">F_involution</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{involution}</span><span class="s2"> \cdot P$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_involution  = np.array([
+        [0, -2],
+        [-1/2, 0]
+    ])
+plot_transformation(P, F_involution.dot(P), &quot;$P$&quot;, &quot;$F_{involution} \cdot P$&quot;,
+                    axis=[-8, 5, -4, 4])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3953,7 +3953,7 @@ d &amp; e &amp; f
 <p>It corresponds to a transformation that preserves distances, such as rotations and reflections, and combinations of these, but not rescaling, shearing or squeezing.  Let’s check that <span class="math notranslate nohighlight">\(F_{reflect}\)</span> is indeed orthogonal:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_reflect</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_reflect</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_reflect.dot(F_reflect.T)
 </pre></div>
 </div>
 </div>
@@ -3991,12 +3991,12 @@ d &amp; e &amp; f
 <p>To get the determinant of a matrix, you can call NumPy’s <code class="docutils literal notranslate"><span class="pre">det</span></code> function in the <code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code> module:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">LA</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>M = np.array([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 0]
+    ])
+LA.det(M)
 </pre></div>
 </div>
 </div>
@@ -4010,7 +4010,7 @@ d &amp; e &amp; f
 <p>For example, let’s compute the determinant for the <span class="math notranslate nohighlight">\(F_{project}\)</span>, <span class="math notranslate nohighlight">\(F_{project\_30}\)</span> and <span class="math notranslate nohighlight">\(F_{shear}\)</span> matrices that we defined earlier:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">F_project</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.det(F_project)
 </pre></div>
 </div>
 </div>
@@ -4023,7 +4023,7 @@ d &amp; e &amp; f
 <p>That’s right, <span class="math notranslate nohighlight">\(F_{project}\)</span> is singular, as we saw earlier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">F_project_30</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.det(F_project_30)
 </pre></div>
 </div>
 </div>
@@ -4036,7 +4036,7 @@ d &amp; e &amp; f
 <p>This determinant is suspiciously close to 0: it really should be 0, but it’s not due to tiny floating point errors. The matrix is actually singular.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">F_shear</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.det(F_shear)
 </pre></div>
 </div>
 </div>
@@ -4050,13 +4050,13 @@ d &amp; e &amp; f
 <p>The determinant can also be used to measure how much a linear transformation affects surface areas: for example, the projection matrices <span class="math notranslate nohighlight">\(F_{project}\)</span> and <span class="math notranslate nohighlight">\(F_{project\_30}\)</span> completely flatten the polygon <span class="math notranslate nohighlight">\(P\)</span>, until its area is zero. This is why the determinant of these matrices is 0. The shear mapping modified the shape of the polygon, but it did not affect its surface area, which is why the determinant is 1. You can try computing the determinant of a rotation matrix, and you should also find 1. What about a scaling matrix? Let’s see:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
-    <span class="p">])</span>
-<span class="n">plot_transformation</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">F_scale</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="s2">&quot;$P$&quot;</span><span class="p">,</span> <span class="s2">&quot;$F_</span><span class="si">{scale}</span><span class="s2"> \cdot P$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_scale = np.array([
+        [0.5, 0],
+        [0, 0.5]
+    ])
+plot_transformation(P, F_scale.dot(P), &quot;$P$&quot;, &quot;$F_{scale} \cdot P$&quot;,
+                    axis=[0, 6, -1, 4])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -4067,7 +4067,7 @@ d &amp; e &amp; f
 <p>We rescaled the polygon by a factor of 1/2 on both vertical and horizontal axes so the surface area of the resulting polygon is 1/4<span class="math notranslate nohighlight">\(^{th}\)</span> of the original polygon. Let’s compute the determinant and check that:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">F_scale</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.det(F_scale)
 </pre></div>
 </div>
 </div>
@@ -4081,7 +4081,7 @@ d &amp; e &amp; f
 <p>The determinant can actually be negative, when the transformation results in a “flipped over” version of the original polygon (eg. a left hand glove becomes a right hand glove). For example, the determinant of the <code class="docutils literal notranslate"><span class="pre">F_reflect</span></code> matrix is -1 because the surface area is preserved but the polygon gets flipped over:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">F_reflect</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.det(F_reflect)
 </pre></div>
 </div>
 </div>
@@ -4097,7 +4097,7 @@ d &amp; e &amp; f
 <p>Several linear transformations can be chained simply by performing multiple dot products in a row. For example, to perform a squeeze mapping followed by a shear mapping, just write:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P_squeezed_then_sheared</span> <span class="o">=</span> <span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_squeeze</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>P_squeezed_then_sheared = F_shear.dot(F_squeeze.dot(P))
 </pre></div>
 </div>
 </div>
@@ -4105,7 +4105,7 @@ d &amp; e &amp; f
 <p>Since the dot product is associative, the following code is equivalent:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P_squeezed_then_sheared</span> <span class="o">=</span> <span class="p">(</span><span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_squeeze</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>P_squeezed_then_sheared = (F_shear.dot(F_squeeze)).dot(P)
 </pre></div>
 </div>
 </div>
@@ -4114,8 +4114,8 @@ d &amp; e &amp; f
 <p>If we are going to perform this composition of linear transformations more than once, we might as well save the composition matrix like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_squeeze_then_shear</span> <span class="o">=</span> <span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_squeeze</span><span class="p">)</span>
-<span class="n">P_squeezed_then_sheared</span> <span class="o">=</span> <span class="n">F_squeeze_then_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_squeeze_then_shear = F_shear.dot(F_squeeze)
+P_squeezed_then_sheared = F_squeeze_then_shear.dot(P)
 </pre></div>
 </div>
 </div>
@@ -4126,7 +4126,7 @@ d &amp; e &amp; f
 <p>And in NumPy:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_shear</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">F_squeeze</span><span class="p">))</span> <span class="o">==</span> <span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_squeeze</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LA</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">F_shear</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LA.inv(F_shear.dot(F_squeeze)) == LA.inv(F_squeeze).dot(LA.inv(F_shear))
 </pre></div>
 </div>
 </div>
@@ -4150,8 +4150,8 @@ d &amp; e &amp; f
 <p>For example, let’s decompose the shear transformation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="p">,</span> <span class="n">S_diag</span><span class="p">,</span> <span class="n">V_T</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">F_shear</span><span class="p">)</span> <span class="c1"># note: in python 3 you can rename S_diag to Σ_diag</span>
-<span class="n">U</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>U, S_diag, V_T = LA.svd(F_shear) # note: in python 3 you can rename S_diag to Σ_diag
+U
 </pre></div>
 </div>
 </div>
@@ -4164,7 +4164,7 @@ d &amp; e &amp; f
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S_diag</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>S_diag
 </pre></div>
 </div>
 </div>
@@ -4177,8 +4177,8 @@ d &amp; e &amp; f
 <p>Note that this is just a 1D array containing the diagonal values of Σ. To get the actual matrix Σ, we can use NumPy’s <code class="docutils literal notranslate"><span class="pre">diag</span></code> function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S_diag</span><span class="p">)</span>
-<span class="n">S</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>S = np.diag(S_diag)
+S
 </pre></div>
 </div>
 </div>
@@ -4192,7 +4192,7 @@ d &amp; e &amp; f
 <p>Now let’s check that <span class="math notranslate nohighlight">\(U \cdot \Sigma \cdot V^T\)</span> is indeed equal to <code class="docutils literal notranslate"><span class="pre">F_shear</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S_diag</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V_T</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>U.dot(np.diag(S_diag)).dot(V_T)
 </pre></div>
 </div>
 </div>
@@ -4205,7 +4205,7 @@ d &amp; e &amp; f
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">F_shear</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>F_shear
 </pre></div>
 </div>
 </div>
@@ -4219,9 +4219,9 @@ d &amp; e &amp; f
 <p>It worked like a charm. Let’s apply these transformations one by one (in reverse order) on the unit square to understand what’s going on. First, let’s apply the first rotation <span class="math notranslate nohighlight">\(V^T\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_transformation</span><span class="p">(</span><span class="n">Square</span><span class="p">,</span> <span class="n">V_T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Square</span><span class="p">),</span> <span class="s2">&quot;$Square$&quot;</span><span class="p">,</span> <span class="s2">&quot;$V^T \cdot Square$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_transformation(Square, V_T.dot(Square), &quot;$Square$&quot;, &quot;$V^T \cdot Square$&quot;,
+                    axis=[-0.5, 3.5 , -1.5, 1.5])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -4232,9 +4232,9 @@ d &amp; e &amp; f
 <p>Now let’s rescale along the vertical and horizontal axes using <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_transformation</span><span class="p">(</span><span class="n">V_T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Square</span><span class="p">),</span> <span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V_T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Square</span><span class="p">),</span> <span class="s2">&quot;$V^T \cdot Square$&quot;</span><span class="p">,</span> <span class="s2">&quot;$\Sigma \cdot V^T \cdot Square$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_transformation(V_T.dot(Square), S.dot(V_T).dot(Square), &quot;$V^T \cdot Square$&quot;, &quot;$\Sigma \cdot V^T \cdot Square$&quot;,
+                    axis=[-0.5, 3.5 , -1.5, 1.5])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -4245,9 +4245,9 @@ d &amp; e &amp; f
 <p>Finally, we apply the second rotation <span class="math notranslate nohighlight">\(U\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_transformation</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V_T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Square</span><span class="p">),</span> <span class="n">U</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V_T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Square</span><span class="p">),</span><span class="s2">&quot;$\Sigma \cdot V^T \cdot Square$&quot;</span><span class="p">,</span> <span class="s2">&quot;$U \cdot \Sigma \cdot V^T \cdot Square$&quot;</span><span class="p">,</span>
-                    <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_transformation(S.dot(V_T).dot(Square), U.dot(S).dot(V_T).dot(Square),&quot;$\Sigma \cdot V^T \cdot Square$&quot;, &quot;$U \cdot \Sigma \cdot V^T \cdot Square$&quot;,
+                    axis=[-0.5, 3.5 , -1.5, 1.5])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -4268,8 +4268,8 @@ d &amp; e &amp; f
 <p>NumPy’s <code class="docutils literal notranslate"><span class="pre">eig</span></code> function returns the list of unit eigenvectors and their corresponding eigenvalues for any square matrix. Let’s look at the eigenvectors and eigenvalues of the squeeze mapping matrix <span class="math notranslate nohighlight">\(F_{squeeze}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">F_squeeze</span><span class="p">)</span>
-<span class="n">eigenvalues</span> <span class="c1"># [λ0, λ1, …]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>eigenvalues, eigenvectors = LA.eig(F_squeeze)
+eigenvalues # [λ0, λ1, …]
 </pre></div>
 </div>
 </div>
@@ -4281,7 +4281,7 @@ d &amp; e &amp; f
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvectors</span> <span class="c1"># [v0, v1, …]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>eigenvectors # [v0, v1, …]
 </pre></div>
 </div>
 </div>
@@ -4295,8 +4295,8 @@ d &amp; e &amp; f
 <p>Indeed the horizontal vectors are stretched by a factor of 1.4, and the vertical vectors are shrunk by a factor of 1/1.4=0.714…, so far so good. Let’s look at the shear mapping matrix <span class="math notranslate nohighlight">\(F_{shear}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvalues2</span><span class="p">,</span> <span class="n">eigenvectors2</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">F_shear</span><span class="p">)</span>
-<span class="n">eigenvalues2</span> <span class="c1"># [λ0, λ1, …]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>eigenvalues2, eigenvectors2 = LA.eig(F_shear)
+eigenvalues2 # [λ0, λ1, …]
 </pre></div>
 </div>
 </div>
@@ -4308,7 +4308,7 @@ d &amp; e &amp; f
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigenvectors2</span> <span class="c1"># [v0, v1, …]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>eigenvectors2 # [v0, v1, …]
 </pre></div>
 </div>
 </div>
@@ -4326,12 +4326,12 @@ d &amp; e &amp; f
 <p>The trace of a square matrix <span class="math notranslate nohighlight">\(M\)</span>, noted <span class="math notranslate nohighlight">\(tr(M)\)</span> is the sum of the values on its main diagonal. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span>
-        <span class="p">[</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">20</span><span class="p">,</span>  <span class="mi">30</span><span class="p">],</span>
-        <span class="p">[</span>  <span class="mi">1</span><span class="p">,</span>   <span class="mi">2</span><span class="p">,</span>   <span class="mi">3</span><span class="p">],</span>
-    <span class="p">])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>D = np.array([
+        [100, 200, 300],
+        [ 10,  20,  30],
+        [  1,   2,   3],
+    ])
+np.trace(D)
 </pre></div>
 </div>
 </div>
@@ -4352,7 +4352,7 @@ d &amp; e &amp; f
 <p>It does, however, have a useful geometric interpretation in the case of projection matrices (such as <span class="math notranslate nohighlight">\(F_{project}\)</span> that we discussed earlier): it corresponds to the number of dimensions after projection. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">F_project</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.trace(F_project)
 </pre></div>
 </div>
 </div>

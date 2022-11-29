@@ -1160,7 +1160,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1479,31 +1479,31 @@ title="Print to PDF"
 <p>In this section we fit a CNN to the <a class="reference external" href="https://keras.io/api/datasets/cifar100/">CIFAR100 data</a>, which is available in the <a class="reference external" href="https://keras.io">Keras</a> package. It is arranged in a similar fashion as the MNIST data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;3&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
+import pickle
+from pprint import pprint
+os.environ[&#39;TF_CPP_MIN_LOG_LEVEL&#39;]=&#39;3&#39;
 
 
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">cifar100</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Dense</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.losses</span> <span class="kn">import</span> <span class="n">sparse_categorical_crossentropy</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">load_model</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+import altair as alt
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
+from tensorflow.keras.datasets import cifar100
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense
+from tensorflow.keras.losses import sparse_categorical_crossentropy
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import to_categorical
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
+%matplotlib inline
 
-<span class="c1"># load the data</span>
-<span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">cifar100</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">label_mode</span><span class="o">=</span><span class="s1">&#39;fine&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train matrix shape&quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test matrix shape&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Range of values train matrix: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> ... </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+# load the data
+(X_train, y_train), (X_test, y_test) = cifar100.load_data(label_mode=&#39;fine&#39;)
+print(&quot;Train matrix shape&quot;, X_train.shape)
+print(&quot;Test matrix shape&quot;, X_test.shape)
+print(f&quot;Range of values train matrix: {X_train.min()} ... {X_train.max()}&quot;)
 </pre></div>
 </div>
 </div>
@@ -1518,15 +1518,15 @@ Range of values train matrix: 0 ... 255
 <p>The array of 50,000 training images has four dimesnions: each three-color image is represented as a set of three channels, each of which consists of <span class="math notranslate nohighlight">\(32 \times 32\)</span> eight-bit pixels. We standardize as we dit for the digits, but keep the array structure. We one-hot encode the response factors to produce a 100-column binary matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train = X_train.astype(&#39;float32&#39;) / 255
+X_test = X_test.astype(&#39;float32&#39;) / 255
 
-<span class="c1"># one-hot encoding using keras&#39; numpy-related utilities</span>
-<span class="n">n_classes</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape before one-hot encoding: &quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
-<span class="n">Y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape after one-hot encoding: &quot;</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+# one-hot encoding using keras&#39; numpy-related utilities
+n_classes = 100
+print(&quot;Shape before one-hot encoding: &quot;, y_train.shape)
+Y_train = to_categorical(y_train, n_classes)
+Y_test = to_categorical(y_test, n_classes)
+print(&quot;Shape after one-hot encoding: &quot;, Y_train.shape)
 </pre></div>
 </div>
 </div>
@@ -1540,12 +1540,12 @@ Shape after one-hot encoding:  (50000, 100)
 <p>Before we start, we look at some of the training images. The file <code class="docutils literal notranslate"><span class="pre">cifar100_meta</span></code> contains the label names.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="s1">&#39;fine_label_names&#39;</span><span class="p">][</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure()
+for i in range(3):
+    plt.subplot(1,3,i+1)
+    plt.imshow(X_train[i])
+    plt.title(f&quot;{labels[&#39;fine_label_names&#39;][y_train[i][0]]}&quot;)
+fig;
 </pre></div>
 </div>
 </div>
@@ -1559,22 +1559,22 @@ Shape after one-hot encoding:  (50000, 100)
 <p>Here we specify a moderately-sized CNN for demonstration purposes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># building a linear stack of layers with the sequential model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># building a linear stack of layers with the sequential model
+model = Sequential()
+model.add(Conv2D(32, kernel_size=(3, 3), padding=&#39;same&#39;, activation=&#39;relu&#39;, input_shape= (32, 32, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(64, kernel_size=(3, 3), padding=&#39;same&#39;, activation=&#39;relu&#39;))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(128, kernel_size=(3, 3), padding=&#39;same&#39;, activation=&#39;relu&#39;))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(256, kernel_size=(3, 3), padding=&#39;same&#39;, activation=&#39;relu&#39;))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dropout(0.5))
+model.add(Dense(512, activation=&#39;relu&#39;))
+model.add(Dense(100, activation=&#39;softmax&#39;))
 
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+model.summary()
 </pre></div>
 </div>
 </div>
@@ -1627,18 +1627,18 @@ _________________________________________________________________
 <p>Finally, we specify the fitting algorithm, and fit the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="c1"># compiling the sequential model</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
+# compiling the sequential model
+model.compile(loss=&#39;categorical_crossentropy&#39;, metrics=[&#39;accuracy&#39;], optimizer=&#39;adam&#39;)
 
-<span class="c1"># training the model and saving metrics in history</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+# training the model and saving metrics in history
+history = model.fit(X_train, Y_train,
+          batch_size=128, epochs=30, validation_split=0.2)
 
-<span class="c1"># save the model</span>
-<span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;keras_cifar100.h5&#39;</span>
-<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved trained model at </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+# save the model
+model_name = &#39;keras_cifar100.h5&#39;
+model.save(model_name)
+print(f&#39;Saved trained model at {model_name}&#39;)
 </pre></div>
 </div>
 </div>
@@ -1712,26 +1712,26 @@ Wall time: 10min 44s
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plotting the metrics</span>
-<span class="n">_</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;epoch&quot;</span><span class="p">})</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;training&quot;</span><span class="p">),</span>
-        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">:</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;val_loss&quot;</span><span class="p">:</span> <span class="s2">&quot;loss&quot;</span><span class="p">})</span>
-        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;validation&quot;</span><span class="p">),</span>
-    <span class="p">],</span>
-    <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;epoch:Q&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;,.2f&quot;</span><span class="p">)])</span>
-<span class="n">accuracy</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;epoch:Q&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;,.2f&quot;</span><span class="p">)]</span> <span class="p">)</span>
-<span class="n">loss</span> <span class="o">|</span> <span class="n">accuracy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># plotting the metrics
+_ = (
+    pd.DataFrame(history.history)
+    .reset_index()
+    .rename(columns={&quot;index&quot;: &quot;epoch&quot;})
+    .assign(epoch=lambda df: df.epoch + 1)
+)
+df = pd.concat(
+    [
+        _.iloc[:, 0:3].assign(fold=&quot;training&quot;),
+        _.iloc[:, [0, -2, -1]]
+        .rename(columns={&quot;val_accuracy&quot;: &quot;accuracy&quot;, &quot;val_loss&quot;: &quot;loss&quot;})
+        .assign(fold=&quot;validation&quot;),
+    ],
+    axis=0,
+).reset_index(drop=True)
+base = alt.Chart(df).mark_line(point=True)
+loss = base.encode(x=&quot;epoch:Q&quot;, y=&quot;loss&quot;, color=&quot;fold&quot;, tooltip=[&quot;epoch&quot;, alt.Tooltip(&quot;loss&quot;, format=&quot;,.2f&quot;)])
+accuracy = base.encode(x=&quot;epoch:Q&quot;, y=&quot;accuracy&quot;, color=&quot;fold&quot;, tooltip=[&quot;epoch&quot;, alt.Tooltip(&quot;accuracy&quot;, format=&quot;,.2f&quot;)] )
+loss | accuracy
 </pre></div>
 </div>
 </div>
@@ -1790,9 +1790,9 @@ Wall time: 10min 44s
 <p>This model takes 10 minutes to run and achieves 46% accuracy on the test data. Although this is not terrible for 100-class data (a random classifier gets 1% accuracy), searching the web we see results around 75%. Typically, it takes a lot of architecture carpentry, fiddling with regularization, and time to achieve such results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Loss: </span><span class="si">{</span><span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test Accuracy: </span><span class="si">{</span><span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>loss_and_metrics = model.evaluate(X_test, Y_test, verbose=2)
+print(f&quot;Test Loss: {loss_and_metrics[0]:.3f}&quot;)
+print(f&quot;Test Accuracy: {loss_and_metrics[1]:.3f}&quot;)
 </pre></div>
 </div>
 </div>

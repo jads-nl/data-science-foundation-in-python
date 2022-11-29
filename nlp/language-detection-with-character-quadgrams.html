@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Extra: plot of transformer model sizes" href="nlp-model-sizes.html" />
-    <link rel="prev" title="Predict detractors from reviews" href="nlp-pipeline-example.html" />
+    <link rel="prev" title="Objective" href="nlp-pipeline-example.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -1469,27 +1469,27 @@ title="Print to PDF"
 <p><a class="reference external" href="https://pypi.org/project/pycld2/">pycld2</a> is a fork of this C++ library. To demonstrate the effectiveness of character quadgrams for language detection, what is the percentage English vs. Dutch posts in my LinkedIn activity?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">pycld2</span> <span class="k">as</span> <span class="nn">cld2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import altair as alt
+import pandas as pd
+import pycld2 as cld2
 
 
-<span class="n">posts_data</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/jads-nl/public-lectures/blob/main/nlp/data/linkedin-shares.csv?raw=true&quot;</span>
-<span class="n">posts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">posts_data</span><span class="p">)</span>
-<span class="n">posts</span><span class="p">[[</span><span class="s2">&quot;IsReliable&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;languages_detected&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="n">posts</span><span class="o">.</span><span class="n">ShareCommentary</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">cld2</span><span class="o">.</span><span class="n">detect</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">index</span><span class="o">=</span><span class="n">posts</span><span class="o">.</span><span class="n">index</span>
-<span class="p">)</span>
-<span class="n">posts</span><span class="p">[[</span><span class="s2">&quot;first_lang&quot;</span><span class="p">,</span> <span class="s2">&quot;first_lang_perc&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="n">posts</span><span class="o">.</span><span class="n">languages_detected</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]])</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-    <span class="n">index</span><span class="o">=</span><span class="n">posts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
-<span class="p">)</span>
+posts_data = &quot;https://github.com/jads-nl/public-lectures/blob/main/nlp/data/linkedin-shares.csv?raw=true&quot;
+posts = pd.read_csv(posts_data)
+posts[[&quot;IsReliable&quot;, &quot;length&quot;, &quot;languages_detected&quot;]] = pd.DataFrame(
+    posts.ShareCommentary.astype(&quot;str&quot;).apply(cld2.detect).tolist(), index=posts.index
+)
+posts[[&quot;first_lang&quot;, &quot;first_lang_perc&quot;]] = pd.DataFrame(
+    posts.languages_detected.apply(lambda x: [x[0][1], x[0][2]]).tolist(),
+    index=posts.index,
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pycld2</span> <span class="k">as</span> <span class="nn">cld2</span>
@@ -1503,14 +1503,14 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">posts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>posts.head()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">posts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 
 <span class="ne">NameError</span>: name &#39;posts&#39; is not defined
@@ -1520,17 +1520,17 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s2">&quot;length:Q&quot;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Bin</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Facet</span><span class="p">(</span><span class="s1">&#39;first_lang:N&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(posts).mark_bar().encode(
+    alt.X(&quot;length:Q&quot;, bin=alt.Bin(maxbins=20)),
+    alt.Y(&#39;count()&#39;, stack=None),
+    alt.Facet(&#39;first_lang:N&#39;, columns=2))
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s2">&quot;length:Q&quot;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Bin</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
@@ -1562,41 +1562,41 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fetch text</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-<span class="kn">import</span> <span class="nn">requests</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># fetch text
+from bs4 import BeautifulSoup
+import requests
 
 
-<span class="n">lang_id</span> <span class="o">=</span> <span class="s2">&quot;dut&quot;</span>
-<span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=</span><span class="si">{</span><span class="n">lang_id</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
-<span class="n">soup</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;udhrtext&quot;</span><span class="p">})</span>
+lang_id = &quot;dut&quot;
+url = f&quot;https://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID={lang_id}&quot;
+soup = BeautifulSoup(requests.get(url).content, &quot;html.parser&quot;)
+soup.body.find(&quot;span&quot;, attrs={&quot;class&quot;: &quot;udhrtext&quot;})
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># count n-grams in string</span>
-<span class="k">def</span> <span class="nf">count_n_grams_frequencies</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Counts frequency of n-grams for str_.</span>
-<span class="sd">    </span>
-<span class="sd">    Note that string should be cleaned such that</span>
-<span class="sd">    - only lower case</span>
-<span class="sd">    - punctuation is replaced by whitespace</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># count n-grams in string
+def count_n_grams_frequencies(text, n=4):
+    &quot;&quot;&quot;Counts frequency of n-grams for str_.
+    
+    Note that string should be cleaned such that
+    - only lower case
+    - punctuation is replaced by whitespace
+    &quot;&quot;&quot;
+    from collections import Counter
     
     
-    <span class="n">frequencies</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">n_gram</span> <span class="ow">in</span> <span class="p">[</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">-</span><span class="n">n</span><span class="p">))]:</span>
-        <span class="n">frequencies</span><span class="p">[</span><span class="n">n_gram</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    frequencies = Counter()
+    for n_gram in [text[i:i+n] for i in range(0, (len(text)-n))]:
+        frequencies[n_gram] += 1
 
-    <span class="k">return</span> <span class="n">frequencies</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+    return frequencies.most_common()
 
 
-<span class="n">example</span> <span class="o">=</span> <span class="s2">&quot;the quick brown fox jumps over the lazy dog &quot;</span>
-<span class="n">count_n_grams_frequencies</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+example = &quot;the quick brown fox jumps over the lazy dog &quot;
+count_n_grams_frequencies(example)
     
 </pre></div>
 </div>
@@ -1679,7 +1679,7 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Predict detractors from reviews</p>
+            <p class="prev-next-title">Objective</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="nlp-model-sizes.html" title="next page">

@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1665,58 +1665,58 @@ title="Print to PDF"
 <p>First, let’s import a few common modules, ensure MatplotLib plots figures inline and prepare a function to save the figures. We also check that Python 3.5 or later is installed (although Python 2.x may work, it is deprecated so we strongly recommend you use Python 3 instead), as well as Scikit-Learn ≥0.20 and TensorFlow ≥2.0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Python ≥3.5 is required</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">assert</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Python ≥3.5 is required
+import sys
+assert sys.version_info &gt;= (3, 5)
 
-<span class="c1"># Is this notebook running on Colab or Kaggle?</span>
-<span class="n">IS_COLAB</span> <span class="o">=</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
-<span class="n">IS_KAGGLE</span> <span class="o">=</span> <span class="s2">&quot;kaggle_secrets&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+# Is this notebook running on Colab or Kaggle?
+IS_COLAB = &quot;google.colab&quot; in sys.modules
+IS_KAGGLE = &quot;kaggle_secrets&quot; in sys.modules
 
-<span class="c1"># Scikit-Learn ≥0.20 is required</span>
-<span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="k">assert</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&gt;=</span> <span class="s2">&quot;0.20&quot;</span>
+# Scikit-Learn ≥0.20 is required
+import sklearn
+assert sklearn.__version__ &gt;= &quot;0.20&quot;
 
-<span class="c1"># TensorFlow ≥2.0 is required</span>
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-<span class="k">assert</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&gt;=</span> <span class="s2">&quot;2.0&quot;</span>
+# TensorFlow ≥2.0 is required
+import tensorflow as tf
+from tensorflow import keras
+assert tf.__version__ &gt;= &quot;2.0&quot;
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s1">&#39;GPU&#39;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No GPU was detected. CNNs can be very slow without a GPU.&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">IS_COLAB</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Go to Runtime &gt; Change runtime and select a GPU hardware accelerator.&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">IS_KAGGLE</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Go to Settings &gt; Accelerator and select GPU.&quot;</span><span class="p">)</span>
+if not tf.config.list_physical_devices(&#39;GPU&#39;):
+    print(&quot;No GPU was detected. CNNs can be very slow without a GPU.&quot;)
+    if IS_COLAB:
+        print(&quot;Go to Runtime &gt; Change runtime and select a GPU hardware accelerator.&quot;)
+    if IS_KAGGLE:
+        print(&quot;Go to Settings &gt; Accelerator and select GPU.&quot;)
 
-<span class="c1"># Common imports</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
+# Common imports
+import numpy as np
+import os
 
-<span class="c1"># to make this notebook&#39;s output stable across runs</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+# to make this notebook&#39;s output stable across runs
+np.random.seed(42)
+tf.random.set_seed(42)
 
-<span class="c1"># To plot pretty figures</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;xtick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;ytick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+# To plot pretty figures
+%matplotlib inline
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+mpl.rc(&#39;axes&#39;, labelsize=14)
+mpl.rc(&#39;xtick&#39;, labelsize=12)
+mpl.rc(&#39;ytick&#39;, labelsize=12)
 
-<span class="c1"># Where to save the figures</span>
-<span class="n">PROJECT_ROOT_DIR</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
-<span class="n">CHAPTER_ID</span> <span class="o">=</span> <span class="s2">&quot;cnn&quot;</span>
-<span class="n">IMAGES_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PROJECT_ROOT_DIR</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">CHAPTER_ID</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">IMAGES_PATH</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+# Where to save the figures
+PROJECT_ROOT_DIR = &quot;.&quot;
+CHAPTER_ID = &quot;cnn&quot;
+IMAGES_PATH = os.path.join(PROJECT_ROOT_DIR, &quot;images&quot;, CHAPTER_ID)
+os.makedirs(IMAGES_PATH, exist_ok=True)
 
-<span class="k">def</span> <span class="nf">save_fig</span><span class="p">(</span><span class="n">fig_id</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fig_extension</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">IMAGES_PATH</span><span class="p">,</span> <span class="n">fig_id</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">fig_extension</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving figure&quot;</span><span class="p">,</span> <span class="n">fig_id</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">tight_layout</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">fig_extension</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">resolution</span><span class="p">)</span>
+def save_fig(fig_id, tight_layout=True, fig_extension=&quot;png&quot;, resolution=300):
+    path = os.path.join(IMAGES_PATH, fig_id + &quot;.&quot; + fig_extension)
+    print(&quot;Saving figure&quot;, fig_id)
+    if tight_layout:
+        plt.tight_layout()
+    plt.savefig(path, format=fig_extension, dpi=resolution)
 </pre></div>
 </div>
 </div>
@@ -1724,13 +1724,13 @@ title="Print to PDF"
 <p>A couple utility functions to plot grayscale and RGB images:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_image(image):
+    plt.imshow(image, cmap=&quot;gray&quot;, interpolation=&quot;nearest&quot;)
+    plt.axis(&quot;off&quot;)
 
-<span class="k">def</span> <span class="nf">plot_color_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+def plot_color_image(image):
+    plt.imshow(image, interpolation=&quot;nearest&quot;)
+    plt.axis(&quot;off&quot;)
 </pre></div>
 </div>
 </div>
@@ -1740,25 +1740,25 @@ title="Print to PDF"
 <h1>What is a Convolution?<a class="headerlink" href="#what-is-a-convolution" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_sample_image</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+from sklearn.datasets import load_sample_image
 
-<span class="c1"># Load sample images</span>
-<span class="n">china</span> <span class="o">=</span> <span class="n">load_sample_image</span><span class="p">(</span><span class="s2">&quot;china.jpg&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
-<span class="n">flower</span> <span class="o">=</span> <span class="n">load_sample_image</span><span class="p">(</span><span class="s2">&quot;flower.jpg&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
-<span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">china</span><span class="p">,</span> <span class="n">flower</span><span class="p">])</span>
-<span class="n">batch_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span>
+# Load sample images
+china = load_sample_image(&quot;china.jpg&quot;) / 255
+flower = load_sample_image(&quot;flower.jpg&quot;) / 255
+images = np.array([china, flower])
+batch_size, height, width, channels = images.shape
 
-<span class="c1"># Create 2 filters</span>
-<span class="n">filters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">filters</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># vertical line</span>
-<span class="n">filters</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># horizontal line</span>
+# Create 2 filters
+filters = np.zeros(shape=(7, 7, channels, 2), dtype=np.float32)
+filters[:, 3, :, 0] = 1  # vertical line
+filters[3, :, :, 1] = 1  # horizontal line
 
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;SAME&quot;</span><span class="p">)</span>
+outputs = tf.nn.conv2d(images, filters, strides=1, padding=&quot;SAME&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span> <span class="c1"># plot 1st image&#39;s 2nd feature map</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span> <span class="c1"># Not shown in the book</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.imshow(outputs[0, :, :, 1], cmap=&quot;gray&quot;) # plot 1st image&#39;s 2nd feature map
+plt.axis(&quot;off&quot;) # Not shown in the book
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1768,12 +1768,12 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">image_index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">feature_map_index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">image_index</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">feature_map_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">plot_image</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="n">image_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">feature_map_index</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for image_index in (0, 1):
+    for feature_map_index in (0, 1):
+        plt.subplot(2, 2, image_index * 2 + feature_map_index + 1)
+        plot_image(outputs[image_index, :, :, feature_map_index])
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1783,22 +1783,22 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">crop</span><span class="p">(</span><span class="n">images</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">images</span><span class="p">[</span><span class="mi">150</span><span class="p">:</span><span class="mi">220</span><span class="p">,</span> <span class="mi">130</span><span class="p">:</span><span class="mi">250</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def crop(images):
+    return images[150:220, 130:250]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_image</span><span class="p">(</span><span class="n">crop</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]))</span>
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;china_original&quot;</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_image(crop(images[0, :, :, 0]))
+save_fig(&quot;china_original&quot;, tight_layout=False)
+plt.show()
 
-<span class="k">for</span> <span class="n">feature_map_index</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">&quot;china_vertical&quot;</span><span class="p">,</span> <span class="s2">&quot;china_horizontal&quot;</span><span class="p">]):</span>
-    <span class="n">plot_image</span><span class="p">(</span><span class="n">crop</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">feature_map_index</span><span class="p">]))</span>
-    <span class="n">save_fig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+for feature_map_index, filename in enumerate([&quot;china_vertical&quot;, &quot;china_horizontal&quot;]):
+    plot_image(crop(outputs[0, :, :, feature_map_index]))
+    save_fig(filename, tight_layout=False)
+    plt.show()
 </pre></div>
 </div>
 </div>
@@ -1819,10 +1819,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_image</span><span class="p">(</span><span class="n">filters</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plot_image</span><span class="p">(</span><span class="n">filters</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_image(filters[:, :, 0, 0])
+plt.show()
+plot_image(filters[:, :, 0, 1])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1836,11 +1836,11 @@ title="Print to PDF"
 <p>Let’s create a 2D convolutional layer, using <code class="docutils literal notranslate"><span class="pre">keras.layers.Conv2D()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.random.seed(42)
+tf.random.set_seed(42)
 
-<span class="n">conv</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                           <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;SAME&quot;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="n">outputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+conv = keras.layers.Conv2D(filters=2, kernel_size=7, strides=1,
+                           padding=&quot;SAME&quot;, activation=&quot;relu&quot;, input_shape=outputs.shape)
 </pre></div>
 </div>
 </div>
@@ -1848,8 +1848,8 @@ title="Print to PDF"
 <p>Let’s call this layer, passing it the two test images:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conv_outputs</span> <span class="o">=</span> <span class="n">conv</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
-<span class="n">conv_outputs</span><span class="o">.</span><span class="n">shape</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conv_outputs = conv(images)
+conv_outputs.shape 
 </pre></div>
 </div>
 </div>
@@ -1863,12 +1863,12 @@ title="Print to PDF"
 <p>Since the filters are initialized randomly, they’ll initially detect random patterns. Let’s take a look at the 2 output features maps for each image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">image_index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">feature_map_index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">image_index</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">feature_map_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">plot_image</span><span class="p">(</span><span class="n">crop</span><span class="p">(</span><span class="n">conv_outputs</span><span class="p">[</span><span class="n">image_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">feature_map_index</span><span class="p">]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(10,6))
+for image_index in (0, 1):
+    for feature_map_index in (0, 1):
+        plt.subplot(2, 2, image_index * 2 + feature_map_index + 1)
+        plot_image(crop(conv_outputs[image_index, :, :, feature_map_index]))
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1880,7 +1880,7 @@ title="Print to PDF"
 <p>If we want, we can set the filters to be the ones we manually defined earlier, and set the biases to zeros (in real life we will almost never need to set filters or biases manually, as the convolutional layer will just learn the appropriate filters and biases during training):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span><span class="o">.</span><span class="n">set_weights</span><span class="p">([</span><span class="n">filters</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conv.set_weights([filters, np.zeros(2)])
 </pre></div>
 </div>
 </div>
@@ -1888,8 +1888,8 @@ title="Print to PDF"
 <p>Now let’s call this layer again on the same two images, and let’s check that the output feature maps do highlight vertical lines and horizontal lines, respectively (as earlier):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conv_outputs</span> <span class="o">=</span> <span class="n">conv</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
-<span class="n">conv_outputs</span><span class="o">.</span><span class="n">shape</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conv_outputs = conv(images)
+conv_outputs.shape 
 </pre></div>
 </div>
 </div>
@@ -1901,12 +1901,12 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">image_index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">feature_map_index</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">image_index</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">feature_map_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">plot_image</span><span class="p">(</span><span class="n">crop</span><span class="p">(</span><span class="n">conv_outputs</span><span class="p">[</span><span class="n">image_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">feature_map_index</span><span class="p">]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(10,6))
+for image_index in (0, 1):
+    for feature_map_index in (0, 1):
+        plt.subplot(2, 2, image_index * 2 + feature_map_index + 1)
+        plot_image(crop(conv_outputs[image_index, :, :, feature_map_index]))
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1919,38 +1919,38 @@ title="Print to PDF"
 <h2>VALID vs SAME padding<a class="headerlink" href="#valid-vs-same-padding" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">feature_map_size</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;SAME&quot;</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">padding</span> <span class="o">==</span> <span class="s2">&quot;SAME&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">input_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">strides</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">input_size</span> <span class="o">-</span> <span class="n">kernel_size</span><span class="p">)</span> <span class="o">//</span> <span class="n">strides</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def feature_map_size(input_size, kernel_size, strides=1, padding=&quot;SAME&quot;):
+    if padding == &quot;SAME&quot;:
+        return (input_size - 1) // strides + 1
+    else:
+        return (input_size - kernel_size) // strides + 1
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pad_before_and_padded_size</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">fmap_size</span> <span class="o">=</span> <span class="n">feature_map_size</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="p">)</span>
-    <span class="n">padded_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">fmap_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">strides</span> <span class="o">+</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">input_size</span><span class="p">)</span>
-    <span class="n">pad_before</span> <span class="o">=</span> <span class="p">(</span><span class="n">padded_size</span> <span class="o">-</span> <span class="n">input_size</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-    <span class="k">return</span> <span class="n">pad_before</span><span class="p">,</span> <span class="n">padded_size</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def pad_before_and_padded_size(input_size, kernel_size, strides=1):
+    fmap_size = feature_map_size(input_size, kernel_size, strides)
+    padded_size = max((fmap_size - 1) * strides + kernel_size, input_size)
+    pad_before = (padded_size - input_size) // 2
+    return pad_before, padded_size
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">manual_same_padding</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">kernel_size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-    <span class="n">batch_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">top_pad</span><span class="p">,</span> <span class="n">padded_height</span> <span class="o">=</span> <span class="n">pad_before_and_padded_size</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="p">)</span>
-    <span class="n">left_pad</span><span class="p">,</span> <span class="n">padded_width</span>  <span class="o">=</span> <span class="n">pad_before_and_padded_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="p">)</span>
-    <span class="n">padded_shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">padded_height</span><span class="p">,</span> <span class="n">padded_width</span><span class="p">,</span> <span class="n">channels</span><span class="p">]</span>
-    <span class="n">padded_images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">padded_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-    <span class="n">padded_images</span><span class="p">[:,</span> <span class="n">top_pad</span><span class="p">:</span><span class="n">height</span><span class="o">+</span><span class="n">top_pad</span><span class="p">,</span> <span class="n">left_pad</span><span class="p">:</span><span class="n">width</span><span class="o">+</span><span class="n">left_pad</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">images</span>
-    <span class="k">return</span> <span class="n">padded_images</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def manual_same_padding(images, kernel_size, strides=1):
+    if kernel_size == 1:
+        return images.astype(np.float32)
+    batch_size, height, width, channels = images.shape
+    top_pad, padded_height = pad_before_and_padded_size(height, kernel_size, strides)
+    left_pad, padded_width  = pad_before_and_padded_size(width, kernel_size, strides)
+    padded_shape = [batch_size, padded_height, padded_width, channels]
+    padded_images = np.zeros(padded_shape, dtype=np.float32)
+    padded_images[:, top_pad:height+top_pad, left_pad:width+left_pad, :] = images
+    return padded_images
 </pre></div>
 </div>
 </div>
@@ -1958,23 +1958,23 @@ title="Print to PDF"
 <p>Using <code class="docutils literal notranslate"><span class="pre">&quot;SAME&quot;</span></code> padding is equivalent to padding manually using <code class="docutils literal notranslate"><span class="pre">manual_same_padding()</span></code> then using <code class="docutils literal notranslate"><span class="pre">&quot;VALID&quot;</span></code> padding (confusingly, <code class="docutils literal notranslate"><span class="pre">&quot;VALID&quot;</span></code> padding means no padding at all):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">7</span>
-<span class="n">strides</span> <span class="o">=</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel_size = 7
+strides = 2
 
-<span class="n">conv_valid</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;VALID&quot;</span><span class="p">)</span>
-<span class="n">conv_same</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;SAME&quot;</span><span class="p">)</span>
+conv_valid = keras.layers.Conv2D(filters=1, kernel_size=kernel_size, strides=strides, padding=&quot;VALID&quot;)
+conv_same = keras.layers.Conv2D(filters=1, kernel_size=kernel_size, strides=strides, padding=&quot;SAME&quot;)
 
-<span class="n">valid_output</span> <span class="o">=</span> <span class="n">conv_valid</span><span class="p">(</span><span class="n">manual_same_padding</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">strides</span><span class="p">))</span>
+valid_output = conv_valid(manual_same_padding(images, kernel_size, strides))
 
-<span class="c1"># Need to call build() so conv_same&#39;s weights get created</span>
-<span class="n">conv_same</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">(</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+# Need to call build() so conv_same&#39;s weights get created
+conv_same.build(tf.TensorShape(images.shape))
 
-<span class="c1"># Copy the weights from conv_valid to conv_same</span>
-<span class="n">conv_same</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">conv_valid</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+# Copy the weights from conv_valid to conv_same
+conv_same.set_weights(conv_valid.get_weights())
 
-<span class="n">same_output</span> <span class="o">=</span> <span class="n">conv_same</span><span class="p">(</span><span class="n">images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+same_output = conv_same(images.astype(np.float32))
 
-<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">valid_output</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">same_output</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+assert np.allclose(valid_output.numpy(), same_output.numpy())
 </pre></div>
 </div>
 </div>
@@ -1987,34 +1987,34 @@ title="Print to PDF"
 <h2>Max pooling<a class="headerlink" href="#max-pooling" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_pool</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>max_pool = keras.layers.MaxPool2D(pool_size=2)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cropped_images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">crop</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">max_pool</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cropped_images = np.array([crop(image) for image in images], dtype=np.float32)
+output = max_pool(cropped_images)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">gs</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 8))
+gs = mpl.gridspec.GridSpec(nrows=1, ncols=2, width_ratios=[2, 1])
 
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the 1st image</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Output&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the output for the 1st image</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">save_fig</span><span class="p">(</span><span class="s2">&quot;china_max_pooling&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+ax1 = fig.add_subplot(gs[0, 0])
+ax1.set_title(&quot;Input&quot;, fontsize=14)
+ax1.imshow(cropped_images[0])  # plot the 1st image
+ax1.axis(&quot;off&quot;)
+ax2 = fig.add_subplot(gs[0, 1])
+ax2.set_title(&quot;Output&quot;, fontsize=14)
+ax2.imshow(output[0])  # plot the output for the 1st image
+ax2.axis(&quot;off&quot;)
+save_fig(&quot;china_max_pooling&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2030,29 +2030,29 @@ title="Print to PDF"
 <h2>Depth-wise pooling<a class="headerlink" href="#depth-wise-pooling" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DepthMaxPool</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;VALID&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">strides</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">strides</span> <span class="o">=</span> <span class="n">pool_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span> <span class="o">=</span> <span class="n">pool_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">strides</span> <span class="o">=</span> <span class="n">strides</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">padding</span>
-    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">max_pool</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span>
-                              <span class="n">ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span><span class="p">),</span>
-                              <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool_size</span><span class="p">),</span>
-                              <span class="n">padding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class DepthMaxPool(keras.layers.Layer):
+    def __init__(self, pool_size, strides=None, padding=&quot;VALID&quot;, **kwargs):
+        super().__init__(**kwargs)
+        if strides is None:
+            strides = pool_size
+        self.pool_size = pool_size
+        self.strides = strides
+        self.padding = padding
+    def call(self, inputs):
+        return tf.nn.max_pool(inputs,
+                              ksize=(1, 1, 1, self.pool_size),
+                              strides=(1, 1, 1, self.pool_size),
+                              padding=self.padding)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">depth_pool</span> <span class="o">=</span> <span class="n">DepthMaxPool</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;/cpu:0&quot;</span><span class="p">):</span> <span class="c1"># there is no GPU-kernel yet</span>
-    <span class="n">depth_output</span> <span class="o">=</span> <span class="n">depth_pool</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">)</span>
-<span class="n">depth_output</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>depth_pool = DepthMaxPool(3)
+with tf.device(&quot;/cpu:0&quot;): # there is no GPU-kernel yet
+    depth_output = depth_pool(cropped_images)
+depth_output.shape
 </pre></div>
 </div>
 </div>
@@ -2065,11 +2065,11 @@ title="Print to PDF"
 <p>Or just use a <code class="docutils literal notranslate"><span class="pre">Lambda</span></code> layer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">depth_pool</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">max_pool</span><span class="p">(</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;VALID&quot;</span><span class="p">))</span>
-<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;/cpu:0&quot;</span><span class="p">):</span> <span class="c1"># there is no GPU-kernel yet</span>
-    <span class="n">depth_output</span> <span class="o">=</span> <span class="n">depth_pool</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">)</span>
-<span class="n">depth_output</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>depth_pool = keras.layers.Lambda(lambda X: tf.nn.max_pool(
+    X, ksize=(1, 1, 1, 3), strides=(1, 1, 1, 3), padding=&quot;VALID&quot;))
+with tf.device(&quot;/cpu:0&quot;): # there is no GPU-kernel yet
+    depth_output = depth_pool(cropped_images)
+depth_output.shape
 </pre></div>
 </div>
 </div>
@@ -2081,15 +2081,15 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plot_color_image</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the 1st image</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Output&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plot_image</span><span class="p">(</span><span class="n">depth_output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the output for the 1st image</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12, 8))
+plt.subplot(1, 2, 1)
+plt.title(&quot;Input&quot;, fontsize=14)
+plot_color_image(cropped_images[0])  # plot the 1st image
+plt.subplot(1, 2, 2)
+plt.title(&quot;Output&quot;, fontsize=14)
+plot_image(depth_output[0, ..., 0])  # plot the output for the 1st image
+plt.axis(&quot;off&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2102,32 +2102,32 @@ title="Print to PDF"
 <h2>Average pooling<a class="headerlink" href="#average-pooling" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">avg_pool</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">AvgPool2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>avg_pool = keras.layers.AvgPool2D(pool_size=2)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output_avg</span> <span class="o">=</span> <span class="n">avg_pool</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>output_avg = avg_pool(cropped_images)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">gs</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure(figsize=(12, 8))
+gs = mpl.gridspec.GridSpec(nrows=1, ncols=2, width_ratios=[2, 1])
 
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the 1st image</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Output&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">output_avg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the output for the 1st image</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+ax1 = fig.add_subplot(gs[0, 0])
+ax1.set_title(&quot;Input&quot;, fontsize=14)
+ax1.imshow(cropped_images[0])  # plot the 1st image
+ax1.axis(&quot;off&quot;)
+ax2 = fig.add_subplot(gs[0, 1])
+ax2.set_title(&quot;Output&quot;, fontsize=14)
+ax2.imshow(output_avg[0])  # plot the output for the 1st image
+ax2.axis(&quot;off&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2140,8 +2140,8 @@ title="Print to PDF"
 <h2>Global Average Pooling<a class="headerlink" href="#global-average-pooling" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">global_avg_pool</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAvgPool2D</span><span class="p">()</span>
-<span class="n">global_avg_pool</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>global_avg_pool = keras.layers.GlobalAvgPool2D()
+global_avg_pool(cropped_images)
 </pre></div>
 </div>
 </div>
@@ -2155,8 +2155,8 @@ array([[0.27887768, 0.2250719 , 0.20967274],
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output_global_avg2</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
-<span class="n">output_global_avg2</span><span class="p">(</span><span class="n">cropped_images</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>output_global_avg2 = keras.layers.Lambda(lambda X: tf.reduce_mean(X, axis=[1, 2]))
+output_global_avg2(cropped_images)
 </pre></div>
 </div>
 </div>
@@ -2174,57 +2174,57 @@ array([[0.27887768, 0.2250719 , 0.20967274],
 <h1>Tackling Fashion MNIST With a CNN<a class="headerlink" href="#tackling-fashion-mnist-with-a-cnn" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">X_train_full</span><span class="p">,</span> <span class="n">y_train_full</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fashion_mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span> <span class="o">=</span> <span class="n">X_train_full</span><span class="p">[:</span><span class="o">-</span><span class="mi">5000</span><span class="p">],</span> <span class="n">X_train_full</span><span class="p">[</span><span class="o">-</span><span class="mi">5000</span><span class="p">:]</span>
-<span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">y_train_full</span><span class="p">[:</span><span class="o">-</span><span class="mi">5000</span><span class="p">],</span> <span class="n">y_train_full</span><span class="p">[</span><span class="o">-</span><span class="mi">5000</span><span class="p">:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(X_train_full, y_train_full), (X_test, y_test) = keras.datasets.fashion_mnist.load_data()
+X_train, X_valid = X_train_full[:-5000], X_train_full[-5000:]
+y_train, y_valid = y_train_full[:-5000], y_train_full[-5000:]
 
-<span class="n">X_mean</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">X_std</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-7</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_train</span> <span class="o">-</span> <span class="n">X_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">X_std</span>
-<span class="n">X_valid</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_valid</span> <span class="o">-</span> <span class="n">X_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">X_std</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_test</span> <span class="o">-</span> <span class="n">X_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">X_std</span>
+X_mean = X_train.mean(axis=0, keepdims=True)
+X_std = X_train.std(axis=0, keepdims=True) + 1e-7
+X_train = (X_train - X_mean) / X_std
+X_valid = (X_valid - X_mean) / X_std
+X_test = (X_test - X_mean) / X_std
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-<span class="n">X_valid</span> <span class="o">=</span> <span class="n">X_valid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+X_train = X_train[..., np.newaxis]
+X_valid = X_valid[..., np.newaxis]
+X_test = X_test[..., np.newaxis]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from functools import partial
 
-<span class="n">DefaultConv2D</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span>
-                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;SAME&quot;</span><span class="p">)</span>
+DefaultConv2D = partial(keras.layers.Conv2D,
+                        kernel_size=3, activation=&#39;relu&#39;, padding=&quot;SAME&quot;)
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-    <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">128</span><span class="p">),</span>
-    <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">128</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">256</span><span class="p">),</span>
-    <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">256</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">),</span>
-<span class="p">])</span>
+model = keras.models.Sequential([
+    DefaultConv2D(filters=64, kernel_size=7, input_shape=[28, 28, 1]),
+    keras.layers.MaxPooling2D(pool_size=2),
+    DefaultConv2D(filters=128),
+    DefaultConv2D(filters=128),
+    keras.layers.MaxPooling2D(pool_size=2),
+    DefaultConv2D(filters=256),
+    DefaultConv2D(filters=256),
+    keras.layers.MaxPooling2D(pool_size=2),
+    keras.layers.Flatten(),
+    keras.layers.Dense(units=128, activation=&#39;relu&#39;),
+    keras.layers.Dropout(0.5),
+    keras.layers.Dense(units=64, activation=&#39;relu&#39;),
+    keras.layers.Dropout(0.5),
+    keras.layers.Dense(units=10, activation=&#39;softmax&#39;),
+])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;nadam&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">))</span>
-<span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">X_new</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># pretend we have new images</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model.compile(loss=&quot;sparse_categorical_crossentropy&quot;, optimizer=&quot;nadam&quot;, metrics=[&quot;accuracy&quot;])
+history = model.fit(X_train, y_train, epochs=10, validation_data=(X_valid, y_valid))
+score = model.evaluate(X_test, y_test)
+X_new = X_test[:10] # pretend we have new images
+y_pred = model.predict(X_new)
 </pre></div>
 </div>
 </div>
@@ -2259,60 +2259,60 @@ Epoch 10/10
 <h2>ResNet-34<a class="headerlink" href="#resnet-34" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DefaultConv2D</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;SAME&quot;</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>DefaultConv2D = partial(keras.layers.Conv2D, kernel_size=3, strides=1,
+                        padding=&quot;SAME&quot;, use_bias=False)
 
-<span class="k">class</span> <span class="nc">ResidualUnit</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">activations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">activation</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_layers</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">),</span>
-            <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">,</span>
-            <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="p">),</span>
-            <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">skip_layers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">strides</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">skip_layers</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">DefaultConv2D</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">),</span>
-                <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()]</span>
+class ResidualUnit(keras.layers.Layer):
+    def __init__(self, filters, strides=1, activation=&quot;relu&quot;, **kwargs):
+        super().__init__(**kwargs)
+        self.activation = keras.activations.get(activation)
+        self.main_layers = [
+            DefaultConv2D(filters, strides=strides),
+            keras.layers.BatchNormalization(),
+            self.activation,
+            DefaultConv2D(filters),
+            keras.layers.BatchNormalization()]
+        self.skip_layers = []
+        if strides &gt; 1:
+            self.skip_layers = [
+                DefaultConv2D(filters, kernel_size=1, strides=strides),
+                keras.layers.BatchNormalization()]
 
-    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-        <span class="n">Z</span> <span class="o">=</span> <span class="n">inputs</span>
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_layers</span><span class="p">:</span>
-            <span class="n">Z</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
-        <span class="n">skip_Z</span> <span class="o">=</span> <span class="n">inputs</span>
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_layers</span><span class="p">:</span>
-            <span class="n">skip_Z</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">skip_Z</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">(</span><span class="n">Z</span> <span class="o">+</span> <span class="n">skip_Z</span><span class="p">)</span>
+    def call(self, inputs):
+        Z = inputs
+        for layer in self.main_layers:
+            Z = layer(Z)
+        skip_Z = inputs
+        for layer in self.skip_layers:
+            skip_Z = layer(skip_Z)
+        return self.activation(Z + skip_Z)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DefaultConv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                        <span class="n">input_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Activation</span><span class="p">(</span><span class="s2">&quot;relu&quot;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;SAME&quot;</span><span class="p">))</span>
-<span class="n">prev_filters</span> <span class="o">=</span> <span class="mi">64</span>
-<span class="k">for</span> <span class="n">filters</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="mi">256</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="mi">512</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">:</span>
-    <span class="n">strides</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">filters</span> <span class="o">==</span> <span class="n">prev_filters</span> <span class="k">else</span> <span class="mi">2</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ResidualUnit</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">))</span>
-    <span class="n">prev_filters</span> <span class="o">=</span> <span class="n">filters</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAvgPool2D</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = keras.models.Sequential()
+model.add(DefaultConv2D(64, kernel_size=7, strides=2,
+                        input_shape=[224, 224, 3]))
+model.add(keras.layers.BatchNormalization())
+model.add(keras.layers.Activation(&quot;relu&quot;))
+model.add(keras.layers.MaxPool2D(pool_size=3, strides=2, padding=&quot;SAME&quot;))
+prev_filters = 64
+for filters in [64] * 3 + [128] * 4 + [256] * 6 + [512] * 3:
+    strides = 1 if filters == prev_filters else 2
+    model.add(ResidualUnit(filters, strides=strides))
+    prev_filters = filters
+model.add(keras.layers.GlobalAvgPool2D())
+model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(10, activation=&quot;softmax&quot;))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model.summary()
 </pre></div>
 </div>
 </div>
@@ -2380,16 +2380,16 @@ _________________________________________________________________
 <h2>Using a Pretrained Model<a class="headerlink" href="#using-a-pretrained-model" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">resnet50</span><span class="o">.</span><span class="n">ResNet50</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s2">&quot;imagenet&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = keras.applications.resnet50.ResNet50(weights=&quot;imagenet&quot;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">images_resized</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">])</span>
-<span class="n">plot_color_image</span><span class="p">(</span><span class="n">images_resized</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>images_resized = tf.image.resize(images, [224, 224])
+plot_color_image(images_resized[0])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2399,8 +2399,8 @@ _________________________________________________________________
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">images_resized</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize_with_pad</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="n">antialias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plot_color_image</span><span class="p">(</span><span class="n">images_resized</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>images_resized = tf.image.resize_with_pad(images, 224, 224, antialias=True)
+plot_color_image(images_resized[0])
 </pre></div>
 </div>
 </div>
@@ -2414,9 +2414,9 @@ W0323 19:04:32.720291 140735783818112 image.py:648] Clipping input data to the v
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">images_resized</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize_with_crop_or_pad</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
-<span class="n">plot_color_image</span><span class="p">(</span><span class="n">images_resized</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>images_resized = tf.image.resize_with_crop_or_pad(images, 224, 224)
+plot_color_image(images_resized[0])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2426,13 +2426,13 @@ W0323 19:04:32.720291 140735783818112 image.py:648] Clipping input data to the v
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">china_box</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.68</span><span class="p">]</span>
-<span class="n">flower_box</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.19</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.86</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]</span>
-<span class="n">images_resized</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">crop_and_resize</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="p">[</span><span class="n">china_box</span><span class="p">,</span> <span class="n">flower_box</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">])</span>
-<span class="n">plot_color_image</span><span class="p">(</span><span class="n">images_resized</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plot_color_image</span><span class="p">(</span><span class="n">images_resized</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>china_box = [0, 0.03, 1, 0.68]
+flower_box = [0.19, 0.26, 0.86, 0.7]
+images_resized = tf.image.crop_and_resize(images, [china_box, flower_box], [0, 1], [224, 224])
+plot_color_image(images_resized[0])
+plt.show()
+plot_color_image(images_resized[1])
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2443,15 +2443,15 @@ W0323 19:04:32.720291 140735783818112 image.py:648] Clipping input data to the v
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">resnet50</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">(</span><span class="n">images_resized</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span>
-<span class="n">Y_proba</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>inputs = keras.applications.resnet50.preprocess_input(images_resized * 255)
+Y_proba = model.predict(inputs)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_proba</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Y_proba.shape
 </pre></div>
 </div>
 </div>
@@ -2463,12 +2463,12 @@ W0323 19:04:32.720291 140735783818112 image.py:648] Clipping input data to the v
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_K</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">resnet50</span><span class="o">.</span><span class="n">decode_predictions</span><span class="p">(</span><span class="n">Y_proba</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">image_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Image #</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">image_index</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">y_proba</span> <span class="ow">in</span> <span class="n">top_K</span><span class="p">[</span><span class="n">image_index</span><span class="p">]:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{:12s}</span><span class="s2"> </span><span class="si">{:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">y_proba</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>top_K = keras.applications.resnet50.decode_predictions(Y_proba, top=3)
+for image_index in range(len(images)):
+    print(&quot;Image #{}&quot;.format(image_index))
+    for class_id, name, y_proba in top_K[image_index]:
+        print(&quot;  {} - {:12s} {:.2f}%&quot;.format(class_id, name, y_proba * 100))
+    print()
 </pre></div>
 </div>
 </div>
@@ -2491,16 +2491,16 @@ Image #1
 <h2>Pretrained Models for Transfer Learning<a class="headerlink" href="#pretrained-models-for-transfer-learning" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow_datasets</span> <span class="k">as</span> <span class="nn">tfds</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import tensorflow_datasets as tfds
 
-<span class="n">dataset</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">tfds</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;tf_flowers&quot;</span><span class="p">,</span> <span class="n">as_supervised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+dataset, info = tfds.load(&quot;tf_flowers&quot;, as_supervised=True, with_info=True)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">splits</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>info.splits
 </pre></div>
 </div>
 </div>
@@ -2512,7 +2512,7 @@ Image #1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span><span class="n">splits</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>info.splits[&quot;train&quot;]
 </pre></div>
 </div>
 </div>
@@ -2524,8 +2524,8 @@ Image #1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_names</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">names</span>
-<span class="n">class_names</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class_names = info.features[&quot;label&quot;].names
+class_names
 </pre></div>
 </div>
 </div>
@@ -2537,15 +2537,15 @@ Image #1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_classes</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">num_classes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>n_classes = info.features[&quot;label&quot;].num_classes
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_size</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">splits</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">num_examples</span>
-<span class="n">dataset_size</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dataset_size = info.splits[&quot;train&quot;].num_examples
+dataset_size
 </pre></div>
 </div>
 </div>
@@ -2558,26 +2558,26 @@ Image #1
 <p><strong>Warning:</strong> TFDS’s split API has evolved since the book was published. The <a class="reference external" href="https://www.tensorflow.org/datasets/splits">new split API</a> (called S3) is much simpler to use:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_set_raw</span><span class="p">,</span> <span class="n">valid_set_raw</span><span class="p">,</span> <span class="n">train_set_raw</span> <span class="o">=</span> <span class="n">tfds</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="s2">&quot;tf_flowers&quot;</span><span class="p">,</span>
-    <span class="n">split</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;train[:10%]&quot;</span><span class="p">,</span> <span class="s2">&quot;train[10%:25%]&quot;</span><span class="p">,</span> <span class="s2">&quot;train[25%:]&quot;</span><span class="p">],</span>
-    <span class="n">as_supervised</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>test_set_raw, valid_set_raw, train_set_raw = tfds.load(
+    &quot;tf_flowers&quot;,
+    split=[&quot;train[:10%]&quot;, &quot;train[10%:25%]&quot;, &quot;train[25%:]&quot;],
+    as_supervised=True)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">train_set_raw</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
-    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Class: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="n">label</span><span class="p">]))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12, 10))
+index = 0
+for image, label in train_set_raw.take(9):
+    index += 1
+    plt.subplot(3, 3, index)
+    plt.imshow(image)
+    plt.title(&quot;Class: {}&quot;.format(class_names[label]))
+    plt.axis(&quot;off&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2588,10 +2588,10 @@ Image #1
 <p>Basic preprocessing:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-    <span class="n">resized_image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">])</span>
-    <span class="n">final_image</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">(</span><span class="n">resized_image</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">final_image</span><span class="p">,</span> <span class="n">label</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def preprocess(image, label):
+    resized_image = tf.image.resize(image, [224, 224])
+    final_image = keras.applications.xception.preprocess_input(resized_image)
+    return final_image, label
 </pre></div>
 </div>
 </div>
@@ -2599,50 +2599,50 @@ Image #1
 <p>Slightly fancier preprocessing (but you could add much more data augmentation):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">central_crop</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-    <span class="n">shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">min_dim</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">([</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
-    <span class="n">top_crop</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_dim</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span>
-    <span class="n">bottom_crop</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">top_crop</span>
-    <span class="n">left_crop</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_dim</span><span class="p">)</span> <span class="o">//</span> <span class="mi">4</span>
-    <span class="n">right_crop</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">left_crop</span>
-    <span class="k">return</span> <span class="n">image</span><span class="p">[</span><span class="n">top_crop</span><span class="p">:</span><span class="n">bottom_crop</span><span class="p">,</span> <span class="n">left_crop</span><span class="p">:</span><span class="n">right_crop</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def central_crop(image):
+    shape = tf.shape(image)
+    min_dim = tf.reduce_min([shape[0], shape[1]])
+    top_crop = (shape[0] - min_dim) // 4
+    bottom_crop = shape[0] - top_crop
+    left_crop = (shape[1] - min_dim) // 4
+    right_crop = shape[1] - left_crop
+    return image[top_crop:bottom_crop, left_crop:right_crop]
 
-<span class="k">def</span> <span class="nf">random_crop</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-    <span class="n">shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">min_dim</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">([</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="o">*</span> <span class="mi">90</span> <span class="o">//</span> <span class="mi">100</span>
-    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">random_crop</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">[</span><span class="n">min_dim</span><span class="p">,</span> <span class="n">min_dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+def random_crop(image):
+    shape = tf.shape(image)
+    min_dim = tf.reduce_min([shape[0], shape[1]]) * 90 // 100
+    return tf.image.random_crop(image, [min_dim, min_dim, 3])
 
-<span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">randomize</span><span class="p">:</span>
-        <span class="n">cropped_image</span> <span class="o">=</span> <span class="n">random_crop</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="n">cropped_image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">random_flip_left_right</span><span class="p">(</span><span class="n">cropped_image</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">cropped_image</span> <span class="o">=</span> <span class="n">central_crop</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">resized_image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">cropped_image</span><span class="p">,</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">])</span>
-    <span class="n">final_image</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">(</span><span class="n">resized_image</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">final_image</span><span class="p">,</span> <span class="n">label</span>
+def preprocess(image, label, randomize=False):
+    if randomize:
+        cropped_image = random_crop(image)
+        cropped_image = tf.image.random_flip_left_right(cropped_image)
+    else:
+        cropped_image = central_crop(image)
+    resized_image = tf.image.resize(cropped_image, [224, 224])
+    final_image = keras.applications.xception.preprocess_input(resized_image)
+    return final_image, label
 
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
-<span class="n">train_set</span> <span class="o">=</span> <span class="n">train_set_raw</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
-<span class="n">train_set</span> <span class="o">=</span> <span class="n">train_set</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">preprocess</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">valid_set</span> <span class="o">=</span> <span class="n">valid_set_raw</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">test_set</span> <span class="o">=</span> <span class="n">test_set_raw</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+batch_size = 32
+train_set = train_set_raw.shuffle(1000).repeat()
+train_set = train_set.map(partial(preprocess, randomize=True)).batch(batch_size).prefetch(1)
+valid_set = valid_set_raw.map(preprocess).batch(batch_size).prefetch(1)
+test_set = test_set_raw.map(preprocess).batch(batch_size).prefetch(1)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span> <span class="ow">in</span> <span class="n">train_set</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_batch</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Class: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="n">y_batch</span><span class="p">[</span><span class="n">index</span><span class="p">]]))</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12, 12))
+for X_batch, y_batch in train_set.take(1):
+    for index in range(9):
+        plt.subplot(3, 3, index + 1)
+        plt.imshow(X_batch[index] / 2 + 0.5)
+        plt.title(&quot;Class: {}&quot;.format(class_names[y_batch[index]]))
+        plt.axis(&quot;off&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2652,15 +2652,15 @@ Image #1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span> <span class="ow">in</span> <span class="n">test_set</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_batch</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Class: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="n">y_batch</span><span class="p">[</span><span class="n">index</span><span class="p">]]))</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12, 12))
+for X_batch, y_batch in test_set.take(1):
+    for index in range(9):
+        plt.subplot(3, 3, index + 1)
+        plt.imshow(X_batch[index] / 2 + 0.5)
+        plt.title(&quot;Class: {}&quot;.format(class_names[y_batch[index]]))
+        plt.axis(&quot;off&quot;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2670,19 +2670,19 @@ Image #1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span>
-                                                  <span class="n">include_top</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">avg</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">base_model</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">avg</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">base_model</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_model = keras.applications.xception.Xception(weights=&quot;imagenet&quot;,
+                                                  include_top=False)
+avg = keras.layers.GlobalAveragePooling2D()(base_model.output)
+output = keras.layers.Dense(n_classes, activation=&quot;softmax&quot;)(avg)
+model = keras.models.Model(inputs=base_model.input, outputs=output)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for index, layer in enumerate(base_model.layers):
+    print(index, layer.name)
 </pre></div>
 </div>
 </div>
@@ -2764,17 +2764,17 @@ Image #1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">base_model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-    <span class="n">layer</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for layer in base_model.layers:
+    layer.trainable = False
 
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span>
-                    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.75</span> <span class="o">*</span> <span class="n">dataset_size</span> <span class="o">/</span> <span class="n">batch_size</span><span class="p">),</span>
-                    <span class="n">validation_data</span><span class="o">=</span><span class="n">valid_set</span><span class="p">,</span>
-                    <span class="n">validation_steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.15</span> <span class="o">*</span> <span class="n">dataset_size</span> <span class="o">/</span> <span class="n">batch_size</span><span class="p">),</span>
-                    <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+optimizer = keras.optimizers.SGD(learning_rate=0.2, momentum=0.9, decay=0.01)
+model.compile(loss=&quot;sparse_categorical_crossentropy&quot;, optimizer=optimizer,
+              metrics=[&quot;accuracy&quot;])
+history = model.fit(train_set,
+                    steps_per_epoch=int(0.75 * dataset_size / batch_size),
+                    validation_data=valid_set,
+                    validation_steps=int(0.15 * dataset_size / batch_size),
+                    epochs=5)
 </pre></div>
 </div>
 </div>
@@ -2795,18 +2795,18 @@ Epoch 5/5
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">base_model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-    <span class="n">layer</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for layer in base_model.layers:
+    layer.trainable = True
 
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
-                                 <span class="n">nesterov</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span>
-                    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.75</span> <span class="o">*</span> <span class="n">dataset_size</span> <span class="o">/</span> <span class="n">batch_size</span><span class="p">),</span>
-                    <span class="n">validation_data</span><span class="o">=</span><span class="n">valid_set</span><span class="p">,</span>
-                    <span class="n">validation_steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.15</span> <span class="o">*</span> <span class="n">dataset_size</span> <span class="o">/</span> <span class="n">batch_size</span><span class="p">),</span>
-                    <span class="n">epochs</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+optimizer = keras.optimizers.SGD(learning_rate=0.01, momentum=0.9,
+                                 nesterov=True, decay=0.001)
+model.compile(loss=&quot;sparse_categorical_crossentropy&quot;, optimizer=optimizer,
+              metrics=[&quot;accuracy&quot;])
+history = model.fit(train_set,
+                    steps_per_epoch=int(0.75 * dataset_size / batch_size),
+                    validation_data=valid_set,
+                    validation_steps=int(0.15 * dataset_size / batch_size),
+                    epochs=40)
 </pre></div>
 </div>
 </div>
@@ -2901,34 +2901,34 @@ Epoch 40/40
 <h1>Classification and Localization<a class="headerlink" href="#classification-and-localization" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span>
-                                                  <span class="n">include_top</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">avg</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">base_model</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
-<span class="n">class_output</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">avg</span><span class="p">)</span>
-<span class="n">loc_output</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">avg</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">base_model</span><span class="o">.</span><span class="n">input</span><span class="p">,</span>
-                           <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">class_output</span><span class="p">,</span> <span class="n">loc_output</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span> <span class="s2">&quot;mse&quot;</span><span class="p">],</span>
-              <span class="n">loss_weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="c1"># depends on what you care most about</span>
-              <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_model = keras.applications.xception.Xception(weights=&quot;imagenet&quot;,
+                                                  include_top=False)
+avg = keras.layers.GlobalAveragePooling2D()(base_model.output)
+class_output = keras.layers.Dense(n_classes, activation=&quot;softmax&quot;)(avg)
+loc_output = keras.layers.Dense(4)(avg)
+model = keras.models.Model(inputs=base_model.input,
+                           outputs=[class_output, loc_output])
+model.compile(loss=[&quot;sparse_categorical_crossentropy&quot;, &quot;mse&quot;],
+              loss_weights=[0.8, 0.2], # depends on what you care most about
+              optimizer=optimizer, metrics=[&quot;accuracy&quot;])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_random_bounding_boxes</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
-    <span class="n">fake_bboxes</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">images</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">images</span><span class="p">,</span> <span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">fake_bboxes</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def add_random_bounding_boxes(images, labels):
+    fake_bboxes = tf.random.uniform([tf.shape(images)[0], 4])
+    return images, (labels, fake_bboxes)
 
-<span class="n">fake_train_set</span> <span class="o">=</span> <span class="n">train_set</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">add_random_bounding_boxes</span><span class="p">)</span>
+fake_train_set = train_set.take(5).repeat(2).map(add_random_bounding_boxes)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">fake_train_set</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model.fit(fake_train_set, steps_per_epoch=5, epochs=2)
 </pre></div>
 </div>
 </div>
@@ -2948,28 +2948,28 @@ Epoch 2/2
 <h2>Mean Average Precision (mAP)<a class="headerlink" href="#mean-average-precision-map" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">maximum_precisions</span><span class="p">(</span><span class="n">precisions</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">precisions</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def maximum_precisions(precisions):
+    return np.flip(np.maximum.accumulate(np.flip(precisions)))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recalls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>recalls = np.linspace(0, 1, 11)
 
-<span class="n">precisions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">]</span>
-<span class="n">max_precisions</span> <span class="o">=</span> <span class="n">maximum_precisions</span><span class="p">(</span><span class="n">precisions</span><span class="p">)</span>
-<span class="n">mAP</span> <span class="o">=</span> <span class="n">max_precisions</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recalls</span><span class="p">,</span> <span class="n">precisions</span><span class="p">,</span> <span class="s2">&quot;ro--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Precision&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recalls</span><span class="p">,</span> <span class="n">max_precisions</span><span class="p">,</span> <span class="s2">&quot;bo-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Max Precision&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Recall&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Precision&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">mAP</span><span class="p">,</span> <span class="n">mAP</span><span class="p">],</span> <span class="s2">&quot;g:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;mAP&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower center&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+precisions = [0.91, 0.94, 0.96, 0.94, 0.95, 0.92, 0.80, 0.60, 0.45, 0.20, 0.10]
+max_precisions = maximum_precisions(precisions)
+mAP = max_precisions.mean()
+plt.plot(recalls, precisions, &quot;ro--&quot;, label=&quot;Precision&quot;)
+plt.plot(recalls, max_precisions, &quot;bo-&quot;, label=&quot;Max Precision&quot;)
+plt.xlabel(&quot;Recall&quot;)
+plt.ylabel(&quot;Precision&quot;)
+plt.plot([0, 1], [mAP, mAP], &quot;g:&quot;, linewidth=3, label=&quot;mAP&quot;)
+plt.grid(True)
+plt.axis([0, 1, 0, 1])
+plt.legend(loc=&quot;lower center&quot;, fontsize=14)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -2980,12 +2980,12 @@ Epoch 2/2
 <p>Transpose convolutions:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">images_resized</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tf.random.set_seed(42)
+X = images_resized.numpy()
 
-<span class="n">conv_transpose</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;VALID&quot;</span><span class="p">)</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">conv_transpose</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">output</span><span class="o">.</span><span class="n">shape</span>
+conv_transpose = keras.layers.Conv2DTranspose(filters=5, kernel_size=3, strides=2, padding=&quot;VALID&quot;)
+output = conv_transpose(X)
+output.shape
 </pre></div>
 </div>
 </div>
@@ -2997,21 +2997,21 @@ Epoch 2/2
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def normalize(X):
+    return (X - tf.reduce_min(X)) / (tf.reduce_max(X) - tf.reduce_min(X))
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">gs</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+fig = plt.figure(figsize=(12, 8))
+gs = mpl.gridspec.GridSpec(nrows=1, ncols=2, width_ratios=[1, 2])
 
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the 1st image</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Output&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;bicubic&quot;</span><span class="p">)</span>  <span class="c1"># plot the output for the 1st image</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+ax1 = fig.add_subplot(gs[0, 0])
+ax1.set_title(&quot;Input&quot;, fontsize=14)
+ax1.imshow(X[0])  # plot the 1st image
+ax1.axis(&quot;off&quot;)
+ax2 = fig.add_subplot(gs[0, 1])
+ax2.set_title(&quot;Output&quot;, fontsize=14)
+ax2.imshow(normalize(output[0, ..., :3]), interpolation=&quot;bicubic&quot;)  # plot the output for the 1st image
+ax2.axis(&quot;off&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3021,53 +3021,53 @@ Epoch 2/2
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">upscale_images</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">):</span>
-    <span class="n">batch_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">upscaled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span>
-                         <span class="p">(</span><span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
-                         <span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
-                         <span class="n">channels</span><span class="p">))</span>
-    <span class="n">upscaled</span><span class="p">[:,</span>
-             <span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:(</span><span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="n">kernel_size</span><span class="p">:</span><span class="n">stride</span><span class="p">,</span>
-             <span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:(</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="n">kernel_size</span><span class="p">:</span><span class="n">stride</span><span class="p">,</span>
-             <span class="p">:]</span> <span class="o">=</span> <span class="n">images</span>
-    <span class="k">return</span> <span class="n">upscaled</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def upscale_images(images, stride, kernel_size):
+    batch_size, height, width, channels = images.shape
+    upscaled = np.zeros((batch_size,
+                         (height - 1) * stride + 2 * kernel_size - 1,
+                         (width - 1) * stride + 2 * kernel_size - 1,
+                         channels))
+    upscaled[:,
+             kernel_size - 1:(height - 1) * stride + kernel_size:stride,
+             kernel_size - 1:(width - 1) * stride + kernel_size:stride,
+             :] = images
+    return upscaled
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">upscaled</span> <span class="o">=</span> <span class="n">upscale_images</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">weights</span><span class="p">,</span> <span class="n">biases</span> <span class="o">=</span> <span class="n">conv_transpose</span><span class="o">.</span><span class="n">weights</span>
-<span class="n">reversed_filters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">reversed_filters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">reversed_filters</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">manual_output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="n">upscaled</span><span class="p">,</span> <span class="n">reversed_filters</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;VALID&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>upscaled = upscale_images(X, stride=2, kernel_size=3)
+weights, biases = conv_transpose.weights
+reversed_filters = np.flip(weights.numpy(), axis=[0, 1])
+reversed_filters = np.transpose(reversed_filters, [0, 1, 3, 2])
+manual_output = tf.nn.conv2d(upscaled, reversed_filters, strides=1, padding=&quot;VALID&quot;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def normalize(X):
+    return (X - tf.reduce_min(X)) / (tf.reduce_max(X) - tf.reduce_min(X))
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">gs</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+fig = plt.figure(figsize=(12, 8))
+gs = mpl.gridspec.GridSpec(nrows=1, ncols=3, width_ratios=[1, 2, 2])
 
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># plot the 1st image</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Upscaled&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">upscaled</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;bicubic&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Output&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">manual_output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;bicubic&quot;</span><span class="p">)</span>  <span class="c1"># plot the output for the 1st image</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+ax1 = fig.add_subplot(gs[0, 0])
+ax1.set_title(&quot;Input&quot;, fontsize=14)
+ax1.imshow(X[0])  # plot the 1st image
+ax1.axis(&quot;off&quot;)
+ax2 = fig.add_subplot(gs[0, 1])
+ax2.set_title(&quot;Upscaled&quot;, fontsize=14)
+ax2.imshow(upscaled[0], interpolation=&quot;bicubic&quot;)
+ax2.axis(&quot;off&quot;)
+ax3 = fig.add_subplot(gs[0, 2])
+ax3.set_title(&quot;Output&quot;, fontsize=14)
+ax3.imshow(normalize(manual_output[0, ..., :3]), interpolation=&quot;bicubic&quot;)  # plot the output for the 1st image
+ax3.axis(&quot;off&quot;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -3077,7 +3077,7 @@ Epoch 2/2
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">manual_output</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.allclose(output, manual_output.numpy(), atol=1e-7)
 </pre></div>
 </div>
 </div>
@@ -3101,40 +3101,40 @@ Epoch 2/2
 <p>The following model uses 2 convolutional layers, followed by 1 pooling layer, then dropout 25%, then a dense layer, another dropout layer but with 50% dropout, and finally the output layer. It reaches about 99.2% accuracy on the test set. This places this model roughly in the top 20% in the <a class="reference external" href="https://www.kaggle.com/c/digit-recognizer/">MNIST Kaggle competition</a> (if we ignore the models with an accuracy greater than 99.79% which were most likely trained on the test set, as explained by Chris Deotte in <a class="reference external" href="https://www.kaggle.com/c/digit-recognizer/discussion/61480">this post</a>). Can you do better? To reach 99.5 to 99.7% accuracy on the test set, you need to add image augmentation, batch norm, use a learning schedule such as 1-cycle, and possibly create an ensemble.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">X_train_full</span><span class="p">,</span> <span class="n">y_train_full</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-<span class="n">X_train_full</span> <span class="o">=</span> <span class="n">X_train_full</span> <span class="o">/</span> <span class="mf">255.</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span> <span class="o">/</span> <span class="mf">255.</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span> <span class="o">=</span> <span class="n">X_train_full</span><span class="p">[:</span><span class="o">-</span><span class="mi">5000</span><span class="p">],</span> <span class="n">X_train_full</span><span class="p">[</span><span class="o">-</span><span class="mi">5000</span><span class="p">:]</span>
-<span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">y_train_full</span><span class="p">[:</span><span class="o">-</span><span class="mi">5000</span><span class="p">],</span> <span class="n">y_train_full</span><span class="p">[</span><span class="o">-</span><span class="mi">5000</span><span class="p">:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(X_train_full, y_train_full), (X_test, y_test) = keras.datasets.mnist.load_data()
+X_train_full = X_train_full / 255.
+X_test = X_test / 255.
+X_train, X_valid = X_train_full[:-5000], X_train_full[-5000:]
+y_train, y_valid = y_train_full[:-5000], y_train_full[-5000:]
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-<span class="n">X_valid</span> <span class="o">=</span> <span class="n">X_valid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+X_train = X_train[..., np.newaxis]
+X_valid = X_valid[..., np.newaxis]
+X_test = X_test[..., np.newaxis]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>keras.backend.clear_session()
+tf.random.set_seed(42)
+np.random.seed(42)
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">(),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-<span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;nadam&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+model = keras.models.Sequential([
+    keras.layers.Conv2D(32, kernel_size=3, padding=&quot;same&quot;, activation=&quot;relu&quot;),
+    keras.layers.Conv2D(64, kernel_size=3, padding=&quot;same&quot;, activation=&quot;relu&quot;),
+    keras.layers.MaxPool2D(),
+    keras.layers.Flatten(),
+    keras.layers.Dropout(0.25),
+    keras.layers.Dense(128, activation=&quot;relu&quot;),
+    keras.layers.Dropout(0.5),
+    keras.layers.Dense(10, activation=&quot;softmax&quot;)
+])
+model.compile(loss=&quot;sparse_categorical_crossentropy&quot;, optimizer=&quot;nadam&quot;,
+              metrics=[&quot;accuracy&quot;])
 
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+model.fit(X_train, y_train, epochs=10, validation_data=(X_valid, y_valid))
+model.evaluate(X_test, y_test)
 </pre></div>
 </div>
 </div>

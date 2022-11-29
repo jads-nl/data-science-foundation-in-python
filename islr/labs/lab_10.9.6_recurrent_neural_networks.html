@@ -1160,7 +1160,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1469,66 +1469,45 @@ title="Print to PDF"
 <p>Here we fit a simple LSTM RNN for sentiment analys with the <code class="docutils literal notranslate"><span class="pre">IMBd</span></code> move-review data, as discussed in section 10.5.1. We shoed hot to input the dat in Lab 10.9.5. We reproduce a shorter version of the code here.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import itertools
+import os
+import pickle
+from pprint import pprint
 
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">imdb</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Embedding</span><span class="p">,</span> <span class="n">LSTM</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.preprocessing.sequence</span> <span class="kn">import</span> <span class="n">pad_sequences</span>
-<span class="kn">from</span> <span class="nn">tensorflow.sparse</span> <span class="kn">import</span> <span class="n">SparseTensor</span><span class="p">,</span> <span class="n">reorder</span>
+import altair as alt
+import pandas as pd
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+from scipy.sparse import csr_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+from tensorflow.keras.datasets import imdb
+from tensorflow.keras.layers import Dense, Embedding, LSTM
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.sparse import SparseTensor, reorder
 
 
-<span class="c1"># let&#39;s keep our keras backend tensorflow quiet</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TF_CPP_MIN_LOG_LEVEL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;3&quot;</span>
+# let&#39;s keep our keras backend tensorflow quiet
+os.environ[&quot;TF_CPP_MIN_LOG_LEVEL&quot;] = &quot;3&quot;
 
-<span class="c1"># load the data</span>
-<span class="n">MAX_FEATURES</span> <span class="o">=</span> <span class="mi">10_000</span>
-<span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="n">MAX_FEATURES</span><span class="p">)</span>
+# load the data
+MAX_FEATURES = 10_000
+(X_train, y_train), (X_test, y_test) = imdb.load_data(num_words=MAX_FEATURES)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:00:40.924916: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-29 12:17:37.876029: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-11-29 12:17:38.005660: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-11-29 12:17:38.005679: I tensorflow/compiler/xla/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:00:41.091939: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-10-03 14:00:41.091976: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-10-03 14:00:41.127400: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:00:42.049565: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
-2022-10-03 14:00:42.049754: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
-2022-10-03 14:00:42.049768: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb.npz
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    8192/17464789 [..............................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 1695744/17464789 [=&gt;............................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 8601600/17464789 [=============&gt;................] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-17464789/17464789 [==============================] - 0s 0us/step
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-29 12:17:38.682788: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
+2022-11-29 12:17:38.682865: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
+2022-11-29 12:17:38.682872: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
 </pre></div>
 </div>
 </div>
@@ -1536,9 +1515,9 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <p>We first calculate the lenths of the documents.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wc</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)</span> <span class="k">for</span> <span class="n">review</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;median word-length of reviews: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;fraction of reviews that is 500 words or less: </span><span class="si">{</span><span class="nb">len</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">wc</span> <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="mi">500</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wc = [len(review) for review in X_train]
+print(f&quot;median word-length of reviews: {np.median(wc)}&quot;)
+print(f&quot;fraction of reviews that is 500 words or less: {len([r for r in wc if r &lt;= 500]) / len(wc)}&quot;)
 </pre></div>
 </div>
 </div>
@@ -1552,11 +1531,11 @@ fraction of reviews that is 500 words or less: 0.91568
 <p>We see that over 91% of the documents have fewer than 500 words. Our RNN requires all the document sequences to have the same length. We hence restrict the document lengths to the last <span class="math notranslate nohighlight">\(L = 500\)</span> words and padd the beginning of the shorter ones with blanks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">maxlen</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">maxlen</span><span class="p">)</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">maxlen</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">X</span> <span class="ow">in</span> <span class="p">[</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimension of X_train: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>maxlen = 500
+X_train = pad_sequences(X_train, maxlen=maxlen)
+X_test = pad_sequences(X_test, maxlen=maxlen)
+for X in [X_train, X_test]:
+    print(f&quot;Dimension of X_train: {X.shape}&quot;)
 </pre></div>
 </div>
 </div>
@@ -1569,7 +1548,7 @@ Dimension of X_train: (25000, 500)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">490</span><span class="p">:</span><span class="mi">500</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train[0, 490:500]
 </pre></div>
 </div>
 </div>
@@ -1583,19 +1562,19 @@ Dimension of X_train: (25000, 500)
 <p>The last expression shows the last few words in the first document. t this stage, each of the 500 words in the document is represented using an integer corresponding to the location of that word in the 10,000-word dictionary. The first layer of the RNN is an embedding layer of size 32, which will be learned during training. This layer one-hot encodes each document as a matrix of dimension 500 <span class="math notranslate nohighlight">\(\times\)</span> 10,000, and then maps these 10,000 dimensions down to 32.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">32</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">32</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = Sequential()
+model.add(Embedding(input_dim=10_000, output_dim=32))
+model.add(LSTM(units=32))
+model.add(Dense(1, activation=&#39;sigmoid&#39;))
+model.summary()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:00:49.107602: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-10-03 14:00:49.107642: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
-2022-10-03 14:00:49.107676: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az292-658): /proc/driver/nvidia/version does not exist
-2022-10-03 14:00:49.108018: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-29 12:17:43.531140: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-11-29 12:17:43.531166: W tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:265] failed call to cuInit: UNKNOWN ERROR (303)
+2022-11-29 12:17:43.531185: I tensorflow/compiler/xla/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az296-935): /proc/driver/nvidia/version does not exist
+2022-11-29 12:17:43.531410: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 </pre></div>
 </div>
@@ -1650,60 +1629,58 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <p>The rest is now similar to other networks we have fit. We track the test performance as the network is fit, and see that it attains 87% accuracy</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">)</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-    <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
+model.compile(loss=&quot;binary_crossentropy&quot;, metrics=[&quot;accuracy&quot;], optimizer=&quot;rmsprop&quot;)
+history = model.fit(
+    X_train, y_train, batch_size=128, epochs=10, validation_data=(X_test, y_test), verbose=0
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:00:49.551887: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 50000000 exceeds 10% of free system memory.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:01:44.025294: W tensorflow/core/framework/cpu_allocator_impl.cc:82] Allocation of 50000000 exceeds 10% of free system memory.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 20min 20s, sys: 38.8 s, total: 20min 59s
-Wall time: 11min 13s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 11min 13s, sys: 12.5 s, total: 11min 26s
+Wall time: 6min 23s
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;epoch&quot;</span><span class="p">})</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;training&quot;</span><span class="p">),</span>
-        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">:</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;val_loss&quot;</span><span class="p">:</span> <span class="s2">&quot;loss&quot;</span><span class="p">})</span>
-        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;validation&quot;</span><span class="p">),</span>
-    <span class="p">],</span>
-    <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;epoch:Q&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;,.2f&quot;</span><span class="p">)])</span>
-<span class="n">accuracy</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;epoch:Q&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;,.2f&quot;</span><span class="p">)]</span> <span class="p">)</span>
-<span class="n">loss</span> <span class="o">|</span> <span class="n">accuracy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>_ = (
+    pd.DataFrame(history.history)
+    .reset_index()
+    .rename(columns={&quot;index&quot;: &quot;epoch&quot;})
+    .assign(epoch=lambda df: df.epoch + 1)
+)
+df = pd.concat(
+    [
+        _.iloc[:, 0:3].assign(fold=&quot;training&quot;),
+        _.iloc[:, [0, -2, -1]]
+        .rename(columns={&quot;val_accuracy&quot;: &quot;accuracy&quot;, &quot;val_loss&quot;: &quot;loss&quot;})
+        .assign(fold=&quot;validation&quot;),
+    ],
+    axis=0,
+).reset_index(drop=True)
+base = alt.Chart(df).mark_line(point=True)
+loss = base.encode(x=&quot;epoch:Q&quot;, y=&quot;loss&quot;, color=&quot;fold&quot;, tooltip=[&quot;epoch&quot;, alt.Tooltip(&quot;loss&quot;, format=&quot;,.2f&quot;)])
+accuracy = base.encode(x=&quot;epoch:Q&quot;, y=&quot;accuracy&quot;, color=&quot;fold&quot;, tooltip=[&quot;epoch&quot;, alt.Tooltip(&quot;accuracy&quot;, format=&quot;,.2f&quot;)] )
+loss | accuracy
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/altair/utils/core.py:317: FutureWarning: iteritems is deprecated and will be removed in a future version. Use .items instead.
+  for col_name, dtype in df.dtypes.iteritems():
+</pre></div>
+</div>
 <div class="output text_html">
-<div id="altair-viz-4939c3bd7724404987344084bc14f210"></div>
+<div id="altair-viz-6535cab0080b4f4b848664ce15f5cb05"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4939c3bd7724404987344084bc14f210") {
-      outputDiv = document.getElementById("altair-viz-4939c3bd7724404987344084bc14f210");
+    if (outputDiv.id !== "altair-viz-6535cab0080b4f4b848664ce15f5cb05") {
+      outputDiv = document.getElementById("altair-viz-6535cab0080b4f4b848664ce15f5cb05");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1749,7 +1726,7 @@ Wall time: 11min 13s
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "loss", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "loss", "type": "quantitative"}}}, {"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}}], "data": {"name": "data-46ccd18d7741c926692e0e221e4f0070"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-46ccd18d7741c926692e0e221e4f0070": [{"epoch": 1, "loss": 0.46965643763542175, "accuracy": 0.77920001745224, "fold": "training"}, {"epoch": 2, "loss": 0.2799105942249298, "accuracy": 0.8907999992370605, "fold": "training"}, {"epoch": 3, "loss": 0.22864359617233276, "accuracy": 0.912880003452301, "fold": "training"}, {"epoch": 4, "loss": 0.20012226700782776, "accuracy": 0.9247599840164185, "fold": "training"}, {"epoch": 5, "loss": 0.1789834052324295, "accuracy": 0.9345999956130981, "fold": "training"}, {"epoch": 6, "loss": 0.16272059082984924, "accuracy": 0.9433199763298035, "fold": "training"}, {"epoch": 7, "loss": 0.14810949563980103, "accuracy": 0.9475600123405457, "fold": "training"}, {"epoch": 8, "loss": 0.13863718509674072, "accuracy": 0.9500399827957153, "fold": "training"}, {"epoch": 9, "loss": 0.12949684262275696, "accuracy": 0.9556400179862976, "fold": "training"}, {"epoch": 10, "loss": 0.120014987885952, "accuracy": 0.9575200080871582, "fold": "training"}, {"epoch": 1, "loss": 0.5387892723083496, "accuracy": 0.8036800026893616, "fold": "validation"}, {"epoch": 2, "loss": 0.33610329031944275, "accuracy": 0.8761600255966187, "fold": "validation"}, {"epoch": 3, "loss": 0.4160521626472473, "accuracy": 0.8413599729537964, "fold": "validation"}, {"epoch": 4, "loss": 0.30973541736602783, "accuracy": 0.8772000074386597, "fold": "validation"}, {"epoch": 5, "loss": 0.4428407549858093, "accuracy": 0.8183599710464478, "fold": "validation"}, {"epoch": 6, "loss": 0.3674001693725586, "accuracy": 0.8693199753761292, "fold": "validation"}, {"epoch": 7, "loss": 0.36476537585258484, "accuracy": 0.8693600296974182, "fold": "validation"}, {"epoch": 8, "loss": 0.34630265831947327, "accuracy": 0.8738399744033813, "fold": "validation"}, {"epoch": 9, "loss": 0.40819674730300903, "accuracy": 0.8621199727058411, "fold": "validation"}, {"epoch": 10, "loss": 0.3545480966567993, "accuracy": 0.860759973526001, "fold": "validation"}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "loss", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "loss", "type": "quantitative"}}}, {"mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}}], "data": {"name": "data-e9c505dd14b28ed183a82872beec2d70"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-e9c505dd14b28ed183a82872beec2d70": [{"epoch": 1, "loss": 0.5391233563423157, "accuracy": 0.7156000137329102, "fold": "training"}, {"epoch": 2, "loss": 0.3226788640022278, "accuracy": 0.8685600161552429, "fold": "training"}, {"epoch": 3, "loss": 0.2539411783218384, "accuracy": 0.9031199812889099, "fold": "training"}, {"epoch": 4, "loss": 0.22090598940849304, "accuracy": 0.9154800176620483, "fold": "training"}, {"epoch": 5, "loss": 0.19848285615444183, "accuracy": 0.9261199831962585, "fold": "training"}, {"epoch": 6, "loss": 0.18001499772071838, "accuracy": 0.9349600076675415, "fold": "training"}, {"epoch": 7, "loss": 0.16269774734973907, "accuracy": 0.9431599974632263, "fold": "training"}, {"epoch": 8, "loss": 0.15020062029361725, "accuracy": 0.9471200108528137, "fold": "training"}, {"epoch": 9, "loss": 0.14159972965717316, "accuracy": 0.9517199993133545, "fold": "training"}, {"epoch": 10, "loss": 0.12782058119773865, "accuracy": 0.9542400240898132, "fold": "training"}, {"epoch": 1, "loss": 0.4163053631782532, "accuracy": 0.8295999765396118, "fold": "validation"}, {"epoch": 2, "loss": 0.37750568985939026, "accuracy": 0.8446000218391418, "fold": "validation"}, {"epoch": 3, "loss": 0.30044662952423096, "accuracy": 0.8814399838447571, "fold": "validation"}, {"epoch": 4, "loss": 0.3769295811653137, "accuracy": 0.8337600231170654, "fold": "validation"}, {"epoch": 5, "loss": 0.30939844250679016, "accuracy": 0.8714399933815002, "fold": "validation"}, {"epoch": 6, "loss": 0.3100703954696655, "accuracy": 0.879040002822876, "fold": "validation"}, {"epoch": 7, "loss": 0.32599619030952454, "accuracy": 0.8783599734306335, "fold": "validation"}, {"epoch": 8, "loss": 0.4656315743923187, "accuracy": 0.8298400044441223, "fold": "validation"}, {"epoch": 9, "loss": 0.3711775243282318, "accuracy": 0.864799976348877, "fold": "validation"}, {"epoch": 10, "loss": 0.4206944406032562, "accuracy": 0.8673200011253357, "fold": "validation"}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 </section>
@@ -1758,10 +1735,10 @@ Wall time: 11min 13s
 <p>We now show how to fit the models in section 10.5.2 for time series prediction. We first set up the data, and standardize each of the variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">NYSE</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../datasets/NYSE.csv&quot;</span><span class="p">)</span>
-<span class="n">xdata</span> <span class="o">=</span> <span class="n">NYSE</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;DJ_return&quot;</span><span class="p">,</span> <span class="s2">&quot;log_volume&quot;</span><span class="p">,</span> <span class="s2">&quot;log_volatility&quot;</span><span class="p">]]</span>
-<span class="n">istrain</span> <span class="o">=</span> <span class="n">NYSE</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;train&quot;</span><span class="p">]</span>
-<span class="n">xdata</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">xdata</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>NYSE = pd.read_csv(&quot;../datasets/NYSE.csv&quot;)
+xdata = NYSE.loc[:, [&quot;DJ_return&quot;, &quot;log_volume&quot;, &quot;log_volatility&quot;]]
+istrain = NYSE.loc[:, &quot;train&quot;]
+xdata = StandardScaler().fit_transform(xdata)
 </pre></div>
 </div>
 </div>
@@ -1770,7 +1747,7 @@ Wall time: 11min 13s
 <p>We first write functions to create lagged versions of the three time series. We start with a function that takes as input a data matrix and a lag <span class="math notranslate nohighlight">\(L\)</span>, and returns a lagged version of the matrix. It simply inserts <span class="math notranslate nohighlight">\(L\)</span> rows of <code class="docutils literal notranslate"><span class="pre">NA</span></code> at the top, and truncates the bottom.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To be continued</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># To be continued
 </pre></div>
 </div>
 </div>

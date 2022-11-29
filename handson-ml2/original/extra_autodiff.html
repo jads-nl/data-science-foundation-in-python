@@ -1160,7 +1160,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1548,8 +1548,8 @@ title="Print to PDF"
 <p>Suppose we want to compute the gradients of the function <span class="math notranslate nohighlight">\(f(x,y)=x^2y + y + 2\)</span> with regards to the parameters x and y:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def f(x,y):
+    return x*x*y + y + 2
 </pre></div>
 </div>
 </div>
@@ -1559,8 +1559,8 @@ title="Print to PDF"
 <p><span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial y} = x^2 + 1\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def df(x,y):
+    return 2*x*y, x*x + 1
 </pre></div>
 </div>
 </div>
@@ -1568,7 +1568,7 @@ title="Print to PDF"
 <p>So for example <span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial x}(3,4) = 24\)</span> and <span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial y}(3,4) = 10\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df(3, 4)
 </pre></div>
 </div>
 </div>
@@ -1586,15 +1586,15 @@ title="Print to PDF"
 <p>At x=3 and y=4, these Hessians are respectively 8, 6, 6, 0. Let’s use the equations above to compute them:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">d2f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def d2f(x, y):
+    return [2*y, 2*x], [2*x, 0]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d2f</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>d2f(3, 4)
 </pre></div>
 </div>
 </div>
@@ -1611,31 +1611,31 @@ title="Print to PDF"
 <p>Here, we compute an approxiation of the gradients using the equation: <span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial x} = \displaystyle{\lim_{\epsilon \to 0}}\dfrac{f(x+\epsilon, y) - f(x, y)}{\epsilon}\)</span> (and there is a similar definition for <span class="math notranslate nohighlight">\(\dfrac{\partial f}{\partial y}\)</span>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gradients</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">vars_list</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">):</span>
-    <span class="n">partial_derivatives</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">base_func_eval</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">vars_list</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vars_list</span><span class="p">)):</span>
-        <span class="n">tweaked_vars</span> <span class="o">=</span> <span class="n">vars_list</span><span class="p">[:]</span>
-        <span class="n">tweaked_vars</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">eps</span>
-        <span class="n">tweaked_func_eval</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">tweaked_vars</span><span class="p">)</span>
-        <span class="n">derivative</span> <span class="o">=</span> <span class="p">(</span><span class="n">tweaked_func_eval</span> <span class="o">-</span> <span class="n">base_func_eval</span><span class="p">)</span> <span class="o">/</span> <span class="n">eps</span>
-        <span class="n">partial_derivatives</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">derivative</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">partial_derivatives</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def gradients(func, vars_list, eps=0.0001):
+    partial_derivatives = []
+    base_func_eval = func(*vars_list)
+    for idx in range(len(vars_list)):
+        tweaked_vars = vars_list[:]
+        tweaked_vars[idx] += eps
+        tweaked_func_eval = func(*tweaked_vars)
+        derivative = (tweaked_func_eval - base_func_eval) / eps
+        partial_derivatives.append(derivative)
+    return partial_derivatives
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">gradients</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def df(x, y):
+    return gradients(f, [x, y])
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df(3, 4)
 </pre></div>
 </div>
 </div>
@@ -1649,13 +1649,13 @@ title="Print to PDF"
 <p>The good news is that it is pretty easy to compute the Hessians. First let’s create functions that compute the first order partial derivatives (also called Jacobians):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dfdx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">gradients</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def dfdx(x, y):
+    return gradients(f, [x,y])[0]
 
-<span class="k">def</span> <span class="nf">dfdy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">gradients</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+def dfdy(x, y):
+    return gradients(f, [x,y])[1]
 
-<span class="n">dfdx</span><span class="p">(</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">),</span> <span class="n">dfdy</span><span class="p">(</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>
+dfdx(3., 4.), dfdy(3., 4.)
 </pre></div>
 </div>
 </div>
@@ -1668,15 +1668,15 @@ title="Print to PDF"
 <p>Now we can simply apply the <code class="docutils literal notranslate"><span class="pre">gradients()</span></code> function to these functions:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">d2f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">gradients</span><span class="p">(</span><span class="n">dfdx</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]),</span> <span class="n">gradients</span><span class="p">(</span><span class="n">dfdy</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def d2f(x, y):
+    return [gradients(dfdx, [x, y]), gradients(dfdy, [x, y])]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d2f</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>d2f(3, 4)
 </pre></div>
 </div>
 </div>
@@ -1693,39 +1693,39 @@ title="Print to PDF"
 <p>Rather than this numerical approach, let’s implement some symbolic autodiff techniques. For this, we will need to define classes to represent constants, variables and operations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Const</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class Const(object):
+    def __init__(self, value):
+        self.value = value
+    def evaluate(self):
+        return self.value
+    def __str__(self):
+        return str(self.value)
 
-<span class="k">class</span> <span class="nc">Var</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">init_value</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">init_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+class Var(object):
+    def __init__(self, name, init_value=0):
+        self.value = init_value
+        self.name = name
+    def evaluate(self):
+        return self.value
+    def __str__(self):
+        return self.name
 
-<span class="k">class</span> <span class="nc">BinaryOperator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+class BinaryOperator(object):
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
-<span class="k">class</span> <span class="nc">Add</span><span class="p">(</span><span class="n">BinaryOperator</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> + </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+class Add(BinaryOperator):
+    def evaluate(self):
+        return self.a.evaluate() + self.b.evaluate()
+    def __str__(self):
+        return &quot;{} + {}&quot;.format(self.a, self.b)
 
-<span class="k">class</span> <span class="nc">Mul</span><span class="p">(</span><span class="n">BinaryOperator</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">) * (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+class Mul(BinaryOperator):
+    def evaluate(self):
+        return self.a.evaluate() * self.b.evaluate()
+    def __str__(self):
+        return &quot;({}) * ({})&quot;.format(self.a, self.b)
 </pre></div>
 </div>
 </div>
@@ -1733,9 +1733,9 @@ title="Print to PDF"
 <p>Good, now we can build a computation graph to represent the function <span class="math notranslate nohighlight">\(f\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">Add</span><span class="p">(</span><span class="n">Mul</span><span class="p">(</span><span class="n">Mul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">),</span> <span class="n">Add</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">Const</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span> <span class="c1"># f(x,y) = x²y + y + 2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = Var(&quot;x&quot;)
+y = Var(&quot;y&quot;)
+f = Add(Mul(Mul(x, x), y), Add(y, Const(2))) # f(x,y) = x²y + y + 2
 </pre></div>
 </div>
 </div>
@@ -1743,9 +1743,9 @@ title="Print to PDF"
 <p>And we can run this graph to compute <span class="math notranslate nohighlight">\(f\)</span> at any point, for example <span class="math notranslate nohighlight">\(f(3, 4)\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">y</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">f</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x.value = 3
+y.value = 4
+f.evaluate()
 </pre></div>
 </div>
 </div>
@@ -1769,12 +1769,12 @@ title="Print to PDF"
 <p>Let’s verify this result using the <code class="docutils literal notranslate"><span class="pre">gradients()</span></code> function defined earlier:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from math import sin
 
-<span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+def z(x):
+    return sin(x**2)
 
-<span class="n">gradients</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+gradients(z, [3])
 </pre></div>
 </div>
 </div>
@@ -1791,24 +1791,24 @@ title="Print to PDF"
 <h3>Forward mode autodiff<a class="headerlink" href="#forward-mode-autodiff" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Const</span><span class="o">.</span><span class="n">gradient</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span> <span class="n">Const</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">Var</span><span class="o">.</span><span class="n">gradient</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span> <span class="n">Const</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">var</span> <span class="k">else</span> <span class="n">Const</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">Add</span><span class="o">.</span><span class="n">gradient</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span> <span class="n">Add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">var</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
-<span class="n">Mul</span><span class="o">.</span><span class="n">gradient</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span> <span class="n">Add</span><span class="p">(</span><span class="n">Mul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">var</span><span class="p">)),</span> <span class="n">Mul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">var</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Const.gradient = lambda self, var: Const(0)
+Var.gradient = lambda self, var: Const(1) if self is var else Const(0)
+Add.gradient = lambda self, var: Add(self.a.gradient(var), self.b.gradient(var))
+Mul.gradient = lambda self, var: Add(Mul(self.a, self.b.gradient(var)), Mul(self.a.gradient(var), self.b))
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">init_value</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">init_value</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">Add</span><span class="p">(</span><span class="n">Mul</span><span class="p">(</span><span class="n">Mul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">),</span> <span class="n">Add</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">Const</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span> <span class="c1"># f(x,y) = x²y + y + 2</span>
+x = Var(name=&quot;x&quot;, init_value=3.)
+y = Var(name=&quot;y&quot;, init_value=4.)
+f = Add(Mul(Mul(x, x), y), Add(y, Const(2))) # f(x,y) = x²y + y + 2
 
-<span class="n">dfdx</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 2xy</span>
-<span class="n">dfdy</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># x² + 1</span>
+dfdx = f.gradient(x)  # 2xy
+dfdy = f.gradient(y)  # x² + 1
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfdx</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(),</span> <span class="n">dfdy</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfdx.evaluate(), dfdy.evaluate()
 </pre></div>
 </div>
 </div>
@@ -1821,18 +1821,18 @@ title="Print to PDF"
 <p>Since the output of the <code class="docutils literal notranslate"><span class="pre">gradient()</span></code> method is fully symbolic, we are not limited to the first order derivatives, we can also compute second order derivatives, and so on:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d2fdxdx</span> <span class="o">=</span> <span class="n">dfdx</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 2y</span>
-<span class="n">d2fdxdy</span> <span class="o">=</span> <span class="n">dfdx</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 2x</span>
-<span class="n">d2fdydx</span> <span class="o">=</span> <span class="n">dfdy</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 2x</span>
-<span class="n">d2fdydy</span> <span class="o">=</span> <span class="n">dfdy</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># 0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>d2fdxdx = dfdx.gradient(x) # 2y
+d2fdxdy = dfdx.gradient(y) # 2x
+d2fdydx = dfdy.gradient(x) # 2x
+d2fdydy = dfdy.gradient(y) # 0
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">d2fdxdx</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(),</span> <span class="n">d2fdxdy</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()],</span>
- <span class="p">[</span><span class="n">d2fdydx</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(),</span> <span class="n">d2fdydy</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>[[d2fdxdx.evaluate(), d2fdxdy.evaluate()],
+ [d2fdydx.evaluate(), d2fdydy.evaluate()]]
 </pre></div>
 </div>
 </div>
@@ -1863,33 +1863,33 @@ It can be shown that <span class="math notranslate nohighlight">\(f(x + \epsilon
 <p>Let’s create a class to represent dual numbers, and implement a few operations (addition and multiplication). You can try adding some more if you want.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DualNumber</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">DualNumber</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dual</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-                          <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dual</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dual</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">DualNumber</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dual</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-                          <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dual</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dual</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dual</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2"> + </span><span class="si">{:.1f}</span><span class="s2">ε&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">to_dual</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">n</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class DualNumber(object):
+    def __init__(self, value=0.0, eps=0.0):
+        self.value = value
+        self.eps = eps
+    def __add__(self, b):
+        return DualNumber(self.value + self.to_dual(b).value,
+                          self.eps + self.to_dual(b).eps)
+    def __radd__(self, a):
+        return self.to_dual(a).__add__(self)
+    def __mul__(self, b):
+        return DualNumber(self.value * self.to_dual(b).value,
+                          self.eps * self.to_dual(b).value + self.value * self.to_dual(b).eps)
+    def __rmul__(self, a):
+        return self.to_dual(a).__mul__(self)
+    def __str__(self):
+        if self.eps:
+            return &quot;{:.1f} + {:.1f}ε&quot;.format(self.value, self.eps)
+        else:
+            return &quot;{:.1f}&quot;.format(self.value)
+    def __repr__(self):
+        return str(self)
+    @classmethod
+    def to_dual(cls, n):
+        if hasattr(n, &quot;value&quot;):
+            return n
+        else:
+            return cls(n)
 </pre></div>
 </div>
 </div>
@@ -1897,7 +1897,7 @@ It can be shown that <span class="math notranslate nohighlight">\(f(x + \epsilon
 <p><span class="math notranslate nohighlight">\(3 + (3 + 4 \epsilon) = 6 + 4\epsilon\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">+</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>3 + DualNumber(3, 4)
 </pre></div>
 </div>
 </div>
@@ -1910,7 +1910,7 @@ It can be shown that <span class="math notranslate nohighlight">\(f(x + \epsilon
 <p><span class="math notranslate nohighlight">\((3 + 4ε)\times(5 + 7ε)\)</span> = <span class="math notranslate nohighlight">\(3 \times 5 + 3 \times 7ε + 4ε \times 5 + 4ε \times 7ε\)</span> = <span class="math notranslate nohighlight">\(15 + 21ε + 20ε + 28ε^2\)</span> = <span class="math notranslate nohighlight">\(15 + 41ε + 28 \times 0\)</span> = <span class="math notranslate nohighlight">\(15 + 41ε\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DualNumber</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>DualNumber(3, 4) * DualNumber(5, 7)
 </pre></div>
 </div>
 </div>
@@ -1923,10 +1923,10 @@ It can be shown that <span class="math notranslate nohighlight">\(f(x + \epsilon
 <p>Now let’s see if the dual numbers work with our toy computation framework:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
-<span class="n">y</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x.value = DualNumber(3.0)
+y.value = DualNumber(4.0)
 
-<span class="n">f</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
+f.evaluate()
 </pre></div>
 </div>
 </div>
@@ -1939,22 +1939,22 @@ It can be shown that <span class="math notranslate nohighlight">\(f(x + \epsilon
 <p>Yep, sure works. Now let’s use this to compute the partial derivatives of <span class="math notranslate nohighlight">\(f\)</span> with regards to <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> at x=3 and y=4:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># 3 + ε</span>
-<span class="n">y</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>       <span class="c1"># 4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x.value = DualNumber(3.0, 1.0)  # 3 + ε
+y.value = DualNumber(4.0)       # 4
 
-<span class="n">dfdx</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span><span class="o">.</span><span class="n">eps</span>
+dfdx = f.evaluate().eps
 
-<span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>       <span class="c1"># 3</span>
-<span class="n">y</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DualNumber</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># 4 + ε</span>
+x.value = DualNumber(3.0)       # 3
+y.value = DualNumber(4.0, 1.0)  # 4 + ε
 
-<span class="n">dfdy</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span><span class="o">.</span><span class="n">eps</span>
+dfdy = f.evaluate().eps
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfdx</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfdx
 </pre></div>
 </div>
 </div>
@@ -1966,7 +1966,7 @@ It can be shown that <span class="math notranslate nohighlight">\(f(x + \epsilon
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfdy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfdy
 </pre></div>
 </div>
 </div>
@@ -1984,71 +1984,71 @@ Now let’s look at reverse mode.</p>
 <p>Let’s rewrite our toy framework to add reverse mode autodiff:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Const</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span> <span class="nf">backpropagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gradient</span><span class="p">):</span>
-        <span class="k">pass</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class Const(object):
+    def __init__(self, value):
+        self.value = value
+    def evaluate(self):
+        return self.value
+    def backpropagate(self, gradient):
+        pass
+    def __str__(self):
+        return str(self.value)
 
-<span class="k">class</span> <span class="nc">Var</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">init_value</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">init_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gradient</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span> <span class="nf">backpropagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gradient</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gradient</span> <span class="o">+=</span> <span class="n">gradient</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+class Var(object):
+    def __init__(self, name, init_value=0):
+        self.value = init_value
+        self.name = name
+        self.gradient = 0
+    def evaluate(self):
+        return self.value
+    def backpropagate(self, gradient):
+        self.gradient += gradient
+    def __str__(self):
+        return self.name
 
-<span class="k">class</span> <span class="nc">BinaryOperator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+class BinaryOperator(object):
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
-<span class="k">class</span> <span class="nc">Add</span><span class="p">(</span><span class="n">BinaryOperator</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span> <span class="nf">backpropagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gradient</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">backpropagate</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">backpropagate</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> + </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+class Add(BinaryOperator):
+    def evaluate(self):
+        self.value = self.a.evaluate() + self.b.evaluate()
+        return self.value
+    def backpropagate(self, gradient):
+        self.a.backpropagate(gradient)
+        self.b.backpropagate(gradient)
+    def __str__(self):
+        return &quot;{} + {}&quot;.format(self.a, self.b)
 
-<span class="k">class</span> <span class="nc">Mul</span><span class="p">(</span><span class="n">BinaryOperator</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span> <span class="nf">backpropagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gradient</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">backpropagate</span><span class="p">(</span><span class="n">gradient</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">backpropagate</span><span class="p">(</span><span class="n">gradient</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">) * (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+class Mul(BinaryOperator):
+    def evaluate(self):
+        self.value = self.a.evaluate() * self.b.evaluate()
+        return self.value
+    def backpropagate(self, gradient):
+        self.a.backpropagate(gradient * self.b.value)
+        self.b.backpropagate(gradient * self.a.value)
+    def __str__(self):
+        return &quot;({}) * ({})&quot;.format(self.a, self.b)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">init_value</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">init_value</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">Add</span><span class="p">(</span><span class="n">Mul</span><span class="p">(</span><span class="n">Mul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">),</span> <span class="n">Add</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">Const</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span> <span class="c1"># f(x,y) = x²y + y + 2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = Var(&quot;x&quot;, init_value=3)
+y = Var(&quot;y&quot;, init_value=4)
+f = Add(Mul(Mul(x, x), y), Add(y, Const(2))) # f(x,y) = x²y + y + 2
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
-<span class="n">f</span><span class="o">.</span><span class="n">backpropagate</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+result = f.evaluate()
+f.backpropagate(1.0)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f)
 </pre></div>
 </div>
 </div>
@@ -2060,7 +2060,7 @@ Now let’s look at reverse mode.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result
 </pre></div>
 </div>
 </div>
@@ -2072,7 +2072,7 @@ Now let’s look at reverse mode.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">gradient</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x.gradient
 </pre></div>
 </div>
 </div>
@@ -2084,7 +2084,7 @@ Now let’s look at reverse mode.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">gradient</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y.gradient
 </pre></div>
 </div>
 </div>
@@ -2100,21 +2100,21 @@ Now let’s look at reverse mode.</p>
 <h3>Reverse mode autodiff using TensorFlow<a class="headerlink" href="#reverse-mode-autodiff-using-tensorflow" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import tensorflow as tf
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">3.</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">4.</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = tf.Variable(3.)
+y = tf.Variable(4.)
 
-<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+with tf.GradientTape() as tape:
+    f = x*x*y + y + 2
 
-<span class="n">jacobians</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
-<span class="n">jacobians</span>
+jacobians = tape.gradient(f, [x, y])
+jacobians
 </pre></div>
 </div>
 </div>
@@ -2128,19 +2128,19 @@ Now let’s look at reverse mode.</p>
 <p>Since everything is symbolic, we can compute second order derivatives, and beyond:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">3.</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">4.</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = tf.Variable(3.)
+y = tf.Variable(4.)
 
-<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">(</span><span class="n">persistent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
-    <span class="n">df_dx</span><span class="p">,</span> <span class="n">df_dy</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+with tf.GradientTape(persistent=True) as tape:
+    f = x*x*y + y + 2
+    df_dx, df_dy = tape.gradient(f, [x, y])
 
-<span class="n">d2f_d2x</span><span class="p">,</span> <span class="n">d2f_dydx</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">df_dx</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
-<span class="n">d2f_dxdy</span><span class="p">,</span> <span class="n">d2f_d2y</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">df_dy</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
-<span class="k">del</span> <span class="n">tape</span>
+d2f_d2x, d2f_dydx = tape.gradient(df_dx, [x, y])
+d2f_dxdy, d2f_d2y = tape.gradient(df_dy, [x, y])
+del tape
 
-<span class="n">hessians</span> <span class="o">=</span> <span class="p">[[</span><span class="n">d2f_d2x</span><span class="p">,</span> <span class="n">d2f_dydx</span><span class="p">],</span> <span class="p">[</span><span class="n">d2f_dxdy</span><span class="p">,</span> <span class="n">d2f_d2y</span><span class="p">]]</span>
-<span class="n">hessians</span>
+hessians = [[d2f_d2x, d2f_dydx], [d2f_dxdy, d2f_d2y]]
+hessians
 </pre></div>
 </div>
 </div>

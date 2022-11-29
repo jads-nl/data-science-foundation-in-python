@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1534,8 +1534,8 @@ title="Print to PDF"
 <p><em>This notebook is part of the <a class="reference external" href="https://github.com/uwdata/visualization-curriculum">data visualization curriculum</a>.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import altair as alt
 </pre></div>
 </div>
 </div>
@@ -1545,15 +1545,15 @@ title="Print to PDF"
 <p>We will be visualizing weather statistics for the U.S. cities of Seattle and New York. Let’s load the dataset and peek at the first and last 10 rows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>weather = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/weather.csv&#39;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = pd.read_csv(weather)
+df.head(10)
 </pre></div>
 </div>
 </div>
@@ -1692,7 +1692,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.tail(10)
 </pre></div>
 </div>
 </div>
@@ -1839,23 +1839,23 @@ title="Print to PDF"
 <p>Let’s start by plotting the minimum and maximum average temperatures per month:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(weather).mark_area().encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_max):Q&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-b634cd6c041545da837c808f0c6a4017"></div>
+<div id="altair-viz-2525ba62b06949b1b2bbb56d999f4b46"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b634cd6c041545da837c808f0c6a4017") {
-      outputDiv = document.getElementById("altair-viz-b634cd6c041545da837c808f0c6a4017");
+    if (outputDiv.id !== "altair-viz-2525ba62b06949b1b2bbb56d999f4b46") {
+      outputDiv = document.getElementById("altair-viz-2525ba62b06949b1b2bbb56d999f4b46");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1908,24 +1908,24 @@ title="Print to PDF"
 <p>Let’s subdivide the data by location using a color encoding, while also adjusting the mark opacity to accommodate overlapping areas:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(weather).mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_max):Q&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-956333c051f94b8b851783fd3f83e9c4"></div>
+<div id="altair-viz-555bd97556a648cd8ca4cfae8231618b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-956333c051f94b8b851783fd3f83e9c4") {
-      outputDiv = document.getElementById("altair-viz-956333c051f94b8b851783fd3f83e9c4");
+    if (outputDiv.id !== "altair-viz-555bd97556a648cd8ca4cfae8231618b") {
+      outputDiv = document.getElementById("altair-viz-555bd97556a648cd8ca4cfae8231618b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1979,25 +1979,25 @@ title="Print to PDF"
 <p>Let’s create a line chart showing the average temperature midpoint. We’ll use a <code class="docutils literal notranslate"><span class="pre">calculate</span></code> transform to compute the midpoints between the minimum and maximum daily temperatures:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">temp_mid</span><span class="o">=</span><span class="s1">&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_mid):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(weather).mark_line().transform_calculate(
+  temp_mid=&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_mid):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-dac9a8e2fee24107916b6cc3c674348f"></div>
+<div id="altair-viz-50f3b4a3c3704f048fb8e0629df83c17"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-dac9a8e2fee24107916b6cc3c674348f") {
-      outputDiv = document.getElementById("altair-viz-dac9a8e2fee24107916b6cc3c674348f");
+    if (outputDiv.id !== "altair-viz-50f3b4a3c3704f048fb8e0629df83c17") {
+      outputDiv = document.getElementById("altair-viz-50f3b4a3c3704f048fb8e0629df83c17");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2050,34 +2050,34 @@ title="Print to PDF"
 <p>We’d now like to combine these charts by layering the midpoint lines over the range areas. Using the syntax <code class="docutils literal notranslate"><span class="pre">chart1</span> <span class="pre">+</span> <span class="pre">chart2</span></code>, we can specify that we want a new layered chart in which <code class="docutils literal notranslate"><span class="pre">chart1</span></code> is the first layer and <code class="docutils literal notranslate"><span class="pre">chart2</span></code> is a second layer drawn on top:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart(weather).mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_max):Q&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">tempMid</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">temp_mid</span><span class="o">=</span><span class="s1">&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_mid):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+tempMid = alt.Chart(weather).mark_line().transform_calculate(
+  temp_mid=&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_mid):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">tempMinMax</span> <span class="o">+</span> <span class="n">tempMid</span>
+tempMinMax + tempMid
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ab1057c954b14de9b5901e74f928f7c6"></div>
+<div id="altair-viz-b6804d2948dd40558b1ea7ac32f20193"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ab1057c954b14de9b5901e74f928f7c6") {
-      outputDiv = document.getElementById("altair-viz-ab1057c954b14de9b5901e74f928f7c6");
+    if (outputDiv.id !== "altair-viz-b6804d2948dd40558b1ea7ac32f20193") {
+      outputDiv = document.getElementById("altair-viz-b6804d2948dd40558b1ea7ac32f20193");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2130,34 +2130,34 @@ title="Print to PDF"
 <p>Let’s customize our axes to clean up the plot. If we set a custom axis title within one of the layers, it will automatically be used as a shared axis title for all the layers:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Avg. Temperature °C&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart(weather).mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;, title=None, axis=alt.Axis(format=&#39;%b&#39;)),
+  alt.Y(&#39;average(temp_max):Q&#39;, title=&#39;Avg. Temperature °C&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">tempMid</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">temp_mid</span><span class="o">=</span><span class="s1">&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_mid):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+tempMid = alt.Chart(weather).mark_line().transform_calculate(
+  temp_mid=&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_mid):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">tempMinMax</span> <span class="o">+</span> <span class="n">tempMid</span>
+tempMinMax + tempMid
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3acd77d2dd1e487b8722edec9d777a70"></div>
+<div id="altair-viz-a36d8ec4013f4b1ebd556c70de5fa446"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3acd77d2dd1e487b8722edec9d777a70") {
-      outputDiv = document.getElementById("altair-viz-3acd77d2dd1e487b8722edec9d777a70");
+    if (outputDiv.id !== "altair-viz-a36d8ec4013f4b1ebd556c70de5fa446") {
+      outputDiv = document.getElementById("altair-viz-a36d8ec4013f4b1ebd556c70de5fa446");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2210,19 +2210,19 @@ title="Print to PDF"
 <p>Above used the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator, a convenient shorthand for Altair’s <code class="docutils literal notranslate"><span class="pre">layer</span></code> method. We can generate an identical layered chart using the <code class="docutils literal notranslate"><span class="pre">layer</span></code> method directly:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">tempMinMax</span><span class="p">,</span> <span class="n">tempMid</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.layer(tempMinMax, tempMid)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3ae7136f5f584d9dba73115bdf9db1e3"></div>
+<div id="altair-viz-788ebbec3444478ea67066dd3e2689cd"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3ae7136f5f584d9dba73115bdf9db1e3") {
-      outputDiv = document.getElementById("altair-viz-3ae7136f5f584d9dba73115bdf9db1e3");
+    if (outputDiv.id !== "altair-viz-788ebbec3444478ea67066dd3e2689cd") {
+      outputDiv = document.getElementById("altair-viz-788ebbec3444478ea67066dd3e2689cd");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2279,27 +2279,27 @@ title="Print to PDF"
 <p>Let’s look at precipitation alongside temperature to learn more. First let’s create a base plot the shows average monthly precipitation in Seattle:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span>
-  <span class="n">interpolate</span><span class="o">=</span><span class="s1">&#39;monotone&#39;</span><span class="p">,</span>
-  <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(precipitation):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Precipitation&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).mark_line(
+  interpolate=&#39;monotone&#39;,
+  stroke=&#39;grey&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;, title=None),
+  alt.Y(&#39;average(precipitation):Q&#39;, title=&#39;Precipitation&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3cfc06c1cd03458e856f06efa318f987"></div>
+<div id="altair-viz-bbe5fc74a858483f802de9424b040c13"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3cfc06c1cd03458e856f06efa318f987") {
-      outputDiv = document.getElementById("altair-viz-3cfc06c1cd03458e856f06efa318f987");
+    if (outputDiv.id !== "altair-viz-bbe5fc74a858483f802de9424b040c13") {
+      outputDiv = document.getElementById("altair-viz-bbe5fc74a858483f802de9424b040c13");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2351,37 +2351,37 @@ title="Print to PDF"
 <p>To facilitate comparison with the temperature data, let’s create a new layered chart. Here’s what happens if we try to layer the charts as we did earlier:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Avg. Temperature °C&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart(weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;, title=None, axis=alt.Axis(format=&#39;%b&#39;)),
+  alt.Y(&#39;average(temp_max):Q&#39;, title=&#39;Avg. Temperature °C&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;)
+)
 
-<span class="n">precip</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span>
-  <span class="n">interpolate</span><span class="o">=</span><span class="s1">&#39;monotone&#39;</span><span class="p">,</span>
-  <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(precipitation):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Precipitation&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+precip = alt.Chart(weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).mark_line(
+  interpolate=&#39;monotone&#39;,
+  stroke=&#39;grey&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(precipitation):Q&#39;, title=&#39;Precipitation&#39;)
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">tempMinMax</span><span class="p">,</span> <span class="n">precip</span><span class="p">)</span>
+alt.layer(tempMinMax, precip)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2d21577632904fe98c6eb3ee786a9df7"></div>
+<div id="altair-viz-268f0290242f4c63b4ddbc47d152041a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2d21577632904fe98c6eb3ee786a9df7") {
-      outputDiv = document.getElementById("altair-viz-2d21577632904fe98c6eb3ee786a9df7");
+    if (outputDiv.id !== "altair-viz-268f0290242f4c63b4ddbc47d152041a") {
+      outputDiv = document.getElementById("altair-viz-268f0290242f4c63b4ddbc47d152041a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2435,37 +2435,37 @@ title="Print to PDF"
 <p>If we want to use different y-axis scales, we need to specify how we want Altair to <em>resolve</em> the data across layers. In this case, we want to resolve the y-axis <code class="docutils literal notranslate"><span class="pre">scale</span></code> domains to be <code class="docutils literal notranslate"><span class="pre">independent</span></code> rather than use a <code class="docutils literal notranslate"><span class="pre">shared</span></code> domain. The <code class="docutils literal notranslate"><span class="pre">Chart</span></code> object produced by a layer operator includes a <code class="docutils literal notranslate"><span class="pre">resolve_scale</span></code> method with which we can specify the desired resolution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Avg. Temperature °C&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart(weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;, title=None, axis=alt.Axis(format=&#39;%b&#39;)),
+  alt.Y(&#39;average(temp_max):Q&#39;, title=&#39;Avg. Temperature °C&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;)
+)
 
-<span class="n">precip</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span>
-  <span class="n">interpolate</span><span class="o">=</span><span class="s1">&#39;monotone&#39;</span><span class="p">,</span>
-  <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(precipitation):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Precipitation&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+precip = alt.Chart(weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).mark_line(
+  interpolate=&#39;monotone&#39;,
+  stroke=&#39;grey&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(precipitation):Q&#39;, title=&#39;Precipitation&#39;)
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">tempMinMax</span><span class="p">,</span> <span class="n">precip</span><span class="p">)</span><span class="o">.</span><span class="n">resolve_scale</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">)</span>
+alt.layer(tempMinMax, precip).resolve_scale(y=&#39;independent&#39;)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7251225e757a4ccf85e461a864c3e198"></div>
+<div id="altair-viz-19848d3652b240499e2d6722f13fb914"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7251225e757a4ccf85e461a864c3e198") {
-      outputDiv = document.getElementById("altair-viz-7251225e757a4ccf85e461a864c3e198");
+    if (outputDiv.id !== "altair-viz-19848d3652b240499e2d6722f13fb914") {
+      outputDiv = document.getElementById("altair-viz-19848d3652b240499e2d6722f13fb914");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2518,35 +2518,35 @@ title="Print to PDF"
 <p>You may have noticed some redundancy in our plot specifications above: both use the same dataset and the same filter to look at Seattle only. If you want, you can streamline the code a bit by providing the data and filter transform to the top-level layered chart. The individual layers will then inherit the data if they don’t have their own data definitions:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Avg. Temperature °C&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart().mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;, title=None, axis=alt.Axis(format=&#39;%b&#39;)),
+  alt.Y(&#39;average(temp_max):Q&#39;, title=&#39;Avg. Temperature °C&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;)
+)
 
-<span class="n">precip</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span>
-  <span class="n">interpolate</span><span class="o">=</span><span class="s1">&#39;monotone&#39;</span><span class="p">,</span>
-  <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(precipitation):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Precipitation&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+precip = alt.Chart().mark_line(
+  interpolate=&#39;monotone&#39;,
+  stroke=&#39;grey&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(precipitation):Q&#39;, title=&#39;Precipitation&#39;)
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">tempMinMax</span><span class="p">,</span> <span class="n">precip</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">resolve_scale</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">)</span>
+alt.layer(tempMinMax, precip, data=weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).resolve_scale(y=&#39;independent&#39;)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9b15e0dcb76f4bc1b0c9aed60cc12692"></div>
+<div id="altair-viz-2eb723968e6e4600a6ea809b7b9b76ac"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9b15e0dcb76f4bc1b0c9aed60cc12692") {
-      outputDiv = document.getElementById("altair-viz-9b15e0dcb76f4bc1b0c9aed60cc12692");
+    if (outputDiv.id !== "altair-viz-2eb723968e6e4600a6ea809b7b9b76ac") {
+      outputDiv = document.getElementById("altair-viz-2eb723968e6e4600a6ea809b7b9b76ac");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2604,24 +2604,24 @@ title="Print to PDF"
 <p>Let’s start with a basic histogram of maximum temperature values in Seattle:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;temp_max:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Temperature (°C)&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count():Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(weather).mark_bar().transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).encode(
+  alt.X(&#39;temp_max:Q&#39;, bin=True, title=&#39;Temperature (°C)&#39;),
+  alt.Y(&#39;count():Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7736bb41e38547bca5d5b47eeacab765"></div>
+<div id="altair-viz-fed4474bbf77487eb1090460efa2ce5c"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7736bb41e38547bca5d5b47eeacab765") {
-      outputDiv = document.getElementById("altair-viz-7736bb41e38547bca5d5b47eeacab765");
+    if (outputDiv.id !== "altair-viz-fed4474bbf77487eb1090460efa2ce5c") {
+      outputDiv = document.getElementById("altair-viz-fed4474bbf77487eb1090460efa2ce5c");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2674,34 +2674,34 @@ title="Print to PDF"
 <p>Let’s use the <code class="docutils literal notranslate"><span class="pre">column</span></code> encoding channel to facet the data by weather type. We can also use <code class="docutils literal notranslate"><span class="pre">color</span></code> as a redundant encoding, using a customized color range:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span>
-  <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;drizzle&#39;</span><span class="p">,</span> <span class="s1">&#39;fog&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;snow&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">],</span>
-  <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#aec7e8&#39;</span><span class="p">,</span> <span class="s1">&#39;#c7c7c7&#39;</span><span class="p">,</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span> <span class="s1">&#39;#e7ba52&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>colors = alt.Scale(
+  domain=[&#39;drizzle&#39;, &#39;fog&#39;, &#39;rain&#39;, &#39;snow&#39;, &#39;sun&#39;],
+  range=[&#39;#aec7e8&#39;, &#39;#c7c7c7&#39;, &#39;#1f77b4&#39;, &#39;#9467bd&#39;, &#39;#e7ba52&#39;]
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;temp_max:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Temperature (°C)&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count():Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;weather:N&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">colors</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;weather:N&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">150</span>
-<span class="p">)</span>
+alt.Chart(weather).mark_bar().transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).encode(
+  alt.X(&#39;temp_max:Q&#39;, bin=True, title=&#39;Temperature (°C)&#39;),
+  alt.Y(&#39;count():Q&#39;),
+  alt.Color(&#39;weather:N&#39;, scale=colors),
+  alt.Column(&#39;weather:N&#39;)
+).properties(
+  width=150,
+  height=150
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e4f95a658d7245da9b1ba0b87421211d"></div>
+<div id="altair-viz-ae71c2d4ae61481bb60b266d2607c080"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e4f95a658d7245da9b1ba0b87421211d") {
-      outputDiv = document.getElementById("altair-viz-e4f95a658d7245da9b1ba0b87421211d");
+    if (outputDiv.id !== "altair-viz-ae71c2d4ae61481bb60b266d2607c080") {
+      outputDiv = document.getElementById("altair-viz-ae71c2d4ae61481bb60b266d2607c080");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2756,36 +2756,36 @@ title="Print to PDF"
 <p>Finally we include our filter transform, applying it to the top-level faceted chart. While we could apply the filter transform to the histogram definition as before, that is slightly less efficient. Rather than filter out “New York” values within each facet cell, applying the filter to the faceted chart lets Vega-Lite know that we can filter out those values up front, prior to the facet subdivision.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span>
-  <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;drizzle&#39;</span><span class="p">,</span> <span class="s1">&#39;fog&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;snow&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">],</span>
-  <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#aec7e8&#39;</span><span class="p">,</span> <span class="s1">&#39;#c7c7c7&#39;</span><span class="p">,</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span> <span class="s1">&#39;#e7ba52&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>colors = alt.Scale(
+  domain=[&#39;drizzle&#39;, &#39;fog&#39;, &#39;rain&#39;, &#39;snow&#39;, &#39;sun&#39;],
+  range=[&#39;#aec7e8&#39;, &#39;#c7c7c7&#39;, &#39;#1f77b4&#39;, &#39;#9467bd&#39;, &#39;#e7ba52&#39;]
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;temp_max:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Temperature (°C)&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count():Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;weather:N&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">150</span>
-<span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span>
-  <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span>
-  <span class="n">column</span><span class="o">=</span><span class="s1">&#39;weather:N&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span>
+alt.Chart().mark_bar().encode(
+  alt.X(&#39;temp_max:Q&#39;, bin=True, title=&#39;Temperature (°C)&#39;),
+  alt.Y(&#39;count():Q&#39;),
+  alt.Color(&#39;weather:N&#39;, scale=colors)
+).properties(
+  width=150,
+  height=150
+).facet(
+  data=weather,
+  column=&#39;weather:N&#39;
+).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-175a0382a86f43659afe8e574ab7b767"></div>
+<div id="altair-viz-83693854ec164e3fae2da89fb5b03f4b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-175a0382a86f43659afe8e574ab7b767") {
-      outputDiv = document.getElementById("altair-viz-175a0382a86f43659afe8e574ab7b767");
+    if (outputDiv.id !== "altair-viz-83693854ec164e3fae2da89fb5b03f4b") {
+      outputDiv = document.getElementById("altair-viz-83693854ec164e3fae2da89fb5b03f4b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2838,37 +2838,37 @@ title="Print to PDF"
 <p>Let’s revisit our layered temperature plots from earlier. Instead of plotting data for New York and Seattle in the same plot, let’s break them up into separate facets. The individual chart definitions are nearly the same as before: one area chart and one line chart. The only difference is that this time we won’t pass the data directly to the chart constructors; we’ll wait and pass it to the facet operator later. We can layer the charts much as before, then invoke <code class="docutils literal notranslate"><span class="pre">facet</span></code> on the layered chart object, passing in the data and specifying <code class="docutils literal notranslate"><span class="pre">column</span></code> facets based on the <code class="docutils literal notranslate"><span class="pre">location</span></code> field:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Avg. Temperature (°C)&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart().mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;, title=None, axis=alt.Axis(format=&#39;%b&#39;)),
+  alt.Y(&#39;average(temp_max):Q&#39;, title=&#39;Avg. Temperature (°C)&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">tempMid</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">temp_mid</span><span class="o">=</span><span class="s1">&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_mid):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+tempMid = alt.Chart().mark_line().transform_calculate(
+  temp_mid=&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_mid):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">tempMinMax</span><span class="p">,</span> <span class="n">tempMid</span><span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span>
-  <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span>
-  <span class="n">column</span><span class="o">=</span><span class="s1">&#39;location:N&#39;</span>
-<span class="p">)</span>
+alt.layer(tempMinMax, tempMid).facet(
+  data=weather,
+  column=&#39;location:N&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d0222c860e0b420c8837d0d190138052"></div>
+<div id="altair-viz-74b388f105064dceac6e007fc8f4aff7"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d0222c860e0b420c8837d0d190138052") {
-      outputDiv = document.getElementById("altair-viz-d0222c860e0b420c8837d0d190138052");
+    if (outputDiv.id !== "altair-viz-74b388f105064dceac6e007fc8f4aff7") {
+      outputDiv = document.getElementById("altair-viz-74b388f105064dceac6e007fc8f4aff7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2921,37 +2921,37 @@ title="Print to PDF"
 <p>Similar to layered charts, faceted charts also support <em>resolving</em> to independent scales or axes across plots. Let’s see what happens if we call the <code class="docutils literal notranslate"><span class="pre">resolve_axis</span></code> method to request <code class="docutils literal notranslate"><span class="pre">independent</span></code> y-axes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Avg. Temperature (°C)&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart().mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;, title=None, axis=alt.Axis(format=&#39;%b&#39;)),
+  alt.Y(&#39;average(temp_max):Q&#39;, title=&#39;Avg. Temperature (°C)&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">tempMid</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">temp_mid</span><span class="o">=</span><span class="s1">&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_mid):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+tempMid = alt.Chart().mark_line().transform_calculate(
+  temp_mid=&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_mid):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">tempMinMax</span><span class="p">,</span> <span class="n">tempMid</span><span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span>
-  <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span>
-  <span class="n">column</span><span class="o">=</span><span class="s1">&#39;location:N&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">resolve_axis</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">)</span>
+alt.layer(tempMinMax, tempMid).facet(
+  data=weather,
+  column=&#39;location:N&#39;
+).resolve_axis(y=&#39;independent&#39;)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-7f72914acc994ff8b9759b0564e0d393"></div>
+<div id="altair-viz-7c5b8e7ac90c4f97ab7bb7fe9b21e3c1"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7f72914acc994ff8b9759b0564e0d393") {
-      outputDiv = document.getElementById("altair-viz-7f72914acc994ff8b9759b0564e0d393");
+    if (outputDiv.id !== "altair-viz-7c5b8e7ac90c4f97ab7bb7fe9b21e3c1") {
+      outputDiv = document.getElementById("altair-viz-7c5b8e7ac90c4f97ab7bb7fe9b21e3c1");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3004,37 +3004,37 @@ title="Print to PDF"
 <p>What if we instead call <code class="docutils literal notranslate"><span class="pre">resolve_scale</span></code> to resolve the underlying scale domains?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tempMinMax</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_area</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Avg. Temperature (°C)&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y2</span><span class="p">(</span><span class="s1">&#39;average(temp_min):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tempMinMax = alt.Chart().mark_area(opacity=0.3).encode(
+  alt.X(&#39;month(date):T&#39;, title=None, axis=alt.Axis(format=&#39;%b&#39;)),
+  alt.Y(&#39;average(temp_max):Q&#39;, title=&#39;Avg. Temperature (°C)&#39;),
+  alt.Y2(&#39;average(temp_min):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">tempMid</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">temp_mid</span><span class="o">=</span><span class="s1">&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_mid):Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;location:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+tempMid = alt.Chart().mark_line().transform_calculate(
+  temp_mid=&#39;(+datum.temp_min + +datum.temp_max) / 2&#39;
+).encode(
+  alt.X(&#39;month(date):T&#39;),
+  alt.Y(&#39;average(temp_mid):Q&#39;),
+  alt.Color(&#39;location:N&#39;)
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span><span class="n">tempMinMax</span><span class="p">,</span> <span class="n">tempMid</span><span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span>
-  <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span>
-  <span class="n">column</span><span class="o">=</span><span class="s1">&#39;location:N&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">resolve_scale</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">)</span>
+alt.layer(tempMinMax, tempMid).facet(
+  data=weather,
+  column=&#39;location:N&#39;
+).resolve_scale(y=&#39;independent&#39;)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d399ed119a05415e96d89a484d1e3bdd"></div>
+<div id="altair-viz-cf044c7d12b14a6e98a17b1c5f0c5866"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d399ed119a05415e96d89a484d1e3bdd") {
-      outputDiv = document.getElementById("altair-viz-d399ed119a05415e96d89a484d1e3bdd");
+    if (outputDiv.id !== "altair-viz-cf044c7d12b14a6e98a17b1c5f0c5866") {
+      outputDiv = document.getElementById("altair-viz-cf044c7d12b14a6e98a17b1c5f0c5866");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3093,23 +3093,23 @@ title="Print to PDF"
 <p>Let’s start with a basic line chart showing the average maximum temperature per month for both New York and Seattle, much like we’ve seen before:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">),</span>
-  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;location:N&#39;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(weather).mark_line().encode(
+  alt.X(&#39;month(date):T&#39;, title=None),
+  alt.Y(&#39;average(temp_max):Q&#39;),
+  color=&#39;location:N&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-4405e5c1812144cf8266156b847f0d3d"></div>
+<div id="altair-viz-549aee89d2a443509ea0fd495de3b023"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4405e5c1812144cf8266156b847f0d3d") {
-      outputDiv = document.getElementById("altair-viz-4405e5c1812144cf8266156b847f0d3d");
+    if (outputDiv.id !== "altair-viz-549aee89d2a443509ea0fd495de3b023") {
+      outputDiv = document.getElementById("altair-viz-549aee89d2a443509ea0fd495de3b023");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3162,31 +3162,31 @@ title="Print to PDF"
 <p>Let’s create a concatenated chart consisting of three plots. We’ll start by defining a “base” chart definition that contains all the aspects that should be shared by our three plots. We can then modify this base chart to create customized variants, with different y-axis encodings for the <code class="docutils literal notranslate"><span class="pre">temp_max</span></code>, <code class="docutils literal notranslate"><span class="pre">precipitation</span></code>, and <code class="docutils literal notranslate"><span class="pre">wind</span></code> fields. We can then concatenate them using the pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>) shorthand operator:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;location:N&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">180</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base = alt.Chart(weather).mark_line().encode(
+  alt.X(&#39;month(date):T&#39;, title=None),
+  color=&#39;location:N&#39;
+).properties(
+  width=240,
+  height=180
+)
 
-<span class="n">temp</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">))</span>
-<span class="n">precip</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(precipitation):Q&#39;</span><span class="p">))</span>
-<span class="n">wind</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(wind):Q&#39;</span><span class="p">))</span>
+temp = base.encode(alt.Y(&#39;average(temp_max):Q&#39;))
+precip = base.encode(alt.Y(&#39;average(precipitation):Q&#39;))
+wind = base.encode(alt.Y(&#39;average(wind):Q&#39;))
 
-<span class="n">temp</span> <span class="o">|</span> <span class="n">precip</span> <span class="o">|</span> <span class="n">wind</span>
+temp | precip | wind
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-5430408778b148f5b3876fa792994d31"></div>
+<div id="altair-viz-7066cf8b86784beb833914d1e17ab8bd"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5430408778b148f5b3876fa792994d31") {
-      outputDiv = document.getElementById("altair-viz-5430408778b148f5b3876fa792994d31");
+    if (outputDiv.id !== "altair-viz-7066cf8b86784beb833914d1e17ab8bd") {
+      outputDiv = document.getElementById("altair-viz-7066cf8b86784beb833914d1e17ab8bd");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3249,28 +3249,28 @@ title="Print to PDF"
 <p>We then invoke the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> method, passing in data field names for each column:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):T&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;column&#39;</span><span class="p">),</span> <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">),</span>
-  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;location:N&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">180</span>
-<span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-  <span class="n">column</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;temp_max&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="s1">&#39;wind&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(weather).mark_line().encode(
+  alt.X(&#39;month(date):T&#39;,title=None),
+  alt.Y(alt.repeat(&#39;column&#39;), aggregate=&#39;average&#39;, type=&#39;quantitative&#39;),
+  color=&#39;location:N&#39;
+).properties(
+  width=240,
+  height=180
+).repeat(
+  column=[&#39;temp_max&#39;, &#39;precipitation&#39;, &#39;wind&#39;]
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-b345618f090c4792b2bcea8d9453d857"></div>
+<div id="altair-viz-916f4a79e80a45fcacd93fc848118d43"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b345618f090c4792b2bcea8d9453d857") {
-      outputDiv = document.getElementById("altair-viz-b345618f090c4792b2bcea8d9453d857");
+    if (outputDiv.id !== "altair-viz-916f4a79e80a45fcacd93fc848118d43") {
+      outputDiv = document.getElementById("altair-viz-916f4a79e80a45fcacd93fc848118d43");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3324,31 +3324,31 @@ title="Print to PDF"
 <p>Let’s use the <code class="docutils literal notranslate"><span class="pre">repeat</span></code> operator to create a SPLOM for the <code class="docutils literal notranslate"><span class="pre">temp_max</span></code>, <code class="docutils literal notranslate"><span class="pre">precipitation</span></code>, and <code class="docutils literal notranslate"><span class="pre">wind</span></code> fields. We first create our template specification, with repeater variables for both the x- and y-axis data fields. We then invoke <code class="docutils literal notranslate"><span class="pre">repeat</span></code>, passing in arrays of field names to use for both <code class="docutils literal notranslate"><span class="pre">row</span></code> and <code class="docutils literal notranslate"><span class="pre">column</span></code>. Altair will then generate the <a class="reference external" href="https://en.wikipedia.org/wiki/Cartesian_product">cross product (or, Cartesian product)</a> to create the full space of repeated charts:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_point</span><span class="p">(</span><span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;column&#39;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">150</span>
-<span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-  <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span>
-  <span class="n">row</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;temp_max&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="s1">&#39;wind&#39;</span><span class="p">],</span>
-  <span class="n">column</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;wind&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="s1">&#39;temp_max&#39;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart().mark_point(filled=True, size=15, opacity=0.5).encode(
+  alt.X(alt.repeat(&#39;column&#39;), type=&#39;quantitative&#39;),
+  alt.Y(alt.repeat(&#39;row&#39;), type=&#39;quantitative&#39;)
+).properties(
+  width=150,
+  height=150
+).repeat(
+  data=weather,
+  row=[&#39;temp_max&#39;, &#39;precipitation&#39;, &#39;wind&#39;],
+  column=[&#39;wind&#39;, &#39;precipitation&#39;, &#39;temp_max&#39;]
+).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-9664da719b594b888484d5f5b1f30ed5"></div>
+<div id="altair-viz-cabeef10e71746589680e73aee8e0c33"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9664da719b594b888484d5f5b1f30ed5") {
-      outputDiv = document.getElementById("altair-viz-9664da719b594b888484d5f5b1f30ed5");
+    if (outputDiv.id !== "altair-viz-cabeef10e71746589680e73aee8e0c33") {
+      outputDiv = document.getElementById("altair-viz-cabeef10e71746589680e73aee8e0c33");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3407,32 +3407,32 @@ title="Print to PDF"
 <p>As an example, let’s start with two basic charts: a histogram and a simple line (a single <code class="docutils literal notranslate"><span class="pre">rule</span></code> mark) showing a global average.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basic1</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):O&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>basic1 = alt.Chart(weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).mark_bar().encode(
+  alt.X(&#39;month(date):O&#39;),
+  alt.Y(&#39;average(temp_max):Q&#39;)
+)
 
-<span class="n">basic2</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">mark_rule</span><span class="p">(</span><span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(temp_max):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+basic2 = alt.Chart(weather).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).mark_rule(stroke=&#39;firebrick&#39;).encode(
+  alt.Y(&#39;average(temp_max):Q&#39;)
+)
 
-<span class="n">basic1</span> <span class="o">|</span> <span class="n">basic2</span>
+basic1 | basic2
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-56e478f4279c4e0ab294a95750052d15"></div>
+<div id="altair-viz-50acfc4db2e94a0186d3b8f783e2c8c2"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-56e478f4279c4e0ab294a95750052d15") {
-      outputDiv = document.getElementById("altair-viz-56e478f4279c4e0ab294a95750052d15");
+    if (outputDiv.id !== "altair-viz-50acfc4db2e94a0186d3b8f783e2c8c2") {
+      outputDiv = document.getElementById("altair-viz-50acfc4db2e94a0186d3b8f783e2c8c2");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3484,35 +3484,35 @@ title="Print to PDF"
 <p>We can then combine the two charts using a <code class="docutils literal notranslate"><span class="pre">layer</span></code> operator, and then <code class="docutils literal notranslate"><span class="pre">repeat</span></code> that layered chart to show histograms with overlaid averages for multiple fields:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):O&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Month&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;column&#39;</span><span class="p">),</span> <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">)</span>
-  <span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_rule</span><span class="p">(</span><span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;column&#39;</span><span class="p">),</span> <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">)</span>
-  <span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">150</span>
-<span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-  <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span>
-  <span class="n">column</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;temp_max&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="s1">&#39;wind&#39;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.layer(
+  alt.Chart().mark_bar().encode(
+    alt.X(&#39;month(date):O&#39;, title=&#39;Month&#39;),
+    alt.Y(alt.repeat(&#39;column&#39;), aggregate=&#39;average&#39;, type=&#39;quantitative&#39;)
+  ),
+  alt.Chart().mark_rule(stroke=&#39;firebrick&#39;).encode(
+    alt.Y(alt.repeat(&#39;column&#39;), aggregate=&#39;average&#39;, type=&#39;quantitative&#39;)
+  )
+).properties(
+  width=200,
+  height=150
+).repeat(
+  data=weather,
+  column=[&#39;temp_max&#39;, &#39;precipitation&#39;, &#39;wind&#39;]
+).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d0eee042020d47e58ea5af2b6cb9bfdf"></div>
+<div id="altair-viz-fab9d726f3784c64bd475567bd617874"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d0eee042020d47e58ea5af2b6cb9bfdf") {
-      outputDiv = document.getElementById("altair-viz-d0eee042020d47e58ea5af2b6cb9bfdf");
+    if (outputDiv.id !== "altair-viz-fab9d726f3784c64bd475567bd617874") {
+      outputDiv = document.getElementById("altair-viz-fab9d726f3784c64bd475567bd617874");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3571,70 +3571,70 @@ title="Print to PDF"
 <p>Now let’s explore how we can apply <em>all</em> the operators within a final <a class="reference external" href="https://en.wikipedia.org/wiki/Dashboard_%28business%29">dashboard</a> that provides an overview of Seattle weather. We’ll combine the SPLOM and faceted histogram displays from earlier sections with the repeated histograms above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">splom</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_point</span><span class="p">(</span><span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;column&#39;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">125</span>
-<span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-  <span class="n">row</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;temp_max&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="s1">&#39;wind&#39;</span><span class="p">],</span>
-  <span class="n">column</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;wind&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="s1">&#39;temp_max&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>splom = alt.Chart().mark_point(filled=True, size=15, opacity=0.5).encode(
+  alt.X(alt.repeat(&#39;column&#39;), type=&#39;quantitative&#39;),
+  alt.Y(alt.repeat(&#39;row&#39;), type=&#39;quantitative&#39;)
+).properties(
+  width=125,
+  height=125
+).repeat(
+  row=[&#39;temp_max&#39;, &#39;precipitation&#39;, &#39;wind&#39;],
+  column=[&#39;wind&#39;, &#39;precipitation&#39;, &#39;temp_max&#39;]
+)
 
-<span class="n">dateHist</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(date):O&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Month&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">),</span> <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">)</span>
-  <span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_rule</span><span class="p">(</span><span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">),</span> <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">)</span>
-  <span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">175</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">125</span>
-<span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-  <span class="n">row</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;temp_max&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="s1">&#39;wind&#39;</span><span class="p">]</span>
-<span class="p">)</span>
+dateHist = alt.layer(
+  alt.Chart().mark_bar().encode(
+    alt.X(&#39;month(date):O&#39;, title=&#39;Month&#39;),
+    alt.Y(alt.repeat(&#39;row&#39;), aggregate=&#39;average&#39;, type=&#39;quantitative&#39;)
+  ),
+  alt.Chart().mark_rule(stroke=&#39;firebrick&#39;).encode(
+    alt.Y(alt.repeat(&#39;row&#39;), aggregate=&#39;average&#39;, type=&#39;quantitative&#39;)
+  )
+).properties(
+  width=175,
+  height=125
+).repeat(
+  row=[&#39;temp_max&#39;, &#39;precipitation&#39;, &#39;wind&#39;]
+)
 
-<span class="n">tempHist</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">weather</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;temp_max:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Temperature (°C)&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count():Q&#39;</span><span class="p">),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;weather:N&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span>
-    <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;drizzle&#39;</span><span class="p">,</span> <span class="s1">&#39;fog&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;snow&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">],</span>
-    <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#aec7e8&#39;</span><span class="p">,</span> <span class="s1">&#39;#c7c7c7&#39;</span><span class="p">,</span> <span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span> <span class="s1">&#39;#e7ba52&#39;</span><span class="p">]</span>
-  <span class="p">))</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">100</span>
-<span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span>
-  <span class="n">column</span><span class="o">=</span><span class="s1">&#39;weather:N&#39;</span>
-<span class="p">)</span>
+tempHist = alt.Chart(weather).mark_bar().encode(
+  alt.X(&#39;temp_max:Q&#39;, bin=True, title=&#39;Temperature (°C)&#39;),
+  alt.Y(&#39;count():Q&#39;),
+  alt.Color(&#39;weather:N&#39;, scale=alt.Scale(
+    domain=[&#39;drizzle&#39;, &#39;fog&#39;, &#39;rain&#39;, &#39;snow&#39;, &#39;sun&#39;],
+    range=[&#39;#aec7e8&#39;, &#39;#c7c7c7&#39;, &#39;#1f77b4&#39;, &#39;#9467bd&#39;, &#39;#e7ba52&#39;]
+  ))
+).properties(
+  width=115,
+  height=100
+).facet(
+  column=&#39;weather:N&#39;
+)
 
-<span class="n">alt</span><span class="o">.</span><span class="n">vconcat</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">hconcat</span><span class="p">(</span><span class="n">splom</span><span class="p">,</span> <span class="n">dateHist</span><span class="p">),</span>
-  <span class="n">tempHist</span><span class="p">,</span>
-  <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span>
-  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Seattle Weather Dashboard&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-  <span class="s1">&#39;datum.location == &quot;Seattle&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">resolve_legend</span><span class="p">(</span>
-  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">configure_axis</span><span class="p">(</span>
-  <span class="n">labelAngle</span><span class="o">=</span><span class="mi">0</span>
-<span class="p">)</span>
+alt.vconcat(
+  alt.hconcat(splom, dateHist),
+  tempHist,
+  data=weather,
+  title=&#39;Seattle Weather Dashboard&#39;
+).transform_filter(
+  &#39;datum.location == &quot;Seattle&quot;&#39;
+).resolve_legend(
+  color=&#39;independent&#39;
+).configure_axis(
+  labelAngle=0
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-02d9a2d20a8445d2a4c84281b0e333ce"></div>
+<div id="altair-viz-4c40f767f4bf416f8fb380bca07e8c0d"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-02d9a2d20a8445d2a4c84281b0e333ce") {
-      outputDiv = document.getElementById("altair-viz-02d9a2d20a8445d2a4c84281b0e333ce");
+    if (outputDiv.id !== "altair-viz-4c40f767f4bf416f8fb380bca07e8c0d") {
+      outputDiv = document.getElementById("altair-viz-4c40f767f4bf416f8fb380bca07e8c0d");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",

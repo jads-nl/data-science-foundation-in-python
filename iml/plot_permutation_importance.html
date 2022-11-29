@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1458,7 +1458,7 @@ title="Print to PDF"
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
 </pre></div>
 </div>
 </div>
@@ -1483,22 +1483,17 @@ can mitigate those limitations.</p>
 2001. <a class="reference external" href="https://doi.org/10.1023/A:1010933404324">https://doi.org/10.1023/A:1010933404324</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+import numpy as np
 
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
-<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">permutation_importance</span>
-<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Automatically created module for IPython interactive environment
+from sklearn.datasets import fetch_openml
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.inspection import permutation_importance
+from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder
 </pre></div>
 </div>
 </div>
@@ -1517,51 +1512,63 @@ values).</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X</span><span class="p">[</span><span class="s1">&#39;random_cat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">X</span><span class="p">[</span><span class="s1">&#39;random_num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X, y = fetch_openml(&quot;titanic&quot;, version=1, as_frame=True, return_X_y=True)
+rng = np.random.RandomState(seed=42)
+X[&#39;random_cat&#39;] = rng.randint(3, size=X.shape[0])
+X[&#39;random_num&#39;] = rng.randn(X.shape[0])
 
-<span class="n">categorical_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;embarked&#39;</span><span class="p">,</span> <span class="s1">&#39;random_cat&#39;</span><span class="p">]</span>
-<span class="n">numerical_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;sibsp&#39;</span><span class="p">,</span> <span class="s1">&#39;parch&#39;</span><span class="p">,</span> <span class="s1">&#39;fare&#39;</span><span class="p">,</span> <span class="s1">&#39;random_num&#39;</span><span class="p">]</span>
+categorical_columns = [&#39;pclass&#39;, &#39;sex&#39;, &#39;embarked&#39;, &#39;random_cat&#39;]
+numerical_columns = [&#39;age&#39;, &#39;sibsp&#39;, &#39;parch&#39;, &#39;fare&#39;, &#39;random_num&#39;]
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">categorical_columns</span> <span class="o">+</span> <span class="n">numerical_columns</span><span class="p">]</span>
+X = X[categorical_columns + numerical_columns]
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, stratify=y, random_state=42)
 
-<span class="n">categorical_encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="n">numerical_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;imputer&#39;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">))</span>
-<span class="p">])</span>
+categorical_encoder = OneHotEncoder(handle_unknown=&#39;ignore&#39;)
+numerical_pipe = Pipeline([
+    (&#39;imputer&#39;, SimpleImputer(strategy=&#39;mean&#39;))
+])
 
-<span class="n">preprocessing</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
-    <span class="p">[(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">categorical_encoder</span><span class="p">,</span> <span class="n">categorical_columns</span><span class="p">),</span>
-     <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="n">numerical_pipe</span><span class="p">,</span> <span class="n">numerical_columns</span><span class="p">)])</span>
+preprocessing = ColumnTransformer(
+    [(&#39;cat&#39;, categorical_encoder, categorical_columns),
+     (&#39;num&#39;, numerical_pipe, numerical_columns)])
 
-<span class="n">rf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;preprocess&#39;</span><span class="p">,</span> <span class="n">preprocessing</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
-<span class="p">])</span>
-<span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+rf = Pipeline([
+    (&#39;preprocess&#39;, preprocessing),
+    (&#39;classifier&#39;, RandomForestClassifier(random_state=42))
+])
+rf.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pipeline(steps=[(&#39;preprocess&#39;,
-                 ColumnTransformer(transformers=[(&#39;cat&#39;,
-                                                  OneHotEncoder(handle_unknown=&#39;ignore&#39;),
-                                                  [&#39;pclass&#39;, &#39;sex&#39;, &#39;embarked&#39;,
-                                                   &#39;random_cat&#39;]),
-                                                 (&#39;num&#39;,
-                                                  Pipeline(steps=[(&#39;imputer&#39;,
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocess&#x27;,
+                 ColumnTransformer(transformers=[(&#x27;cat&#x27;,
+                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
+                                                  [&#x27;pclass&#x27;, &#x27;sex&#x27;, &#x27;embarked&#x27;,
+                                                   &#x27;random_cat&#x27;]),
+                                                 (&#x27;num&#x27;,
+                                                  Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                    SimpleImputer())]),
-                                                  [&#39;age&#39;, &#39;sibsp&#39;, &#39;parch&#39;,
-                                                   &#39;fare&#39;, &#39;random_num&#39;])])),
-                (&#39;classifier&#39;, RandomForestClassifier(random_state=42))])
-</pre></div>
-</div>
-</div>
+                                                  [&#x27;age&#x27;, &#x27;sibsp&#x27;, &#x27;parch&#x27;,
+                                                   &#x27;fare&#x27;, &#x27;random_num&#x27;])])),
+                (&#x27;classifier&#x27;, RandomForestClassifier(random_state=42))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocess&#x27;,
+                 ColumnTransformer(transformers=[(&#x27;cat&#x27;,
+                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
+                                                  [&#x27;pclass&#x27;, &#x27;sex&#x27;, &#x27;embarked&#x27;,
+                                                   &#x27;random_cat&#x27;]),
+                                                 (&#x27;num&#x27;,
+                                                  Pipeline(steps=[(&#x27;imputer&#x27;,
+                                                                   SimpleImputer())]),
+                                                  [&#x27;age&#x27;, &#x27;sibsp&#x27;, &#x27;parch&#x27;,
+                                                   &#x27;fare&#x27;, &#x27;random_num&#x27;])])),
+                (&#x27;classifier&#x27;, RandomForestClassifier(random_state=42))])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocess: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;cat&#x27;, OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
+                                 [&#x27;pclass&#x27;, &#x27;sex&#x27;, &#x27;embarked&#x27;, &#x27;random_cat&#x27;]),
+                                (&#x27;num&#x27;,
+                                 Pipeline(steps=[(&#x27;imputer&#x27;, SimpleImputer())]),
+                                 [&#x27;age&#x27;, &#x27;sibsp&#x27;, &#x27;parch&#x27;, &#x27;fare&#x27;,
+                                  &#x27;random_num&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">cat</label><div class="sk-toggleable__content"><pre>[&#x27;pclass&#x27;, &#x27;sex&#x27;, &#x27;embarked&#x27;, &#x27;random_cat&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">num</label><div class="sk-toggleable__content"><pre>[&#x27;age&#x27;, &#x27;sibsp&#x27;, &#x27;parch&#x27;, &#x27;fare&#x27;, &#x27;random_num&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">SimpleImputer</label><div class="sk-toggleable__content"><pre>SimpleImputer()</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier(random_state=42)</pre></div></div></div></div></div></div></div></div></div>
 </div>
 </section>
 <section id="accuracy-of-the-model">
@@ -1583,8 +1590,8 @@ illustrate some pitfalls with feature importance on variables with many
 unique values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RF train accuracy: </span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RF test accuracy: </span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot;RF train accuracy: %0.3f&quot; % rf.score(X_train, y_train))
+print(&quot;RF test accuracy: %0.3f&quot; % rf.score(X_test, y_test))
 </pre></div>
 </div>
 </div>
@@ -1612,23 +1619,23 @@ capacity).</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ohe</span> <span class="o">=</span> <span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;preprocess&#39;</span><span class="p">]</span>
-         <span class="o">.</span><span class="n">named_transformers_</span><span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">])</span>
-<span class="n">feature_names</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">categorical_columns</span><span class="p">)</span>
-<span class="n">feature_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">numerical_columns</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ohe = (rf.named_steps[&#39;preprocess&#39;]
+         .named_transformers_[&#39;cat&#39;])
+feature_names = ohe.get_feature_names_out(categorical_columns)
+feature_names = np.r_[feature_names, numerical_columns]
 
-<span class="n">tree_feature_importances</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">rf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
-<span class="n">sorted_idx</span> <span class="o">=</span> <span class="n">tree_feature_importances</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+tree_feature_importances = (
+    rf.named_steps[&#39;classifier&#39;].feature_importances_)
+sorted_idx = tree_feature_importances.argsort()
 
-<span class="n">y_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature_names</span><span class="p">))</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">,</span> <span class="n">tree_feature_importances</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">feature_names</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Random Forest Feature Importances (MDI)&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+y_ticks = np.arange(0, len(feature_names))
+fig, ax = plt.subplots()
+ax.barh(y_ticks, tree_feature_importances[sorted_idx])
+ax.set_yticks(y_ticks)
+ax.set_yticklabels(feature_names[sorted_idx])
+ax.set_title(&quot;Random Forest Feature Importances (MDI)&quot;)
+fig.tight_layout()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1643,16 +1650,16 @@ held out test set. This shows that the low cardinality categorical feature,
 expected.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">sorted_idx</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">importances_mean</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result = permutation_importance(rf, X_test, y_test, n_repeats=10,
+                                random_state=42, n_jobs=2)
+sorted_idx = result.importances_mean.argsort()
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">importances</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-           <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">X_test</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Permutation Importances (test set)&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+fig, ax = plt.subplots()
+ax.boxplot(result.importances[sorted_idx].T,
+           vert=False, labels=X_test.columns[sorted_idx])
+ax.set_title(&quot;Permutation Importances (test set)&quot;)
+fig.tight_layout()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1668,21 +1675,101 @@ random numerical feature to overfit. You can further confirm this by
 re-running this example with constrained RF with min_samples_leaf=10.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">sorted_idx</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">importances_mean</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result = permutation_importance(rf, X_train, y_train, n_repeats=10,
+                                random_state=42, n_jobs=2)
+sorted_idx = result.importances_mean.argsort()
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">importances</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-           <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Permutation Importances (train set)&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+fig, ax = plt.subplots()
+ax.boxplot(result.importances[sorted_idx].T,
+           vert=False, labels=X_train.columns[sorted_idx])
+ax.set_title(&quot;Permutation Importances (train set)&quot;)
+fig.tight_layout()
+plt.show()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/plot_permutation_importance_12_0.png" src="../_images/plot_permutation_importance_12_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/sklearn/inspection/_permutation_importance.py:61: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  X_permuted.iloc[:, col_idx] = col
+</pre></div>
+</div>
+<img alt="../_images/plot_permutation_importance_12_2.png" src="../_images/plot_permutation_importance_12_2.png" />
 </div>
 </div>
 </section>

@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1460,20 +1460,26 @@ title="Print to PDF"
 <h1>Lab 7.8: Non-linear Modeling<a class="headerlink" href="#lab-7-8-non-linear-modeling" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports and setup</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># imports and setup
+%matplotlib inline
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+import numpy as np
+import pandas as pd
 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
+pd.set_option(&#39;display.max_rows&#39;, 12)
+pd.set_option(&#39;display.max_columns&#39;, 12)
+pd.set_option(&#39;display.float_format&#39;, &#39;{:20,.5f}&#39;.format) # get rid of scientific notation
 
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5725/1373071590.py:14: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as &#39;seaborn-v0_8-&lt;style&gt;&#39;. Alternatively, directly use the seaborn API instead.
+  plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
@@ -1482,44 +1488,50 @@ title="Print to PDF"
 <h2>7.8.1 Polynomial Regression and Step Functions<a class="headerlink" href="#polynomial-regression-and-step-functions" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wage</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Wage.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">wage</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">wage</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
-
-<span class="n">pol</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">interaction_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">polf</span> <span class="o">=</span> <span class="n">pol</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-
-<span class="n">wage</span><span class="p">[</span><span class="s1">&#39;age_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">polf</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">wage</span><span class="p">[</span><span class="s1">&#39;age_3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">polf</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">wage</span><span class="p">[</span><span class="s1">&#39;age_4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">polf</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
-<span class="n">wage</span><span class="p">[</span><span class="s1">&#39;age_5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">polf</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
-
-<span class="n">wage</span><span class="p">[</span><span class="s1">&#39;wage_250&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">wage</span> <span class="o">&gt;</span> <span class="mi">250</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="kc">True</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="n">wage</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;age_2&#39;</span><span class="p">,</span> <span class="s1">&#39;age_3&#39;</span><span class="p">,</span> <span class="s1">&#39;age_4&#39;</span><span class="p">]]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-
-<span class="n">lin_reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">lin_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">lin_reg</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">lin_reg</span><span class="o">.</span><span class="n">coef_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wage = pd.read_csv(&#39;../datasets/Wage.csv&#39;, index_col=0)
+wage.iloc[:, 2:10] = wage.iloc[:, 2:10].apply(pd.Categorical)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-184.15417977290997,
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5725/2640556797.py:2: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  wage.iloc[:, 2:10] = wage.iloc[:, 2:10].apply(pd.Categorical)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.preprocessing import PolynomialFeatures
+
+pol = PolynomialFeatures(degree=5, interaction_only=False, include_bias=False)
+polf = pol.fit_transform(wage.loc[:, &#39;age&#39;].values.reshape(-1, 1))
+
+wage[&#39;age_2&#39;] = polf[:,1]
+wage[&#39;age_3&#39;] = polf[:,2]
+wage[&#39;age_4&#39;] = polf[:,3]
+wage[&#39;age_5&#39;] = polf[:,4]
+
+wage[&#39;wage_250&#39;] = (wage.wage &gt; 250).map({True: 1, False: 0})
+
+X = wage.loc[:, [&#39;age&#39;, &#39;age_2&#39;, &#39;age_3&#39;, &#39;age_4&#39;]]
+y = wage.wage
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.linear_model import LinearRegression
+
+lin_reg = LinearRegression(fit_intercept=True)
+lin_reg.fit(X, y)
+lin_reg.intercept_, lin_reg.coef_
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-184.15417977415234,
  array([ 2.12455205e+01, -5.63859313e-01,  6.81068771e-03, -3.20383037e-05]))
 </pre></div>
 </div>
@@ -1527,10 +1539,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Easy to plot higher polynomial order regressions from seaborn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Easy to plot higher polynomial order regressions from seaborn
 
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;wage&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-            <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;facecolor&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">});</span>
+sns.regplot(x=&#39;age&#39;, y=&#39;wage&#39;, data=wage, order=4, 
+            scatter_kws={&#39;alpha&#39;: 0.2, &#39;color&#39;: &#39;gray&#39;, &#39;facecolor&#39;: None});
 </pre></div>
 </div>
 </div>
@@ -1540,15 +1552,15 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ANOVA</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># ANOVA
 
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
 
-<span class="n">lin_reg_sm</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;wage ~ age + age_2 + age_3 + age_4 + age_5&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">anova_sm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">lin_reg_sm</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Type 1 for compatibility with the book</span>
+lin_reg_sm = ols(formula=&#39;wage ~ age + age_2 + age_3 + age_4 + age_5&#39;, data=wage).fit()
+anova_sm = sm.stats.anova_lm(lin_reg_sm, typ=1) # Type 1 for compatibility with the book
 
-<span class="n">anova_sm</span>
+anova_sm
 </pre></div>
 </div>
 </div>
@@ -1633,39 +1645,39 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.linear_model import LogisticRegression
 
-<span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e9</span><span class="p">)</span>
-<span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage_250</span><span class="p">)</span>
+log_reg = LogisticRegression(fit_intercept=True, C=1e9)
+log_reg.fit(X, wage.wage_250)
 
-<span class="n">log_reg</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">log_reg</span><span class="o">.</span><span class="n">coef_</span>
+log_reg.intercept_, log_reg.coef_
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([-5.6498837e-05]),
- array([[-1.12834472e-03, -1.60767959e-02,  5.10936213e-04,
-         -4.28423026e-06]]))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([-5.64988326e-05]),
+ array([[-1.12834463e-03, -1.60767946e-02,  5.10936159e-04,
+         -4.28422969e-06]]))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># only way to get R compatible results from logistic regression? why?</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># only way to get R compatible results from logistic regression? why?
 
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">glm</span>
+from statsmodels.formula.api import glm
 
-<span class="n">lr_sm</span> <span class="o">=</span> <span class="n">glm</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;wage_250 ~ age + age_2 + age_3 + age_4&#39;</span><span class="p">,</span> 
-            <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span>
-            <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">logit</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+lr_sm = glm(formula=&#39;wage_250 ~ age + age_2 + age_3 + age_4&#39;, 
+            data=wage,
+            family=sm.families.Binomial(sm.families.links.logit)).fit()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># only way to get R compatible results from logistic regression? why?</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">glm</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">lr_sm</span> <span class="o">=</span> <span class="n">glm</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;wage_250 ~ age + age_2 + age_3 + age_4&#39;</span><span class="p">,</span> 
@@ -1696,28 +1708,28 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">age_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">max</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>age_grid = np.arange(wage.age.min(), wage.age.max()).reshape(-1,1)
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">age_grid</span><span class="p">),</span>
-                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;age_2&#39;</span><span class="p">,</span> <span class="s1">&#39;age_3&#39;</span><span class="p">,</span> <span class="s1">&#39;age_4&#39;</span><span class="p">])</span>
+X_test = pd.DataFrame(PolynomialFeatures(4, include_bias=True).fit_transform(age_grid),
+                      columns=[&#39;Intercept&#39;, &#39;age&#39;, &#39;age_2&#39;, &#39;age_3&#39;, &#39;age_4&#39;])
 
-<span class="n">log_reg_pred</span> <span class="o">=</span> <span class="n">lr_sm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+log_reg_pred = lr_sm.predict(X_test)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage_250</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">log_reg_pred</span><span class="p">);</span>
+plt.scatter(wage.age, wage.wage_250/5, marker=&#39;|&#39;, color=&#39;gray&#39;, alpha=0.5)
+plt.plot(age_grid, log_reg_pred);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">age_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">max</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">age_grid</span><span class="p">),</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>                       <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;age_2&#39;</span><span class="p">,</span> <span class="s1">&#39;age_3&#39;</span><span class="p">,</span> <span class="s1">&#39;age_4&#39;</span><span class="p">])</span>
 <span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">log_reg_pred</span> <span class="o">=</span> <span class="n">lr_sm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage_250</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">log_reg_pred</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">log_reg_pred</span><span class="p">);</span>
 
 <span class="ne">NameError</span>: name &#39;lr_sm&#39; is not defined
 </pre></div>
@@ -1726,8 +1738,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">age_step</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">retbins</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">bins</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>age_step, bins = pd.cut(wage.age, 4, retbins=True, right=True)
+bins
 </pre></div>
 </div>
 </div>
@@ -1739,38 +1751,38 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wage_step</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">age_step</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage_250</span><span class="p">],</span> 
-                      <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;age_step&#39;</span><span class="p">,</span> <span class="s1">&#39;wage&#39;</span><span class="p">,</span> <span class="s1">&#39;wage_250&#39;</span><span class="p">],</span> 
-                      <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wage_step = pd.concat([wage.age, age_step, wage.wage, wage.wage_250], 
+                      keys=[&#39;age&#39;, &#39;age_step&#39;, &#39;wage&#39;, &#39;wage_250&#39;], 
+                      axis=1)
 
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">wage_step</span><span class="o">.</span><span class="n">age_step</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">wage_step</span><span class="o">.</span><span class="n">wage</span>
+X = pd.get_dummies(wage_step.age_step)
+X = X.drop(X.columns[0], axis=1)
+y = wage_step.wage
 
-<span class="n">lr_step</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+lr_step = LinearRegression(fit_intercept=True)
 
-<span class="n">lr_step</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">lr_step</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">lr_step</span><span class="o">.</span><span class="n">coef_</span>
+lr_step.fit(X, y)
+lr_step.intercept_, lr_step.coef_
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(94.15839203351902, array([24.05349138, 23.664559  ,  7.6405917 ]))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(94.15839203351901, array([24.05349138, 23.664559  ,  7.6405917 ]))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">age_grid_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">age_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">bins</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>age_grid_bins = np.digitize(age_grid.ravel(), bins)
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">age_grid_bins</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+X_test = pd.get_dummies(age_grid_bins).drop(1, axis=1)
 
-<span class="n">lin_pred</span> <span class="o">=</span> <span class="n">lr_step</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+lin_pred = lr_step.predict(X_test)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage_step</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">lin_pred</span><span class="p">);</span>
+plt.scatter(wage_step.age, wage.wage, marker=&#39;o&#39;, color=&#39;gray&#39;, alpha=0.5, facecolor=&#39;None&#39;)
+plt.plot(age_grid, lin_pred);
 </pre></div>
 </div>
 </div>
@@ -1780,22 +1792,22 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">GLM</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from statsmodels.formula.api import GLM
 
-<span class="n">lr_sm</span> <span class="o">=</span> <span class="n">GLM</span><span class="p">(</span><span class="n">wage_step</span><span class="o">.</span><span class="n">wage_250</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
-            <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">logit</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+lr_sm = GLM(wage_step.wage_250, sm.add_constant(X),
+            family=sm.families.Binomial(sm.families.links.logit)).fit()
 
-<span class="n">log_pred</span> <span class="o">=</span> <span class="n">lr_sm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+log_pred = lr_sm.predict(sm.add_constant(X_test))
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage_step</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage_step</span><span class="o">.</span><span class="n">wage_250</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">log_pred</span><span class="p">);</span>
+plt.scatter(wage_step.age, wage_step.wage_250/5, marker=&#39;|&#39;, color=&#39;gray&#39;, alpha=0.5)
+plt.plot(age_grid, log_pred);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">GLM</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">lr_sm</span> <span class="o">=</span> <span class="n">GLM</span><span class="p">(</span><span class="n">wage_step</span><span class="o">.</span><span class="n">wage_250</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>             <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Binomial</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">links</span><span class="o">.</span><span class="n">logit</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -1812,23 +1824,23 @@ title="Print to PDF"
 <p>Cubic Spline with specified knots</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">patsy</span> <span class="kn">import</span> <span class="n">dmatrix</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from patsy import dmatrix
 
-<span class="n">age_spline1</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;bs(age, knots=(25,40,60), degree=3, include_intercept=False)&#39;</span><span class="p">,</span>
-                     <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span>
-                     <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span>
+age_spline1 = dmatrix(&#39;bs(age, knots=(25,40,60), degree=3, include_intercept=False)&#39;,
+                     data=wage,
+                     return_type=&#39;dataframe&#39;)
 
-<span class="n">age_grid_spline1</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;bs(age_grid, knots=(25,40,60), degree=3, include_intercept=False)&#39;</span><span class="p">,</span>
-                           <span class="p">{</span><span class="s1">&#39;age_grid&#39;</span><span class="p">:</span> <span class="n">age_grid</span><span class="p">},</span>
-                           <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span>
+age_grid_spline1 = dmatrix(&#39;bs(age_grid, knots=(25,40,60), degree=3, include_intercept=False)&#39;,
+                           {&#39;age_grid&#39;: age_grid},
+                           return_type=&#39;dataframe&#39;)
 
-<span class="n">spline_reg1</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">spline_reg1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">age_spline1</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">)</span>
+spline_reg1 = LinearRegression(fit_intercept=False)
+spline_reg1.fit(age_spline1, wage.wage)
 
-<span class="n">spline_pred1</span> <span class="o">=</span> <span class="n">spline_reg1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">age_grid_spline1</span><span class="p">)</span>
+spline_pred1 = spline_reg1.predict(age_grid_spline1)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">spline_pred1</span><span class="p">);</span>
+plt.scatter(wage.age, wage.wage, marker=&#39;o&#39;, color=&#39;gray&#39;, alpha=0.5, facecolor=&#39;None&#39;)
+plt.plot(age_grid, spline_pred1);
 </pre></div>
 </div>
 </div>
@@ -1858,21 +1870,21 @@ Feature names seen at fit time, yet now missing:
 <p>Cubic spline with specified degrees of freedom</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">age_spline2</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;bs(age, df=6, include_intercept=False)&#39;</span><span class="p">,</span>
-                     <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span>
-                     <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>age_spline2 = dmatrix(&#39;bs(age, df=6, include_intercept=False)&#39;,
+                     data=wage,
+                     return_type=&#39;dataframe&#39;)
 
-<span class="n">age_grid_spline2</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;bs(age_grid, df=6, include_intercept=False)&#39;</span><span class="p">,</span>
-                           <span class="p">{</span><span class="s1">&#39;age_grid&#39;</span><span class="p">:</span> <span class="n">age_grid</span><span class="p">},</span>
-                           <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span>
+age_grid_spline2 = dmatrix(&#39;bs(age_grid, df=6, include_intercept=False)&#39;,
+                           {&#39;age_grid&#39;: age_grid},
+                           return_type=&#39;dataframe&#39;)
 
-<span class="n">spline_reg2</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">spline_reg2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">age_spline2</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">)</span>
+spline_reg2 = LinearRegression(fit_intercept=False)
+spline_reg2.fit(age_spline2, wage.wage)
 
-<span class="n">spline_pred2</span> <span class="o">=</span> <span class="n">spline_reg2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">age_grid_spline2</span><span class="p">)</span>
+spline_pred2 = spline_reg2.predict(age_grid_spline2)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">spline_pred2</span><span class="p">);</span>
+plt.scatter(wage.age, wage.wage, marker=&#39;o&#39;, color=&#39;gray&#39;, alpha=0.5, facecolor=&#39;None&#39;)
+plt.plot(age_grid, spline_pred2);
 </pre></div>
 </div>
 </div>
@@ -1902,21 +1914,21 @@ Feature names seen at fit time, yet now missing:
 <p>Natural Spline</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">age_spline3</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;cr(age, df=4)&#39;</span><span class="p">,</span>
-                     <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span>
-                     <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>age_spline3 = dmatrix(&#39;cr(age, df=4)&#39;,
+                     data=wage,
+                     return_type=&#39;dataframe&#39;)
 
-<span class="n">age_grid_spline3</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;cr(age_grid, df=4)&#39;</span><span class="p">,</span>
-                           <span class="p">{</span><span class="s1">&#39;age_grid&#39;</span><span class="p">:</span> <span class="n">age_grid</span><span class="p">},</span>
-                           <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span>
+age_grid_spline3 = dmatrix(&#39;cr(age_grid, df=4)&#39;,
+                           {&#39;age_grid&#39;: age_grid},
+                           return_type=&#39;dataframe&#39;)
 
-<span class="n">spline_reg3</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">spline_reg3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">age_spline3</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">)</span>
+spline_reg3 = LinearRegression(fit_intercept=False)
+spline_reg3.fit(age_spline3, wage.wage)
 
-<span class="n">spline_pred3</span> <span class="o">=</span> <span class="n">spline_reg3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">age_grid_spline3</span><span class="p">)</span>
+spline_pred3 = spline_reg3.predict(age_grid_spline3)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_grid</span><span class="p">,</span> <span class="n">spline_pred3</span><span class="p">);</span>
+plt.scatter(wage.age, wage.wage, marker=&#39;o&#39;, color=&#39;gray&#39;, alpha=0.5, facecolor=&#39;None&#39;)
+plt.plot(age_grid, spline_pred3);
 </pre></div>
 </div>
 </div>
@@ -1945,35 +1957,35 @@ Feature names seen at fit time, yet now missing:
 <h2>7.8.3 GAMs<a class="headerlink" href="#gams" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_spl</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;cr(year, df=4)&#39;</span><span class="p">,</span>
-                   <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span>
-                   <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>year_spl = dmatrix(&#39;cr(year, df=4)&#39;,
+                   data=wage,
+                   return_type=&#39;dataframe&#39;).drop(&#39;Intercept&#39;, axis=1)
 
-<span class="n">age_spl</span> <span class="o">=</span> <span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;cr(age, df=5)&#39;</span><span class="p">,</span>
-                  <span class="n">data</span><span class="o">=</span><span class="n">wage</span><span class="p">,</span>
-                  <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+age_spl = dmatrix(&#39;cr(age, df=5)&#39;,
+                  data=wage,
+                  return_type=&#39;dataframe&#39;).drop(&#39;Intercept&#39;, axis=1)
 
-<span class="n">edu_gam</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">wage</span><span class="o">.</span><span class="n">education</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+edu_gam = pd.get_dummies(wage.education).iloc[:, 1:]
 
 
-<span class="n">wage_gam</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">wage</span><span class="o">.</span><span class="n">wage</span><span class="p">,</span> <span class="n">year_spl</span><span class="p">,</span> <span class="n">age_spl</span><span class="p">,</span> <span class="n">edu_gam</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+wage_gam = pd.concat([wage.wage, year_spl, age_spl, edu_gam], axis=1)
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">wage_gam</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">wage_gam</span><span class="o">.</span><span class="n">wage</span>
+X = wage_gam.iloc[:, 1:14]
+y = wage_gam.wage
 
-<span class="n">gam</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">gam</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+gam = LinearRegression(fit_intercept=True)
+gam.fit(X, y)
 
-<span class="n">gam</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">gam</span><span class="o">.</span><span class="n">coef_</span>
+gam.intercept_, gam.coef_
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(235005038308391.2,
- array([-2.67171792e+14, -2.67171792e+14, -2.67171792e+14, -2.67171792e+14,
-         3.21667534e+13,  3.21667534e+13,  3.21667534e+13,  3.21667534e+13,
-         3.21667534e+13,  1.08388672e+01,  2.32197266e+01,  3.78789062e+01,
-         6.23398438e+01]))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(979945197599176.5,
+ array([-3.48049559e+14, -3.48049559e+14, -3.48049559e+14, -3.48049559e+14,
+        -6.31895639e+14, -6.31895639e+14, -6.31895639e+14, -6.31895639e+14,
+        -6.31895639e+14,  1.06789704e+01,  2.28876554e+01,  3.75523350e+01,
+         6.20064133e+01]))
 </pre></div>
 </div>
 </div>

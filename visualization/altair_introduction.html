@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1582,8 +1582,8 @@ title="Print to PDF"
 <p>To start, we must import the necessary libraries: Pandas for data frames and Altair for visualization.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import altair as alt
 </pre></div>
 </div>
 </div>
@@ -1600,9 +1600,9 @@ title="Print to PDF"
 <p>We will often use datasets from the <a class="reference external" href="https://github.com/vega/vega-datasets">vega-datasets</a> repository. Some of these datasets are directly available as Pandas data frames:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vega_datasets</span> <span class="kn">import</span> <span class="n">data</span>  <span class="c1"># import vega_datasets</span>
-<span class="n">cars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">cars</span><span class="p">()</span>              <span class="c1"># load cars data as a Pandas data frame</span>
-<span class="n">cars</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>                     <span class="c1"># display the first five rows</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from vega_datasets import data  # import vega_datasets
+cars = data.cars()              # load cars data as a Pandas data frame
+cars.head()                     # display the first five rows
 </pre></div>
 </div>
 </div>
@@ -1704,7 +1704,7 @@ title="Print to PDF"
 <p>Datasets in the vega-datasets collection can also be accessed via URLs:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">cars</span><span class="o">.</span><span class="n">url</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data.cars.url
 </pre></div>
 </div>
 </div>
@@ -1717,7 +1717,7 @@ title="Print to PDF"
 <p>Dataset URLs can be passed directly to Altair (for supported formats like JSON and <a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>), or loaded into a Pandas data frame like so:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">cars</span><span class="o">.</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># load JSON data into a data frame</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.read_json(data.cars.url).head() # load JSON data into a data frame
 </pre></div>
 </div>
 </div>
@@ -1822,13 +1822,13 @@ title="Print to PDF"
 <p>Statistical visualization in Altair begins with <a class="reference external" href="http://vita.had.co.nz/papers/tidy-data.html">“tidy”</a> data frames. Here, we’ll start by creating a simple data frame (<code class="docutils literal notranslate"><span class="pre">df</span></code>) containing the average precipitation (<code class="docutils literal notranslate"><span class="pre">precip</span></code>) for a given <code class="docutils literal notranslate"><span class="pre">city</span></code> and <code class="docutils literal notranslate"><span class="pre">month</span></code> :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Seattle&#39;</span><span class="p">,</span> <span class="s1">&#39;Seattle&#39;</span><span class="p">,</span> <span class="s1">&#39;Seattle&#39;</span><span class="p">,</span> <span class="s1">&#39;New York&#39;</span><span class="p">,</span> <span class="s1">&#39;New York&#39;</span><span class="p">,</span> <span class="s1">&#39;New York&#39;</span><span class="p">,</span> <span class="s1">&#39;Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;Chicago&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Apr&#39;</span><span class="p">,</span> <span class="s1">&#39;Aug&#39;</span><span class="p">,</span> <span class="s1">&#39;Dec&#39;</span><span class="p">,</span> <span class="s1">&#39;Apr&#39;</span><span class="p">,</span> <span class="s1">&#39;Aug&#39;</span><span class="p">,</span> <span class="s1">&#39;Dec&#39;</span><span class="p">,</span> <span class="s1">&#39;Apr&#39;</span><span class="p">,</span> <span class="s1">&#39;Aug&#39;</span><span class="p">,</span> <span class="s1">&#39;Dec&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;precip&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.68</span><span class="p">,</span> <span class="mf">0.87</span><span class="p">,</span> <span class="mf">5.31</span><span class="p">,</span> <span class="mf">3.94</span><span class="p">,</span> <span class="mf">4.13</span><span class="p">,</span> <span class="mf">3.58</span><span class="p">,</span> <span class="mf">3.62</span><span class="p">,</span> <span class="mf">3.98</span><span class="p">,</span> <span class="mf">2.56</span><span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = pd.DataFrame({
+    &#39;city&#39;: [&#39;Seattle&#39;, &#39;Seattle&#39;, &#39;Seattle&#39;, &#39;New York&#39;, &#39;New York&#39;, &#39;New York&#39;, &#39;Chicago&#39;, &#39;Chicago&#39;, &#39;Chicago&#39;],
+    &#39;month&#39;: [&#39;Apr&#39;, &#39;Aug&#39;, &#39;Dec&#39;, &#39;Apr&#39;, &#39;Aug&#39;, &#39;Dec&#39;, &#39;Apr&#39;, &#39;Aug&#39;, &#39;Dec&#39;],
+    &#39;precip&#39;: [2.68, 0.87, 5.31, 3.94, 4.13, 3.58, 3.62, 3.98, 2.56]
+})
 
-<span class="n">df</span>
+df
 </pre></div>
 </div>
 </div>
@@ -1922,7 +1922,7 @@ title="Print to PDF"
 <p>The fundamental object in Altair is the <code class="docutils literal notranslate"><span class="pre">Chart</span></code>, which takes a data frame as a single argument:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chart</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>chart = alt.Chart(df)
 </pre></div>
 </div>
 </div>
@@ -1935,19 +1935,23 @@ title="Print to PDF"
 <p>For example, we can show the data as a point using <code class="docutils literal notranslate"><span class="pre">Chart.mark_point()</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_point()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/altair/utils/core.py:317: FutureWarning: iteritems is deprecated and will be removed in a future version. Use .items instead.
+  for col_name, dtype in df.dtypes.iteritems():
+</pre></div>
+</div>
 <div class="output text_html">
-<div id="altair-viz-297e296d931641a78200bfa9d8b25746"></div>
+<div id="altair-viz-32d4422f1e42480a8b3a69952e7191ca"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-297e296d931641a78200bfa9d8b25746") {
-      outputDiv = document.getElementById("altair-viz-297e296d931641a78200bfa9d8b25746");
+    if (outputDiv.id !== "altair-viz-32d4422f1e42480a8b3a69952e7191ca") {
+      outputDiv = document.getElementById("altair-viz-32d4422f1e42480a8b3a69952e7191ca");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2000,21 +2004,21 @@ title="Print to PDF"
 <p>To visually separate the points, we can map various <em>encoding channels</em>, or <em>channels</em> for short, to fields in the dataset. For example, we could <em>encode</em> the field <code class="docutils literal notranslate"><span class="pre">city</span></code> of the data using the <code class="docutils literal notranslate"><span class="pre">y</span></code> channel, which represents the y-axis position of the points. To specify this, use the <code class="docutils literal notranslate"><span class="pre">encode</span></code> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">y</span><span class="o">=</span><span class="s1">&#39;city&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_point().encode(
+  y=&#39;city&#39;,
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-17cd17f8cb5b4558bcae06111f490df2"></div>
+<div id="altair-viz-bd0b6ae54b664443bb0bc7c9991ec41a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-17cd17f8cb5b4558bcae06111f490df2") {
-      outputDiv = document.getElementById("altair-viz-17cd17f8cb5b4558bcae06111f490df2");
+    if (outputDiv.id !== "altair-viz-bd0b6ae54b664443bb0bc7c9991ec41a") {
+      outputDiv = document.getElementById("altair-viz-bd0b6ae54b664443bb0bc7c9991ec41a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2067,22 +2071,22 @@ title="Print to PDF"
 <p>Though we’ve now separated the data by one attribute, we still have multiple points overlapping within each category. Let’s further separate these by adding an <code class="docutils literal notranslate"><span class="pre">x</span></code> encoding channel, mapped to the <code class="docutils literal notranslate"><span class="pre">'precip'</span></code> field:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;precip&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;city&#39;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_point().encode(
+    x=&#39;precip&#39;,
+    y=&#39;city&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-824c15a1602e4205b54e0a09b554165b"></div>
+<div id="altair-viz-b8a25c074ce6453e8ebbbae749b1c161"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-824c15a1602e4205b54e0a09b554165b") {
-      outputDiv = document.getElementById("altair-viz-824c15a1602e4205b54e0a09b554165b");
+    if (outputDiv.id !== "altair-viz-b8a25c074ce6453e8ebbbae749b1c161") {
+      outputDiv = document.getElementById("altair-viz-b8a25c074ce6453e8ebbbae749b1c161");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2136,22 +2140,22 @@ title="Print to PDF"
 <p>Above we have specified key-value pairs using keyword arguments (<code class="docutils literal notranslate"><span class="pre">x='precip'</span></code>). In addition, Altair provides construction methods for encoding definitions, using the syntax <code class="docutils literal notranslate"><span class="pre">alt.X('precip')</span></code>. This alternative is useful for providing more parameters to an encoding, as we will see later in this notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;precip&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_point().encode(
+    alt.X(&#39;precip&#39;),
+    alt.Y(&#39;city&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-45c4b3e197074b718185ad1830b73824"></div>
+<div id="altair-viz-a487dae209b64b829e6fc04274026de9"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-45c4b3e197074b718185ad1830b73824") {
-      outputDiv = document.getElementById("altair-viz-45c4b3e197074b718185ad1830b73824");
+    if (outputDiv.id !== "altair-viz-a487dae209b64b829e6fc04274026de9") {
+      outputDiv = document.getElementById("altair-viz-a487dae209b64b829e6fc04274026de9");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2218,22 +2222,22 @@ title="Print to PDF"
 <p>To allow for more flexibility in how data are visualized, Altair has a built-in syntax for <em>aggregation</em> of data. For example, we can compute the average of all values by specifying an aggregation function along with the field name:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;average(precip)&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;city&#39;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_point().encode(
+    x=&#39;average(precip)&#39;,
+    y=&#39;city&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d33ddda4f6eb4772a439a3acd26985f7"></div>
+<div id="altair-viz-1e15048b054b4e0abae4ab90f97cfc5f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d33ddda4f6eb4772a439a3acd26985f7") {
-      outputDiv = document.getElementById("altair-viz-d33ddda4f6eb4772a439a3acd26985f7");
+    if (outputDiv.id !== "altair-viz-1e15048b054b4e0abae4ab90f97cfc5f") {
+      outputDiv = document.getElementById("altair-viz-1e15048b054b4e0abae4ab90f97cfc5f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2291,22 +2295,22 @@ title="Print to PDF"
 <p>Let’s say we want to represent our aggregated values using rectangular bars rather than circular points. We can do this by replacing <code class="docutils literal notranslate"><span class="pre">Chart.mark_point</span></code> with <code class="docutils literal notranslate"><span class="pre">Chart.mark_bar</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;average(precip)&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;city&#39;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_bar().encode(
+    x=&#39;average(precip)&#39;,
+    y=&#39;city&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-67a6a7052d41467f84d3aae6f086960b"></div>
+<div id="altair-viz-d356a06345eb43b5815d76bd05aa89b4"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-67a6a7052d41467f84d3aae6f086960b") {
-      outputDiv = document.getElementById("altair-viz-67a6a7052d41467f84d3aae6f086960b");
+    if (outputDiv.id !== "altair-viz-d356a06345eb43b5815d76bd05aa89b4") {
+      outputDiv = document.getElementById("altair-viz-d356a06345eb43b5815d76bd05aa89b4");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2358,22 +2362,22 @@ title="Print to PDF"
 <p>Because the nominal field <code class="docutils literal notranslate"><span class="pre">a</span></code> is mapped to the <code class="docutils literal notranslate"><span class="pre">y</span></code>-axis, the result is a horizontal bar chart. To get a vertical bar chart, we can simply swap the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> keywords:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;city&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;average(precip)&#39;</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_bar().encode(
+    x=&#39;city&#39;,
+    y=&#39;average(precip)&#39;
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8d48eb94856a4fc688d3d7ef6436cb90"></div>
+<div id="altair-viz-4b42fdeb212e4c669836d342644f1f6a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8d48eb94856a4fc688d3d7ef6436cb90") {
-      outputDiv = document.getElementById("altair-viz-8d48eb94856a4fc688d3d7ef6436cb90");
+    if (outputDiv.id !== "altair-viz-4b42fdeb212e4c669836d342644f1f6a") {
+      outputDiv = document.getElementById("altair-viz-4b42fdeb212e4c669836d342644f1f6a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2428,22 +2432,22 @@ title="Print to PDF"
 <p>By default Altair / Vega-Lite make some choices about properties of the visualization, but these can be changed using methods to customize the look of the visualization. For example, we can specify the axis titles using the <code class="docutils literal notranslate"><span class="pre">axis</span></code> attribute of channel classes, we can modify scale properties using the <code class="docutils literal notranslate"><span class="pre">scale</span></code> attribute, and we can specify the color of the marking by setting the <code class="docutils literal notranslate"><span class="pre">color</span></code> keyword of the <code class="docutils literal notranslate"><span class="pre">Chart.mark_*</span></code> methods to any valid <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">CSS color string</a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;firebrick&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;precip&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Log-Scaled Values&#39;</span><span class="p">)),</span>
-  <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Category&#39;</span><span class="p">)),</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(df).mark_point(color=&#39;firebrick&#39;).encode(
+  alt.X(&#39;precip&#39;, scale=alt.Scale(type=&#39;log&#39;), axis=alt.Axis(title=&#39;Log-Scaled Values&#39;)),
+  alt.Y(&#39;city&#39;, axis=alt.Axis(title=&#39;Category&#39;)),
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-4174410bd6824987aa7eb5736ccb917e"></div>
+<div id="altair-viz-f1d5b20c48484a9288ee35d74fc890aa"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4174410bd6824987aa7eb5736ccb917e") {
-      outputDiv = document.getElementById("altair-viz-4174410bd6824987aa7eb5736ccb917e");
+    if (outputDiv.id !== "altair-viz-f1d5b20c48484a9288ee35d74fc890aa") {
+      outputDiv = document.getElementById("altair-viz-f1d5b20c48484a9288ee35d74fc890aa");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2500,22 +2504,22 @@ title="Print to PDF"
 <p>As a starting point, let’s plot the cars dataset in a line chart showing the average mileage by the year of manufacture:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(Miles_per_Gallon)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(cars).mark_line().encode(
+    alt.X(&#39;Year&#39;),
+    alt.Y(&#39;average(Miles_per_Gallon)&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a9f3274f4e864fd395e3830ed0e11c6d"></div>
+<div id="altair-viz-bf40d2e6529e49cfaef3df0d3cdb2a23"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a9f3274f4e864fd395e3830ed0e11c6d") {
-      outputDiv = document.getElementById("altair-viz-a9f3274f4e864fd395e3830ed0e11c6d");
+    if (outputDiv.id !== "altair-viz-bf40d2e6529e49cfaef3df0d3cdb2a23") {
+      outputDiv = document.getElementById("altair-viz-bf40d2e6529e49cfaef3df0d3cdb2a23");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2568,29 +2572,29 @@ title="Print to PDF"
 <p>We can start by defining each chart separately: first a line plot, then a scatter plot. We can then use the <code class="docutils literal notranslate"><span class="pre">layer</span></code> operator to combine the two into a layered chart. Here we use the shorthand <code class="docutils literal notranslate"><span class="pre">+</span></code> (plus) operator to invoke layering:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(Miles_per_Gallon)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>line = alt.Chart(cars).mark_line().encode(
+    alt.X(&#39;Year&#39;),
+    alt.Y(&#39;average(Miles_per_Gallon)&#39;)
+)
 
-<span class="n">point</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(Miles_per_Gallon)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+point = alt.Chart(cars).mark_circle().encode(
+    alt.X(&#39;Year&#39;),
+    alt.Y(&#39;average(Miles_per_Gallon)&#39;)
+)
 
-<span class="n">line</span> <span class="o">+</span> <span class="n">point</span>
+line + point
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2bee376100554272a09f3aa8902e38d8"></div>
+<div id="altair-viz-c31b5afad955490dba8d1f0151829a30"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2bee376100554272a09f3aa8902e38d8") {
-      outputDiv = document.getElementById("altair-viz-2bee376100554272a09f3aa8902e38d8");
+    if (outputDiv.id !== "altair-viz-c31b5afad955490dba8d1f0151829a30") {
+      outputDiv = document.getElementById("altair-viz-c31b5afad955490dba8d1f0151829a30");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2642,24 +2646,24 @@ title="Print to PDF"
 <p>We can also create this chart by <em>reusing</em> and <em>modifying</em> a previous chart definition! Rather than completely re-write a chart, we can start with the line chart, then invoke the <code class="docutils literal notranslate"><span class="pre">mark_point</span></code> method to generate a new chart definition with a different mark type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpg</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(Miles_per_Gallon)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mpg = alt.Chart(cars).mark_line().encode(
+    alt.X(&#39;Year&#39;),
+    alt.Y(&#39;average(Miles_per_Gallon)&#39;)
+)
 
-<span class="n">mpg</span> <span class="o">+</span> <span class="n">mpg</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span>
+mpg + mpg.mark_circle()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3a2c3bfb4189480694eceef9c88d6cc6"></div>
+<div id="altair-viz-03fac2714e2c46d19e062e19050f59fa"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3a2c3bfb4189480694eceef9c88d6cc6") {
-      outputDiv = document.getElementById("altair-viz-3a2c3bfb4189480694eceef9c88d6cc6");
+    if (outputDiv.id !== "altair-viz-03fac2714e2c46d19e062e19050f59fa") {
+      outputDiv = document.getElementById("altair-viz-03fac2714e2c46d19e062e19050f59fa");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2713,24 +2717,24 @@ title="Print to PDF"
 <p>We can use <em>concatenation</em> operators to place multiple charts side-by-side, either vertically or horizontally. Here, we’ll use the <code class="docutils literal notranslate"><span class="pre">|</span></code> (pipe) operator to perform horizontal concatenation of two charts:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hp</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;average(Horsepower)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hp = alt.Chart(cars).mark_line().encode(
+    alt.X(&#39;Year&#39;),
+    alt.Y(&#39;average(Horsepower)&#39;)
+)
 
-<span class="p">(</span><span class="n">mpg</span> <span class="o">+</span> <span class="n">mpg</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">())</span> <span class="o">|</span> <span class="p">(</span><span class="n">hp</span> <span class="o">+</span> <span class="n">hp</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">())</span>
+(mpg + mpg.mark_circle()) | (hp + hp.mark_circle())
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3808729d3cfe47d88fefa4e88018b17d"></div>
+<div id="altair-viz-b7860acf6c774b48926b322fab711b5a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3808729d3cfe47d88fefa4e88018b17d") {
-      outputDiv = document.getElementById("altair-viz-3808729d3cfe47d88fefa4e88018b17d");
+    if (outputDiv.id !== "altair-viz-b7860acf6c774b48926b322fab711b5a") {
+      outputDiv = document.getElementById("altair-viz-b7860acf6c774b48926b322fab711b5a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2788,23 +2792,23 @@ title="Print to PDF"
 <p>To create a simple interactive plot that supports panning and zooming, we can invoke the <code class="docutils literal notranslate"><span class="pre">interactive()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Chart</span></code> object. In the chart below, click and drag to <em>pan</em> or use the scroll wheel to <em>zoom</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Horsepower&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Miles_per_Gallon&#39;</span><span class="p">,</span>
-    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Origin&#39;</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(cars).mark_point().encode(
+    x=&#39;Horsepower&#39;,
+    y=&#39;Miles_per_Gallon&#39;,
+    color=&#39;Origin&#39;,
+).interactive()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e5765cc3c3ba4dcb94abcd7d659791e9"></div>
+<div id="altair-viz-8834a5ce7cbd4d2cb0fa20e7df3336af"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e5765cc3c3ba4dcb94abcd7d659791e9") {
-      outputDiv = document.getElementById("altair-viz-e5765cc3c3ba4dcb94abcd7d659791e9");
+    if (outputDiv.id !== "altair-viz-8834a5ce7cbd4d2cb0fa20e7df3336af") {
+      outputDiv = document.getElementById("altair-viz-8834a5ce7cbd4d2cb0fa20e7df3336af");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2856,24 +2860,24 @@ title="Print to PDF"
 <p>To provide more details upon mouse hover, we can use the <code class="docutils literal notranslate"><span class="pre">tooltip</span></code> encoding channel:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Horsepower&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Miles_per_Gallon&#39;</span><span class="p">,</span>
-    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Origin&#39;</span><span class="p">,</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Origin&#39;</span><span class="p">]</span> <span class="c1"># show Name and Origin in a tooltip</span>
-<span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(cars).mark_point().encode(
+    x=&#39;Horsepower&#39;,
+    y=&#39;Miles_per_Gallon&#39;,
+    color=&#39;Origin&#39;,
+    tooltip=[&#39;Name&#39;, &#39;Origin&#39;] # show Name and Origin in a tooltip
+).interactive()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1dc0d9a0f4ca404ea3b5a6d0d9695f7b"></div>
+<div id="altair-viz-ae5f28eb1ef74bbeb9618a54c16c0e91"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1dc0d9a0f4ca404ea3b5a6d0d9695f7b") {
-      outputDiv = document.getElementById("altair-viz-1dc0d9a0f4ca404ea3b5a6d0d9695f7b");
+    if (outputDiv.id !== "altair-viz-ae5f28eb1ef74bbeb9618a54c16c0e91") {
+      outputDiv = document.getElementById("altair-viz-ae5f28eb1ef74bbeb9618a54c16c0e91");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2927,50 +2931,50 @@ title="Print to PDF"
 <p><em>Drag out an interval in the upper chart and see how it affects the points in the lower chart. As you examine the code, <strong>don’t worry if parts don’t make sense yet!</strong> This is an aspirational example, and we will fill in all the needed details over the course of the different notebooks.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create an interval selection over an x-axis encoding</span>
-<span class="n">brush</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_interval</span><span class="p">(</span><span class="n">encodings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># create an interval selection over an x-axis encoding
+brush = alt.selection_interval(encodings=[&#39;x&#39;])
 
-<span class="c1"># determine opacity based on brush</span>
-<span class="n">opacity</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">brush</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.9</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+# determine opacity based on brush
+opacity = alt.condition(brush, alt.value(0.9), alt.value(0.1))
 
-<span class="c1"># an overview histogram of cars per year</span>
-<span class="c1"># add the interval brush to select cars over time</span>
-<span class="n">overview</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Year:O&#39;</span><span class="p">,</span> <span class="n">timeUnit</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="c1"># extract year unit, treat as ordinal</span>
-      <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labelAngle</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># no title, no label angle</span>
-    <span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="c1"># counts, no axis title</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span>
-<span class="p">)</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span>
-    <span class="n">brush</span>      <span class="c1"># add interval brush selection to the chart</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="c1"># set the chart width to 400 pixels</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">50</span>  <span class="c1"># set the chart height to 50 pixels</span>
-<span class="p">)</span>
+# an overview histogram of cars per year
+# add the interval brush to select cars over time
+overview = alt.Chart(cars).mark_bar().encode(
+    alt.X(&#39;Year:O&#39;, timeUnit=&#39;year&#39;, # extract year unit, treat as ordinal
+      axis=alt.Axis(title=None, labelAngle=0) # no title, no label angle
+    ),
+    alt.Y(&#39;count()&#39;, title=None), # counts, no axis title
+    opacity=opacity
+).add_selection(
+    brush      # add interval brush selection to the chart
+).properties(
+    width=400, # set the chart width to 400 pixels
+    height=50  # set the chart height to 50 pixels
+)
 
-<span class="c1"># a detail scatterplot of horsepower vs. mileage</span>
-<span class="c1"># modulate point opacity based on the brush selection</span>
-<span class="n">detail</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_point</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Horsepower&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Miles_per_Gallon&#39;</span><span class="p">),</span>
-    <span class="c1"># set opacity based on brush selection</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span> <span class="c1"># set chart width to match the first chart</span>
+# a detail scatterplot of horsepower vs. mileage
+# modulate point opacity based on the brush selection
+detail = alt.Chart(cars).mark_point().encode(
+    alt.X(&#39;Horsepower&#39;),
+    alt.Y(&#39;Miles_per_Gallon&#39;),
+    # set opacity based on brush selection
+    opacity=opacity
+).properties(width=400) # set chart width to match the first chart
 
-<span class="c1"># vertically concatenate (vconcat) charts using the &#39;&amp;&#39; operator</span>
-<span class="n">overview</span> <span class="o">&amp;</span> <span class="n">detail</span>
+# vertically concatenate (vconcat) charts using the &#39;&amp;&#39; operator
+overview &amp; detail
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2f7c25e34e5a455e840a0a2ee316028c"></div>
+<div id="altair-viz-fc70cbcba02e4a79a71bec2f1b063d06"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2f7c25e34e5a455e840a0a2ee316028c") {
-      outputDiv = document.getElementById("altair-viz-2f7c25e34e5a455e840a0a2ee316028c");
+    if (outputDiv.id !== "altair-viz-fc70cbcba02e4a79a71bec2f1b063d06") {
+      outputDiv = document.getElementById("altair-viz-fc70cbcba02e4a79a71bec2f1b063d06");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3025,11 +3029,11 @@ title="Print to PDF"
 <p>As a Python API to Vega-Lite, Altair’s main purpose is to convert plot specifications to a JSON string that conforms to the Vega-Lite schema. Using the <code class="docutils literal notranslate"><span class="pre">Chart.to_json</span></code> method, we can inspect the JSON specification that Altair is exporting and sending to Vega-Lite:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chart</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;average(precip)&#39;</span><span class="p">,</span>
-    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;city&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">chart</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>chart = alt.Chart(df).mark_bar().encode(
+    x=&#39;average(precip)&#39;,
+    y=&#39;city&#39;,
+)
+print(chart.to_json())
 </pre></div>
 </div>
 </div>
@@ -3115,8 +3119,8 @@ title="Print to PDF"
 <p>As we saw earlier, Altair’s shorthand syntax includes a way to specify the type of the field as well:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;average(precip):Q&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = alt.X(&#39;average(precip):Q&#39;)
+print(x.to_json())
 </pre></div>
 </div>
 </div>
@@ -3133,8 +3137,8 @@ title="Print to PDF"
 <p>This short-hand is equivalent to spelling-out the attributes by name:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;precip&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;quantitative&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = alt.X(aggregate=&#39;average&#39;, field=&#39;precip&#39;, type=&#39;quantitative&#39;)
+print(x.to_json())
 </pre></div>
 </div>
 </div>

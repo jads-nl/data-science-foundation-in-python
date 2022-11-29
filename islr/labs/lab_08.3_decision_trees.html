@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1480,20 +1480,26 @@ title="Print to PDF"
 <h1>Lab 8.3: Decision Trees<a class="headerlink" href="#lab-8-3-decision-trees" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports and setup</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># imports and setup
+%matplotlib inline
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+import numpy as np
+import pandas as pd
 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
+pd.set_option(&#39;display.max_rows&#39;, 12)
+pd.set_option(&#39;display.max_columns&#39;, 12)
+pd.set_option(&#39;display.float_format&#39;, &#39;{:20,.5f}&#39;.format) # get rid of scientific notation
 
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5693/1373071590.py:14: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as &#39;seaborn-v0_8-&lt;style&gt;&#39;. Alternatively, directly use the seaborn API instead.
+  plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
@@ -1502,38 +1508,44 @@ title="Print to PDF"
 <h2>8.3.1 Fitting Classification Trees<a class="headerlink" href="#fitting-classification-trees" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">carseats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Carseats.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;No&#39;</span><span class="p">})</span>
-<span class="n">carseats</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;ShelveLoc&#39;</span><span class="p">,</span> <span class="s1">&#39;Urban&#39;</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">]]</span> <span class="o">=</span> \
-<span class="n">carseats</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;ShelveLoc&#39;</span><span class="p">,</span> <span class="s1">&#39;Urban&#39;</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>carseats = pd.read_csv(&#39;../datasets/Carseats.csv&#39;, index_col=0)
+carseats[&#39;High&#39;] = (carseats[&#39;Sales&#39;] &gt; 8).map({True: &#39;Yes&#39;, False: &#39;No&#39;})
+carseats.loc[:, [&#39;ShelveLoc&#39;, &#39;Urban&#39;, &#39;US&#39;, &#39;High&#39;]] = \
+carseats.loc[:, [&#39;ShelveLoc&#39;, &#39;Urban&#39;, &#39;US&#39;, &#39;High&#39;]].apply(pd.Categorical)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5693/2528293020.py:3: FutureWarning: In a future version, `df.iloc[:, i] = newvals` will attempt to set the values inplace instead of always setting a new array. To retain the old behavior, use either `df[df.columns[i]] = newvals` or, if columns are non-unique, `df.isetitem(i, newvals)`
+  carseats.loc[:, [&#39;ShelveLoc&#39;, &#39;Urban&#39;, &#39;US&#39;, &#39;High&#39;]] = \
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
-<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
-<span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;ShelveLoc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;ShelveLoc&#39;</span><span class="p">])</span>
-<span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;Urban&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;Urban&#39;</span><span class="p">])</span>
-<span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">])</span>
+le = LabelEncoder()
+carseats[&#39;ShelveLoc&#39;] = le.fit_transform(carseats[&#39;ShelveLoc&#39;])
+carseats[&#39;Urban&#39;] = le.fit_transform(carseats[&#39;Urban&#39;])
+carseats[&#39;US&#39;] = le.fit_transform(carseats[&#39;US&#39;])
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">carseats</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;CompPrice&#39;</span><span class="p">:</span><span class="s1">&#39;US&#39;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">carseats</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;High&#39;</span><span class="p">]</span>
+X = carseats.loc[:, &#39;CompPrice&#39;:&#39;US&#39;]
+y = carseats.loc[:, &#39;High&#39;]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">export_graphviz</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
-<span class="n">tree_carseats</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">tree_carseats</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tree_carseats</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+tree_carseats = DecisionTreeClassifier(min_samples_leaf=5, max_depth=6)
+tree_carseats.fit(X, y)
+y_pred = tree_carseats.predict(X)
 
-<span class="n">tree_carseats</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+tree_carseats.score(X, y)
 </pre></div>
 </div>
 </div>
@@ -1545,18 +1557,18 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Feature Importance</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Feature Importance
 
-<span class="c1"># (pd</span>
-<span class="c1">#  .DataFrame({&#39;Importance&#39;: tree_carseats.feature_importances_ * 100}, index=X.columns)</span>
-<span class="c1">#  .sort_values(&#39;Importance&#39;, ascending=True, axis=0)</span>
-<span class="c1">#  .plot(kind=&#39;barh&#39;, title=&#39;Feature Importance&#39;));</span>
+# (pd
+#  .DataFrame({&#39;Importance&#39;: tree_carseats.feature_importances_ * 100}, index=X.columns)
+#  .sort_values(&#39;Importance&#39;, ascending=True, axis=0)
+#  .plot(kind=&#39;barh&#39;, title=&#39;Feature Importance&#39;));
 
-<span class="kn">from</span> <span class="nn">scikitplot.estimators</span> <span class="kn">import</span> <span class="n">plot_feature_importances</span>
+from scikitplot.estimators import plot_feature_importances
 
-<span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">tree_carseats</span><span class="p">,</span> 
-                         <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-                         <span class="n">x_tick_rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">);</span>
+plot_feature_importances(tree_carseats, 
+                         feature_names=X.columns,
+                         x_tick_rotation=45);
 </pre></div>
 </div>
 </div>
@@ -1566,17 +1578,17 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Source</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from graphviz import Source
 
-<span class="n">tree_carseats_graph</span> <span class="o">=</span> <span class="n">export_graphviz</span><span class="p">(</span><span class="n">tree_carseats</span><span class="p">,</span> 
-                                      <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-                                      <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-                                      <span class="n">class_names</span><span class="o">=</span><span class="n">tree_carseats</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span>
-                                      <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-                                      <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  
-                                      <span class="n">special_characters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+tree_carseats_graph = export_graphviz(tree_carseats, 
+                                      out_file=None, 
+                                      feature_names=X.columns,
+                                      class_names=tree_carseats.classes_,
+                                      filled=True, 
+                                      rounded=True,  
+                                      special_characters=True)
 
-<span class="n">Source</span><span class="p">(</span><span class="n">tree_carseats_graph</span><span class="p">)</span>
+Source(tree_carseats_graph)
 </pre></div>
 </div>
 </div>
@@ -1585,20 +1597,20 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.model_selection import train_test_split
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.5, test_size=0.5, random_state=42)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree_carseats_tt</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">tree_carseats_tt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tree_carseats_tt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tree_carseats_tt = DecisionTreeClassifier(min_samples_leaf=5, max_depth=6)
+tree_carseats_tt.fit(X_train, y_train)
+y_pred = tree_carseats_tt.predict(X_test)
 
-<span class="n">tree_carseats_tt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="n">tree_carseats_tt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+tree_carseats_tt.score(X_train, y_train), tree_carseats_tt.score(X_test, y_test)
 </pre></div>
 </div>
 </div>
@@ -1610,9 +1622,9 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import classification_report
 
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+print(classification_report(y_test, y_pred))
 </pre></div>
 </div>
 </div>
@@ -1631,13 +1643,13 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from sklearn.metrics import confusion_matrix, accuracy_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># from sklearn.metrics import confusion_matrix, accuracy_score
 
-<span class="c1"># pd.DataFrame(confusion_matrix(y_test, y_pred), index=[&#39;No&#39;, &#39;Yes&#39;], columns=[&#39;No&#39;, &#39;Yes&#39;])</span>
+# pd.DataFrame(confusion_matrix(y_test, y_pred), index=[&#39;No&#39;, &#39;Yes&#39;], columns=[&#39;No&#39;, &#39;Yes&#39;])
 
-<span class="kn">from</span> <span class="nn">scikitplot.metrics</span> <span class="kn">import</span> <span class="n">plot_confusion_matrix</span>
+from scikitplot.metrics import plot_confusion_matrix
 
-<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">);</span>
+plot_confusion_matrix(y_test, y_pred);
 </pre></div>
 </div>
 </div>
@@ -1650,25 +1662,25 @@ weighted avg       0.74      0.73      0.73       200
 <h2>8.3.2 Fitting Regression Trees<a class="headerlink" href="#fitting-regression-trees" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boston</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Boston.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>boston = pd.read_csv(&#39;../datasets/Boston.csv&#39;, index_col=0)
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">boston</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;crim&#39;</span><span class="p">:</span><span class="s1">&#39;lstat&#39;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">boston</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;medv&#39;</span><span class="p">]</span>
+X = boston.loc[:, &#39;crim&#39;:&#39;lstat&#39;]
+y = boston.loc[:, &#39;medv&#39;]
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.5, test_size=0.5, random_state=42)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.tree import DecisionTreeRegressor
 
-<span class="n">tree_boston</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">tree_boston</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tree_boston</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+tree_boston = DecisionTreeRegressor(min_samples_leaf=5, max_depth=2)
+tree_boston.fit(X_train, y_train)
+y_pred = tree_boston.predict(X_test)
 
-<span class="n">tree_boston</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="n">tree_boston</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+tree_boston.score(X_train, y_train), tree_boston.score(X_test, y_test)
 </pre></div>
 </div>
 </div>
@@ -1680,14 +1692,14 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree_boston_graph</span> <span class="o">=</span> <span class="n">export_graphviz</span><span class="p">(</span><span class="n">tree_boston</span><span class="p">,</span> 
-                                    <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-                                    <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-                                    <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-                                    <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  
-                                    <span class="n">special_characters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tree_boston_graph = export_graphviz(tree_boston, 
+                                    out_file=None, 
+                                    feature_names=X.columns,
+                                    filled=True, 
+                                    rounded=True,  
+                                    special_characters=True)
 
-<span class="n">Source</span><span class="p">(</span><span class="n">tree_boston_graph</span><span class="p">)</span>
+Source(tree_boston_graph)
 </pre></div>
 </div>
 </div>
@@ -1699,15 +1711,15 @@ weighted avg       0.74      0.73      0.73       200
 <h2>8.3.3 Bagging and Random Forests<a class="headerlink" href="#bagging-and-random-forests" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
 
-<span class="n">boston_bag</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">max_features</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">boston_bag</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+boston_bag = RandomForestRegressor(max_features=13, random_state=42)
+boston_bag.fit(X_train, y_train)
 
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">boston_bag</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+y_pred = boston_bag.predict(X_test)
 
-<span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+mean_squared_error(y_test, y_pred)
 </pre></div>
 </div>
 </div>
@@ -1719,26 +1731,29 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.regplot(y_pred, y_test);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/seaborn/_decorators.py:36: FutureWarning: Pass the following variables as keyword args: x, y. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
-  warnings.warn(
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">);</span>
+
+<span class="ne">TypeError</span>: regplot() takes from 0 to 1 positional arguments but 2 were given
 </pre></div>
 </div>
-<img alt="../../_images/lab_08.3_decision_trees_18_1.png" src="../../_images/lab_08.3_decision_trees_18_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boston_rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">max_features</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">boston_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>boston_rf = RandomForestRegressor(max_features=6, random_state=42, n_estimators=100)
+boston_rf.fit(X_train, y_train)
 
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">boston_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+y_pred = boston_rf.predict(X_test)
 
-<span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+mean_squared_error(y_test, y_pred)
 </pre></div>
 </div>
 </div>
@@ -1750,25 +1765,28 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.regplot(y_pred, y_test);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/seaborn/_decorators.py:36: FutureWarning: Pass the following variables as keyword args: x, y. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
-  warnings.warn(
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">);</span>
+
+<span class="ne">TypeError</span>: regplot() takes from 0 to 1 positional arguments but 2 were given
 </pre></div>
 </div>
-<img alt="../../_images/lab_08.3_decision_trees_20_1.png" src="../../_images/lab_08.3_decision_trees_20_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Feature Importance</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Feature Importance
 
-<span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">boston_rf</span><span class="p">,</span> 
-                         <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-                         <span class="n">x_tick_rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">);</span>
+plot_feature_importances(boston_rf, 
+                         feature_names=X.columns,
+                         x_tick_rotation=45);
 </pre></div>
 </div>
 </div>
@@ -1781,14 +1799,14 @@ weighted avg       0.74      0.73      0.73       200
 <h2>8.3.4 Boosting<a class="headerlink" href="#boosting" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingRegressor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import GradientBoostingRegressor
 
-<span class="n">boston_gb</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">boston_gb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+boston_gb = GradientBoostingRegressor(n_estimators=500, learning_rate=0.01, max_depth=4, random_state=42)
+boston_gb.fit(X_train, y_train)
 
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">boston_gb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+y_pred = boston_gb.predict(X_test)
 
-<span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+mean_squared_error(y_test, y_pred)
 </pre></div>
 </div>
 </div>
@@ -1800,9 +1818,9 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">boston_gb</span><span class="p">,</span> 
-                         <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-                         <span class="n">x_tick_rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_feature_importances(boston_gb, 
+                         feature_names=X.columns,
+                         x_tick_rotation=45);
 </pre></div>
 </div>
 </div>
@@ -1812,11 +1830,11 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Partial Dependence Plots</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Partial Dependence Plots
 
-<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">plot_partial_dependence</span>
+from sklearn.inspection import plot_partial_dependence
 
-<span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">boston_gb</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">);</span>
+plot_partial_dependence(boston_gb, X_train, [5, 12], feature_names=X.columns);
 </pre></div>
 </div>
 </div>
@@ -1830,12 +1848,12 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boston_gb2</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">boston_gb2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>boston_gb2 = GradientBoostingRegressor(n_estimators=500, learning_rate=0.2, max_depth=4, random_state=42)
+boston_gb2.fit(X_train, y_train)
 
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">boston_gb2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+y_pred = boston_gb2.predict(X_test)
 
-<span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+mean_squared_error(y_test, y_pred)
 </pre></div>
 </div>
 </div>
@@ -1847,9 +1865,9 @@ weighted avg       0.74      0.73      0.73       200
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">boston_gb2</span><span class="p">,</span> 
-                         <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-                         <span class="n">x_tick_rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_feature_importances(boston_gb2, 
+                         feature_names=X.columns,
+                         x_tick_rotation=45);
 </pre></div>
 </div>
 </div>
@@ -1862,7 +1880,7 @@ weighted avg       0.74      0.73      0.73       200
 <h2>8.3.5 Bayesian Additive Regression<a class="headerlink" href="#bayesian-additive-regression" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># TODO
 </pre></div>
 </div>
 </div>

@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1516,29 +1516,29 @@ title="Print to PDF"
 <h2>3.6.2 Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import warnings
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 
 
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+warnings.filterwarnings(&quot;ignore&quot;)
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+%matplotlib inline
+pd.set_option(&#39;display.max_rows&#39;, 10)
+pd.set_option(&#39;display.float_format&#39;, &#39;{:20,.2f}&#39;.format) # get rid of scientific notation
+plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data</span>
-<span class="n">boston</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Boston.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">boston</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># load data
+boston = pd.read_csv(&#39;../datasets/Boston.csv&#39;, index_col=0)
+boston
 </pre></div>
 </div>
 </div>
@@ -1774,18 +1774,18 @@ title="Print to PDF"
 <h3>Using scikit-learn<a class="headerlink" href="#using-scikit-learn" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn import linear_model
 
-<span class="c1"># ols model with intercept</span>
-<span class="n">ols_sl</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+# ols model with intercept
+ols_sl = linear_model.LinearRegression(fit_intercept=True) 
 
-<span class="c1"># fitted ols model (.values.reshape(-1, 1) is required for single predictor?)</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;lstat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">y_true</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;medv&#39;</span><span class="p">]</span>
-<span class="n">ols_sl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
+# fitted ols model (.values.reshape(-1, 1) is required for single predictor?)
+x_train = boston[&#39;lstat&#39;].values.reshape(-1, 1)
+y_true = boston[&#39;medv&#39;]
+ols_sl.fit(x_train, y_true)
 
-<span class="c1"># summary</span>
-<span class="n">ols_sl</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">ols_sl</span><span class="o">.</span><span class="n">coef_</span>
+# summary
+ols_sl.intercept_, ols_sl.coef_
 </pre></div>
 </div>
 </div>
@@ -1797,17 +1797,17 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># metrics</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">explained_variance_score</span><span class="p">,</span> <span class="n">r2_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># metrics
+from sklearn.metrics import mean_squared_error, explained_variance_score, r2_score
 
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">ols_sl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">boston</span><span class="p">[</span><span class="s1">&#39;lstat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+y_pred = ols_sl.predict(boston[&#39;lstat&#39;].values.reshape(-1, 1))
 
-<span class="n">ols_sl_summary</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> 
-                  <span class="s1">&#39;Ex. Var&#39;</span><span class="p">:</span> <span class="n">explained_variance_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> 
-                  <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)}</span>
+ols_sl_summary = {&#39;R2&#39;: r2_score(y_true, y_pred), 
+                  &#39;Ex. Var&#39;: explained_variance_score(y_true, y_pred), 
+                  &#39;MSE&#39;: mean_squared_error(y_true, y_pred)}
 
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ols_sl_summary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+for k, v in ols_sl_summary.items():
+    print(k, &#39;:&#39;, v)
 </pre></div>
 </div>
 </div>
@@ -1821,8 +1821,8 @@ MSE : 38.48296722989415
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># out-of-sample predictions</span>
-<span class="n">ols_sl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># out-of-sample predictions
+ols_sl.predict(np.array([5, 10, 15]).reshape(-1, 1))
 </pre></div>
 </div>
 </div>
@@ -1838,23 +1838,23 @@ MSE : 38.48296722989415
 <h2>Using statsmodels<a class="headerlink" href="#using-statsmodels" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using statsmodels</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># using statsmodels
+import statsmodels.api as sm
 
-<span class="c1"># predictor &amp; dependent var</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;lstat&#39;</span><span class="p">]</span>
-<span class="n">y_true</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;medv&#39;</span><span class="p">]</span>
+# predictor &amp; dependent var
+x_train = boston[&#39;lstat&#39;]
+y_true = boston[&#39;medv&#39;]
 
-<span class="c1"># ols model with intercept added to predictor</span>
-<span class="n">ols_sm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span>
+# ols model with intercept added to predictor
+ols_sm = sm.OLS(y_true, sm.add_constant(x_train))
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_sm_results</span> <span class="o">=</span> <span class="n">ols_sm</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_sm_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_sm_results = ols_sm.fit()
+ols_sm_results.summary()
 
-<span class="c1"># robust SE</span>
-<span class="c1">#ols_sm_robust = sm.RLM(boston[&#39;medv&#39;], X, M=sm.robust.norms.LeastSquares())</span>
-<span class="c1">#ols_sm_robust.fit(cov=&#39;H2&#39;).summary()</span>
+# robust SE
+#ols_sm_robust = sm.RLM(boston[&#39;medv&#39;], X, M=sm.robust.norms.LeastSquares())
+#ols_sm_robust.fit(cov=&#39;H2&#39;).summary()
 </pre></div>
 </div>
 </div>
@@ -1871,10 +1871,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   601.6</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>5.08e-88</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>5.08e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:35</td>     <th>  Log-Likelihood:    </th> <td> -1641.5</td>
+  <th>Time:</th>                 <td>11:50:18</td>     <th>  Log-Likelihood:    </th> <td> -1641.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3287.</td>
@@ -1917,8 +1917,8 @@ MSE : 38.48296722989415
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># out-of-sample predictions</span>
-<span class="n">ols_sm_results</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">]))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># out-of-sample predictions
+ols_sm_results.predict(sm.add_constant([5, 10, 15]))
 </pre></div>
 </div>
 </div>
@@ -1930,21 +1930,21 @@ MSE : 38.48296722989415
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prediction intervals</span>
-<span class="kn">from</span> <span class="nn">statsmodels.sandbox.regression.predstd</span> <span class="kn">import</span> <span class="n">wls_prediction_std</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># prediction intervals
+from statsmodels.sandbox.regression.predstd import wls_prediction_std
+from collections import OrderedDict
 
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">ols_sm_results</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span>
-<span class="n">prstd</span><span class="p">,</span> <span class="n">iv_l</span><span class="p">,</span> <span class="n">iv_u</span> <span class="o">=</span> <span class="n">wls_prediction_std</span><span class="p">(</span><span class="n">ols_sm_results</span><span class="p">)</span>
+y_pred = ols_sm_results.predict(sm.add_constant(x_train))
+prstd, iv_l, iv_u = wls_prediction_std(ols_sm_results)
 
-<span class="n">pred_dict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span><span class="s1">&#39;x_train&#39;</span><span class="p">:</span> <span class="n">x_train</span><span class="p">,</span>
-                         <span class="s1">&#39;y_pred&#39;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">,</span> 
-                         <span class="s1">&#39;y_true&#39;</span><span class="p">:</span> <span class="n">y_true</span><span class="p">,</span> 
-                         <span class="s1">&#39;lwr&#39;</span><span class="p">:</span> <span class="n">iv_l</span><span class="p">,</span> 
-                         <span class="s1">&#39;upr&#39;</span><span class="p">:</span> <span class="n">iv_u</span><span class="p">,</span> 
-                         <span class="s1">&#39;pred_se&#39;</span><span class="p">:</span> <span class="n">prstd</span><span class="p">})</span>
+pred_dict = OrderedDict({&#39;x_train&#39;: x_train,
+                         &#39;y_pred&#39;: y_pred, 
+                         &#39;y_true&#39;: y_true, 
+                         &#39;lwr&#39;: iv_l, 
+                         &#39;upr&#39;: iv_u, 
+                         &#39;pred_se&#39;: prstd})
 
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pred_dict</span><span class="p">)</span>
+pd.DataFrame(pred_dict)
 </pre></div>
 </div>
 </div>
@@ -2082,67 +2082,94 @@ MSE : 38.48296722989415
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.regplot(&#39;lstat&#39;, &#39;medv&#39;, data=boston);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_03.6_linear_regression_11_0.png" src="../../_images/lab_03.6_linear_regression_11_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">);</span>
+
+<span class="ne">TypeError</span>: regplot() got multiple values for argument &#39;data&#39;
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.graphics.regressionplots</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from statsmodels.graphics.regressionplots import *
 
-<span class="n">ols_sm_resid</span> <span class="o">=</span> <span class="n">ols_sm_results</span><span class="o">.</span><span class="n">resid</span> <span class="c1"># residuals</span>
-<span class="n">ols_sm_resid_stud</span> <span class="o">=</span> <span class="n">ols_sm_resid</span> <span class="o">/</span> <span class="n">prstd</span> <span class="c1"># studentized residuals</span>
+ols_sm_resid = ols_sm_results.resid # residuals
+ols_sm_resid_stud = ols_sm_resid / prstd # studentized residuals
 
-<span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
-<span class="n">f</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+f, axes = plt.subplots(2, 2, sharex=False, sharey=False) 
+f.set_figheight(10)
+f.set_figwidth(15)
 
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span> <span class="c1"># regression plot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span> <span class="c1"># residual plot</span>
+sns.regplot(&#39;lstat&#39;, &#39;medv&#39;, data=boston, ax=axes[0, 0], scatter_kws={&#39;alpha&#39;: 0.5}) # regression plot
+sns.residplot(y_pred, &#39;medv&#39;, data=boston, ax=axes[0, 1], scatter_kws={&#39;alpha&#39;: 0.5}) # residual plot
 
-<span class="c1">#plot_leverage_resid2(ols_sm_results, ax=axes[1, 0], color=&#39;red&#39;) # leverage plot</span>
+#plot_leverage_resid2(ols_sm_results, ax=axes[1, 0], color=&#39;red&#39;) # leverage plot
 
-<span class="c1"># custom leverage plot instead of above</span>
-<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">OLSInfluence</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
-<span class="n">norm_resid</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">ols_sm_resid</span><span class="p">)</span>
-<span class="n">leverage</span> <span class="o">=</span> <span class="n">OLSInfluence</span><span class="p">(</span><span class="n">ols_sm_results</span><span class="p">)</span><span class="o">.</span><span class="n">hat_matrix_diag</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">norm_resid</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">leverage</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+# custom leverage plot instead of above
+from statsmodels.stats.outliers_influence import OLSInfluence
+from scipy.stats import zscore
+norm_resid = zscore(ols_sm_resid)
+leverage = OLSInfluence(ols_sm_results).hat_matrix_diag
+axes[1, 0].autoscale(enable=True, axis=&#39;y&#39;, tight=True)
+axes[1, 0].scatter(norm_resid ** 2, leverage, alpha=0.5, color=&#39;red&#39;)
 
-<span class="c1"># studentized residual plot</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">ols_sm_resid_stud</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;.2&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;.6&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;.6&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+# studentized residual plot
+axes[1, 1].scatter(y_pred, ols_sm_resid_stud, alpha=0.5, color=&#39;magenta&#39;)
+axes[1, 1].axhline(0, ls=&quot;:&quot;, c=&quot;.2&quot;)
+axes[1, 1].axhline(-3, ls=&quot;:&quot;, c=&quot;.6&quot;)
+axes[1, 1].axhline(3, ls=&quot;:&quot;, c=&quot;.6&quot;)
+axes[1, 1].set_ylim(-5, 5)
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">ols_sm_resid_stud</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="n">ols_sm_resid_stud</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">3</span><span class="p">)]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">ols_sm_resid_stud</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">ols_sm_resid_stud</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="n">ols_sm_resid_stud</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">3</span><span class="p">)]</span>
+x = y_pred[np.logical_or(ols_sm_resid_stud &gt; 3, ols_sm_resid_stud &lt; -3)]
+y = ols_sm_resid_stud[np.logical_or(ols_sm_resid_stud &gt; 3, ols_sm_resid_stud &lt; -3)]
 
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">));</span>
+for i, x, y in zip(x.index, x, y):
+    axes[1, 1].annotate(i, xy=(x, y));
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_03.6_linear_regression_12_0.png" src="../../_images/lab_03.6_linear_regression_12_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">f</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">f</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span> <span class="c1"># regression plot</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span> <span class="c1"># residual plot</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1">#plot_leverage_resid2(ols_sm_results, ax=axes[1, 0], color=&#39;red&#39;) # leverage plot</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> 
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="c1"># custom leverage plot instead of above</span>
+
+<span class="ne">TypeError</span>: regplot() got multiple values for argument &#39;data&#39;
+</pre></div>
+</div>
+<img alt="../../_images/lab_03.6_linear_regression_12_1.png" src="../../_images/lab_03.6_linear_regression_12_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># item with the highest leverage (0-indexed)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># item with the highest leverage (0-indexed)
 
-<span class="n">leverage</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">leverage</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+leverage.argmax(), leverage.max()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(374, 0.0268651665102835)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># item with the highest leverage (0-indexed)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">leverage</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">leverage</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;leverage&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -2152,16 +2179,16 @@ MSE : 38.48296722989415
 <h2>3.6.3 Multiple Linear Regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># predictors &amp; dependent var</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[[</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">]]</span>
-<span class="n">y_true</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s1">&#39;medv&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># predictors &amp; dependent var
+x_train = boston[[&#39;lstat&#39;, &#39;age&#39;]]
+y_true = boston[&#39;medv&#39;]
 
-<span class="c1"># ols model with intercept added to predictor</span>
-<span class="n">ols_sm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span>
+# ols model with intercept added to predictor
+ols_sm = sm.OLS(y_true, sm.add_constant(x_train))
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_sm_results</span> <span class="o">=</span> <span class="n">ols_sm</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_sm_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_sm_results = ols_sm.fit()
+ols_sm_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2178,10 +2205,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   309.0</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:37</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
+  <th>Time:</th>                 <td>11:50:19</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3281.</td>
@@ -2227,14 +2254,14 @@ MSE : 38.48296722989415
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span> <span class="c1"># R-style formula api</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import statsmodels.formula.api as smf # R-style formula api
 
-<span class="c1"># ols model with intercept</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;medv ~ lstat + age&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span>
+# ols model with intercept
+ols_smf = smf.ols(formula=&#39;medv ~ lstat + age&#39;, data=boston)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2251,10 +2278,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   309.0</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>2.98e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:37</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
+  <th>Time:</th>                 <td>11:50:19</td>     <th>  Log-Likelihood:    </th> <td> -1637.5</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3281.</td>
@@ -2300,24 +2327,24 @@ MSE : 38.48296722989415
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ols_formula</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">dependent_var</span><span class="p">,</span> <span class="o">*</span><span class="n">excluded_cols</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Generates the R style formula for statsmodels (patsy) given</span>
-<span class="sd">    the dataframe, dependent variable and optional excluded columns</span>
-<span class="sd">    as strings</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">df_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-    <span class="n">df_columns</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dependent_var</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">excluded_cols</span><span class="p">:</span>
-        <span class="n">df_columns</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">dependent_var</span> <span class="o">+</span> <span class="s1">&#39; ~ &#39;</span> <span class="o">+</span> <span class="s1">&#39; + &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_columns</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def ols_formula(df, dependent_var, *excluded_cols):
+    &#39;&#39;&#39;
+    Generates the R style formula for statsmodels (patsy) given
+    the dataframe, dependent variable and optional excluded columns
+    as strings
+    &#39;&#39;&#39;
+    df_columns = list(df.columns.values)
+    df_columns.remove(dependent_var)
+    for col in excluded_cols:
+        df_columns.remove(col)
+    return dependent_var + &#39; ~ &#39; + &#39; + &#39;.join(df_columns)
 
-<span class="c1"># ols model with intercept</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">ols_formula</span><span class="p">(</span><span class="n">boston</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span>
+# ols model with intercept
+ols_smf = smf.ols(formula=ols_formula(boston, &#39;medv&#39;), data=boston)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2334,10 +2361,10 @@ MSE : 38.48296722989415
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   108.1</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>6.72e-135</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>6.72e-135</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:37</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
+  <th>Time:</th>                 <td>11:50:19</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3026.</td> 
@@ -2416,20 +2443,20 @@ MSE : 38.48296722989415
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># variance inflation factors</span>
-<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span> <span class="k">as</span> <span class="n">vif</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># variance inflation factors
+from statsmodels.stats.outliers_influence import variance_inflation_factor as vif
 
-<span class="c1"># don&#39;t forget to add constant if the ols model includes intercept</span>
-<span class="n">boston_exog</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+# don&#39;t forget to add constant if the ols model includes intercept
+boston_exog = sm.add_constant(boston.drop(&#39;medv&#39;, axis=1))
 
-<span class="c1"># too fancy for printing results?</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">boston_exog</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;const&#39;</span><span class="p">:</span>
-        <span class="k">pass</span>
-    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vif</span><span class="p">(</span><span class="n">boston_exog</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">:&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vif</span><span class="p">(</span><span class="n">boston_exog</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)))</span>
+# too fancy for printing results?
+for i, col in enumerate(boston_exog.columns):
+    if col == &#39;const&#39;:
+        pass
+    elif len(col) &gt; 6:
+        print(col, &#39;:&#39;, &quot;{0:.2f}&quot;.format(vif(boston_exog.values, i)))
+    else:
+        print(col, &#39;\t:&#39;, &quot;{0:.2f}&quot;.format(vif(boston_exog.values, i)))
 </pre></div>
 </div>
 </div>
@@ -2453,12 +2480,12 @@ lstat 	: 2.94
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ols model with intercept</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">ols_formula</span><span class="p">(</span><span class="n">boston</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># ols model with intercept
+ols_smf = smf.ols(formula=ols_formula(boston, &#39;medv&#39;, &#39;age&#39;), data=boston)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2475,10 +2502,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   117.3</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>6.08e-136</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>6.08e-136</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:37</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
+  <th>Time:</th>                 <td>11:50:19</td>     <th>  Log-Likelihood:    </th> <td> -1498.8</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3024.</td> 
@@ -2557,12 +2584,12 @@ lstat 	: 2.94
 <h2>3.6.4 Interaction Terms<a class="headerlink" href="#interaction-terms" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ols model with intercept</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;medv ~ lstat * age&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># ols model with intercept
+ols_smf = smf.ols(formula=&#39;medv ~ lstat * age&#39;, data=boston)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2579,10 +2606,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   209.3</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>4.86e-88</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>4.86e-88</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:37</td>     <th>  Log-Likelihood:    </th> <td> -1635.0</td>
+  <th>Time:</th>                 <td>11:50:19</td>     <th>  Log-Likelihood:    </th> <td> -1635.0</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3278.</td>
@@ -2634,12 +2661,12 @@ lstat 	: 2.94
 <h2>3.6.5 Non-linear Transformations of Predictors<a class="headerlink" href="#non-linear-transformations-of-predictors" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ols model with intercept</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;medv ~ lstat + np.power(lstat, 2)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># ols model with intercept
+ols_smf = smf.ols(formula=&#39;medv ~ lstat + np.power(lstat, 2)&#39;, data=boston)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2656,10 +2683,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   448.5</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>1.56e-112</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>1.56e-112</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:37</td>     <th>  Log-Likelihood:    </th> <td> -1581.3</td> 
+  <th>Time:</th>                 <td>11:50:19</td>     <th>  Log-Likelihood:    </th> <td> -1581.3</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3169.</td> 
@@ -2705,11 +2732,11 @@ lstat 	: 2.94
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># anova of the two models</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;medv ~ lstat&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf2</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;medv ~ lstat + np.power(lstat, 2)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># anova of the two models
+ols_smf = smf.ols(formula=&#39;medv ~ lstat&#39;, data=boston).fit()
+ols_smf2 = smf.ols(formula=&#39;medv ~ lstat + np.power(lstat, 2)&#39;, data=boston).fit()
 
-<span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">ols_smf</span><span class="p">,</span> <span class="n">ols_smf2</span><span class="p">)</span>
+sm.stats.anova_lm(ols_smf, ols_smf2)
 </pre></div>
 </div>
 </div>
@@ -2765,34 +2792,46 @@ lstat 	: 2.94
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>f, axes = plt.subplots(4, 2, sharex=False, sharey=False)
+f.set_figheight(20)
 
-<span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">((</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">)):</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">},</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+for axis, order in ((axes[0,0], 1), (axes[0,1], 2), (axes[1,0], 3), (axes[1,1], 5)):
+    sns.regplot(&#39;lstat&#39;, &#39;medv&#39;, data=boston, ax=axis, order=order, line_kws={&#39;color&#39;: &#39;gray&#39;}, scatter_kws={&#39;alpha&#39;: 0.5})
 
-<span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">((</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">)):</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">},</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+for axis, order in ((axes[2,0], 1), (axes[2,1], 2), (axes[3,0], 3), (axes[3,1], 5)):
+    sns.residplot(&#39;lstat&#39;, &#39;medv&#39;, data=boston, ax=axis, order=order, line_kws={&#39;color&#39;: &#39;gray&#39;}, scatter_kws={&#39;alpha&#39;: 0.5})
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_03.6_linear_regression_25_0.png" src="../../_images/lab_03.6_linear_regression_25_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">f</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">((</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">)):</span>
+<span class="ne">----&gt; </span><span class="mi">5</span>     <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">},</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">((</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">)):</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span><span class="s1">&#39;lstat&#39;</span><span class="p">,</span> <span class="s1">&#39;medv&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">},</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+
+<span class="ne">TypeError</span>: regplot() got multiple values for argument &#39;data&#39;
+</pre></div>
+</div>
+<img alt="../../_images/lab_03.6_linear_regression_25_1.png" src="../../_images/lab_03.6_linear_regression_25_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># polynomial ols model with intercept</span>
-<span class="c1"># numpy way</span>
-<span class="c1">#ols_smf = smf.ols(formula=&#39;medv ~ lstat + np.power(lstat, 2) + np.power(lstat, 3) + np.power(lstat, 4) + np.power(lstat, 5)&#39;,</span>
-<span class="c1">#                  data=boston)</span>
-<span class="c1"># patsy way</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;medv ~ lstat + I(lstat**2) + I(lstat**3) + I(lstat**4) + I(lstat**5)&#39;</span><span class="p">,</span>
-                  <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># polynomial ols model with intercept
+# numpy way
+#ols_smf = smf.ols(formula=&#39;medv ~ lstat + np.power(lstat, 2) + np.power(lstat, 3) + np.power(lstat, 4) + np.power(lstat, 5)&#39;,
+#                  data=boston)
+# patsy way
+ols_smf = smf.ols(formula=&#39;medv ~ lstat + I(lstat**2) + I(lstat**3) + I(lstat**4) + I(lstat**5)&#39;,
+                  data=boston)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2809,10 +2848,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   214.2</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>8.73e-122</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>8.73e-122</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:40</td>     <th>  Log-Likelihood:    </th> <td> -1550.6</td> 
+  <th>Time:</th>                 <td>11:50:20</td>     <th>  Log-Likelihood:    </th> <td> -1550.6</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3113.</td> 
@@ -2867,12 +2906,12 @@ lstat 	: 2.94
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># polynomial ols model with intercept</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;medv ~ np.log(rm)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># polynomial ols model with intercept
+ols_smf = smf.ols(formula=&#39;medv ~ np.log(rm)&#39;, data=boston)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -2889,10 +2928,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   389.3</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>1.22e-64</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>1.22e-64</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:40</td>     <th>  Log-Likelihood:    </th> <td> -1695.4</td>
+  <th>Time:</th>                 <td>11:50:20</td>     <th>  Log-Likelihood:    </th> <td> -1695.4</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   3395.</td>
@@ -2935,17 +2974,29 @@ lstat 	: 2.94
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;rm&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;medv&#39;</span><span class="p">,</span> 
-            <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> 
-            <span class="n">logx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-            <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">},</span> 
-            <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">});</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.regplot(&#39;rm&#39;, 
+            &#39;medv&#39;, 
+            data=boston, 
+            logx=True, 
+            line_kws={&#39;color&#39;: &#39;gray&#39;}, 
+            scatter_kws={&#39;alpha&#39;: 0.5});
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/lab_03.6_linear_regression_28_0.png" src="../../_images/lab_03.6_linear_regression_28_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="s1">&#39;rm&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">2</span>             <span class="s1">&#39;medv&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span>             <span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span>             <span class="n">logx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span>             <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;gray&#39;</span><span class="p">},</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span>             <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">});</span>
+
+<span class="ne">TypeError</span>: regplot() got multiple values for argument &#39;data&#39;
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -2953,8 +3004,8 @@ lstat 	: 2.94
 <h2>3.6.6 Qualitative Predictors<a class="headerlink" href="#qualitative-predictors" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">carseats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Carseats.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">carseats</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>carseats = pd.read_csv(&#39;../datasets/Carseats.csv&#39;, index_col=0)
+carseats
 </pre></div>
 </div>
 </div>
@@ -3152,14 +3203,14 @@ lstat 	: 2.94
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ols model with intercept</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># ols model with intercept
 
-<span class="n">form</span> <span class="o">=</span> <span class="n">ols_formula</span><span class="p">(</span><span class="n">carseats</span><span class="p">,</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="s1">&#39;ShelveLoc&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; + Income:Advertising + Price:Age + C(ShelveLoc)&#39;</span>
-<span class="n">ols_smf</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="n">form</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">carseats</span><span class="p">)</span>
+form = ols_formula(carseats, &#39;Sales&#39;, &#39;ShelveLoc&#39;) + &#39; + Income:Advertising + Price:Age + C(ShelveLoc)&#39;
+ols_smf = smf.ols(formula=form, data=carseats)
 
-<span class="c1"># fitted model and summary</span>
-<span class="n">ols_smf_results</span> <span class="o">=</span> <span class="n">ols_smf</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">ols_smf_results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+# fitted model and summary
+ols_smf_results = ols_smf.fit()
+ols_smf_results.summary()
 </pre></div>
 </div>
 </div>
@@ -3176,10 +3227,10 @@ lstat 	: 2.94
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   210.0</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Mon, 03 Oct 2022</td> <th>  Prob (F-statistic):</th> <td>6.14e-166</td>
+  <th>Date:</th>             <td>Tue, 29 Nov 2022</td> <th>  Prob (F-statistic):</th> <td>6.14e-166</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>15:02:40</td>     <th>  Log-Likelihood:    </th> <td> -564.67</td> 
+  <th>Time:</th>                 <td>11:50:20</td>     <th>  Log-Likelihood:    </th> <td> -564.67</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   400</td>      <th>  AIC:               </th> <td>   1157.</td> 
@@ -3258,9 +3309,9 @@ lstat 	: 2.94
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">patsy.contrasts</span> <span class="kn">import</span> <span class="n">Treatment</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from patsy.contrasts import Treatment
 
-<span class="n">Treatment</span><span class="p">(</span><span class="n">reference</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">code_without_intercept</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">carseats</span><span class="p">[</span><span class="s1">&#39;ShelveLoc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span><span class="o">.</span><span class="n">matrix</span>
+Treatment(reference=0).code_without_intercept(list(carseats[&#39;ShelveLoc&#39;].unique())).matrix
 </pre></div>
 </div>
 </div>

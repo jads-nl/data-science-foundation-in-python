@@ -1160,7 +1160,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1489,44 +1489,77 @@ title="Print to PDF"
 <p>We perform document classification on the IMDb dataset, which is available as part of the <code class="docutils literal notranslate"><span class="pre">tensorflow.keras</span></code> package. We limit the dictionary size to the 10,000 most frequently-used words and tokens.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import itertools
+import os
+import pickle
+from pprint import pprint
 
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">imdb</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+import altair as alt
+import pandas as pd
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+from scipy.sparse import csr_matrix
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from tensorflow.keras.datasets import imdb
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Sequential
 
 
-<span class="c1"># let&#39;s keep our keras backend tensorflow quiet</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TF_CPP_MIN_LOG_LEVEL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;3&quot;</span>
+# let&#39;s keep our keras backend tensorflow quiet
+os.environ[&quot;TF_CPP_MIN_LOG_LEVEL&quot;] = &quot;3&quot;
 
-<span class="c1"># load the data</span>
-<span class="n">MAX_FEATURES</span> <span class="o">=</span> <span class="mi">10_000</span>
-<span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="n">MAX_FEATURES</span><span class="p">)</span>
+# load the data
+MAX_FEATURES = 10_000
+(X_train, y_train), (X_test, y_test) = imdb.load_data(num_words=MAX_FEATURES)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:58:13.750285: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-29 12:12:45.268420: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-10-03 14:58:13.925838: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-10-03 14:58:13.925867: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-10-03 14:58:13.968583: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-11-29 12:12:45.404270: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-11-29 12:12:45.404291: I tensorflow/compiler/xla/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 14:58:14.918917: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
-2022-10-03 14:58:14.919086: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
-2022-10-03 14:58:14.919102: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-29 12:12:46.100378: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
+2022-11-29 12:12:46.100465: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
+2022-11-29 12:12:46.100473: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/imdb.npz
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    8192/17464789 [..............................] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+   57344/17464789 [..............................] - ETA: 15s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+  237568/17464789 [..............................] - ETA: 7s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+  884736/17464789 [&gt;.............................] - ETA: 2s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+ 3440640/17464789 [====&gt;.........................] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+ 9535488/17464789 [===============&gt;..............] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+15597568/17464789 [=========================&gt;....] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+17464789/17464789 [==============================] - 0s 0us/step
 </pre></div>
 </div>
 </div>
@@ -1534,7 +1567,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <p>The last line is a shortcut for unpacking the list of lists. Each element of <code class="docutils literal notranslate"><span class="pre">X_train</span></code> is a vector of numbers between 0 and 9999 (the document), referring to the words found in the dictionary. For example, the first training document is the positive review on page 419 of ISLRv2. The indices of the first 12 words are given below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">[</span><span class="mi">1</span><span class="p">][:</span><span class="mi">12</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train[1][:12]
 </pre></div>
 </div>
 </div>
@@ -1547,23 +1580,23 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <p>To see the words, we create a function, <code class="docutils literal notranslate"><span class="pre">decode_review()</span></code>, that provides a simple interface to the dictionary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_index</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>word_index = imdb.get_word_index()
 
-<span class="k">def</span> <span class="nf">decode_review</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">word_index</span><span class="o">=</span><span class="n">word_index</span><span class="p">,</span> <span class="n">start_char</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">oov_char</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">index_from</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Decodes one-hot encoded reviews from IMDb.</span>
-<span class="sd">    </span>
-<span class="sd">    Note default values for `imdb.load_data`, see https://keras.io/api/datasets/imdb/</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">reverse_word_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span> <span class="o">+</span> <span class="n">index_from</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+def decode_review(text, word_index=word_index, start_char=1, oov_char=2, index_from=3):
+    &quot;&quot;&quot;Decodes one-hot encoded reviews from IMDb.
+    
+    Note default values for `imdb.load_data`, see https://keras.io/api/datasets/imdb/
+    &quot;&quot;&quot;
+    reverse_word_index = {v + index_from: k for k, v in word_index.items()}
 
-    <span class="c1"># add special tags</span>
-    <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;&lt;PAD&gt;&quot;</span><span class="p">,</span> <span class="n">start_char</span><span class="p">:</span> <span class="s2">&quot;&lt;START&gt;&quot;</span><span class="p">,</span> <span class="n">oov_char</span><span class="p">:</span> <span class="s2">&quot;&lt;UNK&gt;&quot;</span><span class="p">}</span>
-    <span class="n">reverse_word_index</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">tags</span><span class="p">,</span> <span class="o">**</span><span class="n">reverse_word_index</span><span class="p">}</span>
+    # add special tags
+    tags = {0: &quot;&lt;PAD&gt;&quot;, start_char: &quot;&lt;START&gt;&quot;, oov_char: &quot;&lt;UNK&gt;&quot;}
+    reverse_word_index = {**tags, **reverse_word_index}
 
-    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">reverse_word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;&lt;index not found&gt;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">text</span><span class="p">])</span>
+    return &quot; &quot;.join([reverse_word_index.get(i, &quot;&lt;index not found&gt;&quot;) for i in text])
 
 
-<span class="n">decode_review</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+decode_review(X_train[0])
 </pre></div>
 </div>
 </div>
@@ -1575,7 +1608,15 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-1081344/1641221 [==================&gt;...........] - ETA: 0s
+  73728/1641221 [&gt;.............................] - ETA: 1s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+ 335872/1641221 [=====&gt;........................] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+1507328/1641221 [==========================&gt;...] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1593,18 +1634,18 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <p>Next we write a function to “one-hot” encode each document in a list of documents, and return a binary matrix in sparse-matrix format.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_hot_encode</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">MAX_FEATURES</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; One-hot encodes IMDb reviews as SciPy sparse matrix.</span>
-<span class="sd">    </span>
-<span class="sd">    Using csr_matrix, see https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix</span>
-<span class="sd">    For more on sparse matrices, see https://machinelearningmastery.com/sparse-matrices-for-machine-learning/</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">seqlen</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="k">for</span> <span class="n">sequence</span> <span class="ow">in</span> <span class="n">sequences</span><span class="p">]</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seqlen</span><span class="p">)</span>
-    <span class="n">row_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">seqlen</span><span class="p">)</span>
-    <span class="n">col_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">sequences</span><span class="p">))</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">row_index</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">csr_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row_index</span><span class="p">,</span> <span class="n">col_index</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dimension</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def one_hot_encode(sequences, dimension=MAX_FEATURES):
+    &quot;&quot;&quot; One-hot encodes IMDb reviews as SciPy sparse matrix.
+    
+    Using csr_matrix, see https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix
+    For more on sparse matrices, see https://machinelearningmastery.com/sparse-matrices-for-machine-learning/
+    &quot;&quot;&quot;
+    seqlen = [len(sequence) for sequence in sequences]
+    n = len(seqlen)
+    row_index = np.repeat(range(n), seqlen)
+    col_index = list(itertools.chain(*sequences))
+    data = np.ones(len(row_index), dtype=&quot;int&quot;)
+    return csr_matrix((data, (row_index, col_index)), shape=(n, dimension))
 </pre></div>
 </div>
 </div>
@@ -1612,12 +1653,12 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <p>To construct the matrix, one supplies just the entries that are nonzero. In the last line we call <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix"><code class="docutils literal notranslate"><span class="pre">csr_matrix()</span></code></a> and supply the row indices corresponding to each document and the column indices corresponding to the words in each document. <code class="docutils literal notranslate"><span class="pre">data</span></code> is literally a list of ones. Words that appear more than once in any given document still get recorded as one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_1h</span> <span class="o">=</span> <span class="n">one_hot_encode</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="n">X_test_1h</span> <span class="o">=</span> <span class="n">one_hot_encode</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_1h = one_hot_encode(X_train)
+X_test_1h = one_hot_encode(X_test)
+y_train = np.array(y_train).astype(&quot;float32&quot;)
+y_test = np.array(y_test).astype(&quot;float32&quot;)
 
-<span class="n">X_train_1h</span><span class="o">.</span><span class="n">shape</span>
+X_train_1h.shape
 </pre></div>
 </div>
 </div>
@@ -1629,8 +1670,8 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TO DO: don&#39;t understand why we get 2.3% non zeros</span>
-<span class="n">X_train_1h</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">25_000</span> <span class="o">*</span> <span class="mi">10_000</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># TO DO: don&#39;t understand why we get 2.3% non zeros
+X_train_1h.sum().sum() / (25_000 * 10_000)
 </pre></div>
 </div>
 </div>
@@ -1647,25 +1688,25 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <p>First we fit a lasso logistic regression model using <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.LogisticRegression()</span></code> on the training data, and evaluate its performance on the validation data. In order to plot the accuracy as a function of the shrinkage parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, we iterate over different values of <span class="math notranslate nohighlight">\(-log \lambda = [1, 2, .. 20]\)</span>. Note that <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> uses <code class="docutils literal notranslate"><span class="pre">C</span></code> as the regularization parameter, which is the inverse of lambda. Similar espressions compute the performance on the test data, and were used to produce the left plot in Figure 10.11. The code takes advantage of the sparse-matrix format of <code class="docutils literal notranslate"><span class="pre">x_train_1h</span></code>and runs in about two minutes; in the usual dense format it would take about over orders of magnitude longer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ival</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="mi">2000</span><span class="p">))</span>
-<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
-<span class="n">mask</span><span class="p">[</span><span class="n">ival</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.random.seed(3)
+ival = sorted(np.random.choice(range(len(y_train)), 2000))
+mask = np.ones_like(y_train, dtype=bool)
+mask[ival] = False
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">models</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">log_lambda</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">((</span><span class="n">log_lambda</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;fitting LogisticRegression with C = </span><span class="si">{</span><span class="n">C</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">models</span><span class="p">[</span><span class="n">C</span><span class="p">]</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-        <span class="n">X_train_1h</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;... done&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
+models = {}
+for log_lambda in range(1, 20):
+    C = 1 / (2 ** ((log_lambda / 2)))
+    print(f&quot;fitting LogisticRegression with C = {C:.3f}&quot;)
+    models[C] = LogisticRegression(C=C, max_iter=1000, random_state=0).fit(
+        X_train_1h[mask, :], y_train[mask]
+    )
+    print(&quot;... done&quot;)
 </pre></div>
 </div>
 </div>
@@ -1756,45 +1797,49 @@ fitting LogisticRegression with C = 0.001
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... done
-CPU times: user 3min 4s, sys: 54 s, total: 3min 58s
-Wall time: 2min
+CPU times: user 2min 21s, sys: 44.7 s, total: 3min 6s
+Wall time: 1min 33s
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">accuracy</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span>
-        <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">v</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train_1h</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="p">:]))),</span>
-        <span class="p">(</span>
-            <span class="n">k</span><span class="p">,</span>
-            <span class="s2">&quot;validation&quot;</span><span class="p">,</span>
-            <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">ival</span><span class="p">],</span> <span class="n">v</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train_1h</span><span class="p">[</span><span class="n">ival</span><span class="p">,</span> <span class="p">:])),</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-<span class="p">]</span>
-<span class="n">df_lr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">accuracy</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;fold&quot;</span><span class="p">,</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">plot_lr</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df_lr</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;log_C:Q&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span><span class="n">log_C</span><span class="o">=</span><span class="s2">&quot;log(datum.C)&quot;</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">plot_lr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>accuracy = [
+    (
+        (k, &quot;train&quot;, accuracy_score(y_train[mask], v.predict(X_train_1h[mask, :]))),
+        (
+            k,
+            &quot;validation&quot;,
+            accuracy_score(y_train[ival], v.predict(X_train_1h[ival, :])),
+        ),
+    )
+    for k, v in models.items()
+]
+df_lr = pd.DataFrame(itertools.chain(*accuracy), columns=[&quot;C&quot;, &quot;fold&quot;, &quot;accuracy&quot;])
+plot_lr = (
+    alt.Chart(df_lr)
+    .mark_line(point=True)
+    .encode(x=&quot;log_C:Q&quot;, y=&quot;accuracy&quot;, color=&quot;fold&quot;)
+    .transform_calculate(log_C=&quot;log(datum.C)&quot;)
+)
+plot_lr
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/altair/utils/core.py:317: FutureWarning: iteritems is deprecated and will be removed in a future version. Use .items instead.
+  for col_name, dtype in df.dtypes.iteritems():
+</pre></div>
+</div>
 <div class="output text_html">
-<div id="altair-viz-b274c42214534972a908c401e3986e16"></div>
+<div id="altair-viz-a99ae523be964ea19ea3eadff187f4e1"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b274c42214534972a908c401e3986e16") {
-      outputDiv = document.getElementById("altair-viz-b274c42214534972a908c401e3986e16");
+    if (outputDiv.id !== "altair-viz-a99ae523be964ea19ea3eadff187f4e1") {
+      outputDiv = document.getElementById("altair-viz-a99ae523be964ea19ea3eadff187f4e1");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1840,7 +1885,7 @@ Wall time: 2min
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-5eaf5d014fd99304b74533cdd5e8b61c"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "x": {"field": "log_C", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "transform": [{"calculate": "log(datum.C)", "as": "log_C"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-5eaf5d014fd99304b74533cdd5e8b61c": [{"C": 0.7071067811865475, "fold": "train", "accuracy": 0.9908598657136669}, {"C": 0.7071067811865475, "fold": "validation", "accuracy": 0.8745}, {"C": 0.5, "fold": "train", "accuracy": 0.9873510937838423}, {"C": 0.5, "fold": "validation", "accuracy": 0.877}, {"C": 0.35355339059327373, "fold": "train", "accuracy": 0.9829759584145549}, {"C": 0.35355339059327373, "fold": "validation", "accuracy": 0.8775}, {"C": 0.25, "fold": "train", "accuracy": 0.9776911414338315}, {"C": 0.25, "fold": "validation", "accuracy": 0.8805}, {"C": 0.17677669529663687, "fold": "train", "accuracy": 0.9726229153129738}, {"C": 0.17677669529663687, "fold": "validation", "accuracy": 0.884}, {"C": 0.125, "fold": "train", "accuracy": 0.9672514619883041}, {"C": 0.125, "fold": "validation", "accuracy": 0.885}, {"C": 0.08838834764831843, "fold": "train", "accuracy": 0.9611869179120641}, {"C": 0.08838834764831843, "fold": "validation", "accuracy": 0.8865}, {"C": 0.0625, "fold": "train", "accuracy": 0.9548191466320122}, {"C": 0.0625, "fold": "validation", "accuracy": 0.884}, {"C": 0.044194173824159216, "fold": "train", "accuracy": 0.948104829976175}, {"C": 0.044194173824159216, "fold": "validation", "accuracy": 0.887}, {"C": 0.03125, "fold": "train", "accuracy": 0.9416071041802035}, {"C": 0.03125, "fold": "validation", "accuracy": 0.8875}, {"C": 0.022097086912079608, "fold": "train", "accuracy": 0.9346761966645007}, {"C": 0.022097086912079608, "fold": "validation", "accuracy": 0.889}, {"C": 0.015625, "fold": "train", "accuracy": 0.927745289148798}, {"C": 0.015625, "fold": "validation", "accuracy": 0.8865}, {"C": 0.011048543456039804, "fold": "train", "accuracy": 0.9199480181936323}, {"C": 0.011048543456039804, "fold": "validation", "accuracy": 0.884}, {"C": 0.0078125, "fold": "train", "accuracy": 0.9127138834741174}, {"C": 0.0078125, "fold": "validation", "accuracy": 0.879}, {"C": 0.005524271728019902, "fold": "train", "accuracy": 0.9052198397227637}, {"C": 0.005524271728019902, "fold": "validation", "accuracy": 0.871}, {"C": 0.00390625, "fold": "train", "accuracy": 0.8972926142516786}, {"C": 0.00390625, "fold": "validation", "accuracy": 0.866}, {"C": 0.002762135864009951, "fold": "train", "accuracy": 0.8887589343729695}, {"C": 0.002762135864009951, "fold": "validation", "accuracy": 0.8585}, {"C": 0.001953125, "fold": "train", "accuracy": 0.8815681178254278}, {"C": 0.001953125, "fold": "validation", "accuracy": 0.8535}, {"C": 0.0013810679320049755, "fold": "train", "accuracy": 0.8726878925709335}, {"C": 0.0013810679320049755, "fold": "validation", "accuracy": 0.849}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-a90d4a9340f113b5700e2226335aa751"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "x": {"field": "log_C", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "transform": [{"calculate": "log(datum.C)", "as": "log_C"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-a90d4a9340f113b5700e2226335aa751": [{"C": 0.7071067811865475, "fold": "train", "accuracy": 0.9907732293697206}, {"C": 0.7071067811865475, "fold": "validation", "accuracy": 0.8745}, {"C": 0.5, "fold": "train", "accuracy": 0.9873510937838423}, {"C": 0.5, "fold": "validation", "accuracy": 0.877}, {"C": 0.35355339059327373, "fold": "train", "accuracy": 0.9829326402425818}, {"C": 0.35355339059327373, "fold": "validation", "accuracy": 0.8775}, {"C": 0.25, "fold": "train", "accuracy": 0.9776911414338315}, {"C": 0.25, "fold": "validation", "accuracy": 0.8805}, {"C": 0.17677669529663687, "fold": "train", "accuracy": 0.9726229153129738}, {"C": 0.17677669529663687, "fold": "validation", "accuracy": 0.884}, {"C": 0.125, "fold": "train", "accuracy": 0.9672081438163309}, {"C": 0.125, "fold": "validation", "accuracy": 0.885}, {"C": 0.08838834764831843, "fold": "train", "accuracy": 0.961143599740091}, {"C": 0.08838834764831843, "fold": "validation", "accuracy": 0.8865}, {"C": 0.0625, "fold": "train", "accuracy": 0.9548191466320122}, {"C": 0.0625, "fold": "validation", "accuracy": 0.8845}, {"C": 0.044194173824159216, "fold": "train", "accuracy": 0.948104829976175}, {"C": 0.044194173824159216, "fold": "validation", "accuracy": 0.887}, {"C": 0.03125, "fold": "train", "accuracy": 0.9415637860082304}, {"C": 0.03125, "fold": "validation", "accuracy": 0.8875}, {"C": 0.022097086912079608, "fold": "train", "accuracy": 0.9346761966645007}, {"C": 0.022097086912079608, "fold": "validation", "accuracy": 0.889}, {"C": 0.015625, "fold": "train", "accuracy": 0.927745289148798}, {"C": 0.015625, "fold": "validation", "accuracy": 0.8865}, {"C": 0.011048543456039804, "fold": "train", "accuracy": 0.9200346545375785}, {"C": 0.011048543456039804, "fold": "validation", "accuracy": 0.884}, {"C": 0.0078125, "fold": "train", "accuracy": 0.9127138834741174}, {"C": 0.0078125, "fold": "validation", "accuracy": 0.879}, {"C": 0.005524271728019902, "fold": "train", "accuracy": 0.9051332033788174}, {"C": 0.005524271728019902, "fold": "validation", "accuracy": 0.871}, {"C": 0.00390625, "fold": "train", "accuracy": 0.8973359324236517}, {"C": 0.00390625, "fold": "validation", "accuracy": 0.866}, {"C": 0.002762135864009951, "fold": "train", "accuracy": 0.8888455707169157}, {"C": 0.002762135864009951, "fold": "validation", "accuracy": 0.8585}, {"C": 0.001953125, "fold": "train", "accuracy": 0.8816114359974009}, {"C": 0.001953125, "fold": "validation", "accuracy": 0.8535}, {"C": 0.0013810679320049755, "fold": "train", "accuracy": 0.8726878925709335}, {"C": 0.0013810679320049755, "fold": "validation", "accuracy": 0.849}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 </section>
@@ -1848,12 +1893,12 @@ Wall time: 2min
 <h2>Build a two-layer feedforward network<a class="headerlink" href="#build-a-two-layer-feedforward-network" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># building a linear stack of layers with the sequential model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">10_000</span><span class="p">,)))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># building a linear stack of layers with the sequential model
+model = Sequential()
+model.add(Dense(16, activation=&#39;relu&#39;, input_shape=(10_000,)))
+model.add(Dense(16, activation=&#39;relu&#39;))
+model.add(Dense(1, activation=&#39;sigmoid&#39;))
+model.summary()
 </pre></div>
 </div>
 </div>
@@ -1903,10 +1948,10 @@ Wall time: 2min
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-03 15:00:23.978926: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-10-03 15:00:23.978977: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
-2022-10-03 15:00:23.979004: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az292-658): /proc/driver/nvidia/version does not exist
-2022-10-03 15:00:23.979293: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-29 12:14:26.886807: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-11-29 12:14:26.886845: W tensorflow/compiler/xla/stream_executor/cuda/cuda_driver.cc:265] failed call to cuInit: UNKNOWN ERROR (303)
+2022-11-29 12:14:26.886865: I tensorflow/compiler/xla/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az296-935): /proc/driver/nvidia/version does not exist
+2022-11-29 12:14:26.887080: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 </pre></div>
 </div>
@@ -1914,12 +1959,12 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">)</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_1h</span><span class="p">[</span><span class="n">mask</span><span class="p">,:],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-          <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_train_1h</span><span class="p">[</span><span class="n">ival</span><span class="p">,:],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">ival</span><span class="p">]))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
+model.compile(loss=&#39;binary_crossentropy&#39;, metrics=[&#39;accuracy&#39;], optimizer=&#39;rmsprop&#39;)
+history = model.fit(X_train_1h[mask,:], y_train[mask],
+          batch_size=512, epochs=20,
+          verbose=2,
+          validation_data=(X_train_1h[ival,:], y_train[ival]))
 </pre></div>
 </div>
 </div>
@@ -1927,129 +1972,125 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/tensorflow/python/framework/indexed_slices.py:444: UserWarning: Converting sparse IndexedSlices(IndexedSlices(indices=Tensor(&quot;gradient_tape/sequential/dense/embedding_lookup_sparse/Reshape_1:0&quot;, shape=(None,), dtype=int32), values=Tensor(&quot;gradient_tape/sequential/dense/embedding_lookup_sparse/Reshape:0&quot;, shape=(None, 16), dtype=float32), dense_shape=Tensor(&quot;gradient_tape/sequential/dense/embedding_lookup_sparse/Cast:0&quot;, shape=(2,), dtype=int32))) to a dense Tensor of unknown shape. This may consume a large amount of memory.
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 2s - loss: 0.4968 - accuracy: 0.7925 - val_loss: 0.3678 - val_accuracy: 0.8735 - 2s/epoch - 44ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.5160 - accuracy: 0.7704 - val_loss: 0.3680 - val_accuracy: 0.8760 - 1s/epoch - 26ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.3046 - accuracy: 0.8991 - val_loss: 0.2928 - val_accuracy: 0.8915 - 716ms/epoch - 16ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.3218 - accuracy: 0.8891 - val_loss: 0.3483 - val_accuracy: 0.8630 - 417ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.2371 - accuracy: 0.9182 - val_loss: 0.2751 - val_accuracy: 0.8925 - 706ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.2530 - accuracy: 0.9123 - val_loss: 0.2807 - val_accuracy: 0.8915 - 408ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1956 - accuracy: 0.9323 - val_loss: 0.2885 - val_accuracy: 0.8930 - 742ms/epoch - 16ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.2158 - accuracy: 0.9227 - val_loss: 0.2784 - val_accuracy: 0.8890 - 444ms/epoch - 10ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1707 - accuracy: 0.9413 - val_loss: 0.2834 - val_accuracy: 0.8880 - 729ms/epoch - 16ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.1873 - accuracy: 0.9343 - val_loss: 0.3109 - val_accuracy: 0.8860 - 429ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1431 - accuracy: 0.9517 - val_loss: 0.3029 - val_accuracy: 0.8865 - 749ms/epoch - 16ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.1658 - accuracy: 0.9426 - val_loss: 0.2972 - val_accuracy: 0.8845 - 454ms/epoch - 10ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1255 - accuracy: 0.9573 - val_loss: 0.4048 - val_accuracy: 0.8665 - 693ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.1464 - accuracy: 0.9502 - val_loss: 0.3469 - val_accuracy: 0.8740 - 409ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.1079 - accuracy: 0.9646 - val_loss: 0.3824 - val_accuracy: 0.8740 - 664ms/epoch - 14ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.1328 - accuracy: 0.9546 - val_loss: 0.3212 - val_accuracy: 0.8860 - 411ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0985 - accuracy: 0.9682 - val_loss: 0.3944 - val_accuracy: 0.8780 - 699ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.1197 - accuracy: 0.9608 - val_loss: 0.4531 - val_accuracy: 0.8555 - 410ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0859 - accuracy: 0.9722 - val_loss: 0.3805 - val_accuracy: 0.8735 - 685ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.1081 - accuracy: 0.9644 - val_loss: 0.3468 - val_accuracy: 0.8835 - 410ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0694 - accuracy: 0.9787 - val_loss: 0.4785 - val_accuracy: 0.8685 - 687ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0997 - accuracy: 0.9658 - val_loss: 0.3666 - val_accuracy: 0.8760 - 410ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0639 - accuracy: 0.9792 - val_loss: 0.4218 - val_accuracy: 0.8755 - 670ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0836 - accuracy: 0.9738 - val_loss: 0.4187 - val_accuracy: 0.8725 - 383ms/epoch - 8ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0535 - accuracy: 0.9837 - val_loss: 0.4461 - val_accuracy: 0.8720 - 682ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0809 - accuracy: 0.9741 - val_loss: 0.4135 - val_accuracy: 0.8750 - 400ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0464 - accuracy: 0.9877 - val_loss: 0.5059 - val_accuracy: 0.8730 - 684ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0681 - accuracy: 0.9809 - val_loss: 0.4229 - val_accuracy: 0.8795 - 397ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0365 - accuracy: 0.9906 - val_loss: 0.6120 - val_accuracy: 0.8640 - 703ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0670 - accuracy: 0.9787 - val_loss: 0.5162 - val_accuracy: 0.8620 - 394ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0389 - accuracy: 0.9890 - val_loss: 0.5326 - val_accuracy: 0.8735 - 671ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0593 - accuracy: 0.9821 - val_loss: 0.4643 - val_accuracy: 0.8730 - 394ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0287 - accuracy: 0.9931 - val_loss: 0.5669 - val_accuracy: 0.8725 - 708ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0464 - accuracy: 0.9874 - val_loss: 0.4953 - val_accuracy: 0.8725 - 430ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0273 - accuracy: 0.9937 - val_loss: 0.6319 - val_accuracy: 0.8685 - 690ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0452 - accuracy: 0.9880 - val_loss: 0.7301 - val_accuracy: 0.8410 - 401ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0252 - accuracy: 0.9945 - val_loss: 0.6215 - val_accuracy: 0.8745 - 706ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0387 - accuracy: 0.9895 - val_loss: 0.5349 - val_accuracy: 0.8750 - 431ms/epoch - 9ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0227 - accuracy: 0.9949 - val_loss: 0.6441 - val_accuracy: 0.8720 - 710ms/epoch - 15ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 0s - loss: 0.0360 - accuracy: 0.9907 - val_loss: 0.5424 - val_accuracy: 0.8755 - 398ms/epoch - 9ms/step
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 21.3 s, sys: 860 ms, total: 22.1 s
-Wall time: 20.2 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 13 s, sys: 425 ms, total: 13.4 s
+Wall time: 11 s
 </pre></div>
 </div>
 </div>
@@ -2057,44 +2098,48 @@ Wall time: 20.2 s
 <p>The <code class="docutils literal notranslate"><span class="pre">history</span></code> object has a <code class="docutils literal notranslate"><span class="pre">metrics</span></code> attribute that records both the training and validation accuracy at each epoch. We’ll wrangle it into long-format for plotting with Altair.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;epoch&quot;</span><span class="p">})</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">df_mlp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;training&quot;</span><span class="p">),</span>
-        <span class="n">_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">:</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;val_loss&quot;</span><span class="p">:</span> <span class="s2">&quot;loss&quot;</span><span class="p">})</span>
-        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="s2">&quot;validation&quot;</span><span class="p">),</span>
-    <span class="p">],</span>
-    <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plot_mlp</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df_mlp</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;epoch:Q&quot;</span><span class="p">,</span>
-        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;fold&quot;</span><span class="p">,</span>
-        <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">Tooltip</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;,.2f&quot;</span><span class="p">)],</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-<span class="n">plot_mlp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>_ = (
+    pd.DataFrame(history.history)
+    .reset_index()
+    .rename(columns={&quot;index&quot;: &quot;epoch&quot;})
+    .assign(epoch=lambda df: df.epoch + 1)
+)
+df_mlp = pd.concat(
+    [
+        _.iloc[:, 0:3].assign(fold=&quot;training&quot;),
+        _.iloc[:, [0, -2, -1]]
+        .rename(columns={&quot;val_accuracy&quot;: &quot;accuracy&quot;, &quot;val_loss&quot;: &quot;loss&quot;})
+        .assign(fold=&quot;validation&quot;),
+    ],
+    axis=0,
+).reset_index(drop=True)
+plot_mlp = (
+    alt.Chart(df_mlp)
+    .mark_line(point=True)
+    .encode(
+        x=&quot;epoch:Q&quot;,
+        y=&quot;accuracy&quot;,
+        color=&quot;fold&quot;,
+        tooltip=[&quot;epoch&quot;, alt.Tooltip(&quot;accuracy&quot;, format=&quot;,.2f&quot;)],
+    )
+)
+plot_mlp
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/altair/utils/core.py:317: FutureWarning: iteritems is deprecated and will be removed in a future version. Use .items instead.
+  for col_name, dtype in df.dtypes.iteritems():
+</pre></div>
+</div>
 <div class="output text_html">
-<div id="altair-viz-eb4e31963da647ca921e8d96271e6283"></div>
+<div id="altair-viz-83e26837c89e46e683ded92eeda0508f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-eb4e31963da647ca921e8d96271e6283") {
-      outputDiv = document.getElementById("altair-viz-eb4e31963da647ca921e8d96271e6283");
+    if (outputDiv.id !== "altair-viz-83e26837c89e46e683ded92eeda0508f") {
+      outputDiv = document.getElementById("altair-viz-83e26837c89e46e683ded92eeda0508f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2140,16 +2185,16 @@ Wall time: 20.2 s
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-83a73201492e5a743fac9f136735d00a"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-83a73201492e5a743fac9f136735d00a": [{"epoch": 1, "loss": 0.49680668115615845, "accuracy": 0.7925492525100708, "fold": "training"}, {"epoch": 2, "loss": 0.30460548400878906, "accuracy": 0.8990686535835266, "fold": "training"}, {"epoch": 3, "loss": 0.2371290624141693, "accuracy": 0.9181720018386841, "fold": "training"}, {"epoch": 4, "loss": 0.19560740888118744, "accuracy": 0.9322503805160522, "fold": "training"}, {"epoch": 5, "loss": 0.1706949770450592, "accuracy": 0.941260576248169, "fold": "training"}, {"epoch": 6, "loss": 0.14307454228401184, "accuracy": 0.9517435431480408, "fold": "training"}, {"epoch": 7, "loss": 0.1255231350660324, "accuracy": 0.9572882652282715, "fold": "training"}, {"epoch": 8, "loss": 0.10791849344968796, "accuracy": 0.9645657539367676, "fold": "training"}, {"epoch": 9, "loss": 0.09845291078090668, "accuracy": 0.9682044386863708, "fold": "training"}, {"epoch": 10, "loss": 0.08593112975358963, "accuracy": 0.972189724445343, "fold": "training"}, {"epoch": 11, "loss": 0.06943582743406296, "accuracy": 0.9787307977676392, "fold": "training"}, {"epoch": 12, "loss": 0.06389018148183823, "accuracy": 0.9792072772979736, "fold": "training"}, {"epoch": 13, "loss": 0.053521279245615005, "accuracy": 0.983712375164032, "fold": "training"}, {"epoch": 14, "loss": 0.046380024403333664, "accuracy": 0.9877409338951111, "fold": "training"}, {"epoch": 15, "loss": 0.03648371994495392, "accuracy": 0.9905999302864075, "fold": "training"}, {"epoch": 16, "loss": 0.03891054913401604, "accuracy": 0.9890404939651489, "fold": "training"}, {"epoch": 17, "loss": 0.028748972341418266, "accuracy": 0.9930691123008728, "fold": "training"}, {"epoch": 18, "loss": 0.027312321588397026, "accuracy": 0.9937188625335693, "fold": "training"}, {"epoch": 19, "loss": 0.025219671428203583, "accuracy": 0.994498610496521, "fold": "training"}, {"epoch": 20, "loss": 0.02270326390862465, "accuracy": 0.9949317574501038, "fold": "training"}, {"epoch": 1, "loss": 0.36776846647262573, "accuracy": 0.8734999895095825, "fold": "validation"}, {"epoch": 2, "loss": 0.29281091690063477, "accuracy": 0.8914999961853027, "fold": "validation"}, {"epoch": 3, "loss": 0.2751099169254303, "accuracy": 0.8924999833106995, "fold": "validation"}, {"epoch": 4, "loss": 0.2884533405303955, "accuracy": 0.8930000066757202, "fold": "validation"}, {"epoch": 5, "loss": 0.2833777666091919, "accuracy": 0.8880000114440918, "fold": "validation"}, {"epoch": 6, "loss": 0.3028920888900757, "accuracy": 0.8865000009536743, "fold": "validation"}, {"epoch": 7, "loss": 0.4047967791557312, "accuracy": 0.8665000200271606, "fold": "validation"}, {"epoch": 8, "loss": 0.38243359327316284, "accuracy": 0.8740000128746033, "fold": "validation"}, {"epoch": 9, "loss": 0.3944351077079773, "accuracy": 0.878000020980835, "fold": "validation"}, {"epoch": 10, "loss": 0.3805149495601654, "accuracy": 0.8734999895095825, "fold": "validation"}, {"epoch": 11, "loss": 0.47847893834114075, "accuracy": 0.8684999942779541, "fold": "validation"}, {"epoch": 12, "loss": 0.42181500792503357, "accuracy": 0.8755000233650208, "fold": "validation"}, {"epoch": 13, "loss": 0.44608861207962036, "accuracy": 0.871999979019165, "fold": "validation"}, {"epoch": 14, "loss": 0.5059006214141846, "accuracy": 0.8730000257492065, "fold": "validation"}, {"epoch": 15, "loss": 0.6119720339775085, "accuracy": 0.8640000224113464, "fold": "validation"}, {"epoch": 16, "loss": 0.5325729250907898, "accuracy": 0.8734999895095825, "fold": "validation"}, {"epoch": 17, "loss": 0.5669228434562683, "accuracy": 0.8725000023841858, "fold": "validation"}, {"epoch": 18, "loss": 0.6319149732589722, "accuracy": 0.8684999942779541, "fold": "validation"}, {"epoch": 19, "loss": 0.6215170621871948, "accuracy": 0.8744999766349792, "fold": "validation"}, {"epoch": 20, "loss": 0.6440731287002563, "accuracy": 0.871999979019165, "fold": "validation"}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-fd5866fb62ccaf2b2c5df297724e8cc6"}, "mark": {"type": "line", "point": true}, "encoding": {"color": {"field": "fold", "type": "nominal"}, "tooltip": [{"field": "epoch", "type": "quantitative"}, {"field": "accuracy", "format": ",.2f", "type": "quantitative"}], "x": {"field": "epoch", "type": "quantitative"}, "y": {"field": "accuracy", "type": "quantitative"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-fd5866fb62ccaf2b2c5df297724e8cc6": [{"epoch": 1, "loss": 0.5159839987754822, "accuracy": 0.770370364189148, "fold": "training"}, {"epoch": 2, "loss": 0.32183268666267395, "accuracy": 0.889105498790741, "fold": "training"}, {"epoch": 3, "loss": 0.25295931100845337, "accuracy": 0.9123240113258362, "fold": "training"}, {"epoch": 4, "loss": 0.21580563485622406, "accuracy": 0.9226770401000977, "fold": "training"}, {"epoch": 5, "loss": 0.18730808794498444, "accuracy": 0.93428635597229, "fold": "training"}, {"epoch": 6, "loss": 0.16577406227588654, "accuracy": 0.942560076713562, "fold": "training"}, {"epoch": 7, "loss": 0.14644284546375275, "accuracy": 0.9501841068267822, "fold": "training"}, {"epoch": 8, "loss": 0.1328393667936325, "accuracy": 0.9546025395393372, "fold": "training"}, {"epoch": 9, "loss": 0.11970134824514389, "accuracy": 0.9608403444290161, "fold": "training"}, {"epoch": 10, "loss": 0.10814665257930756, "accuracy": 0.9643924832344055, "fold": "training"}, {"epoch": 11, "loss": 0.09972014278173447, "accuracy": 0.9658219814300537, "fold": "training"}, {"epoch": 12, "loss": 0.08363644033670425, "accuracy": 0.973835825920105, "fold": "training"}, {"epoch": 13, "loss": 0.0808638334274292, "accuracy": 0.9740957617759705, "fold": "training"}, {"epoch": 14, "loss": 0.06814023852348328, "accuracy": 0.9808533787727356, "fold": "training"}, {"epoch": 15, "loss": 0.06696493178606033, "accuracy": 0.9786874651908875, "fold": "training"}, {"epoch": 16, "loss": 0.05931950733065605, "accuracy": 0.98206627368927, "fold": "training"}, {"epoch": 17, "loss": 0.04635821655392647, "accuracy": 0.987394392490387, "fold": "training"}, {"epoch": 18, "loss": 0.04517307132482529, "accuracy": 0.9879575371742249, "fold": "training"}, {"epoch": 19, "loss": 0.03872419148683548, "accuracy": 0.9895169734954834, "fold": "training"}, {"epoch": 20, "loss": 0.03602367639541626, "accuracy": 0.9906865954399109, "fold": "training"}, {"epoch": 1, "loss": 0.3680078387260437, "accuracy": 0.8759999871253967, "fold": "validation"}, {"epoch": 2, "loss": 0.34825828671455383, "accuracy": 0.8629999756813049, "fold": "validation"}, {"epoch": 3, "loss": 0.28069841861724854, "accuracy": 0.8914999961853027, "fold": "validation"}, {"epoch": 4, "loss": 0.27835503220558167, "accuracy": 0.8889999985694885, "fold": "validation"}, {"epoch": 5, "loss": 0.3109281659126282, "accuracy": 0.8859999775886536, "fold": "validation"}, {"epoch": 6, "loss": 0.29715344309806824, "accuracy": 0.8845000267028809, "fold": "validation"}, {"epoch": 7, "loss": 0.3469049334526062, "accuracy": 0.8740000128746033, "fold": "validation"}, {"epoch": 8, "loss": 0.3211524188518524, "accuracy": 0.8859999775886536, "fold": "validation"}, {"epoch": 9, "loss": 0.4531412422657013, "accuracy": 0.8554999828338623, "fold": "validation"}, {"epoch": 10, "loss": 0.34676870703697205, "accuracy": 0.8834999799728394, "fold": "validation"}, {"epoch": 11, "loss": 0.366569459438324, "accuracy": 0.8759999871253967, "fold": "validation"}, {"epoch": 12, "loss": 0.4187433421611786, "accuracy": 0.8725000023841858, "fold": "validation"}, {"epoch": 13, "loss": 0.41350501775741577, "accuracy": 0.875, "fold": "validation"}, {"epoch": 14, "loss": 0.4229276776313782, "accuracy": 0.8794999718666077, "fold": "validation"}, {"epoch": 15, "loss": 0.5161713361740112, "accuracy": 0.8619999885559082, "fold": "validation"}, {"epoch": 16, "loss": 0.4642738103866577, "accuracy": 0.8730000257492065, "fold": "validation"}, {"epoch": 17, "loss": 0.4952661991119385, "accuracy": 0.8725000023841858, "fold": "validation"}, {"epoch": 18, "loss": 0.7301375269889832, "accuracy": 0.8410000205039978, "fold": "validation"}, {"epoch": 19, "loss": 0.5348714590072632, "accuracy": 0.875, "fold": "validation"}, {"epoch": 20, "loss": 0.5423932671546936, "accuracy": 0.8755000233650208, "fold": "validation"}]}}, {"mode": "vega-lite"});
 </script></div></div>
 </div>
 <p>To compute the test accuracy, we rerun the entire sequence above, replacing the last line with</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history_test</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_1h</span><span class="p">[</span><span class="n">mask</span><span class="p">,:],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-          <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test_1h</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>history_test = model.fit(X_train_1h[mask,:], y_train[mask],
+          batch_size=512, epochs=20,
+          verbose=2,
+          validation_data=(X_test_1h, y_test))
 </pre></div>
 </div>
 </div>
@@ -2157,121 +2202,121 @@ Wall time: 20.2 s
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0193 - accuracy: 0.9952 - val_loss: 0.7125 - val_accuracy: 0.8554 - 1s/epoch - 25ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0301 - accuracy: 0.9925 - val_loss: 0.5769 - val_accuracy: 0.8617 - 709ms/epoch - 15ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0162 - accuracy: 0.9961 - val_loss: 0.7394 - val_accuracy: 0.8565 - 1s/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0288 - accuracy: 0.9928 - val_loss: 0.5994 - val_accuracy: 0.8618 - 564ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0167 - accuracy: 0.9965 - val_loss: 0.7687 - val_accuracy: 0.8553 - 983ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0286 - accuracy: 0.9927 - val_loss: 0.6231 - val_accuracy: 0.8602 - 574ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0145 - accuracy: 0.9967 - val_loss: 0.7912 - val_accuracy: 0.8545 - 982ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0238 - accuracy: 0.9938 - val_loss: 0.9040 - val_accuracy: 0.8328 - 576ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0044 - accuracy: 0.9997 - val_loss: 1.0181 - val_accuracy: 0.8353 - 993ms/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0207 - accuracy: 0.9950 - val_loss: 1.1338 - val_accuracy: 0.8146 - 566ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0139 - accuracy: 0.9971 - val_loss: 0.8775 - val_accuracy: 0.8520 - 993ms/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0276 - accuracy: 0.9930 - val_loss: 0.6754 - val_accuracy: 0.8604 - 722ms/epoch - 16ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0096 - accuracy: 0.9979 - val_loss: 0.8918 - val_accuracy: 0.8535 - 1000ms/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0223 - accuracy: 0.9945 - val_loss: 0.6920 - val_accuracy: 0.8601 - 554ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0136 - accuracy: 0.9973 - val_loss: 0.9219 - val_accuracy: 0.8522 - 1s/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0095 - accuracy: 0.9982 - val_loss: 0.7779 - val_accuracy: 0.8520 - 592ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0019 - accuracy: 0.9999 - val_loss: 1.0492 - val_accuracy: 0.8418 - 993ms/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0149 - accuracy: 0.9968 - val_loss: 0.7232 - val_accuracy: 0.8600 - 575ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0112 - accuracy: 0.9977 - val_loss: 0.9858 - val_accuracy: 0.8503 - 982ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0142 - accuracy: 0.9977 - val_loss: 0.7987 - val_accuracy: 0.8542 - 567ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0014 - accuracy: 0.9999 - val_loss: 1.0761 - val_accuracy: 0.8468 - 957ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0049 - accuracy: 0.9998 - val_loss: 0.7753 - val_accuracy: 0.8597 - 573ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0111 - accuracy: 0.9977 - val_loss: 1.0532 - val_accuracy: 0.8508 - 976ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0165 - accuracy: 0.9960 - val_loss: 0.7838 - val_accuracy: 0.8593 - 559ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0090 - accuracy: 0.9979 - val_loss: 1.0387 - val_accuracy: 0.8506 - 1s/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0051 - accuracy: 0.9993 - val_loss: 0.8292 - val_accuracy: 0.8576 - 565ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 8.5368e-04 - accuracy: 0.9999 - val_loss: 1.1156 - val_accuracy: 0.8496 - 978ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0031 - accuracy: 1.0000 - val_loss: 0.9101 - val_accuracy: 0.8543 - 559ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0085 - accuracy: 0.9979 - val_loss: 1.1171 - val_accuracy: 0.8489 - 976ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0204 - accuracy: 0.9955 - val_loss: 0.8539 - val_accuracy: 0.8591 - 573ms/epoch - 12ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 5.8029e-04 - accuracy: 0.9999 - val_loss: 1.1597 - val_accuracy: 0.8502 - 966ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0188 - accuracy: 0.9957 - val_loss: 0.8644 - val_accuracy: 0.8591 - 576ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0111 - accuracy: 0.9977 - val_loss: 1.2267 - val_accuracy: 0.8469 - 977ms/epoch - 21ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0022 - accuracy: 1.0000 - val_loss: 0.8932 - val_accuracy: 0.8579 - 580ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 3.7282e-04 - accuracy: 1.0000 - val_loss: 1.2429 - val_accuracy: 0.8479 - 1s/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0187 - accuracy: 0.9956 - val_loss: 0.8985 - val_accuracy: 0.8584 - 588ms/epoch - 13ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 3.2409e-04 - accuracy: 1.0000 - val_loss: 1.6600 - val_accuracy: 0.8263 - 1s/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0017 - accuracy: 1.0000 - val_loss: 0.9274 - val_accuracy: 0.8581 - 685ms/epoch - 15ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0099 - accuracy: 0.9975 - val_loss: 1.3026 - val_accuracy: 0.8464 - 992ms/epoch - 22ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46/46 - 1s - loss: 0.0176 - accuracy: 0.9964 - val_loss: 0.9352 - val_accuracy: 0.8578 - 578ms/epoch - 13ms/step
 </pre></div>
 </div>
 </div>

@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Predict detractors from reviews" href="nlp-pipeline-example.html" />
+    <link rel="next" title="Objective" href="nlp-pipeline-example.html" />
     <link rel="prev" title="Analyzing Dutch restaurant reviews" href="nlp-dutch-restaurant-reviews.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1404,49 +1404,49 @@ title="Print to PDF"
 <p>Short example showing how you can parse a CSV file into parquet files partitioned by year.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
 
 
-<span class="n">REVIEWS</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;https://bhciaaablob.blob.core.windows.net/cmotionsnlpblogs/RestoReviewRawdata.csv&quot;</span>
-<span class="p">)</span>
-<span class="n">resto</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">REVIEWS</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+REVIEWS = (
+    &quot;https://bhciaaablob.blob.core.windows.net/cmotionsnlpblogs/RestoReviewRawdata.csv&quot;
+)
+resto = pd.read_csv(REVIEWS, decimal=&quot;,&quot;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fix utf-8 encoding</span>
-<span class="n">resto</span><span class="o">.</span><span class="n">reviewText</span> <span class="o">=</span> <span class="n">resto</span><span class="o">.</span><span class="n">reviewText</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;b&#39;&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-    <span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="nb">eval</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="s2">&quot;.decode(&#39;utf-8&#39;)&quot;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># fix utf-8 encoding
+resto.reviewText = resto.reviewText.fillna(&quot;b&#39;&#39;&quot;).apply(
+    lambda b: eval(b + &quot;.decode(&#39;utf-8&#39;)&quot;)
+)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write to single file</span>
-<span class="n">resto</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;data/dutch-restaurant-reviews.csv&quot;</span><span class="p">)</span>
-<span class="n">resto</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s2">&quot;data/dutch-restaurant-reviews.parquet&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># write to single file
+resto.to_csv(&quot;data/dutch-restaurant-reviews.csv&quot;)
+resto.to_parquet(&quot;data/dutch-restaurant-reviews.parquet&quot;)
 
-<span class="c1"># write to partitioned parquet files</span>
-<span class="n">resto</span><span class="p">[</span><span class="s2">&quot;reviewYear&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">resto</span><span class="o">.</span><span class="n">reviewDate</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;Int64&quot;</span><span class="p">)</span>
-<span class="n">resto</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span>
-    <span class="s2">&quot;data/dutch-restaurant-reviews-per-year&quot;</span><span class="p">,</span> <span class="n">partition_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reviewYear&quot;</span><span class="p">]</span>
-<span class="p">)</span>
+# write to partitioned parquet files
+resto[&quot;reviewYear&quot;] = resto.reviewDate.str[-4:].astype(&quot;float&quot;).astype(&quot;Int64&quot;)
+resto.to_parquet(
+    &quot;data/dutch-restaurant-reviews-per-year&quot;, partition_cols=[&quot;reviewYear&quot;]
+)
 
-<span class="c1"># write parquet file single year</span>
-<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">2018</span><span class="p">):</span>
-    <span class="n">resto</span><span class="p">[</span><span class="n">resto</span><span class="o">.</span><span class="n">reviewYear</span> <span class="o">==</span> <span class="n">year</span><span class="p">]</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;data/dutch-restaurant-reviews-</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+# write parquet file single year
+for year in (2017, 2018):
+    resto[resto.reviewYear == year].to_parquet(f&#39;data/dutch-restaurant-reviews-{year}&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resto</span><span class="o">.</span><span class="n">reviewText</span><span class="p">[</span><span class="n">resto</span><span class="o">.</span><span class="n">reviewText</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>resto.reviewText[resto.reviewText.isna()]
 </pre></div>
 </div>
 </div>
@@ -1458,7 +1458,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resto</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>resto.shape
 </pre></div>
 </div>
 </div>
@@ -1470,7 +1470,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resto</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">379422</span><span class="p">,:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>resto.iloc[379422,:]
 </pre></div>
 </div>
 </div>
@@ -1544,7 +1544,7 @@ Name: 379422, dtype: object
     <a class='right-next' id="next-link" href="nlp-pipeline-example.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Predict detractors from reviews</p>
+        <p class="prev-next-title">Objective</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

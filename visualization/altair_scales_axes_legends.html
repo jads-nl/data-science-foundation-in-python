@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1551,8 +1551,8 @@ title="Print to PDF"
 <p><em>This notebook is part of the <a class="reference external" href="https://github.com/uwdata/visualization-curriculum">data visualization curriculum</a>.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import altair as alt
 </pre></div>
 </div>
 </div>
@@ -1563,7 +1563,7 @@ title="Print to PDF"
 <p>We will be using an antibiotics dataset from the <a class="reference external" href="https://github.com/vega/vega-datasets">vega-datasets collection</a>. In the examples below, we will pass the URL directly to Altair:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">antibiotics</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/burtin.json&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>antibiotics = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/burtin.json&#39;
 </pre></div>
 </div>
 </div>
@@ -1571,7 +1571,7 @@ title="Print to PDF"
 <p>We can first load the data with Pandas to view the dataset in its entirety and get acquainted with the available fields:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.read_json(antibiotics)
 </pre></div>
 </div>
 </div>
@@ -1761,21 +1761,21 @@ title="Print to PDF"
 <p>Let’s start by looking at a simple dot plot of the MIC for Neomycin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-f33c92931c3f46ec87b54035f79fd3d8"></div>
+<div id="altair-viz-c9209a03207c432aa485d530c288f787"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f33c92931c3f46ec87b54035f79fd3d8") {
-      outputDiv = document.getElementById("altair-viz-f33c92931c3f46ec87b54035f79fd3d8");
+    if (outputDiv.id !== "altair-viz-c9209a03207c432aa485d530c288f787") {
+      outputDiv = document.getElementById("altair-viz-c9209a03207c432aa485d530c288f787");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1830,22 +1830,22 @@ title="Print to PDF"
 <p>Here’s the result of using a square root (<code class="docutils literal notranslate"><span class="pre">sqrt</span></code>) scale type. Distances in the pixel range now correspond to the square root of distances in the data domain.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;sqrt&#39;</span><span class="p">))</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          scale=alt.Scale(type=&#39;sqrt&#39;))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ca8402bd73814eed99946f0001f7e581"></div>
+<div id="altair-viz-ddf56ab63c3e4480a4c78791ad95ff34"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ca8402bd73814eed99946f0001f7e581") {
-      outputDiv = document.getElementById("altair-viz-ca8402bd73814eed99946f0001f7e581");
+    if (outputDiv.id !== "altair-viz-ddf56ab63c3e4480a4c78791ad95ff34") {
+      outputDiv = document.getElementById("altair-viz-ddf56ab63c3e4480a4c78791ad95ff34");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1898,22 +1898,22 @@ title="Print to PDF"
 <p>Let’s try using a <a class="reference external" href="https://en.wikipedia.org/wiki/Logarithmic_scale">logarithmic scale</a> (<code class="docutils literal notranslate"><span class="pre">log</span></code>) instead:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">))</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          scale=alt.Scale(type=&#39;log&#39;))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e8aac5b33aec496c850422482438672c"></div>
+<div id="altair-viz-c07cbf2e331947c093c738239c98e8ff"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e8aac5b33aec496c850422482438672c") {
-      outputDiv = document.getElementById("altair-viz-e8aac5b33aec496c850422482438672c");
+    if (outputDiv.id !== "altair-viz-c07cbf2e331947c093c738239c98e8ff") {
+      outputDiv = document.getElementById("altair-viz-c07cbf2e331947c093c738239c98e8ff");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1971,23 +1971,23 @@ title="Print to PDF"
 <p>To do this, we can set the encoding <code class="docutils literal notranslate"><span class="pre">sort</span></code> property to <code class="docutils literal notranslate"><span class="pre">'descending'</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">))</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-bcf72b498dca4f6e96b9757160a2f0d2"></div>
+<div id="altair-viz-763a01d267a74658a3dac55df2a8e682"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-bcf72b498dca4f6e96b9757160a2f0d2") {
-      outputDiv = document.getElementById("altair-viz-bcf72b498dca4f6e96b9757160a2f0d2");
+    if (outputDiv.id !== "altair-viz-763a01d267a74658a3dac55df2a8e682") {
+      outputDiv = document.getElementById("altair-viz-763a01d267a74658a3dac55df2a8e682");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2040,24 +2040,24 @@ title="Print to PDF"
 <p>Let’s add a more informative axis title: we’ll use the <code class="docutils literal notranslate"><span class="pre">title</span></code> property of the encoding to provide the desired title text:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-490bb361c0cf4c2e9e2d75c312fb74df"></div>
+<div id="altair-viz-3a376e2951734c6a8b39c07862639c6c"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-490bb361c0cf4c2e9e2d75c312fb74df") {
-      outputDiv = document.getElementById("altair-viz-490bb361c0cf4c2e9e2d75c312fb74df");
+    if (outputDiv.id !== "altair-viz-3a376e2951734c6a8b39c07862639c6c") {
+      outputDiv = document.getElementById("altair-viz-3a376e2951734c6a8b39c07862639c6c");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2110,25 +2110,25 @@ title="Print to PDF"
 <p>By default, Altair places the x-axis along the bottom of the chart. To change these defaults, we can add an <code class="docutils literal notranslate"><span class="pre">axis</span></code> attribute with <code class="docutils literal notranslate"><span class="pre">orient='top'</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;),
+          axis=alt.Axis(orient=&#39;top&#39;),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-dec1c81896d84feb8b0d72e8fd3147da"></div>
+<div id="altair-viz-690b6345154848c488d0e8be2a9fa335"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-dec1c81896d84feb8b0d72e8fd3147da") {
-      outputDiv = document.getElementById("altair-viz-dec1c81896d84feb8b0d72e8fd3147da");
+    if (outputDiv.id !== "altair-viz-690b6345154848c488d0e8be2a9fa335") {
+      outputDiv = document.getElementById("altair-viz-690b6345154848c488d0e8be2a9fa335");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2185,28 +2185,28 @@ title="Print to PDF"
 <p>To start answering this question, we can create scatter plots, adding a y-axis encoding for another antibiotic that mirrors the design of our x-axis for neomycin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Streptomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Streptomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Streptomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;),
+          title=&#39;Streptomycin MIC (μg/ml, reverse log scale)&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-83bd4bdd04a1423889a2340b36f81720"></div>
+<div id="altair-viz-77ef526132354ed5807aee510743d1c8"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-83bd4bdd04a1423889a2340b36f81720") {
-      outputDiv = document.getElementById("altair-viz-83bd4bdd04a1423889a2340b36f81720");
+    if (outputDiv.id !== "altair-viz-77ef526132354ed5807aee510743d1c8") {
+      outputDiv = document.getElementById("altair-viz-77ef526132354ed5807aee510743d1c8");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2259,28 +2259,28 @@ title="Print to PDF"
 <p>Let’s move on and compare neomycin with penicillin:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-12269f32ad2a4ae794935728674ae96a"></div>
+<div id="altair-viz-e5ed57a6d8054c72aafd78a75faf9712"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-12269f32ad2a4ae794935728674ae96a") {
-      outputDiv = document.getElementById("altair-viz-12269f32ad2a4ae794935728674ae96a");
+    if (outputDiv.id !== "altair-viz-e5ed57a6d8054c72aafd78a75faf9712") {
+      outputDiv = document.getElementById("altair-viz-e5ed57a6d8054c72aafd78a75faf9712");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2334,28 +2334,28 @@ title="Print to PDF"
 <p>Let’s equalize the axes: we can add explicit <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> settings for the chart, and specify matching domains  using the scale <code class="docutils literal notranslate"><span class="pre">domain</span></code> property.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;)
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3ee7a1311bb94784a1034e6d348941a1"></div>
+<div id="altair-viz-d98ec743412943fa809ef52c364903d1"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3ee7a1311bb94784a1034e6d348941a1") {
-      outputDiv = document.getElementById("altair-viz-3ee7a1311bb94784a1034e6d348941a1");
+    if (outputDiv.id !== "altair-viz-d98ec743412943fa809ef52c364903d1") {
+      outputDiv = document.getElementById("altair-viz-d98ec743412943fa809ef52c364903d1");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2409,30 +2409,30 @@ title="Print to PDF"
 <p>To change the number of ticks, we can specify a target <code class="docutils literal notranslate"><span class="pre">tickCount</span></code> property for an <code class="docutils literal notranslate"><span class="pre">Axis</span></code> object. The <code class="docutils literal notranslate"><span class="pre">tickCount</span></code> is treated as a <em>suggestion</em> to Altair, to be considered alongside other aspects such as using nice, human-friendly intervals. We may not get <em>exactly</em> the number of tick marks we request, but we should get something close.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle().encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;)
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8dd9f10312754760ad687aa71da54348"></div>
+<div id="altair-viz-2da6f20a48804baca46dc2b26e95593e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8dd9f10312754760ad687aa71da54348") {
-      outputDiv = document.getElementById("altair-viz-8dd9f10312754760ad687aa71da54348");
+    if (outputDiv.id !== "altair-viz-2da6f20a48804baca46dc2b26e95593e") {
+      outputDiv = document.getElementById("altair-viz-2da6f20a48804baca46dc2b26e95593e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2485,30 +2485,30 @@ title="Print to PDF"
 <p>Our scatter plot points feel a bit small. Let’s change the default size by setting the <code class="docutils literal notranslate"><span class="pre">size</span></code> property of the circle mark. This size value is the <em>area</em> of the mark in pixels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span> 
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;), 
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-3326a29068894e2d95c53abc0c6c39b8"></div>
+<div id="altair-viz-9d3f762e67c945b69d4ad2a56676efb7"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3326a29068894e2d95c53abc0c6c39b8") {
-      outputDiv = document.getElementById("altair-viz-3326a29068894e2d95c53abc0c6c39b8");
+    if (outputDiv.id !== "altair-viz-9d3f762e67c945b69d4ad2a56676efb7") {
+      outputDiv = document.getElementById("altair-viz-9d3f762e67c945b69d4ad2a56676efb7");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2568,31 +2568,31 @@ title="Print to PDF"
 <p>Let’s encode <code class="docutils literal notranslate"><span class="pre">Gram_Staining</span></code> on the <code class="docutils literal notranslate"><span class="pre">color</span></code> channel as a nominal data type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Gram_Staining:N&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Gram_Staining:N&#39;)
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-af895fa81d004b1a8d9ff3261a4aed3f"></div>
+<div id="altair-viz-b78f20a84d564322abc2c74e488ff386"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-af895fa81d004b1a8d9ff3261a4aed3f") {
-      outputDiv = document.getElementById("altair-viz-af895fa81d004b1a8d9ff3261a4aed3f");
+    if (outputDiv.id !== "altair-viz-b78f20a84d564322abc2c74e488ff386") {
+      outputDiv = document.getElementById("altair-viz-b78f20a84d564322abc2c74e488ff386");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2646,33 +2646,33 @@ title="Print to PDF"
 <p>Let’s use those colors by specifying an explicit scale mapping from the data <code class="docutils literal notranslate"><span class="pre">domain</span></code> to the color <code class="docutils literal notranslate"><span class="pre">range</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Gram_Staining:N&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">],</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hotpink&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">])</span>
-    <span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Gram_Staining:N&#39;,
+          scale=alt.Scale(domain=[&#39;negative&#39;, &#39;positive&#39;], range=[&#39;hotpink&#39;, &#39;purple&#39;])
+    )
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-abec794027204b4d940a82a50a74700c"></div>
+<div id="altair-viz-64af5df4ab5e4e8c9ff5df716d125aa5"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-abec794027204b4d940a82a50a74700c") {
-      outputDiv = document.getElementById("altair-viz-abec794027204b4d940a82a50a74700c");
+    if (outputDiv.id !== "altair-viz-64af5df4ab5e4e8c9ff5df716d125aa5") {
+      outputDiv = document.getElementById("altair-viz-64af5df4ab5e4e8c9ff5df716d125aa5");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2724,34 +2724,34 @@ title="Print to PDF"
 <p>By default legends are placed on the right side of the chart. Similar to axes, we can change the legend orientation using the <code class="docutils literal notranslate"><span class="pre">orient</span></code> parameter:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Gram_Staining:N&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">],</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hotpink&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">]),</span>
-          <span class="n">legend</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Legend</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Gram_Staining:N&#39;,
+          scale=alt.Scale(domain=[&#39;negative&#39;, &#39;positive&#39;], range=[&#39;hotpink&#39;, &#39;purple&#39;]),
+          legend=alt.Legend(orient=&#39;left&#39;)
+    )
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ba0a0ecb0c5840929c36750703115eb2"></div>
+<div id="altair-viz-4a777a2ea7ba47b4977b41c3b845202b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ba0a0ecb0c5840929c36750703115eb2") {
-      outputDiv = document.getElementById("altair-viz-ba0a0ecb0c5840929c36750703115eb2");
+    if (outputDiv.id !== "altair-viz-4a777a2ea7ba47b4977b41c3b845202b") {
+      outputDiv = document.getElementById("altair-viz-4a777a2ea7ba47b4977b41c3b845202b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2803,34 +2803,34 @@ title="Print to PDF"
 <p>We can also remove a legend entirely by specifying <code class="docutils literal notranslate"><span class="pre">legend=None</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Gram_Staining:N&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">],</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hotpink&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">]),</span>
-          <span class="n">legend</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Gram_Staining:N&#39;,
+          scale=alt.Scale(domain=[&#39;negative&#39;, &#39;positive&#39;], range=[&#39;hotpink&#39;, &#39;purple&#39;]),
+          legend=None
+    )
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-42ffde3639ff413bb0c377a9214a3503"></div>
+<div id="altair-viz-b08899c91b3c4838ba2ca51c58a0d3a3"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-42ffde3639ff413bb0c377a9214a3503") {
-      outputDiv = document.getElementById("altair-viz-42ffde3639ff413bb0c377a9214a3503");
+    if (outputDiv.id !== "altair-viz-b08899c91b3c4838ba2ca51c58a0d3a3") {
+      outputDiv = document.getElementById("altair-viz-b08899c91b3c4838ba2ca51c58a0d3a3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2886,31 +2886,31 @@ title="Print to PDF"
 <p>To start, let’s encode <code class="docutils literal notranslate"><span class="pre">Bacteria</span></code> (a nominal data field) using the <code class="docutils literal notranslate"><span class="pre">color</span></code> channel:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Bacteria:N&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Bacteria:N&#39;)
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-29195cbfb89e49cd97bbc6d68dabdc72"></div>
+<div id="altair-viz-5f3b2bbbfcb14c7a8329cd8c89d18bcc"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-29195cbfb89e49cd97bbc6d68dabdc72") {
-      outputDiv = document.getElementById("altair-viz-29195cbfb89e49cd97bbc6d68dabdc72");
+    if (outputDiv.id !== "altair-viz-5f3b2bbbfcb14c7a8329cd8c89d18bcc") {
+      outputDiv = document.getElementById("altair-viz-5f3b2bbbfcb14c7a8329cd8c89d18bcc");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2964,32 +2964,32 @@ title="Print to PDF"
 <p>Let’s try switching to a built-in 20-color scheme, <code class="docutils literal notranslate"><span class="pre">tableau20</span></code>, and set that using the scale <code class="docutils literal notranslate"><span class="pre">scheme</span></code> property.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Bacteria:N&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;tableau20&#39;</span><span class="p">))</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Bacteria:N&#39;,
+          scale=alt.Scale(scheme=&#39;tableau20&#39;))
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-b6872d7e55a64b339ead97e600d0c8b8"></div>
+<div id="altair-viz-ecc80a4bf3bf4716825e81f025251c33"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b6872d7e55a64b339ead97e600d0c8b8") {
-      outputDiv = document.getElementById("altair-viz-b6872d7e55a64b339ead97e600d0c8b8");
+    if (outputDiv.id !== "altair-viz-ecc80a4bf3bf4716825e81f025251c33") {
+      outputDiv = document.getElementById("altair-viz-ecc80a4bf3bf4716825e81f025251c33");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3042,31 +3042,31 @@ title="Print to PDF"
 <p>To try a different scheme, we can also change the data type from nominal to ordinal. The default ordinal scheme uses blue shades, ramping from light to dark:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Bacteria:O&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Bacteria:O&#39;)
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-17d6019cd3c7457e9222fc21c31aaa58"></div>
+<div id="altair-viz-0ad8076e87de48f4b493af2a3b18d82b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-17d6019cd3c7457e9222fc21c31aaa58") {
-      outputDiv = document.getElementById("altair-viz-17d6019cd3c7457e9222fc21c31aaa58");
+    if (outputDiv.id !== "altair-viz-0ad8076e87de48f4b493af2a3b18d82b") {
+      outputDiv = document.getElementById("altair-viz-0ad8076e87de48f4b493af2a3b18d82b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3119,32 +3119,32 @@ title="Print to PDF"
 <p>For more differentiated colors, we can experiment with alternatives to the default <code class="docutils literal notranslate"><span class="pre">blues</span></code> color scheme. The <code class="docutils literal notranslate"><span class="pre">viridis</span></code> scheme ramps through both hue and luminance:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Bacteria:O&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">))</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Bacteria:O&#39;,
+          scale=alt.Scale(scheme=&#39;viridis&#39;))
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-b98062ff6c3c48fbad95dc1147a656e5"></div>
+<div id="altair-viz-44c4bf75c8f74ba18eb4b1230358df00"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b98062ff6c3c48fbad95dc1147a656e5") {
-      outputDiv = document.getElementById("altair-viz-b98062ff6c3c48fbad95dc1147a656e5");
+    if (outputDiv.id !== "altair-viz-44c4bf75c8f74ba18eb4b1230358df00") {
+      outputDiv = document.getElementById("altair-viz-44c4bf75c8f74ba18eb4b1230358df00");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3201,34 +3201,34 @@ title="Print to PDF"
 <p>(Note that the antibiotics dataset includes a pre-calculated <code class="docutils literal notranslate"><span class="pre">Genus</span></code> field, but we will ignore it here in order to further explore Altair’s data transformations.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-    <span class="n">Genus</span><span class="o">=</span><span class="s1">&#39;split(datum.Bacteria, &quot; &quot;)[0]&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Genus:N&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;tableau20&#39;</span><span class="p">))</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).transform_calculate(
+    Genus=&#39;split(datum.Bacteria, &quot; &quot;)[0]&#39;
+).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Genus:N&#39;,
+          scale=alt.Scale(scheme=&#39;tableau20&#39;))
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-747c59ef96dc4f1d8fc2797d4a6a8593"></div>
+<div id="altair-viz-c509da064551413fae5bbbfc8743a8e8"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-747c59ef96dc4f1d8fc2797d4a6a8593") {
-      outputDiv = document.getElementById("altair-viz-747c59ef96dc4f1d8fc2797d4a6a8593");
+    if (outputDiv.id !== "altair-viz-c509da064551413fae5bbbfc8743a8e8") {
+      outputDiv = document.getElementById("altair-viz-c509da064551413fae5bbbfc8743a8e8");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3283,39 +3283,39 @@ title="Print to PDF"
 <p>In addition, we can add custom color encodings using explicit <code class="docutils literal notranslate"><span class="pre">domain</span></code> and <code class="docutils literal notranslate"><span class="pre">range</span></code> arrays for the color encoding <code class="docutils literal notranslate"><span class="pre">scale</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">Split</span><span class="o">=</span><span class="s1">&#39;split(datum.Bacteria, &quot; &quot;)[0]&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-  <span class="n">Genus</span><span class="o">=</span><span class="s1">&#39;indexof([&quot;Salmonella&quot;, &quot;Staphylococcus&quot;, &quot;Streptococcus&quot;], datum.Split) &gt;= 0 ? datum.Split : &quot;Other&quot;&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Neomycin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-          <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]),</span>
-          <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Genus:N&#39;</span><span class="p">,</span>
-          <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span>
-            <span class="n">domain</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Salmonella&#39;</span><span class="p">,</span> <span class="s1">&#39;Staphylococcus&#39;</span><span class="p">,</span> <span class="s1">&#39;Streptococcus&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">],</span>
-            <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rgb(76,120,168)&#39;</span><span class="p">,</span> <span class="s1">&#39;rgb(84,162,75)&#39;</span><span class="p">,</span> <span class="s1">&#39;rgb(228,87,86)&#39;</span><span class="p">,</span> <span class="s1">&#39;rgb(121,112,110)&#39;</span><span class="p">]</span>
-          <span class="p">))</span>
-<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_circle(size=80).transform_calculate(
+  Split=&#39;split(datum.Bacteria, &quot; &quot;)[0]&#39;
+).transform_calculate(
+  Genus=&#39;indexof([&quot;Salmonella&quot;, &quot;Staphylococcus&quot;, &quot;Streptococcus&quot;], datum.Split) &gt;= 0 ? datum.Split : &quot;Other&quot;&#39;
+).encode(
+    alt.X(&#39;Neomycin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Neomycin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Y(&#39;Penicillin:Q&#39;,
+          sort=&#39;descending&#39;,
+          scale=alt.Scale(type=&#39;log&#39;, domain=[0.001, 1000]),
+          axis=alt.Axis(tickCount=5),
+          title=&#39;Penicillin MIC (μg/ml, reverse log scale)&#39;),
+    alt.Color(&#39;Genus:N&#39;,
+          scale=alt.Scale(
+            domain=[&#39;Salmonella&#39;, &#39;Staphylococcus&#39;, &#39;Streptococcus&#39;, &#39;Other&#39;],
+            range=[&#39;rgb(76,120,168)&#39;, &#39;rgb(84,162,75)&#39;, &#39;rgb(228,87,86)&#39;, &#39;rgb(121,112,110)&#39;]
+          ))
+).properties(width=250, height=250)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-cfc3e0db355d402b8f1aa2d6fd63bcc9"></div>
+<div id="altair-viz-437ba875767148e9a22f8a9758692649"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-cfc3e0db355d402b8f1aa2d6fd63bcc9") {
-      outputDiv = document.getElementById("altair-viz-cfc3e0db355d402b8f1aa2d6fd63bcc9");
+    if (outputDiv.id !== "altair-viz-437ba875767148e9a22f8a9758692649") {
+      outputDiv = document.getElementById("altair-viz-437ba875767148e9a22f8a9758692649");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3376,24 +3376,24 @@ title="Print to PDF"
 <p>Here is a basic heatmap of penicillin MIC values for each bacteria. We’ll use a <code class="docutils literal notranslate"><span class="pre">rect</span></code> mark and sort the bacteria by descending MIC values (from most to least resistant):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_rect</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Bacteria:N&#39;</span><span class="p">,</span>
-      <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;Penicillin&#39;</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">)</span>
-    <span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_rect().encode(
+    alt.Y(&#39;Bacteria:N&#39;,
+      sort=alt.EncodingSortField(field=&#39;Penicillin&#39;, op=&#39;max&#39;, order=&#39;descending&#39;)
+    ),
+    alt.Color(&#39;Penicillin:Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e8f4d65752ca4fbd9cd763677873e9ec"></div>
+<div id="altair-viz-e047fce5089a4f258226ccc992a9d420"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e8f4d65752ca4fbd9cd763677873e9ec") {
-      outputDiv = document.getElementById("altair-viz-e8f4d65752ca4fbd9cd763677873e9ec");
+    if (outputDiv.id !== "altair-viz-e047fce5089a4f258226ccc992a9d420") {
+      outputDiv = document.getElementById("altair-viz-e047fce5089a4f258226ccc992a9d420");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3445,35 +3445,35 @@ title="Print to PDF"
 <p>We can further improve this chart by combining features we’ve seen thus far: a log-transformed scale, a change of axis orientation, a custom color scheme (<code class="docutils literal notranslate"><span class="pre">plasma</span></code>), tick count adjustment, and custom title text. We’ll also exercise configuration options to adjust the axis title placement and legend title alignment.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">)</span><span class="o">.</span><span class="n">mark_rect</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Bacteria:N&#39;</span><span class="p">,</span>
-      <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;Penicillin&#39;</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">),</span>
-      <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span>
-        <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>     <span class="c1"># orient axis on right side of chart</span>
-        <span class="n">titleX</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>           <span class="c1"># set x-position to 7 pixels right of chart</span>
-        <span class="n">titleY</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span>          <span class="c1"># set y-position to 2 pixels above chart</span>
-        <span class="n">titleAlign</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>  <span class="c1"># use left-aligned text</span>
-        <span class="n">titleAngle</span><span class="o">=</span><span class="mi">0</span>        <span class="c1"># undo default title rotation</span>
-      <span class="p">)</span>
-    <span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-      <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="n">nice</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-      <span class="n">legend</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Legend</span><span class="p">(</span><span class="n">titleOrient</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-      <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml)&#39;</span>
-    <span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics).mark_rect().encode(
+    alt.Y(&#39;Bacteria:N&#39;,
+      sort=alt.EncodingSortField(field=&#39;Penicillin&#39;, op=&#39;max&#39;, order=&#39;descending&#39;),
+      axis=alt.Axis(
+        orient=&#39;right&#39;,     # orient axis on right side of chart
+        titleX=7,           # set x-position to 7 pixels right of chart
+        titleY=-2,          # set y-position to 2 pixels above chart
+        titleAlign=&#39;left&#39;,  # use left-aligned text
+        titleAngle=0        # undo default title rotation
+      )
+    ),
+    alt.Color(&#39;Penicillin:Q&#39;,
+      scale=alt.Scale(type=&#39;log&#39;, scheme=&#39;plasma&#39;, nice=True),
+      legend=alt.Legend(titleOrient=&#39;right&#39;, tickCount=5),
+      title=&#39;Penicillin MIC (μg/ml)&#39;
+    )
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-d6dc908ee2424e4bab1616104967a4cf"></div>
+<div id="altair-viz-8347a0d4571c498eaa5f2feef495d738"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-d6dc908ee2424e4bab1616104967a4cf") {
-      outputDiv = document.getElementById("altair-viz-d6dc908ee2424e4bab1616104967a4cf");
+    if (outputDiv.id !== "altair-viz-8347a0d4571c498eaa5f2feef495d738") {
+      outputDiv = document.getElementById("altair-viz-8347a0d4571c498eaa5f2feef495d738");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3525,32 +3525,32 @@ title="Print to PDF"
 <p>Alternatively, we can remove the axis title altogether, and use the top-level <code class="docutils literal notranslate"><span class="pre">title</span></code> property to add a title for the entire chart:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">antibiotics</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin Resistance of Bacterial Strains&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mark_rect</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Bacteria:N&#39;</span><span class="p">,</span>
-      <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;Penicillin&#39;</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">),</span>
-      <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;Penicillin:Q&#39;</span><span class="p">,</span>
-      <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="n">nice</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-      <span class="n">legend</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Legend</span><span class="p">(</span><span class="n">titleOrient</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">tickCount</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-      <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Penicillin MIC (μg/ml)&#39;</span>
-    <span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">configure_title</span><span class="p">(</span>
-  <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="c1"># anchor and left-align title</span>
-  <span class="n">offset</span><span class="o">=</span><span class="mi">5</span>        <span class="c1"># set title offset from chart</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(antibiotics, title=&#39;Penicillin Resistance of Bacterial Strains&#39;).mark_rect().encode(
+    alt.Y(&#39;Bacteria:N&#39;,
+      sort=alt.EncodingSortField(field=&#39;Penicillin&#39;, op=&#39;max&#39;, order=&#39;descending&#39;),
+      axis=alt.Axis(orient=&#39;right&#39;, title=None)
+    ),
+    alt.Color(&#39;Penicillin:Q&#39;,
+      scale=alt.Scale(type=&#39;log&#39;, scheme=&#39;plasma&#39;, nice=True),
+      legend=alt.Legend(titleOrient=&#39;right&#39;, tickCount=5),
+      title=&#39;Penicillin MIC (μg/ml)&#39;
+    )
+).configure_title(
+  anchor=&#39;start&#39;, # anchor and left-align title
+  offset=5        # set title offset from chart
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-a1390435af8d46de8485409616004f4b"></div>
+<div id="altair-viz-28deef0687894ff0ad52471890bc39dc"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-a1390435af8d46de8485409616004f4b") {
-      outputDiv = document.getElementById("altair-viz-a1390435af8d46de8485409616004f4b");
+    if (outputDiv.id !== "altair-viz-28deef0687894ff0ad52471890bc39dc") {
+      outputDiv = document.getElementById("altair-viz-28deef0687894ff0ad52471890bc39dc");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",

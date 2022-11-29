@@ -1160,7 +1160,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1513,35 +1513,35 @@ title="Print to PDF"
 <p>Let’s get started by setting up our environment with Keras using Tensorflow as the backend. These package imports are pretty standard — we’ll get back to the Keras-specific imports further down. Optionally we can also import the dataset to cache it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># optionally cache the dataset</span>
-<span class="c1"># %%sh</span>
-<span class="c1"># python -c &#39;from tensorflow.keras.datasets import mnist</span>
-<span class="c1"># mnist.load_data()&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># optionally cache the dataset
+# %%sh
+# python -c &#39;from tensorflow.keras.datasets import mnist
+# mnist.load_data()&#39;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports for array-handling and plotting</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># imports for array-handling and plotting
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+%matplotlib inline
 
-<span class="c1"># let&#39;s keep our keras backend tensorflow quiet</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;3&#39;</span>
+# let&#39;s keep our keras backend tensorflow quiet
+import os
+os.environ[&#39;TF_CPP_MIN_LOG_LEVEL&#39;]=&#39;3&#39;
 
-<span class="c1"># keras imports for the dataset and building our neural network</span>
-<span class="kn">from</span> <span class="nn">keras_visualizer</span> <span class="kn">import</span> <span class="n">visualizer</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">load_model</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Activation</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+# keras imports for the dataset and building our neural network
+from keras_visualizer import visualizer
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense, Dropout, Activation
+from tensorflow.keras.utils import to_categorical
 
-<span class="c1"># load the data</span>
-<span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+# load the data
+(X_train, y_train), (X_test, y_test) = mnist.load_data()
 </pre></div>
 </div>
 </div>
@@ -1553,11 +1553,23 @@ title="Print to PDF"
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-  884736/11490434 [=&gt;............................] - ETA: 0s
+   57344/11490434 [..............................] - ETA: 10s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+  221184/11490434 [..............................] - ETA: 5s 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 8183808/11490434 [====================&gt;.........] - ETA: 0s
+  819200/11490434 [=&gt;............................] - ETA: 1s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+ 3244032/11490434 [=======&gt;......................] - ETA: 0s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+ 9306112/11490434 [=======================&gt;......] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1569,15 +1581,15 @@ title="Print to PDF"
 <p>Let’s inspect a few examples. The MNIST dataset contains only grayscale images. For more advanced image datasets, we’ll have the three color channels (RGB).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Digit: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure()
+for i in range(9):
+  plt.subplot(3,3,i+1)
+  plt.tight_layout()
+  plt.imshow(X_train[i], cmap=&#39;gray&#39;, interpolation=&#39;none&#39;)
+  plt.title(&quot;Digit: {}&quot;.format(y_train[i]))
+  plt.xticks([])
+  plt.yticks([])
+fig.show()
 </pre></div>
 </div>
 </div>
@@ -1588,16 +1600,16 @@ title="Print to PDF"
 <p>In order to train our neural network to classify images we first have to unroll the height <span class="math notranslate nohighlight">\(\times\)</span>width pixel format into one big vector - the <em>input vector</em>. So its length must be <span class="math notranslate nohighlight">\(28 \cdot 28 = 784\)</span>. But let’s graph the distribution of our pixel values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Digit: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">784</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Pixel Value Distribution&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig = plt.figure()
+plt.subplot(2,1,1)
+plt.imshow(X_train[0], cmap=&#39;gray&#39;, interpolation=&#39;none&#39;)
+plt.title(&quot;Digit: {}&quot;.format(y_train[0]))
+plt.xticks([])
+plt.yticks([])
+plt.subplot(2,1,2)
+plt.hist(X_train[0].reshape(784))
+plt.title(&quot;Pixel Value Distribution&quot;)
+fig.show()
 </pre></div>
 </div>
 </div>
@@ -1610,25 +1622,25 @@ title="Print to PDF"
 <p>Let’s reshape our inputs to a single vector vector and normalize the pixel values to lie between 0 and 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s print the shape before we reshape and normalize</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X_train shape&quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y_train shape&quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X_test shape&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y_test shape&quot;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># let&#39;s print the shape before we reshape and normalize
+print(&quot;X_train shape&quot;, X_train.shape)
+print(&quot;y_train shape&quot;, y_train.shape)
+print(&quot;X_test shape&quot;, X_test.shape)
+print(&quot;y_test shape&quot;, y_test.shape)
 
-<span class="c1"># building the input vector from the 28x28 pixels</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+# building the input vector from the 28x28 pixels
+X_train = X_train.reshape(60000, 784)
+X_test = X_test.reshape(10000, 784)
+X_train = X_train.astype(&#39;float32&#39;)
+X_test = X_test.astype(&#39;float32&#39;)
 
-<span class="c1"># normalizing the data to help with the training</span>
-<span class="n">X_train</span> <span class="o">/=</span> <span class="mi">255</span>
-<span class="n">X_test</span> <span class="o">/=</span> <span class="mi">255</span>
+# normalizing the data to help with the training
+X_train /= 255
+X_test /= 255
 
-<span class="c1"># print the final input shape ready for training</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train matrix shape&quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test matrix shape&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+# print the final input shape ready for training
+print(&quot;Train matrix shape&quot;, X_train.shape)
+print(&quot;Test matrix shape&quot;, X_test.shape)
 </pre></div>
 </div>
 </div>
@@ -1646,7 +1658,7 @@ Test matrix shape (10000, 784)
 <p>So far the <em>truth</em> (<em>Y</em> in machine learning lingo) we’ll use for training still holds integer values from 0 to 9.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(np.unique(y_train, return_counts=True))
 </pre></div>
 </div>
 </div>
@@ -1659,12 +1671,12 @@ Test matrix shape (10000, 784)
 <p>Let’s encode our categories - digits from 0 to 9 - using <a class="reference external" href="https://hackernoon.com/what-is-one-hot-encoding-why-and-when-do-you-have-to-use-it-e3c6186d008f">one-hot encoding</a>. The result is a vector with a length equal to the number of categories. The vector is all zeroes <em>except</em> in the position for the respective category. Thus a ‘<code class="docutils literal notranslate"><span class="pre">5</span></code>’ will be represented by <code class="docutils literal notranslate"><span class="pre">[0,0,0,0,1,0,0,0,0]</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># one-hot encoding using keras&#39; numpy-related utilities</span>
-<span class="n">n_classes</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape before one-hot encoding: &quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
-<span class="n">Y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape after one-hot encoding: &quot;</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># one-hot encoding using keras&#39; numpy-related utilities
+n_classes = 10
+print(&quot;Shape before one-hot encoding: &quot;, y_train.shape)
+Y_train = to_categorical(y_train, n_classes)
+Y_test = to_categorical(y_test, n_classes)
+print(&quot;Shape after one-hot encoding: &quot;, Y_train.shape)
 </pre></div>
 </div>
 </div>
@@ -1686,20 +1698,20 @@ Shape after one-hot encoding:  (60000, 10)
 <p>The last layer consists of connections for our 10 classes and the <a class="reference external" href="https://en.wikipedia.org/wiki/Softmax_function">softmax activation</a> which is standard for multi-class targets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># building a linear stack of layers with the sequential model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">784</span><span class="p">,)))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>                            
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># building a linear stack of layers with the sequential model
+model = Sequential()
+model.add(Dense(256, input_shape=(784,)))
+model.add(Activation(&#39;relu&#39;))                            
+model.add(Dropout(0.2))
 
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
+model.add(Dense(128))
+model.add(Activation(&#39;relu&#39;))
+model.add(Dropout(0.2))
 
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
+model.add(Dense(10))
+model.add(Activation(&#39;softmax&#39;))
 
-<span class="n">visualizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;lab_10.9.2&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+visualizer(model, filename=&#39;lab_10.9.2&#39;, format=&#39;png&#39;)
 </pre></div>
 </div>
 </div>
@@ -1713,8 +1725,8 @@ Shape after one-hot encoding:  (60000, 10)
 <p>We also choose which metrics will be evaluated during training and testing. We can pass any list of <a class="reference external" href="https://keras.io/metrics/">metrics</a> - even build metrics ourselves - and have them displayed during training/testing. We’ll stick to <em>accuracy</em> for now.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compiling the sequential model</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># compiling the sequential model
+model.compile(loss=&#39;categorical_crossentropy&#39;, metrics=[&#39;accuracy&#39;], optimizer=&#39;adam&#39;)
 </pre></div>
 </div>
 </div>
@@ -1724,17 +1736,17 @@ Shape after one-hot encoding:  (60000, 10)
 <p>In order to work with the trained model and evaluate its performance we’re saving the model in a <code class="docutils literal notranslate"><span class="pre">.h5</span></code> file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="c1"># training the model and saving metrics in history</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-          <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%time
+# training the model and saving metrics in history
+history = model.fit(X_train, Y_train,
+          batch_size=128, epochs=20,
+          verbose=2,
+          validation_data=(X_test, Y_test))
 
-<span class="c1"># save the model</span>
-<span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;keras_mnist.h5&#39;</span>
-<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved trained model at </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+# save the model
+model_name = &#39;keras_mnist.h5&#39;
+model.save(model_name)
+print(f&#39;Saved trained model at {model_name}&#39;)
 </pre></div>
 </div>
 </div>
@@ -1742,152 +1754,152 @@ Shape after one-hot encoding:  (60000, 10)
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 3s - loss: 0.3345 - accuracy: 0.9002 - val_loss: 0.1284 - val_accuracy: 0.9601 - 3s/epoch - 7ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 3s - loss: 0.3356 - accuracy: 0.9010 - val_loss: 0.1268 - val_accuracy: 0.9605 - 3s/epoch - 6ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 2/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.1413 - accuracy: 0.9577 - val_loss: 0.0935 - val_accuracy: 0.9699 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.1413 - accuracy: 0.9570 - val_loss: 0.0928 - val_accuracy: 0.9704 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 3/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0990 - accuracy: 0.9694 - val_loss: 0.0845 - val_accuracy: 0.9740 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.1028 - accuracy: 0.9696 - val_loss: 0.0773 - val_accuracy: 0.9756 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 4/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 3s - loss: 0.0807 - accuracy: 0.9753 - val_loss: 0.0732 - val_accuracy: 0.9761 - 3s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0804 - accuracy: 0.9747 - val_loss: 0.0723 - val_accuracy: 0.9768 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0689 - accuracy: 0.9787 - val_loss: 0.0736 - val_accuracy: 0.9771 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0682 - accuracy: 0.9787 - val_loss: 0.0649 - val_accuracy: 0.9790 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 6/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0584 - accuracy: 0.9815 - val_loss: 0.0652 - val_accuracy: 0.9790 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0577 - accuracy: 0.9818 - val_loss: 0.0621 - val_accuracy: 0.9798 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 7/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 3s - loss: 0.0485 - accuracy: 0.9848 - val_loss: 0.0611 - val_accuracy: 0.9813 - 3s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0520 - accuracy: 0.9830 - val_loss: 0.0621 - val_accuracy: 0.9807 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 8/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0463 - accuracy: 0.9852 - val_loss: 0.0618 - val_accuracy: 0.9813 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0432 - accuracy: 0.9860 - val_loss: 0.0620 - val_accuracy: 0.9813 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 9/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0407 - accuracy: 0.9862 - val_loss: 0.0642 - val_accuracy: 0.9806 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0407 - accuracy: 0.9865 - val_loss: 0.0619 - val_accuracy: 0.9809 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 3s - loss: 0.0356 - accuracy: 0.9883 - val_loss: 0.0687 - val_accuracy: 0.9808 - 3s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0363 - accuracy: 0.9883 - val_loss: 0.0647 - val_accuracy: 0.9808 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 11/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 3s - loss: 0.0340 - accuracy: 0.9890 - val_loss: 0.0663 - val_accuracy: 0.9819 - 3s/epoch - 6ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0337 - accuracy: 0.9885 - val_loss: 0.0585 - val_accuracy: 0.9828 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 12/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 3s - loss: 0.0309 - accuracy: 0.9897 - val_loss: 0.0690 - val_accuracy: 0.9809 - 3s/epoch - 6ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0293 - accuracy: 0.9898 - val_loss: 0.0642 - val_accuracy: 0.9816 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 13/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0305 - accuracy: 0.9896 - val_loss: 0.0728 - val_accuracy: 0.9801 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0282 - accuracy: 0.9905 - val_loss: 0.0565 - val_accuracy: 0.9837 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 14/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0281 - accuracy: 0.9901 - val_loss: 0.0680 - val_accuracy: 0.9811 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0261 - accuracy: 0.9912 - val_loss: 0.0668 - val_accuracy: 0.9811 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 15/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0271 - accuracy: 0.9908 - val_loss: 0.0708 - val_accuracy: 0.9820 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0244 - accuracy: 0.9918 - val_loss: 0.0700 - val_accuracy: 0.9823 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 16/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0242 - accuracy: 0.9920 - val_loss: 0.0692 - val_accuracy: 0.9819 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0249 - accuracy: 0.9915 - val_loss: 0.0610 - val_accuracy: 0.9842 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 17/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0211 - accuracy: 0.9929 - val_loss: 0.0796 - val_accuracy: 0.9809 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0216 - accuracy: 0.9927 - val_loss: 0.0655 - val_accuracy: 0.9829 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 18/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0241 - accuracy: 0.9919 - val_loss: 0.0724 - val_accuracy: 0.9815 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0215 - accuracy: 0.9926 - val_loss: 0.0693 - val_accuracy: 0.9834 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 19/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0183 - accuracy: 0.9940 - val_loss: 0.0724 - val_accuracy: 0.9834 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0213 - accuracy: 0.9931 - val_loss: 0.0642 - val_accuracy: 0.9829 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/20
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0210 - accuracy: 0.9928 - val_loss: 0.0705 - val_accuracy: 0.9841 - 2s/epoch - 5ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>469/469 - 2s - loss: 0.0194 - accuracy: 0.9936 - val_loss: 0.0671 - val_accuracy: 0.9837 - 2s/epoch - 4ms/step
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saved trained model at keras_mnist.h5
-CPU times: user 1min 11s, sys: 4.3 s, total: 1min 15s
-Wall time: 1min 22s
+CPU times: user 51.3 s, sys: 2.4 s, total: 53.7 s
+Wall time: 36.8 s
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plotting the metrics</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model accuracy&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># plotting the metrics
+fig = plt.figure()
+plt.subplot(2,1,1)
+plt.plot(history.history[&#39;accuracy&#39;])
+plt.plot(history.history[&#39;val_accuracy&#39;])
+plt.title(&#39;model accuracy&#39;)
+plt.ylabel(&#39;accuracy&#39;)
+plt.xlabel(&#39;epoch&#39;)
+plt.legend([&#39;train&#39;, &#39;test&#39;], loc=&#39;lower right&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model loss&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+plt.subplot(2,1,2)
+plt.plot(history.history[&#39;loss&#39;])
+plt.plot(history.history[&#39;val_loss&#39;])
+plt.title(&#39;model loss&#39;)
+plt.ylabel(&#39;loss&#39;)
+plt.xlabel(&#39;epoch&#39;)
+plt.legend([&#39;train&#39;, &#39;test&#39;], loc=&#39;upper right&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.tight_layout()
+fig.show()
 </pre></div>
 </div>
 </div>
@@ -1902,20 +1914,20 @@ Wall time: 1min 22s
 <p>It’s time to reap the fruits of our neural network training. Let’s see how well we the model performs on the test set. The <code class="docutils literal notranslate"><span class="pre">model.evaluate()</span></code> method computes the loss and any metric defined when compiling the model. So in our case the accuracy is computed on the 10,000 testing examples using the network weights given by the saved model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mnist_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;keras_mnist.h5&quot;</span><span class="p">)</span>
-<span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">mnist_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mnist_model = load_model(&quot;keras_mnist.h5&quot;)
+loss_and_metrics = mnist_model.evaluate(X_test, Y_test, verbose=2)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Loss&quot;</span><span class="p">,</span> <span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Accuracy&quot;</span><span class="p">,</span> <span class="n">loss_and_metrics</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+print(&quot;Test Loss&quot;, loss_and_metrics[0])
+print(&quot;Test Accuracy&quot;, loss_and_metrics[1])
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 1s - loss: 0.0705 - accuracy: 0.9841 - 737ms/epoch - 2ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>313/313 - 0s - loss: 0.0671 - accuracy: 0.9837 - 477ms/epoch - 2ms/step
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Loss 0.0705210417509079
-Test Accuracy 0.9840999841690063
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Loss 0.0670984759926796
+Test Accuracy 0.9836999773979187
 </pre></div>
 </div>
 </div>
@@ -1923,99 +1935,87 @@ Test Accuracy 0.9840999841690063
 <p>This accuracy looks very good! But let’s stay neutral here and evaluate both correctly and incorrectly classified examples. We’ll look at 9 examples each.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the model and create predictions on the test set</span>
-<span class="n">mnist_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;./keras_mnist.h5&quot;</span><span class="p">)</span>
-<span class="n">predicted_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mnist_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># load the model and create predictions on the test set
+mnist_model = load_model(&quot;./keras_mnist.h5&quot;)
+predicted_classes = np.argmax(mnist_model.predict(X_test), axis=-1)
 
-<span class="c1"># see which we predicted correctly and which not</span>
-<span class="n">correct_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">predicted_classes</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">incorrect_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">predicted_classes</span> <span class="o">!=</span> <span class="n">y_test</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">correct_indices</span><span class="p">),</span><span class="s2">&quot; classified correctly&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">incorrect_indices</span><span class="p">),</span><span class="s2">&quot; classified incorrectly&quot;</span><span class="p">)</span>
+# see which we predicted correctly and which not
+correct_indices = np.nonzero(predicted_classes == y_test)[0]
+incorrect_indices = np.nonzero(predicted_classes != y_test)[0]
+print()
+print(len(correct_indices),&quot; classified correctly&quot;)
+print(len(incorrect_indices),&quot; classified incorrectly&quot;)
 
-<span class="c1"># adapt figure size to accomodate 18 subplots</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">14</span><span class="p">)</span>
+# adapt figure size to accomodate 18 subplots
+plt.rcParams[&#39;figure.figsize&#39;] = (7,14)
 
-<span class="n">figure_evaluation</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+figure_evaluation = plt.figure()
 
-<span class="c1"># plot 9 correct predictions</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">correct</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">correct_indices</span><span class="p">[:</span><span class="mi">9</span><span class="p">]):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">correct</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-      <span class="s2">&quot;Predicted: </span><span class="si">{}</span><span class="s2">, Truth: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">predicted_classes</span><span class="p">[</span><span class="n">correct</span><span class="p">],</span>
-                                        <span class="n">y_test</span><span class="p">[</span><span class="n">correct</span><span class="p">]))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+# plot 9 correct predictions
+for i, correct in enumerate(correct_indices[:9]):
+    plt.subplot(6,3,i+1)
+    plt.imshow(X_test[correct].reshape(28,28), cmap=&#39;gray&#39;, interpolation=&#39;none&#39;)
+    plt.title(
+      &quot;Predicted: {}, Truth: {}&quot;.format(predicted_classes[correct],
+                                        y_test[correct]))
+    plt.xticks([])
+    plt.yticks([])
 
-<span class="c1"># plot 9 incorrect predictions</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">incorrect</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">incorrect_indices</span><span class="p">[:</span><span class="mi">9</span><span class="p">]):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">incorrect</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-      <span class="s2">&quot;Predicted </span><span class="si">{}</span><span class="s2">, Truth: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">predicted_classes</span><span class="p">[</span><span class="n">incorrect</span><span class="p">],</span> 
-                                       <span class="n">y_test</span><span class="p">[</span><span class="n">incorrect</span><span class="p">]))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+# plot 9 incorrect predictions
+for i, incorrect in enumerate(incorrect_indices[:9]):
+    plt.subplot(6,3,i+10)
+    plt.imshow(X_test[incorrect].reshape(28,28), cmap=&#39;gray&#39;, interpolation=&#39;none&#39;)
+    plt.title(
+      &quot;Predicted {}, Truth: {}&quot;.format(predicted_classes[incorrect], 
+                                       y_test[incorrect]))
+    plt.xticks([])
+    plt.yticks([])
 
-<span class="n">figure_evaluation</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+figure_evaluation.show()
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  1/313 [..............................] - ETA: 32s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  1/313 [..............................] - ETA: 21s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 29/313 [=&gt;............................] - ETA: 0s 
+ 43/313 [===&gt;..........................] - ETA: 0s 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 55/313 [====&gt;.........................] - ETA: 0s
+ 87/313 [=======&gt;......................] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
- 82/313 [======&gt;.......................] - ETA: 0s
+130/313 [===========&gt;..................] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-110/313 [=========&gt;....................] - ETA: 0s
+176/313 [===============&gt;..............] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-137/313 [============&gt;.................] - ETA: 0s
+222/313 [====================&gt;.........] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-165/313 [==============&gt;...............] - ETA: 0s
+268/313 [========================&gt;.....] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-194/313 [=================&gt;............] - ETA: 0s
+312/313 [============================&gt;.] - ETA: 0s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-224/313 [====================&gt;.........] - ETA: 0s
+313/313 [==============================] - 0s 1ms/step
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-254/313 [=======================&gt;......] - ETA: 0s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9837  classified correctly
+163  classified incorrectly
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-285/313 [==========================&gt;...] - ETA: 0s
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-313/313 [==============================] - 1s 2ms/step
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9841  classified correctly
-159  classified incorrectly
-</pre></div>
-</div>
-<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_13.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_13.png" />
+<img alt="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_10.png" src="../../_images/lab_10.9.2_multilayer_network_on_mnist_digit_data_25_10.png" />
 </div>
 </div>
 <p>As we can see, the wrong predictions are quite forgiveable since they’re in some cases even hard to recognize for the human reader.</p>

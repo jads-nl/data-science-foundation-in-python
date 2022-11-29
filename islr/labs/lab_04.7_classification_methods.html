@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1559,47 +1559,47 @@ title="Print to PDF"
 <h2>4.7.1 The Stock Market Data<a class="headerlink" href="#the-stock-market-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import warnings
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+warnings.filterwarnings(&quot;ignore&quot;)
+%matplotlib inline
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+pd.set_option(&#39;display.max_rows&#39;, 12)
+pd.set_option(&#39;display.float_format&#39;, &#39;{:20,.2f}&#39;.format) # get rid of scientific notation
+plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_prediction_summary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-    <span class="s2">&quot;Generate prediction summary of stock market models using predict_proba method.&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def make_prediction_summary(model, X):
+    &quot;Generate prediction summary of stock market models using predict_proba method.&quot;
 
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;prob_0&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span>
-            <span class="s2">&quot;prob_1&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span>
-            <span class="s2">&quot;pred_class&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
-        <span class="p">},</span>
-        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;prob_0&quot;</span><span class="p">,</span> <span class="s2">&quot;prob_1&quot;</span><span class="p">,</span> <span class="s2">&quot;pred_class&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
+    return pd.DataFrame(
+        {
+            &quot;prob_0&quot;: model.predict_proba(X)[:, 0],
+            &quot;prob_1&quot;: model.predict_proba(X)[:, 1],
+            &quot;pred_class&quot;: model.predict(X),
+        },
+        columns=[&quot;prob_0&quot;, &quot;prob_1&quot;, &quot;pred_class&quot;],
+    )
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data</span>
-<span class="n">smarket</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Smarket.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
-<span class="n">smarket</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># load data
+smarket = pd.read_csv(&#39;../datasets/Smarket.csv&#39;, index_col=0)
+smarket.Direction = smarket.Direction.astype(&#39;category&#39;)
+smarket
 </pre></div>
 </div>
 </div>
@@ -1773,7 +1773,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smarket</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>smarket.columns
 </pre></div>
 </div>
 </div>
@@ -1787,7 +1787,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smarket</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>smarket.shape
 </pre></div>
 </div>
 </div>
@@ -1799,7 +1799,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smarket</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>smarket.describe(include=&#39;all&#39;)
 </pre></div>
 </div>
 </div>
@@ -1972,7 +1972,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smarket</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">memory_usage</span><span class="o">=</span><span class="s1">&#39;deep&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>smarket.info(memory_usage=&#39;deep&#39;)
 </pre></div>
 </div>
 </div>
@@ -1999,7 +1999,7 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">smarket</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Direction&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.pairplot(smarket, hue=&#39;Direction&#39;);
 </pre></div>
 </div>
 </div>
@@ -2009,7 +2009,7 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smarket</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>smarket.corr()
 </pre></div>
 </div>
 </div>
@@ -2137,7 +2137,7 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">smarket</span><span class="o">.</span><span class="n">Volume</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.plot(smarket.Volume);
 </pre></div>
 </div>
 </div>
@@ -2152,13 +2152,13 @@ memory usage: 89.3 KB
 <h3>Using statsmodels<a class="headerlink" href="#using-statsmodels" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import statsmodels.api as sm
 
-<span class="n">X_sm</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="n">y_sm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># dummy encoding</span>
+X_sm = smarket.loc[:,&#39;Lag1&#39;:&#39;Volume&#39;]
+y_sm = pd.get_dummies(smarket.Direction).iloc[:, 1] # dummy encoding
 
-<span class="n">glm_fit_sm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Logit</span><span class="p">(</span><span class="n">y_sm</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X_sm</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">glm_fit_sm</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+glm_fit_sm = sm.Logit(y_sm, sm.add_constant(X_sm)).fit()
+glm_fit_sm.summary()
 </pre></div>
 </div>
 </div>
@@ -2186,10 +2186,10 @@ memory usage: 89.3 KB
   <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>  <td>     6</td> 
 </tr>
 <tr>
-  <th>Date:</th>            <td>Mon, 03 Oct 2022</td> <th>  Pseudo R-squ.:     </th>  <td>   inf</td> 
+  <th>Date:</th>            <td>Tue, 29 Nov 2022</td> <th>  Pseudo R-squ.:     </th>  <td>   inf</td> 
 </tr>
 <tr>
-  <th>Time:</th>                <td>15:01:39</td>     <th>  Log-Likelihood:    </th> <td> -2746.3</td>
+  <th>Time:</th>                <td>12:12:14</td>     <th>  Log-Likelihood:    </th> <td> -2746.3</td>
 </tr>
 <tr>
   <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th> <td>  0.0000</td>
@@ -2227,7 +2227,7 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glm_fit_sm</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>glm_fit_sm.predict()
 </pre></div>
 </div>
 </div>
@@ -2240,7 +2240,7 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glm_fit_sm</span><span class="o">.</span><span class="n">pred_table</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>glm_fit_sm.pred_table()
 </pre></div>
 </div>
 </div>
@@ -2256,20 +2256,20 @@ memory usage: 89.3 KB
 <h3>Using scikit-learn<a class="headerlink" href="#using-scikit-learn" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.linear_model import LogisticRegression
 
-<span class="n">X_sk</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="n">y_sk</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">Direction</span>
+X_sk = smarket.loc[:,&#39;Lag1&#39;:&#39;Volume&#39;]
+y_sk = smarket.Direction
 
-<span class="n">glm_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e9</span><span class="p">)</span> <span class="c1"># Large C for no regularization</span>
-<span class="n">glm_fit</span> <span class="o">=</span> <span class="n">glm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_sk</span><span class="p">,</span> <span class="n">y_sk</span><span class="p">)</span>
+glm_model = LogisticRegression(fit_intercept=True, C=1e9) # Large C for no regularization
+glm_fit = glm_model.fit(X_sk, y_sk)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glm_fit</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">coef_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>glm_fit.intercept_, glm_fit.coef_
 </pre></div>
 </div>
 </div>
@@ -2283,7 +2283,9 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_prediction_summary</span><span class="p">(</span><span class="n">glm_fit</span><span class="p">,</span> <span class="n">X_sk</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+
+make_prediction_summary(glm_fit, X_sk)
 </pre></div>
 </div>
 </div>
@@ -2385,13 +2387,13 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import confusion_matrix, accuracy_score
 
-<span class="c1"># labeled confusion matrix for predicted values</span>
-<span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_sk</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+# labeled confusion matrix for predicted values
+conf_m = pd.DataFrame(confusion_matrix(y_sk, glm_fit.predict(X_sk)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -2440,8 +2442,8 @@ memory usage: 89.3 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk</span><span class="p">))))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk</span><span class="p">))))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Accuracy: &#39; + str(accuracy_score(y_sk, glm_fit.predict(X_sk))))
+print(&#39;Training Error: &#39; + str(1 - accuracy_score(y_sk, glm_fit.predict(X_sk))))
 </pre></div>
 </div>
 </div>
@@ -2454,30 +2456,30 @@ Training Error: 0.47840000000000005
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># separate training and test sets</span>
-<span class="n">train</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smarket</span><span class="o">.</span><span class="n">Year</span> <span class="o">&lt;</span> <span class="mi">2005</span><span class="p">]</span>
-<span class="n">smarket_2005</span> <span class="o">=</span> <span class="n">smarket</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">smarket</span><span class="o">.</span><span class="n">Year</span> <span class="o">&gt;=</span> <span class="mi">2005</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># separate training and test sets
+train = smarket.loc[smarket.Year &lt; 2005]
+smarket_2005 = smarket.loc[smarket.Year &gt;= 2005]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_sk_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="n">y_sk_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_sk_train = train.loc[:,&#39;Lag1&#39;:&#39;Volume&#39;]
+y_sk_train = train.Direction
 
-<span class="n">X_sk_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
-<span class="n">y_sk_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
+X_sk_test = smarket_2005.loc[:,&#39;Lag1&#39;:&#39;Volume&#39;]
+y_sk_test = smarket_2005.Direction
 
-<span class="n">glm_model_t</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e9</span><span class="p">)</span> <span class="c1"># Large C for no regularization</span>
-<span class="n">glm_fit_t</span> <span class="o">=</span> <span class="n">glm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_sk_train</span><span class="p">,</span> <span class="n">y_sk_train</span><span class="p">)</span>
+glm_model_t = LogisticRegression(fit_intercept=True, C=1e9) # Large C for no regularization
+glm_fit_t = glm_model.fit(X_sk_train, y_sk_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_prediction_summary</span><span class="p">(</span><span class="n">glm_fit_t</span><span class="p">,</span> <span class="n">X_sk_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>make_prediction_summary(glm_fit_t, X_sk_test)
 </pre></div>
 </div>
 </div>
@@ -2579,10 +2581,10 @@ Training Error: 0.47840000000000005
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_sk_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf_m = pd.DataFrame(confusion_matrix(y_sk_test, glm_fit.predict(X_sk_test)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -2631,8 +2633,8 @@ Training Error: 0.47840000000000005
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">))))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test</span><span class="p">))))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Accuracy: &#39; + str(accuracy_score(y_sk_test, glm_fit.predict(X_sk_test))))
+print(&#39;Test Error: &#39; + str(1 - accuracy_score(y_sk_test, glm_fit.predict(X_sk_test))))
 </pre></div>
 </div>
 </div>
@@ -2645,21 +2647,21 @@ Test Error: 0.5198412698412698
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_sk_train_s</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_sk_train_s</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_sk_train_s = train.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_sk_train_s = train.Direction
 
-<span class="n">X_sk_test_s</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_sk_test_s</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
+X_sk_test_s = smarket_2005.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_sk_test_s = smarket_2005.Direction
 
-<span class="n">glm_model_t_s</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e9</span><span class="p">)</span> <span class="c1"># Large C for no regularization</span>
-<span class="n">glm_fit_t_s</span> <span class="o">=</span> <span class="n">glm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_sk_train_s</span><span class="p">,</span> <span class="n">y_sk_train_s</span><span class="p">)</span>
+glm_model_t_s = LogisticRegression(fit_intercept=True, C=1e9) # Large C for no regularization
+glm_fit_t_s = glm_model.fit(X_sk_train_s, y_sk_train_s)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_prediction_summary</span><span class="p">(</span><span class="n">glm_fit_t_s</span><span class="p">,</span> <span class="n">X_sk_test_s</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>make_prediction_summary(glm_fit_t_s, X_sk_test_s)
 </pre></div>
 </div>
 </div>
@@ -2761,10 +2763,10 @@ Test Error: 0.5198412698412698
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_sk_test_s</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf_m = pd.DataFrame(confusion_matrix(y_sk_test_s, glm_fit.predict(X_sk_test_s)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -2813,8 +2815,8 @@ Test Error: 0.5198412698412698
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test_s</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">))))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_sk_test_s</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sk_test_s</span><span class="p">))))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Accuracy: &#39; + str(accuracy_score(y_sk_test_s, glm_fit.predict(X_sk_test_s))))
+print(&#39;Test Error: &#39; + str(1 - accuracy_score(y_sk_test_s, glm_fit.predict(X_sk_test_s))))
 </pre></div>
 </div>
 </div>
@@ -2827,9 +2829,9 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># predictions for arbitrary data</span>
-<span class="n">predict_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span> <span class="s1">&#39;Lag2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">]})</span>
-<span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">predict_data</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># predictions for arbitrary data
+predict_data = pd.DataFrame({&#39;Lag1&#39;: [1.2, 1.5], &#39;Lag2&#39;: [1.1, -0.8]})
+glm_fit.predict_proba(predict_data)[:, 1]
 </pre></div>
 </div>
 </div>
@@ -2845,23 +2847,23 @@ Test Error: 0.44047619047619047
 <h2>4.7.3 Linear Discriminant Analysis<a class="headerlink" href="#linear-discriminant-analysis" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
+X_train = train.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_train = train.Direction
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
+X_test = smarket_2005.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_test = smarket_2005.Direction
 
-<span class="n">lda_model</span> <span class="o">=</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">()</span>
-<span class="n">lda_fit</span> <span class="o">=</span> <span class="n">lda_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+lda_model = LinearDiscriminantAnalysis()
+lda_fit = lda_model.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lda_fit</span><span class="o">.</span><span class="n">priors_</span> <span class="c1"># group priors</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lda_fit.priors_ # group priors
 </pre></div>
 </div>
 </div>
@@ -2873,7 +2875,7 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lda_fit</span><span class="o">.</span><span class="n">means_</span> <span class="c1"># group means</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lda_fit.means_ # group means
 </pre></div>
 </div>
 </div>
@@ -2886,7 +2888,7 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lda_fit</span><span class="o">.</span><span class="n">scalings_</span> <span class="c1"># coefficients of ld</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lda_fit.scalings_ # coefficients of ld
 </pre></div>
 </div>
 </div>
@@ -2899,13 +2901,13 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for plotting lda, needs imporovement</span>
-<span class="n">ld_sc</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">scalings_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">scalings_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># for plotting lda, needs imporovement
+ld_sc = X_train.iloc[:, 0] * lda_fit.scalings_[0] + X_train.iloc[:, 1] * lda_fit.scalings_[1]
 
-<span class="n">ld</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;groups&#39;</span><span class="p">:</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;ld&#39;</span><span class="p">:</span> <span class="n">ld_sc</span><span class="p">})</span>
+ld = pd.DataFrame({&#39;groups&#39;: y_train, &#39;ld&#39;: ld_sc})
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">ld</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;groups&#39;</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">,</span> <span class="s1">&#39;ld&#39;</span><span class="p">);</span>
+g = sns.FacetGrid(ld, col=&#39;groups&#39;)
+g.map(plt.hist, &#39;ld&#39;);
 </pre></div>
 </div>
 </div>
@@ -2915,11 +2917,11 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prediction summary</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-              <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span> 
-              <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">lda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)},</span> 
-             <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># prediction summary
+pd.DataFrame({&#39;prob_0&#39;: lda_fit.predict_proba(X_test)[:, 0], 
+              &#39;prob_1&#39;: lda_fit.predict_proba(X_test)[:, 1], 
+              &#39;pred_class&#39;: lda_fit.predict(X_test)}, 
+             columns=[&#39;prob_0&#39;, &#39;prob_1&#39;, &#39;pred_class&#39;])
 </pre></div>
 </div>
 </div>
@@ -3021,10 +3023,10 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf_m = pd.DataFrame(confusion_matrix(y_test, glm_fit.predict(X_test)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -3076,23 +3078,23 @@ Test Error: 0.44047619047619047
 <h2>4.7.4 Quadratic Discriminant Analysis<a class="headerlink" href="#quadratic-discriminant-analysis" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">QuadraticDiscriminantAnalysis</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
+X_train = train.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_train = train.Direction
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
+X_test = smarket_2005.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_test = smarket_2005.Direction
 
-<span class="n">qda_model</span> <span class="o">=</span> <span class="n">QuadraticDiscriminantAnalysis</span><span class="p">()</span>
-<span class="n">qda_fit</span> <span class="o">=</span> <span class="n">qda_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+qda_model = QuadraticDiscriminantAnalysis()
+qda_fit = qda_model.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda_fit</span><span class="o">.</span><span class="n">priors_</span> <span class="c1"># group priors</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>qda_fit.priors_ # group priors
 </pre></div>
 </div>
 </div>
@@ -3104,7 +3106,7 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda_fit</span><span class="o">.</span><span class="n">means_</span> <span class="c1"># group means</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>qda_fit.means_ # group means
 </pre></div>
 </div>
 </div>
@@ -3117,7 +3119,7 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qda_fit</span><span class="o">.</span><span class="n">scalings_</span> <span class="c1"># coefficients of ld</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>qda_fit.scalings_ # coefficients of ld
 </pre></div>
 </div>
 </div>
@@ -3129,11 +3131,11 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prediction summary</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prob_0&#39;</span><span class="p">:</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">],</span> 
-              <span class="s1">&#39;prob_1&#39;</span><span class="p">:</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">],</span> 
-              <span class="s1">&#39;pred_class&#39;</span><span class="p">:</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)},</span> 
-             <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prob_0&#39;</span><span class="p">,</span> <span class="s1">&#39;prob_1&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_class&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># prediction summary
+pd.DataFrame({&#39;prob_0&#39;: qda_fit.predict_proba(X_test)[:, 0], 
+              &#39;prob_1&#39;: qda_fit.predict_proba(X_test)[:, 1], 
+              &#39;pred_class&#39;: qda_fit.predict(X_test)}, 
+             columns=[&#39;prob_0&#39;, &#39;prob_1&#39;, &#39;pred_class&#39;])
 </pre></div>
 </div>
 </div>
@@ -3235,10 +3237,10 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf_m = pd.DataFrame(confusion_matrix(y_test, qda_fit.predict(X_test)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -3287,8 +3289,8 @@ Test Error: 0.44047619047619047
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test Error: </span><span class="si">{</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">qda_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Accuracy: {accuracy_score(y_test, qda_fit.predict(X_test)):.3f}&#39;)
+print(f&#39;Test Error: {1 - accuracy_score(y_test, qda_fit.predict(X_test)):.3f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -3304,23 +3306,23 @@ Test Error: 0.401
 <h2>4.7.5 Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.naive_bayes import GaussianNB
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
+X_train = train.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_train = train.Direction
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
+X_test = smarket_2005.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_test = smarket_2005.Direction
 
-<span class="n">nb_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
-<span class="n">nb_fit</span> <span class="o">=</span> <span class="n">nb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+nb_model = GaussianNB()
+nb_fit = nb_model.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_prediction_summary</span><span class="p">(</span><span class="n">nb_fit</span><span class="p">,</span> <span class="n">X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>make_prediction_summary(nb_fit, X_test)
 </pre></div>
 </div>
 </div>
@@ -3422,8 +3424,8 @@ Test Error: 0.401
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">nb_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test Error: </span><span class="si">{</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">nb_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Accuracy: {accuracy_score(y_test, nb_fit.predict(X_test)):.3f}&#39;)
+print(f&#39;Test Error: {1 - accuracy_score(y_test, nb_fit.predict(X_test)):.3f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -3441,23 +3443,23 @@ Test Error: 0.405
 <h3>Stock market data<a class="headerlink" href="#stock-market-data" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.neighbors import KNeighborsClassifier
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Direction</span>
+X_train = train.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_train = train.Direction
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Lag1&#39;</span><span class="p">:</span><span class="s1">&#39;Lag2&#39;</span><span class="p">]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">smarket_2005</span><span class="o">.</span><span class="n">Direction</span>
+X_test = smarket_2005.loc[:,&#39;Lag1&#39;:&#39;Lag2&#39;]
+y_test = smarket_2005.Direction
 
-<span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">knn_fit</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+knn_model = KNeighborsClassifier(n_neighbors=1)
+knn_fit = knn_model.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_prediction_summary</span><span class="p">(</span><span class="n">knn_fit</span><span class="p">,</span> <span class="n">X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>make_prediction_summary(knn_fit, X_test)
 </pre></div>
 </div>
 </div>
@@ -3559,10 +3561,10 @@ Test Error: 0.405
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf_m = pd.DataFrame(confusion_matrix(y_test, knn_fit.predict(X_test)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -3611,8 +3613,8 @@ Test Error: 0.405
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Error: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Accuracy: &#39; + str(accuracy_score(y_test, knn_fit.predict(X_test))))
+print(&#39;Test Error: &#39; + str(1 - accuracy_score(y_test, knn_fit.predict(X_test))))
 </pre></div>
 </div>
 </div>
@@ -3625,18 +3627,18 @@ Test Error: 0.5
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn_model_3</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">knn_fit_3</span> <span class="o">=</span> <span class="n">knn_model_3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>knn_model_3 = KNeighborsClassifier(n_neighbors=3)
+knn_fit_3 = knn_model_3.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit_3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf_m = pd.DataFrame(confusion_matrix(y_test, knn_fit_3.predict(X_test)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -3685,8 +3687,8 @@ Test Error: 0.5
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit_3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test Error: </span><span class="si">{</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit_3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Accuracy: {accuracy_score(y_test, knn_fit_3.predict(X_test)):.3f}&#39;)
+print(f&#39;Test Error: {1 - accuracy_score(y_test, knn_fit_3.predict(X_test)):.3f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -3702,10 +3704,10 @@ Test Error: 0.468
 <h3>Caravan insurance data<a class="headerlink" href="#caravan-insurance-data" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data</span>
-<span class="n">caravan</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Caravan.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span> <span class="o">=</span> <span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
-<span class="n">caravan</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># load data
+caravan = pd.read_csv(&#39;../datasets/Caravan.csv&#39;, index_col=0)
+caravan.Purchase = caravan.Purchase.astype(&#39;category&#39;)
+caravan
 </pre></div>
 </div>
 </div>
@@ -4023,7 +4025,7 @@ Test Error: 0.468
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">caravan</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">memory_usage</span><span class="o">=</span><span class="s1">&#39;deep&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>caravan.info(memory_usage=&#39;deep&#39;)
 </pre></div>
 </div>
 </div>
@@ -4127,7 +4129,7 @@ memory usage: 3.8 MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>caravan.Purchase.value_counts()
 </pre></div>
 </div>
 </div>
@@ -4141,7 +4143,7 @@ Name: Purchase, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[</span><span class="s1">&#39;Yes&#39;</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">caravan</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>caravan.Purchase.value_counts()[&#39;Yes&#39;]/len(caravan)
 </pre></div>
 </div>
 </div>
@@ -4153,29 +4155,29 @@ Name: Purchase, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from scipy.stats import zscore
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">caravan</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">85</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">zscore</span><span class="p">)</span> <span class="c1"># standardize for KNN</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">caravan</span><span class="o">.</span><span class="n">Purchase</span>
+X = caravan.iloc[:, 0:85].apply(zscore) # standardize for KNN
+y = caravan.Purchase
 
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1001</span><span class="p">:]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1001</span><span class="p">:]</span>
+X_train = X.loc[1001:]
+y_train = y.loc[1001:]
 
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+X_test = X.loc[:1000]
+y_test = y.loc[:1000]
 
-<span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">knn_fit</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+knn_model = KNeighborsClassifier(n_neighbors=1)
+knn_fit = knn_model.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf_m = pd.DataFrame(confusion_matrix(y_test, knn_fit.predict(X_test)))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -4224,8 +4226,8 @@ Name: Purchase, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test Error: </span><span class="si">{</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Accuracy: {accuracy_score(y_test, knn_fit.predict(X_test)):.3f}&#39;)
+print(f&#39;Test Error: {1 - accuracy_score(y_test, knn_fit.predict(X_test)):.3f}&#39;)
 </pre></div>
 </div>
 </div>
@@ -4238,9 +4240,9 @@ Test Error: 0.118
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import precision_score
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
+print(&#39;Precision for \&#39;Yes\&#39;: &#39; + str(precision_score(y_test, knn_fit.predict(X_test), pos_label=&#39;Yes&#39;)))
 </pre></div>
 </div>
 </div>
@@ -4252,10 +4254,10 @@ Test Error: 0.118
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">knn_fit3</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>knn_model = KNeighborsClassifier(n_neighbors=3)
+knn_fit3 = knn_model.fit(X_train, y_train)
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
+print(&#39;Precision for \&#39;Yes\&#39;: &#39; + str(precision_score(y_test, knn_fit3.predict(X_test), pos_label=&#39;Yes&#39;)))
 </pre></div>
 </div>
 </div>
@@ -4267,10 +4269,10 @@ Test Error: 0.118
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">knn_fit5</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>knn_model = KNeighborsClassifier(n_neighbors=5)
+knn_fit5 = knn_model.fit(X_train, y_train)
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knn_fit5</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
+print(&#39;Precision for \&#39;Yes\&#39;: &#39; + str(precision_score(y_test, knn_fit5.predict(X_test), pos_label=&#39;Yes&#39;)))
 </pre></div>
 </div>
 </div>
@@ -4282,20 +4284,20 @@ Test Error: 0.118
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glm_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e9</span><span class="p">)</span> <span class="c1"># Large C for no regularization</span>
-<span class="n">glm_fit</span> <span class="o">=</span> <span class="n">glm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>glm_model = LogisticRegression(fit_intercept=True, C=1e9) # Large C for no regularization
+glm_fit = glm_model.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glm_pred_50</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;Yes&#39;</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>glm_pred_50 = pd.Series(glm_fit.predict_proba(X_test)[:, 1] &gt; 0.5).map({False: &#39;No&#39;, True: &#39;Yes&#39;})
 
-<span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_50</span><span class="p">))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+conf_m = pd.DataFrame(confusion_matrix(y_test, glm_pred_50))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -4344,7 +4346,7 @@ Test Error: 0.118
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_50</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Precision for \&#39;Yes\&#39;: &#39; + str(precision_score(y_test, glm_pred_50, pos_label=&#39;Yes&#39;)))
 </pre></div>
 </div>
 </div>
@@ -4356,12 +4358,12 @@ Test Error: 0.118
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glm_pred_25</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">glm_fit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.25</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;Yes&#39;</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>glm_pred_25 = pd.Series(glm_fit.predict_proba(X_test)[:, 1] &gt; 0.25).map({False: &#39;No&#39;, True: &#39;Yes&#39;})
 
-<span class="n">conf_m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_25</span><span class="p">))</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Predicted&#39;</span>
-<span class="n">conf_m</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-<span class="n">conf_m</span>
+conf_m = pd.DataFrame(confusion_matrix(y_test, glm_pred_25))
+conf_m.columns.name = &#39;Predicted&#39;
+conf_m.index.name = &#39;True&#39;
+conf_m
 </pre></div>
 </div>
 </div>
@@ -4410,7 +4412,7 @@ Test Error: 0.118
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision for </span><span class="se">\&#39;</span><span class="s1">Yes</span><span class="se">\&#39;</span><span class="s1">: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">glm_pred_25</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Precision for \&#39;Yes\&#39;: &#39; + str(precision_score(y_test, glm_pred_25, pos_label=&#39;Yes&#39;)))
 </pre></div>
 </div>
 </div>

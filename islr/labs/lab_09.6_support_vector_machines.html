@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1480,19 +1480,25 @@ title="Print to PDF"
 <h1>Lab 9.6: Support Vector Machines<a class="headerlink" href="#lab-9-6-support-vector-machines" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports and setup</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># imports and setup
+%matplotlib inline
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+import numpy as np
+import pandas as pd
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+import matplotlib.pyplot as plt
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
+pd.set_option(&#39;display.max_rows&#39;, 12)
+pd.set_option(&#39;display.max_columns&#39;, 12)
+pd.set_option(&#39;display.float_format&#39;, &#39;{:20,.5f}&#39;.format) # get rid of scientific notation
 
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5039/1851444650.py:13: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as &#39;seaborn-v0_8-&lt;style&gt;&#39;. Alternatively, directly use the seaborn API instead.
+  plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
@@ -1501,13 +1507,13 @@ title="Print to PDF"
 <h2>9.6.1 Support Vector Classifier<a class="headerlink" href="#support-vector-classifier" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.random.seed(42)
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)))</span>
-<span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mi">1</span>
+X = np.random.normal(size=40).reshape(20,2)
+y = np.concatenate((np.ones(10, dtype=np.int64)*-1, np.ones(10, dtype=np.int64)))
+X[y == 1, :] += 1
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span> <span class="c1"># why color 3-y?</span>
+plt.scatter(X[:, 0], X[:, 1], c=(3-y), cmap=&#39;Spectral&#39;); # why color 3-y?
 </pre></div>
 </div>
 </div>
@@ -1517,10 +1523,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.svm import SVC
 
-<span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+svc = SVC(kernel=&#39;linear&#39;, C=10)
+svc.fit(X, y)
 </pre></div>
 </div>
 </div>
@@ -1529,10 +1535,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using the excellent mlxtend package</span>
-<span class="kn">from</span> <span class="nn">mlxtend.plotting</span> <span class="kn">import</span> <span class="n">plot_decision_regions</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># using the excellent mlxtend package
+from mlxtend.plotting import plot_decision_regions
 
-<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">svc</span><span class="p">,</span> <span class="n">X_highlight</span><span class="o">=</span><span class="n">svc</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">);</span>
+plot_decision_regions(X, y, clf=svc, X_highlight=svc.support_vectors_);
 </pre></div>
 </div>
 </div>
@@ -1542,8 +1548,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># support vectors</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">svc</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">svc</span><span class="o">.</span><span class="n">support_</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># support vectors
+pd.DataFrame(svc.support_vectors_, index=svc.support_)
 </pre></div>
 </div>
 </div>
@@ -1637,10 +1643,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc2</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">svc2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svc2 = SVC(kernel=&#39;linear&#39;, C=0.1)
+svc2.fit(X, y)
 
-<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">svc2</span><span class="p">,</span> <span class="n">X_highlight</span><span class="o">=</span><span class="n">svc2</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">);</span>
+plot_decision_regions(X, y, clf=svc2, X_highlight=svc2.support_vectors_);
 </pre></div>
 </div>
 </div>
@@ -1650,8 +1656,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># support vectors</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">svc2</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">svc2</span><span class="o">.</span><span class="n">support_</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># support vectors
+pd.DataFrame(svc2.support_vectors_, index=svc2.support_)
 </pre></div>
 </div>
 </div>
@@ -1741,17 +1747,17 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.model_selection import GridSearchCV
 
-<span class="n">svc3</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
-<span class="n">c_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
-<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">c_space</span><span class="p">}</span>
+svc3 = SVC(kernel=&#39;linear&#39;)
+c_space = np.array([0.001, 0.01, 0.1, 1, 5, 10, 100])
+param_grid = {&#39;C&#39;: c_space}
 
-<span class="n">tune</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">svc3</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">tune</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+tune = GridSearchCV(svc3, param_grid, cv=10)
+tune.fit(X, y)
 
-<span class="n">tune</span><span class="o">.</span><span class="n">cv_results_</span>
-<span class="n">tune</span><span class="o">.</span><span class="n">best_params_</span>
+tune.cv_results_
+tune.best_params_
 </pre></div>
 </div>
 </div>
@@ -1763,21 +1769,21 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">resample</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.utils import resample
 
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">))),</span>
-                  <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                  <span class="n">n_samples</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X_test</span><span class="p">[</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mi">1</span>
+np.random.seed(42)
+X_test = np.random.normal(size=40).reshape(20,2)
+y_test = resample(np.concatenate((np.ones(10, dtype=np.int64)*-1, np.ones(10, dtype=np.int64))),
+                  replace=True,
+                  n_samples=20, random_state=42)
+X_test[y_test == 1, :] += 1
 
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+y_pred = tune.predict(X_test)
 
-<span class="kn">from</span> <span class="nn">mlxtend.evaluate</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
-<span class="kn">from</span> <span class="nn">mlxtend.plotting</span> <span class="kn">import</span> <span class="n">plot_confusion_matrix</span>
+from mlxtend.evaluate import confusion_matrix
+from mlxtend.plotting import plot_confusion_matrix
 
-<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">));</span>
+plot_confusion_matrix(confusion_matrix(y_test, y_pred));
 </pre></div>
 </div>
 </div>
@@ -1787,12 +1793,12 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc4</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-<span class="n">svc4</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svc4 = SVC(kernel=&#39;linear&#39;, C=0.01)
+svc4.fit(X_test, y_test)
 
-<span class="n">y_pred4</span> <span class="o">=</span> <span class="n">svc4</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+y_pred4 = svc4.predict(X_test)
 
-<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred4</span><span class="p">));</span>
+plot_confusion_matrix(confusion_matrix(y_test, y_pred4));
 </pre></div>
 </div>
 </div>
@@ -1802,14 +1808,14 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mf">1.1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X[y == 1, :] += 1.1
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.scatter(X[:, 0], X[:, 1], c=(y+5)/2, cmap=&#39;Spectral&#39;);
 </pre></div>
 </div>
 </div>
@@ -1819,10 +1825,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc5</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e5</span><span class="p">)</span>
-<span class="n">svc5</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svc5 = SVC(kernel=&#39;linear&#39;, C=1e5)
+svc5.fit(X, y)
 
-<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">svc5</span><span class="p">,</span> <span class="n">X_highlight</span><span class="o">=</span><span class="n">svc5</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">);</span>
+plot_decision_regions(X, y, clf=svc5, X_highlight=svc5.support_vectors_);
 </pre></div>
 </div>
 </div>
@@ -1832,10 +1838,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc6</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">svc6</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svc6 = SVC(kernel=&#39;linear&#39;, C=1)
+svc6.fit(X, y)
 
-<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">svc6</span><span class="p">,</span> <span class="n">X_highlight</span><span class="o">=</span><span class="n">svc6</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">);</span>
+plot_decision_regions(X, y, clf=svc6, X_highlight=svc6.support_vectors_);
 </pre></div>
 </div>
 </div>
@@ -1848,14 +1854,14 @@ title="Print to PDF"
 <h2>9.6.2 Support Vector Machine<a class="headerlink" href="#support-vector-machine" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.random.seed(42)
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mi">2</span>
-<span class="n">X</span><span class="p">[</span><span class="mi">100</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-=</span> <span class="mi">2</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)))</span>
+X = np.random.normal(size=400).reshape(200, 2)
+X[0:100, :] += 2
+X[100:150, :] -= 2
+y = np.concatenate((np.full(150, 1, dtype=np.int64), np.full(50, 2, dtype=np.int64)))
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=&#39;Spectral&#39;);
 </pre></div>
 </div>
 </div>
@@ -1865,19 +1871,19 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.model_selection import train_test_split
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.5, test_size=0.5, random_state=42)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svm</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">svm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svm = SVC(kernel=&#39;rbf&#39;, gamma=1, C=1)
+svm.fit(X_train, y_train)
 
-<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">svm</span><span class="p">,</span> <span class="n">X_highlight</span><span class="o">=</span><span class="n">svm</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">);</span>
+plot_decision_regions(X_train, y_train, clf=svm, X_highlight=svm.support_vectors_);
 </pre></div>
 </div>
 </div>
@@ -1887,10 +1893,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svm2</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1e5</span><span class="p">)</span>
-<span class="n">svm2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svm2 = SVC(kernel=&#39;rbf&#39;, gamma=1, C=1e5)
+svm2.fit(X_train, y_train)
 
-<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">svm2</span><span class="p">,</span> <span class="n">X_highlight</span><span class="o">=</span><span class="n">svm2</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">);</span>
+plot_decision_regions(X_train, y_train, clf=svm2, X_highlight=svm2.support_vectors_);
 </pre></div>
 </div>
 </div>
@@ -1900,16 +1906,16 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svm3</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">)</span>
-<span class="n">c_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
-<span class="n">g_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">c_space</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="n">g_space</span><span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svm3 = SVC(kernel=&#39;rbf&#39;)
+c_space = np.array([0.1, 1, 10, 100, 1000])
+g_space = np.array([0.5, 1, 2, 3, 4])
+param_grid = {&#39;C&#39;: c_space, &#39;gamma&#39;: g_space}
 
-<span class="n">tune</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">svm3</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">tune</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+tune = GridSearchCV(svm3, param_grid, cv=10)
+tune.fit(X_train, y_train)
 
-<span class="n">tune</span><span class="o">.</span><span class="n">cv_results_</span>
-<span class="n">tune</span><span class="o">.</span><span class="n">best_params_</span>
+tune.cv_results_
+tune.best_params_
 </pre></div>
 </div>
 </div>
@@ -1921,12 +1927,12 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_pred = tune.predict(X_test)
 
-<span class="c1"># let&#39;s try another pretty confusion matrix implementation:</span>
-<span class="kn">import</span> <span class="nn">scikitplot</span> <span class="k">as</span> <span class="nn">skplt</span>
+# let&#39;s try another pretty confusion matrix implementation:
+import scikitplot as skplt
 
-<span class="n">skplt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">);</span>
+skplt.metrics.plot_confusion_matrix(y_test, y_pred);
 </pre></div>
 </div>
 </div>
@@ -1939,26 +1945,26 @@ title="Print to PDF"
 <h2>9.6.3 ROC Curves<a class="headerlink" href="#roc-curves" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svm4</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">svm4</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svm4 = SVC(kernel=&#39;rbf&#39;, gamma=2, C=1, probability=True)
+svm4.fit(X_train, y_train)
 
-<span class="n">svm5</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">svm5</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+svm5 = SVC(kernel=&#39;rbf&#39;, gamma=50, C=1, probability=True)
+svm5.fit(X_train, y_train)
 
-<span class="n">y_probas4</span> <span class="o">=</span> <span class="n">svm4</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="n">y_probas5</span> <span class="o">=</span> <span class="n">svm5</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+y_probas4 = svm4.predict_proba(X_train)
+y_probas5 = svm5.predict_proba(X_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>f, axes = plt.subplots(1, 2, sharex=False, sharey=False)
+f.set_figheight(6)
+f.set_figwidth(15)
 
-<span class="n">skplt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_probas4</span><span class="p">,</span> <span class="n">curves</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;each_class&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">skplt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_probas5</span><span class="p">,</span> <span class="n">curves</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;each_class&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+skplt.metrics.plot_roc_curve(y_train, y_probas4, curves=[&#39;each_class&#39;], ax=axes[0])
+skplt.metrics.plot_roc_curve(y_train, y_probas5, curves=[&#39;each_class&#39;], ax=axes[1]);
 </pre></div>
 </div>
 </div>
@@ -1974,15 +1980,15 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_probas_test_4</span> <span class="o">=</span> <span class="n">svm4</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">y_probas_test_5</span> <span class="o">=</span> <span class="n">svm5</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_probas_test_4 = svm4.predict_proba(X_test)
+y_probas_test_5 = svm5.predict_proba(X_test)
 
-<span class="n">f</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+f, axes = plt.subplots(1, 2, sharex=False, sharey=False)
+f.set_figheight(6)
+f.set_figwidth(15)
 
-<span class="n">skplt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_probas_test_4</span><span class="p">,</span> <span class="n">curves</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;each_class&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">skplt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_probas_test_5</span><span class="p">,</span> <span class="n">curves</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;each_class&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+skplt.metrics.plot_roc_curve(y_test, y_probas_test_4, curves=[&#39;each_class&#39;], ax=axes[0])
+skplt.metrics.plot_roc_curve(y_test, y_probas_test_5, curves=[&#39;each_class&#39;], ax=axes[1]);
 </pre></div>
 </div>
 </div>
@@ -2001,19 +2007,19 @@ title="Print to PDF"
 <h2>9.6.4 SVM with Multiple Classes<a class="headerlink" href="#svm-with-multiple-classes" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.random.seed(42)
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mi">2</span>
-<span class="n">X</span><span class="p">[</span><span class="mi">100</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-=</span> <span class="mi">2</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)))</span>
+X = np.random.normal(size=400).reshape(200, 2)
+X[0:100, :] += 2
+X[100:150, :] -= 2
+y = np.concatenate((np.full(150, 1, dtype=np.int64), np.full(50, 2, dtype=np.int64)))
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)))</span>
+X = np.concatenate((X, np.random.normal(size=100).reshape(50, 2)))
+y = np.concatenate((y, np.full(50, 0, dtype=np.int64)))
 
-<span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span>
+X[y == 0, 1] += 2
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">);</span>
+plt.scatter(X[:, 0], X[:, 1], c=y+1, cmap=&#39;Spectral&#39;);
 </pre></div>
 </div>
 </div>
@@ -2023,10 +2029,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svm_m</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">svm_m</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>svm_m = SVC(kernel=&#39;rbf&#39;, C=10, gamma=1)
+svm_m.fit(X, y)
 
-<span class="n">plot_decision_regions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">svm_m</span><span class="p">,</span> <span class="n">X_highlight</span><span class="o">=</span><span class="n">svm_m</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">);</span>
+plot_decision_regions(X, y, clf=svm_m, X_highlight=svm_m.support_vectors_);
 </pre></div>
 </div>
 </div>
@@ -2039,17 +2045,17 @@ title="Print to PDF"
 <h2>9.6.5 Application to Gene Expression Data<a class="headerlink" href="#application-to-gene-expression-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">khan_X_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Khan_xtrain.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">khan_y_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Khan_ytrain.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">khan_X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Khan_xtest.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">khan_y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Khan_ytest.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>khan_X_train = pd.read_csv(&#39;../datasets/Khan_xtrain.csv&#39;, index_col=0)
+khan_y_train = pd.read_csv(&#39;../datasets/Khan_ytrain.csv&#39;, index_col=0)
+khan_X_test = pd.read_csv(&#39;../datasets/Khan_xtest.csv&#39;, index_col=0)
+khan_y_test = pd.read_csv(&#39;../datasets/Khan_ytest.csv&#39;, index_col=0)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">khan_X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">khan_X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">khan_y_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">khan_y_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>khan_X_train.shape, khan_X_test.shape, len(khan_y_train), len(khan_y_test)
 </pre></div>
 </div>
 </div>
@@ -2061,7 +2067,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">khan_y_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>khan_y_train.iloc[:, 0].value_counts(sort=False)
 </pre></div>
 </div>
 </div>
@@ -2077,7 +2083,7 @@ Name: x, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">khan_y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>khan_y_test.iloc[:, 0].value_counts(sort=False)
 </pre></div>
 </div>
 </div>
@@ -2093,14 +2099,14 @@ Name: x, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">out</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">khan_X_train</span><span class="p">,</span> <span class="n">khan_y_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out = SVC(kernel=&#39;linear&#39;, C=10)
+out.fit(khan_X_train, khan_y_train.iloc[:, 0])
 
-<span class="n">khan_y_train_pred</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">khan_X_train</span><span class="p">)</span>
+khan_y_train_pred = out.predict(khan_X_train)
 
-<span class="n">skplt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">khan_y_train</span><span class="p">,</span> 
-                                    <span class="n">khan_y_train_pred</span><span class="p">,</span> 
-                                    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Training Confusion Matrix&#39;</span><span class="p">);</span>
+skplt.metrics.plot_confusion_matrix(khan_y_train, 
+                                    khan_y_train_pred, 
+                                    title=&#39;Training Confusion Matrix&#39;);
 </pre></div>
 </div>
 </div>
@@ -2110,11 +2116,11 @@ Name: x, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">khan_y_test_pred</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">khan_X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>khan_y_test_pred = out.predict(khan_X_test)
 
-<span class="n">skplt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">khan_y_test</span><span class="p">,</span> 
-                                    <span class="n">khan_y_test_pred</span><span class="p">,</span> 
-                                    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test Confusion Matrix&#39;</span><span class="p">);</span>
+skplt.metrics.plot_confusion_matrix(khan_y_test, 
+                                    khan_y_test_pred, 
+                                    title=&#39;Test Confusion Matrix&#39;);
 </pre></div>
 </div>
 </div>

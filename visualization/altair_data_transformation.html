@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1561,8 +1561,8 @@ title="Print to PDF"
 <p><em>This notebook is part of the <a class="reference external" href="https://github.com/uwdata/visualization-curriculum">data visualization curriculum</a>.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import altair as alt
 </pre></div>
 </div>
 </div>
@@ -1573,8 +1573,8 @@ title="Print to PDF"
 <p>Let’s retrieve the URL for the JSON data file from the vega_datasets package, and then read the data into a Pandas data frame so that we can inspect its contents.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_url</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json&#39;</span>
-<span class="n">movies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>movies_url = &#39;https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json&#39;
+movies = pd.read_json(movies_url)
 </pre></div>
 </div>
 </div>
@@ -1582,7 +1582,7 @@ title="Print to PDF"
 <p>How many rows (records) and columns (fields) are in the movies dataset?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>movies.shape
 </pre></div>
 </div>
 </div>
@@ -1595,7 +1595,7 @@ title="Print to PDF"
 <p>Now let’s peek at the first 5 rows of the table to get a sense of the fields and data types…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>movies.head(5)
 </pre></div>
 </div>
 </div>
@@ -1743,22 +1743,22 @@ title="Print to PDF"
 <p>Let’s first look at unaggregated data: a scatter plot showing movie ratings from Rotten Tomatoes versus ratings from IMDB users. We’ll provide data to Altair by passing the movies data URL to the <code class="docutils literal notranslate"><span class="pre">Chart</span></code> method. (We could also pass the Pandas data frame directly to get the same result.) We can then encode the Rotten Tomatoes and IMDB ratings fields using the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> channels:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;),
+    alt.Y(&#39;IMDB_Rating:Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-f9b56c95099846a088507e6def26dc0e"></div>
+<div id="altair-viz-4652892432d14b5caff3d526b428fd2f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f9b56c95099846a088507e6def26dc0e") {
-      outputDiv = document.getElementById("altair-viz-f9b56c95099846a088507e6def26dc0e");
+    if (outputDiv.id !== "altair-viz-4652892432d14b5caff3d526b428fd2f") {
+      outputDiv = document.getElementById("altair-viz-4652892432d14b5caff3d526b428fd2f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1810,22 +1810,22 @@ title="Print to PDF"
 <p>To summarize this data, we can <em>bin</em> a data field to group numeric values into discrete groups. Here we bin along the x-axis by adding <code class="docutils literal notranslate"><span class="pre">bin=True</span></code> to the <code class="docutils literal notranslate"><span class="pre">x</span></code> encoding channel. The result is a set of ten bins of equal step size, each corresponding to a span of ten ratings points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;, bin=True),
+    alt.Y(&#39;IMDB_Rating:Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-ac96bc3ff3a948a2a4ed5d26a09f270b"></div>
+<div id="altair-viz-7e02c87c168d48f085b9611a708d698a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ac96bc3ff3a948a2a4ed5d26a09f270b") {
-      outputDiv = document.getElementById("altair-viz-ac96bc3ff3a948a2a4ed5d26a09f270b");
+    if (outputDiv.id !== "altair-viz-7e02c87c168d48f085b9611a708d698a") {
+      outputDiv = document.getElementById("altair-viz-7e02c87c168d48f085b9611a708d698a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1877,22 +1877,22 @@ title="Print to PDF"
 <p>Setting <code class="docutils literal notranslate"><span class="pre">bin=True</span></code> uses default binning settings, but we can exercise more control if desired. Let’s instead set the maximum bin count (<code class="docutils literal notranslate"><span class="pre">maxbins</span></code>) to 20, which has the effect of doubling the number of bins. Now each bin corresponds to a span of five ratings points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Y(&#39;IMDB_Rating:Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-29f9a1225e4445769e997c4750f70727"></div>
+<div id="altair-viz-a3313e6e4a7d40829af1ea0579436950"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-29f9a1225e4445769e997c4750f70727") {
-      outputDiv = document.getElementById("altair-viz-29f9a1225e4445769e997c4750f70727");
+    if (outputDiv.id !== "altair-viz-a3313e6e4a7d40829af1ea0579436950") {
+      outputDiv = document.getElementById("altair-viz-a3313e6e4a7d40829af1ea0579436950");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -1945,22 +1945,22 @@ title="Print to PDF"
 <p>As the <code class="docutils literal notranslate"><span class="pre">count</span></code> aggregate counts the number of total records in each bin regardless of the field values, we do not need to include a field name in the <code class="docutils literal notranslate"><span class="pre">y</span></code> encoding.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Y(&#39;count()&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-88338342e09d4057a321469fca03ab33"></div>
+<div id="altair-viz-605c848238e84d23bc46888c22676629"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-88338342e09d4057a321469fca03ab33") {
-      outputDiv = document.getElementById("altair-viz-88338342e09d4057a321469fca03ab33");
+    if (outputDiv.id !== "altair-viz-605c848238e84d23bc46888c22676629") {
+      outputDiv = document.getElementById("altair-viz-605c848238e84d23bc46888c22676629");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2012,22 +2012,22 @@ title="Print to PDF"
 <p>To arrive at a standard histogram, let’s change the mark type from <code class="docutils literal notranslate"><span class="pre">circle</span></code> to <code class="docutils literal notranslate"><span class="pre">bar</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Y(&#39;count()&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8828b54edfa84f48a1c802fbf2a0fa69"></div>
+<div id="altair-viz-bf1a3389410f4b2f9eddc8f3943fbacb"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8828b54edfa84f48a1c802fbf2a0fa69") {
-      outputDiv = document.getElementById("altair-viz-8828b54edfa84f48a1c802fbf2a0fa69");
+    if (outputDiv.id !== "altair-viz-bf1a3389410f4b2f9eddc8f3943fbacb") {
+      outputDiv = document.getElementById("altair-viz-bf1a3389410f4b2f9eddc8f3943fbacb");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2080,22 +2080,22 @@ title="Print to PDF"
 <p>Similarly, we can create a histogram for IMDB ratings by changing the field in the <code class="docutils literal notranslate"><span class="pre">x</span></code> encoding channel:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().encode(
+    alt.X(&#39;IMDB_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Y(&#39;count()&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-885e96765fe64012adc62a855c9ddb59"></div>
+<div id="altair-viz-fad60c2c508c4cb28891708e01894724"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-885e96765fe64012adc62a855c9ddb59") {
-      outputDiv = document.getElementById("altair-viz-885e96765fe64012adc62a855c9ddb59");
+    if (outputDiv.id !== "altair-viz-fad60c2c508c4cb28891708e01894724") {
+      outputDiv = document.getElementById("altair-viz-fad60c2c508c4cb28891708e01894724");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2148,22 +2148,22 @@ title="Print to PDF"
 <p>Now let’s turn back to our scatter plot of Rotten Tomatoes and IMDB ratings. Here’s what happens if we bin <em>both</em> axes of our original plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Y(&#39;IMDB_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-fc8b6e5336a64880aeedd66569c007d9"></div>
+<div id="altair-viz-b73dc4bee42b4d8aa21a9f3cc6542902"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-fc8b6e5336a64880aeedd66569c007d9") {
-      outputDiv = document.getElementById("altair-viz-fc8b6e5336a64880aeedd66569c007d9");
+    if (outputDiv.id !== "altair-viz-b73dc4bee42b4d8aa21a9f3cc6542902") {
+      outputDiv = document.getElementById("altair-viz-b73dc4bee42b4d8aa21a9f3cc6542902");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2216,23 +2216,23 @@ title="Print to PDF"
 <p>To form a two-dimensional histogram we can add a <code class="docutils literal notranslate"><span class="pre">count</span></code> aggregate as before. As both the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> encoding channels are already taken, we must use a different encoding channel to convey the counts. Here is the result of using circular area by adding a <em>size</em> encoding channel.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Size</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Y(&#39;IMDB_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Size(&#39;count()&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-e5a3c3231f334a7aa0d7d5be2f05ea14"></div>
+<div id="altair-viz-6117af6a4f884541bd7adf4e829f7e7f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e5a3c3231f334a7aa0d7d5be2f05ea14") {
-      outputDiv = document.getElementById("altair-viz-e5a3c3231f334a7aa0d7d5be2f05ea14");
+    if (outputDiv.id !== "altair-viz-6117af6a4f884541bd7adf4e829f7e7f") {
+      outputDiv = document.getElementById("altair-viz-6117af6a4f884541bd7adf4e829f7e7f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2284,23 +2284,23 @@ title="Print to PDF"
 <p>Alternatively, we can encode counts using the <code class="docutils literal notranslate"><span class="pre">color</span></code> channel and change the mark type to <code class="docutils literal notranslate"><span class="pre">bar</span></code>. The result is a two-dimensional histogram in the form of a <a class="reference external" href="https://en.wikipedia.org/wiki/Heat_map"><em>heatmap</em></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">,</span> <span class="nb">bin</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">BinParams</span><span class="p">(</span><span class="n">maxbins</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Y(&#39;IMDB_Rating:Q&#39;, bin=alt.BinParams(maxbins=20)),
+    alt.Color(&#39;count()&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-2f61644205014997a032ee50cfd05035"></div>
+<div id="altair-viz-362d29f7dc9843efb4da29ee921c61e4"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-2f61644205014997a032ee50cfd05035") {
-      outputDiv = document.getElementById("altair-viz-2f61644205014997a032ee50cfd05035");
+    if (outputDiv.id !== "altair-viz-362d29f7dc9843efb4da29ee921c61e4") {
+      outputDiv = document.getElementById("altair-viz-362d29f7dc9843efb4da29ee921c61e4");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2361,22 +2361,22 @@ title="Print to PDF"
 <p>Let’s visualize genre along the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis and plot <code class="docutils literal notranslate"><span class="pre">average</span></code> Rotten Tomatoes ratings along the <code class="docutils literal notranslate"><span class="pre">x</span></code> axis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;average(Rotten_Tomatoes_Rating):Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Major_Genre:N&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().encode(
+    alt.X(&#39;average(Rotten_Tomatoes_Rating):Q&#39;),
+    alt.Y(&#39;Major_Genre:N&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-b39a14bb05b346f2ad9c1a6ed52d2f1c"></div>
+<div id="altair-viz-7c315fcf196e42a3a38360bfc838501f"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b39a14bb05b346f2ad9c1a6ed52d2f1c") {
-      outputDiv = document.getElementById("altair-viz-b39a14bb05b346f2ad9c1a6ed52d2f1c");
+    if (outputDiv.id !== "altair-viz-7c315fcf196e42a3a38360bfc838501f") {
+      outputDiv = document.getElementById("altair-viz-7c315fcf196e42a3a38360bfc838501f");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2429,24 +2429,24 @@ title="Print to PDF"
 <p>For a tidier picture, let’s sort the genres in descending order of average rating. To do so, we will add a <code class="docutils literal notranslate"><span class="pre">sort</span></code> parameter to the <code class="docutils literal notranslate"><span class="pre">y</span></code> encoding channel, stating that we wish to sort by the <em>average</em> (<code class="docutils literal notranslate"><span class="pre">op</span></code>, the aggregate operation) Rotten Tomatoes rating (the <code class="docutils literal notranslate"><span class="pre">field</span></code>) in descending <code class="docutils literal notranslate"><span class="pre">order</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;average(Rotten_Tomatoes_Rating):Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Major_Genre:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span>
-        <span class="n">op</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().encode(
+    alt.X(&#39;average(Rotten_Tomatoes_Rating):Q&#39;),
+    alt.Y(&#39;Major_Genre:N&#39;, sort=alt.EncodingSortField(
+        op=&#39;average&#39;, field=&#39;Rotten_Tomatoes_Rating&#39;, order=&#39;descending&#39;)
+    )
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-1de9dbf841074a05bdf74bdb3a187bbe"></div>
+<div id="altair-viz-1c403b38e22d43baa3da06d5ebb1a86b"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1de9dbf841074a05bdf74bdb3a187bbe") {
-      outputDiv = document.getElementById("altair-viz-1de9dbf841074a05bdf74bdb3a187bbe");
+    if (outputDiv.id !== "altair-viz-1c403b38e22d43baa3da06d5ebb1a86b") {
+      outputDiv = document.getElementById("altair-viz-1c403b38e22d43baa3da06d5ebb1a86b");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2504,24 +2504,24 @@ title="Print to PDF"
 <p>Let’s update our plot to use a <code class="docutils literal notranslate"><span class="pre">median</span></code> aggregate and sort by those values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;median(Rotten_Tomatoes_Rating):Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Major_Genre:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span>
-        <span class="n">op</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().encode(
+    alt.X(&#39;median(Rotten_Tomatoes_Rating):Q&#39;),
+    alt.Y(&#39;Major_Genre:N&#39;, sort=alt.EncodingSortField(
+        op=&#39;median&#39;, field=&#39;Rotten_Tomatoes_Rating&#39;, order=&#39;descending&#39;)
+    )
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-5d35c7cdb87f4b4585c1cdd0645e663e"></div>
+<div id="altair-viz-d8357829fd364ab58d4cf1daff763176"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5d35c7cdb87f4b4585c1cdd0645e663e") {
-      outputDiv = document.getElementById("altair-viz-5d35c7cdb87f4b4585c1cdd0645e663e");
+    if (outputDiv.id !== "altair-viz-d8357829fd364ab58d4cf1daff763176") {
+      outputDiv = document.getElementById("altair-viz-d8357829fd364ab58d4cf1daff763176");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2576,25 +2576,25 @@ title="Print to PDF"
 <p>To visualize ranges, we can use the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">x2</span></code> encoding channels to indicate the starting and ending points. We use the aggregate functions <code class="docutils literal notranslate"><span class="pre">q1</span></code> (the lower quartile boundary) and <code class="docutils literal notranslate"><span class="pre">q3</span></code> (the upper quartile boundary) to provide the inter-quartile range. (In case you are wondering, <em>q2</em> would be the median.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;q1(Rotten_Tomatoes_Rating):Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X2</span><span class="p">(</span><span class="s1">&#39;q3(Rotten_Tomatoes_Rating):Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Major_Genre:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span>
-        <span class="n">op</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;Rotten_Tomatoes_Rating&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().encode(
+    alt.X(&#39;q1(Rotten_Tomatoes_Rating):Q&#39;),
+    alt.X2(&#39;q3(Rotten_Tomatoes_Rating):Q&#39;),
+    alt.Y(&#39;Major_Genre:N&#39;, sort=alt.EncodingSortField(
+        op=&#39;median&#39;, field=&#39;Rotten_Tomatoes_Rating&#39;, order=&#39;descending&#39;)
+    )
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-edfb01a2c52e4a1ebfb0de8afbd889f1"></div>
+<div id="altair-viz-42639bba55884fb282d034e42b5f74b0"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-edfb01a2c52e4a1ebfb0de8afbd889f1") {
-      outputDiv = document.getElementById("altair-viz-edfb01a2c52e4a1ebfb0de8afbd889f1");
+    if (outputDiv.id !== "altair-viz-42639bba55884fb282d034e42b5f74b0") {
+      outputDiv = document.getElementById("altair-viz-42639bba55884fb282d034e42b5f74b0");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2651,22 +2651,22 @@ title="Print to PDF"
 <p>To make this chart, use the <code class="docutils literal notranslate"><span class="pre">timeUnit</span></code> transform to map release dates to the <code class="docutils literal notranslate"><span class="pre">month</span></code> of the year. The result is similar to binning, but using meaningful time intervals. Other valid time units include <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">quarter</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code> (numeric day in month), <code class="docutils literal notranslate"><span class="pre">day</span></code> (day of the week), and <code class="docutils literal notranslate"><span class="pre">hours</span></code>, as well as compound units such as <code class="docutils literal notranslate"><span class="pre">yearmonth</span></code> or <code class="docutils literal notranslate"><span class="pre">hoursminutes</span></code>. See the Altair documentation for a <a class="reference external" href="https://altair-viz.github.io/user_guide/transform.html#timeunit-transform">complete list of time units</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(Release_Date):T&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;median(US_Gross):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_area().encode(
+    alt.X(&#39;month(Release_Date):T&#39;),
+    alt.Y(&#39;median(US_Gross):Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-845f73f886894b73b62a3c4183d41382"></div>
+<div id="altair-viz-30ca738ad92b485b92586e65460552bc"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-845f73f886894b73b62a3c4183d41382") {
-      outputDiv = document.getElementById("altair-viz-845f73f886894b73b62a3c4183d41382");
+    if (outputDiv.id !== "altair-viz-30ca738ad92b485b92586e65460552bc") {
+      outputDiv = document.getElementById("altair-viz-30ca738ad92b485b92586e65460552bc");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2718,22 +2718,22 @@ title="Print to PDF"
 <p><em>Looking at the resulting plot, median movie sales in the U.S. appear to spike around the summer blockbuster season and the end of year holiday period. Of course, people around the world (not just the U.S.) go out to the movies. Does a similar pattern arise for worldwide gross revenue?</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(Release_Date):T&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;median(Worldwide_Gross):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_area().encode(
+    alt.X(&#39;month(Release_Date):T&#39;),
+    alt.Y(&#39;median(Worldwide_Gross):Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-583fe061b0d64e5cad7d75cb9300f4de"></div>
+<div id="altair-viz-39305df581564a5c84bddb0a87a05729"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-583fe061b0d64e5cad7d75cb9300f4de") {
-      outputDiv = document.getElementById("altair-viz-583fe061b0d64e5cad7d75cb9300f4de");
+    if (outputDiv.id !== "altair-viz-39305df581564a5c84bddb0a87a05729") {
+      outputDiv = document.getElementById("altair-viz-39305df581564a5c84bddb0a87a05729");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2795,24 +2795,28 @@ title="Print to PDF"
 <p>With the <code class="docutils literal notranslate"><span class="pre">calculate</span></code> transform we can derive new fields. Here we want to subtract U.S. gross from worldwide gross. The <code class="docutils literal notranslate"><span class="pre">calculate</span></code> transform takes a <a class="reference external" href="https://vega.github.io/vega/docs/expressions/">Vega expression string</a> to define a formula over a single record. Vega expressions use JavaScript syntax. The <code class="docutils literal notranslate"><span class="pre">datum.</span></code> prefix accesses a field value on the input record.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies</span><span class="p">)</span><span class="o">.</span><span class="n">mark_area</span><span class="p">()</span><span class="o">.</span><span class="n">transform_calculate</span><span class="p">(</span>
-    <span class="n">NonUS_Gross</span><span class="o">=</span><span class="s1">&#39;datum.Worldwide_Gross - datum.US_Gross&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;month(Release_Date):T&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;median(NonUS_Gross):Q&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies).mark_area().transform_calculate(
+    NonUS_Gross=&#39;datum.Worldwide_Gross - datum.US_Gross&#39;
+).encode(
+    alt.X(&#39;month(Release_Date):T&#39;),
+    alt.Y(&#39;median(NonUS_Gross):Q&#39;)
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/altair/utils/core.py:317: FutureWarning: iteritems is deprecated and will be removed in a future version. Use .items instead.
+  for col_name, dtype in df.dtypes.iteritems():
+</pre></div>
+</div>
 <div class="output text_html">
-<div id="altair-viz-614ca83a67ca46a9a1187a712b6c7faa"></div>
+<div id="altair-viz-762a20d2058e4a5a9b775b458156845a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-614ca83a67ca46a9a1187a712b6c7faa") {
-      outputDiv = document.getElementById("altair-viz-614ca83a67ca46a9a1187a712b6c7faa");
+    if (outputDiv.id !== "altair-viz-762a20d2058e4a5a9b775b458156845a") {
+      outputDiv = document.getElementById("altair-viz-762a20d2058e4a5a9b775b458156845a");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2869,22 +2873,22 @@ title="Print to PDF"
 <p>Below we add a filter to limit our initial scatter plot of IMDB vs. Rotten Tomatoes ratings to only films in the major genre of “Romantic Comedy”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="s1">&#39;datum.Major_Genre == &quot;Romantic Comedy&quot;&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;),
+    alt.Y(&#39;IMDB_Rating:Q&#39;)
+).transform_filter(&#39;datum.Major_Genre == &quot;Romantic Comedy&quot;&#39;)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-276033fbe44641a29b2b11832e395268"></div>
+<div id="altair-viz-b3d8c8d3b3f547c4883dabcb90916335"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-276033fbe44641a29b2b11832e395268") {
-      outputDiv = document.getElementById("altair-viz-276033fbe44641a29b2b11832e395268");
+    if (outputDiv.id !== "altair-viz-b3d8c8d3b3f547c4883dabcb90916335") {
+      outputDiv = document.getElementById("altair-viz-b3d8c8d3b3f547c4883dabcb90916335");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -2937,22 +2941,22 @@ title="Print to PDF"
 <p>Now let’s filter to look at films released before 1970.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Rotten_Tomatoes_Rating:Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;IMDB_Rating:Q&#39;</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="s1">&#39;year(datum.Release_Date) &lt; 1970&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_circle().encode(
+    alt.X(&#39;Rotten_Tomatoes_Rating:Q&#39;),
+    alt.Y(&#39;IMDB_Rating:Q&#39;)
+).transform_filter(&#39;year(datum.Release_Date) &lt; 1970&#39;)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-dc5f65e259bf43e9bb7dfd7f59119d5a"></div>
+<div id="altair-viz-bd2981cdba304fb2a6998bc263a65fdc"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-dc5f65e259bf43e9bb7dfd7f59119d5a") {
-      outputDiv = document.getElementById("altair-viz-dc5f65e259bf43e9bb7dfd7f59119d5a");
+    if (outputDiv.id !== "altair-viz-bd2981cdba304fb2a6998bc263a65fdc") {
+      outputDiv = document.getElementById("altair-viz-bd2981cdba304fb2a6998bc263a65fdc");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3010,28 +3014,28 @@ title="Print to PDF"
 <p>To order the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis we must include a required aggregate operation in our sorting instructions. Here we use the <code class="docutils literal notranslate"><span class="pre">max</span></code> operator, which works fine because there is only one output record per genre. We could similarly use the <code class="docutils literal notranslate"><span class="pre">min</span></code> operator and end up with the same plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">transform_aggregate</span><span class="p">(</span>
-    <span class="n">groupby</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Major_Genre&#39;</span><span class="p">],</span>
-    <span class="n">Average_Rating</span><span class="o">=</span><span class="s1">&#39;average(Rotten_Tomatoes_Rating)&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Average_Rating:Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Major_Genre:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span>
-        <span class="n">op</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;Average_Rating&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span>
-      <span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().transform_aggregate(
+    groupby=[&#39;Major_Genre&#39;],
+    Average_Rating=&#39;average(Rotten_Tomatoes_Rating)&#39;
+).encode(
+    alt.X(&#39;Average_Rating:Q&#39;),
+    alt.Y(&#39;Major_Genre:N&#39;, sort=alt.EncodingSortField(
+        op=&#39;max&#39;, field=&#39;Average_Rating&#39;, order=&#39;descending&#39;
+      )
+    )
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-84aabd6b1a5c4928bad7b0b2e118b7b4"></div>
+<div id="altair-viz-a4ad523e8d254fbc9f2ed5c7e67b1ab2"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-84aabd6b1a5c4928bad7b0b2e118b7b4") {
-      outputDiv = document.getElementById("altair-viz-84aabd6b1a5c4928bad7b0b2e118b7b4");
+    if (outputDiv.id !== "altair-viz-a4ad523e8d254fbc9f2ed5c7e67b1ab2") {
+      outputDiv = document.getElementById("altair-viz-a4ad523e8d254fbc9f2ed5c7e67b1ab2");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3089,34 +3093,34 @@ title="Print to PDF"
 <p>The <code class="docutils literal notranslate"><span class="pre">window</span></code> transform allows us to determine the top directors by calculating their rank order. Within our <code class="docutils literal notranslate"><span class="pre">window</span></code> transform definition we can <code class="docutils literal notranslate"><span class="pre">sort</span></code> by gross and use the <code class="docutils literal notranslate"><span class="pre">rank</span></code> operation to calculate rank scores according to that sort order. We can then add a subsequent <code class="docutils literal notranslate"><span class="pre">filter</span></code> transform to limit the data to only records with a rank value less than or equal to 20.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-    <span class="s1">&#39;datum.Director != null&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_aggregate</span><span class="p">(</span>
-    <span class="n">Gross</span><span class="o">=</span><span class="s1">&#39;sum(Worldwide_Gross)&#39;</span><span class="p">,</span>
-    <span class="n">groupby</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Director&#39;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_window</span><span class="p">(</span>
-    <span class="n">Rank</span><span class="o">=</span><span class="s1">&#39;rank()&#39;</span><span class="p">,</span>
-    <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">SortField</span><span class="p">(</span><span class="s1">&#39;Gross&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span><span class="p">)]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-    <span class="s1">&#39;datum.Rank &lt; 20&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Gross:Q&#39;</span><span class="p">),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Director:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">EncodingSortField</span><span class="p">(</span>
-        <span class="n">op</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;Gross&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;descending&#39;</span>
-    <span class="p">))</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_bar().transform_filter(
+    &#39;datum.Director != null&#39;
+).transform_aggregate(
+    Gross=&#39;sum(Worldwide_Gross)&#39;,
+    groupby=[&#39;Director&#39;]
+).transform_window(
+    Rank=&#39;rank()&#39;,
+    sort=[alt.SortField(&#39;Gross&#39;, order=&#39;descending&#39;)]
+).transform_filter(
+    &#39;datum.Rank &lt; 20&#39;
+).encode(
+    alt.X(&#39;Gross:Q&#39;),
+    alt.Y(&#39;Director:N&#39;, sort=alt.EncodingSortField(
+        op=&#39;max&#39;, field=&#39;Gross&#39;, order=&#39;descending&#39;
+    ))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-8fc639b9bdb44a2eb1ec7fd6bfef7d58"></div>
+<div id="altair-viz-2ca1d4e5812c4d4b85986c004862468d"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8fc639b9bdb44a2eb1ec7fd6bfef7d58") {
-      outputDiv = document.getElementById("altair-viz-8fc639b9bdb44a2eb1ec7fd6bfef7d58");
+    if (outputDiv.id !== "altair-viz-2ca1d4e5812c4d4b85986c004862468d") {
+      outputDiv = document.getElementById("altair-viz-2ca1d4e5812c4d4b85986c004862468d");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -3170,30 +3174,30 @@ title="Print to PDF"
 <p>As a concrete example, let’s look at the cumulative distribution of films by running time (in minutes). Only a subset of records actually include running time information, so we first <code class="docutils literal notranslate"><span class="pre">filter</span></code> down to the subset of films for which we have running times. Next, we apply an <code class="docutils literal notranslate"><span class="pre">aggregate</span></code> to count the number of films per duration (implicitly using “bins” of 1 minute each). We then use a <code class="docutils literal notranslate"><span class="pre">window</span></code> transform to compute a running total of counts across bins, sorted by increasing running time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">movies_url</span><span class="p">)</span><span class="o">.</span><span class="n">mark_line</span><span class="p">(</span><span class="n">interpolate</span><span class="o">=</span><span class="s1">&#39;step-before&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
-    <span class="s1">&#39;datum.Running_Time_min != null&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_aggregate</span><span class="p">(</span>
-    <span class="n">groupby</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Running_Time_min&#39;</span><span class="p">],</span>
-    <span class="n">Count</span><span class="o">=</span><span class="s1">&#39;count()&#39;</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">transform_window</span><span class="p">(</span>
-    <span class="n">Cumulative_Sum</span><span class="o">=</span><span class="s1">&#39;sum(Count)&#39;</span><span class="p">,</span>
-    <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">SortField</span><span class="p">(</span><span class="s1">&#39;Running_Time_min&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;ascending&#39;</span><span class="p">)]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;Running_Time_min:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Duration (min)&#39;</span><span class="p">)),</span>
-    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;Cumulative_Sum:Q&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Axis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Cumulative Count of Films&#39;</span><span class="p">))</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>alt.Chart(movies_url).mark_line(interpolate=&#39;step-before&#39;).transform_filter(
+    &#39;datum.Running_Time_min != null&#39;
+).transform_aggregate(
+    groupby=[&#39;Running_Time_min&#39;],
+    Count=&#39;count()&#39;,
+).transform_window(
+    Cumulative_Sum=&#39;sum(Count)&#39;,
+    sort=[alt.SortField(&#39;Running_Time_min&#39;, order=&#39;ascending&#39;)]
+).encode(
+    alt.X(&#39;Running_Time_min:Q&#39;, axis=alt.Axis(title=&#39;Duration (min)&#39;)),
+    alt.Y(&#39;Cumulative_Sum:Q&#39;, axis=alt.Axis(title=&#39;Cumulative Count of Films&#39;))
+)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="altair-viz-55ebccf5e181422d9db059dc607ebcd5"></div>
+<div id="altair-viz-653b20a10e0b4dfb8af5d1125ff6fa88"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-55ebccf5e181422d9db059dc607ebcd5") {
-      outputDiv = document.getElementById("altair-viz-55ebccf5e181422d9db059dc607ebcd5");
+    if (outputDiv.id !== "altair-viz-653b20a10e0b4dfb8af5d1125ff6fa88") {
+      outputDiv = document.getElementById("altair-viz-653b20a10e0b4dfb8af5d1125ff6fa88");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",

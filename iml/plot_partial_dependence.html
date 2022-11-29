@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1502,7 +1502,7 @@ title="Print to PDF"
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
 </pre></div>
 </div>
 </div>
@@ -1540,17 +1540,17 @@ with the ‘recursion’ method does not account for the initial estimator
 (here the average target, by default).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_california_housing</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
 
-<span class="n">cal_housing</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cal_housing</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cal_housing</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">cal_housing</span><span class="o">.</span><span class="n">target</span>
+cal_housing = fetch_california_housing()
+X = pd.DataFrame(cal_housing.data, columns=cal_housing.feature_names)
+y = cal_housing.target
 
-<span class="n">y</span> <span class="o">-=</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+y -= y.mean()
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
 </pre></div>
 </div>
 </div>
@@ -1569,22 +1569,22 @@ expectation (ICE).</p>
 single-variable partial dependence plots.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">QuantileTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPRegressor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from time import time
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import QuantileTransformer
+from sklearn.neural_network import MLPRegressor
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training MLPRegressor...&quot;</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">est</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
-    <span class="n">QuantileTransformer</span><span class="p">(),</span>
-    <span class="n">MLPRegressor</span><span class="p">(</span>
-        <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">learning_rate_init</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">),</span>
-<span class="p">)</span>
-<span class="n">est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;done in </span><span class="si">{</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test R2 score: </span><span class="si">{</span><span class="n">est</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+print(&quot;Training MLPRegressor...&quot;)
+tic = time()
+est = make_pipeline(
+    QuantileTransformer(),
+    MLPRegressor(
+        hidden_layer_sizes=(50, 50), learning_rate_init=0.01, early_stopping=True
+    ),
+)
+est.fit(X_train, y_train)
+print(f&quot;done in {time() - tic:.3f}s&quot;)
+print(f&quot;Test R2 score: {est.score(X_test, y_test):.2f}&quot;)
 </pre></div>
 </div>
 </div>
@@ -1592,8 +1592,8 @@ single-variable partial dependence plots.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training MLPRegressor...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 7.608s
-Test R2 score: 0.82
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 2.901s
+Test R2 score: 0.81
 </pre></div>
 </div>
 </div>
@@ -1615,31 +1615,31 @@ a poor model.</p>
 (PDP). We limit to only 50 ICE curves to not overcrowd the plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">partial_dependence</span>
-<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">PartialDependenceDisplay</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+from sklearn.inspection import partial_dependence
+from sklearn.inspection import PartialDependenceDisplay
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing partial dependence plots...&quot;</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MedInc&quot;</span><span class="p">,</span> <span class="s2">&quot;AveOccup&quot;</span><span class="p">,</span> <span class="s2">&quot;HouseAge&quot;</span><span class="p">,</span> <span class="s2">&quot;AveRooms&quot;</span><span class="p">]</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span>
-    <span class="n">est</span><span class="p">,</span>
-    <span class="n">X_train</span><span class="p">,</span>
-    <span class="n">features</span><span class="p">,</span>
-    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
-    <span class="n">subsample</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">grid_resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">ice_lines_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;linewidth&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
-    <span class="n">pd_line_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;linestyle&quot;</span><span class="p">:</span> <span class="s2">&quot;--&quot;</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;done in </span><span class="si">{</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
-    <span class="s2">&quot;Partial dependence of house value on non-location features</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="s2">&quot;for the California housing dataset, with MLPRegressor&quot;</span>
-<span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+print(&quot;Computing partial dependence plots...&quot;)
+tic = time()
+features = [&quot;MedInc&quot;, &quot;AveOccup&quot;, &quot;HouseAge&quot;, &quot;AveRooms&quot;]
+display = PartialDependenceDisplay.from_estimator(
+    est,
+    X_train,
+    features,
+    kind=&quot;both&quot;,
+    subsample=50,
+    n_jobs=3,
+    grid_resolution=20,
+    random_state=0,
+    ice_lines_kw={&quot;color&quot;: &quot;tab:blue&quot;, &quot;alpha&quot;: 0.2, &quot;linewidth&quot;: 0.5},
+    pd_line_kw={&quot;color&quot;: &quot;tab:orange&quot;, &quot;linestyle&quot;: &quot;--&quot;},
+)
+print(f&quot;done in {time() - tic:.3f}s&quot;)
+display.figure_.suptitle(
+    &quot;Partial dependence of house value on non-location features\n&quot;
+    &quot;for the California housing dataset, with MLPRegressor&quot;
+)
+display.figure_.subplots_adjust(hspace=0.3)
 </pre></div>
 </div>
 </div>
@@ -1647,7 +1647,7 @@ a poor model.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing partial dependence plots...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 4.470s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 3.413s
 </pre></div>
 </div>
 <img alt="../_images/plot_partial_dependence_7_2.png" src="../_images/plot_partial_dependence_7_2.png" />
@@ -1660,14 +1660,14 @@ a poor model.</p>
 compute the partial dependence on the same features.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">HistGradientBoostingRegressor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.ensemble import HistGradientBoostingRegressor
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training HistGradientBoostingRegressor...&quot;</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">est</span> <span class="o">=</span> <span class="n">HistGradientBoostingRegressor</span><span class="p">()</span>
-<span class="n">est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;done in </span><span class="si">{</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test R2 score: </span><span class="si">{</span><span class="n">est</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+print(&quot;Training HistGradientBoostingRegressor...&quot;)
+tic = time()
+est = HistGradientBoostingRegressor()
+est.fit(X_train, y_train)
+print(f&quot;done in {time() - tic:.3f}s&quot;)
+print(f&quot;Test R2 score: {est.score(X_test, y_test):.2f}&quot;)
 </pre></div>
 </div>
 </div>
@@ -1675,7 +1675,7 @@ compute the partial dependence on the same features.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training HistGradientBoostingRegressor...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 0.609s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 0.392s
 Test R2 score: 0.85
 </pre></div>
 </div>
@@ -1692,26 +1692,26 @@ to work well while this is not often the case for neural networks).</p>
 (PDP). We limit to only 50 ICE curves to not overcrowd the plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing partial dependence plots...&quot;</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span>
-    <span class="n">est</span><span class="p">,</span>
-    <span class="n">X_train</span><span class="p">,</span>
-    <span class="n">features</span><span class="p">,</span>
-    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
-    <span class="n">subsample</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">grid_resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">ice_lines_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;linewidth&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
-    <span class="n">pd_line_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;linestyle&quot;</span><span class="p">:</span> <span class="s2">&quot;--&quot;</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;done in </span><span class="si">{</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
-    <span class="s2">&quot;Partial dependence of house value on non-location features</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="s2">&quot;for the California housing dataset, with Gradient Boosting&quot;</span>
-<span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot;Computing partial dependence plots...&quot;)
+tic = time()
+display = PartialDependenceDisplay.from_estimator(
+    est,
+    X_train,
+    features,
+    kind=&quot;both&quot;,
+    subsample=50,
+    n_jobs=3,
+    grid_resolution=20,
+    random_state=0,
+    ice_lines_kw={&quot;color&quot;: &quot;tab:blue&quot;, &quot;alpha&quot;: 0.2, &quot;linewidth&quot;: 0.5},
+    pd_line_kw={&quot;color&quot;: &quot;tab:orange&quot;, &quot;linestyle&quot;: &quot;--&quot;},
+)
+print(f&quot;done in {time() - tic:.3f}s&quot;)
+display.figure_.suptitle(
+    &quot;Partial dependence of house value on non-location features\n&quot;
+    &quot;for the California housing dataset, with Gradient Boosting&quot;
+)
+display.figure_.subplots_adjust(wspace=0.4, hspace=0.3)
 </pre></div>
 </div>
 </div>
@@ -1719,7 +1719,7 @@ to work well while this is not often the case for neural networks).</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing partial dependence plots...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 11.378s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 8.629s
 </pre></div>
 </div>
 <img alt="../_images/plot_partial_dependence_11_2.png" src="../_images/plot_partial_dependence_11_2.png" />
@@ -1760,25 +1760,25 @@ the tree-based algorithm, when only PDPs are requested, they can be computed
 on an efficient way using the <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AveOccup&quot;</span><span class="p">,</span> <span class="s2">&quot;HouseAge&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;AveOccup&quot;</span><span class="p">,</span> <span class="s2">&quot;HouseAge&quot;</span><span class="p">)]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing partial dependence plots...&quot;</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span>
-    <span class="n">est</span><span class="p">,</span>
-    <span class="n">X_train</span><span class="p">,</span>
-    <span class="n">features</span><span class="p">,</span>
-    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;average&quot;</span><span class="p">,</span>
-    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">grid_resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;done in </span><span class="si">{</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
-    <span class="s2">&quot;Partial dependence of house value on non-location features</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="s2">&quot;for the California housing dataset, with Gradient Boosting&quot;</span>
-<span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>features = [&quot;AveOccup&quot;, &quot;HouseAge&quot;, (&quot;AveOccup&quot;, &quot;HouseAge&quot;)]
+print(&quot;Computing partial dependence plots...&quot;)
+tic = time()
+_, ax = plt.subplots(ncols=3, figsize=(9, 4))
+display = PartialDependenceDisplay.from_estimator(
+    est,
+    X_train,
+    features,
+    kind=&quot;average&quot;,
+    n_jobs=3,
+    grid_resolution=20,
+    ax=ax,
+)
+print(f&quot;done in {time() - tic:.3f}s&quot;)
+display.figure_.suptitle(
+    &quot;Partial dependence of house value on non-location features\n&quot;
+    &quot;for the California housing dataset, with Gradient Boosting&quot;
+)
+display.figure_.subplots_adjust(wspace=0.4, hspace=0.3)
 </pre></div>
 </div>
 </div>
@@ -1786,7 +1786,7 @@ on an efficient way using the <code class="docutils literal notranslate"><span c
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing partial dependence plots...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 0.321s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done in 0.239s
 </pre></div>
 </div>
 <img alt="../_images/plot_partial_dependence_14_2.png" src="../_images/plot_partial_dependence_14_2.png" />
@@ -1805,32 +1805,32 @@ age.</p>
 this time in 3 dimensions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+fig = plt.figure()
 
-<span class="n">features</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;AveOccup&quot;</span><span class="p">,</span> <span class="s2">&quot;HouseAge&quot;</span><span class="p">)</span>
-<span class="n">pdp</span> <span class="o">=</span> <span class="n">partial_dependence</span><span class="p">(</span>
-    <span class="n">est</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;average&quot;</span><span class="p">,</span> <span class="n">grid_resolution</span><span class="o">=</span><span class="mi">20</span>
-<span class="p">)</span>
-<span class="n">XX</span><span class="p">,</span> <span class="n">YY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">pdp</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pdp</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">Z</span> <span class="o">=</span> <span class="n">pdp</span><span class="o">.</span><span class="n">average</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">Axes3D</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">auto_add_to_figure</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span> <span class="n">YY</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">BuPu</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;Partial dependence&quot;</span><span class="p">)</span>
-<span class="c1"># pretty init view</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">122</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">surf</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
-    <span class="s2">&quot;Partial dependence of house value on median</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="s2">&quot;age and average occupancy, with Gradient Boosting&quot;</span>
-<span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+features = (&quot;AveOccup&quot;, &quot;HouseAge&quot;)
+pdp = partial_dependence(
+    est, X_train, features=features, kind=&quot;average&quot;, grid_resolution=20
+)
+XX, YY = np.meshgrid(pdp[&quot;values&quot;][0], pdp[&quot;values&quot;][1])
+Z = pdp.average[0].T
+ax = Axes3D(fig, auto_add_to_figure=False)
+fig.add_axes(ax)
+surf = ax.plot_surface(XX, YY, Z, rstride=1, cstride=1, cmap=plt.cm.BuPu, edgecolor=&quot;k&quot;)
+ax.set_xlabel(features[0])
+ax.set_ylabel(features[1])
+ax.set_zlabel(&quot;Partial dependence&quot;)
+# pretty init view
+ax.view_init(elev=22, azim=122)
+plt.colorbar(surf)
+plt.suptitle(
+    &quot;Partial dependence of house value on median\n&quot;
+    &quot;age and average occupancy, with Gradient Boosting&quot;
+)
+plt.subplots_adjust(top=0.9)
+plt.show()
 </pre></div>
 </div>
 </div>

@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1448,7 +1448,7 @@ title="Print to PDF"
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
 </pre></div>
 </div>
 </div>
@@ -1468,18 +1468,18 @@ picking a threshold, and keeping a single feature from each cluster.</p>
     `sphx_glr_auto_examples_inspection_plot_permutation_importance.py`</p></div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from collections import defaultdict
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">spearmanr</span>
-<span class="kn">from</span> <span class="nn">scipy.cluster</span> <span class="kn">import</span> <span class="n">hierarchy</span>
-<span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">squareform</span>
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import spearmanr
+from scipy.cluster import hierarchy
+from scipy.spatial.distance import squareform
 
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">permutation_importance</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.inspection import permutation_importance
+from sklearn.model_selection import train_test_split
 </pre></div>
 </div>
 </div>
@@ -1490,13 +1490,13 @@ picking a threshold, and keeping a single feature from each cluster.</p>
 its accuracy on a test set:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data = load_breast_cancer()
+X, y = data.data, data.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 
-<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on test data: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(X_train, y_train)
+print(&quot;Accuracy on test data: {:.2f}&quot;.format(clf.score(X_test, y_test)))
 </pre></div>
 </div>
 </div>
@@ -1515,23 +1515,23 @@ is calculated on the training set to show how much the model relies on each
 feature during training.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">perm_sorted_idx</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">importances_mean</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result = permutation_importance(clf, X_train, y_train, n_repeats=10,
+                                random_state=42)
+perm_sorted_idx = result.importances_mean.argsort()
 
-<span class="n">tree_importance_sorted_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
-<span class="n">tree_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span>
+tree_importance_sorted_idx = np.argsort(clf.feature_importances_)
+tree_indices = np.arange(0, len(clf.feature_importances_)) + 0.5
 
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">tree_indices</span><span class="p">,</span>
-         <span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">[</span><span class="n">tree_importance_sorted_idx</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">tree_indices</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">tree_importance_sorted_idx</span><span class="p">])</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)))</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">importances</span><span class="p">[</span><span class="n">perm_sorted_idx</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">labels</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">perm_sorted_idx</span><span class="p">])</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 8))
+ax1.barh(tree_indices,
+         clf.feature_importances_[tree_importance_sorted_idx], height=0.7)
+ax1.set_yticks(tree_indices)
+ax1.set_yticklabels(data.feature_names[tree_importance_sorted_idx])
+ax1.set_ylim((0, len(clf.feature_importances_)))
+ax2.boxplot(result.importances[perm_sorted_idx].T, vert=False,
+            labels=data.feature_names[perm_sorted_idx])
+fig.tight_layout()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1550,29 +1550,29 @@ picking a threshold, and keeping a single feature from each cluster. First,
 we plot a heatmap of the correlated features:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">corr</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">correlation</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 8))
+corr = spearmanr(X).correlation
 
-<span class="c1"># Ensure the correlation matrix is symmetric</span>
-<span class="n">corr</span> <span class="o">=</span> <span class="p">(</span><span class="n">corr</span> <span class="o">+</span> <span class="n">corr</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-<span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+# Ensure the correlation matrix is symmetric
+corr = (corr + corr.T)/2
+np.fill_diagonal(corr, 1)
 
-<span class="c1"># We convert the correlation matrix to a distance matrix before performing</span>
-<span class="c1"># hierarchical clustering using Ward&#39;s linkage.</span>
-<span class="n">distance_matrix</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span>
-<span class="n">dist_linkage</span> <span class="o">=</span> <span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">squareform</span><span class="p">(</span><span class="n">distance_matrix</span><span class="p">))</span>
-<span class="n">dendro</span> <span class="o">=</span> <span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span>
-    <span class="n">dist_linkage</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">feature_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">leaf_rotation</span><span class="o">=</span><span class="mi">90</span>
-<span class="p">)</span>
-<span class="n">dendro_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dendro</span><span class="p">[</span><span class="s1">&#39;ivl&#39;</span><span class="p">]))</span>
+# We convert the correlation matrix to a distance matrix before performing
+# hierarchical clustering using Ward&#39;s linkage.
+distance_matrix = 1 - np.abs(corr)
+dist_linkage = hierarchy.ward(squareform(distance_matrix))
+dendro = hierarchy.dendrogram(
+    dist_linkage, labels=data.feature_names.tolist(), ax=ax1, leaf_rotation=90
+)
+dendro_idx = np.arange(0, len(dendro[&#39;ivl&#39;]))
 
-<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">corr</span><span class="p">[</span><span class="n">dendro</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">],</span> <span class="p">:][:,</span> <span class="n">dendro</span><span class="p">[</span><span class="s1">&#39;leaves&#39;</span><span class="p">]])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">dendro_idx</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">dendro_idx</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">dendro</span><span class="p">[</span><span class="s1">&#39;ivl&#39;</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">dendro</span><span class="p">[</span><span class="s1">&#39;ivl&#39;</span><span class="p">])</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+ax2.imshow(corr[dendro[&#39;leaves&#39;], :][:, dendro[&#39;leaves&#39;]])
+ax2.set_xticks(dendro_idx)
+ax2.set_yticks(dendro_idx)
+ax2.set_xticklabels(dendro[&#39;ivl&#39;], rotation=&#39;vertical&#39;)
+ax2.set_yticklabels(dendro[&#39;ivl&#39;])
+fig.tight_layout()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1587,19 +1587,19 @@ The test accuracy of the new random forest did not change much compared to
 the random forest trained on the complete dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_ids</span> <span class="o">=</span> <span class="n">hierarchy</span><span class="o">.</span><span class="n">fcluster</span><span class="p">(</span><span class="n">dist_linkage</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
-<span class="n">cluster_id_to_feature_ids</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">cluster_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cluster_ids</span><span class="p">):</span>
-    <span class="n">cluster_id_to_feature_ids</span><span class="p">[</span><span class="n">cluster_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
-<span class="n">selected_features</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cluster_id_to_feature_ids</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cluster_ids = hierarchy.fcluster(dist_linkage, 1, criterion=&#39;distance&#39;)
+cluster_id_to_feature_ids = defaultdict(list)
+for idx, cluster_id in enumerate(cluster_ids):
+    cluster_id_to_feature_ids[cluster_id].append(idx)
+selected_features = [v[0] for v in cluster_id_to_feature_ids.values()]
 
-<span class="n">X_train_sel</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:,</span> <span class="n">selected_features</span><span class="p">]</span>
-<span class="n">X_test_sel</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[:,</span> <span class="n">selected_features</span><span class="p">]</span>
+X_train_sel = X_train[:, selected_features]
+X_test_sel = X_test[:, selected_features]
 
-<span class="n">clf_sel</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">clf_sel</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_sel</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on test data with features removed: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-      <span class="n">clf_sel</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_sel</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+clf_sel = RandomForestClassifier(n_estimators=100, random_state=42)
+clf_sel.fit(X_train_sel, y_train)
+print(&quot;Accuracy on test data with features removed: {:.2f}&quot;.format(
+      clf_sel.score(X_test_sel, y_test)))
 </pre></div>
 </div>
 </div>

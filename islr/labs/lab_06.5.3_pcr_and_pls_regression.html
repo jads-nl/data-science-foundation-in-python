@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1451,37 +1451,43 @@ title="Print to PDF"
 <p>Adapted from <a class="reference external" href="http://www.science.smith.edu/~jcrouser/SDS293/labs/">http://www.science.smith.edu/~jcrouser/SDS293/labs/</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports and setup</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># imports and setup
+%matplotlib inline
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+import numpy as np
+import pandas as pd
 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:20,.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="c1"># get rid of scientific notation</span>
+pd.set_option(&#39;display.max_rows&#39;, 20)
+pd.set_option(&#39;display.max_columns&#39;, 12)
+pd.set_option(&#39;display.float_format&#39;, &#39;{:20,.5f}&#39;.format) # get rid of scientific notation
 
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_4070/659918127.py:14: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as &#39;seaborn-v0_8-&lt;style&gt;&#39;. Alternatively, directly use the seaborn API instead.
+  plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hitters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Hitters.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">hitters</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Player&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hitters = pd.read_csv(&#39;../datasets/Hitters.csv&#39;, index_col=0).dropna()
+hitters.index.name = &#39;Player&#39;
 
-<span class="n">hitters</span> <span class="o">=</span> <span class="n">hitters</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">18</span><span class="p">]]</span> <span class="c1"># push salary at the end</span>
+hitters = hitters.iloc[:, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,18]] # push salary at the end
 
-<span class="n">hitters</span><span class="p">[</span><span class="s1">&#39;League&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">hitters</span><span class="p">[</span><span class="s1">&#39;League&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">hitters</span><span class="p">[</span><span class="s1">&#39;Division&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">hitters</span><span class="p">[</span><span class="s1">&#39;Division&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">hitters</span><span class="p">[</span><span class="s1">&#39;NewLeague&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">hitters</span><span class="p">[</span><span class="s1">&#39;NewLeague&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+hitters[&#39;League&#39;] = pd.get_dummies(hitters[&#39;League&#39;]).iloc[:, 1]
+hitters[&#39;Division&#39;] = pd.get_dummies(hitters[&#39;Division&#39;]).iloc[:, 1]
+hitters[&#39;NewLeague&#39;] = pd.get_dummies(hitters[&#39;NewLeague&#39;]).iloc[:, 1]
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">hitters</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">19</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">hitters</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">19</span><span class="p">]</span>
+X = hitters.iloc[:, 0:19]
+y = hitters.iloc[:, 19]
 </pre></div>
 </div>
 </div>
@@ -1490,20 +1496,20 @@ title="Print to PDF"
 <h2>Principal Components Regression<a class="headerlink" href="#principal-components-regression" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span> 
-<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.cross_decomposition</span> <span class="kn">import</span> <span class="n">PLSRegression</span><span class="p">,</span> <span class="n">PLSSVD</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.preprocessing import scale 
+from sklearn.cross_validation import KFold, cross_val_score
+from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LinearRegression
+from sklearn.cross_decomposition import PLSRegression, PLSSVD
+from sklearn.metrics import mean_squared_error
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span> 
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -1516,16 +1522,16 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
-<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pca = PCA()
+X_pca = pca.fit_transform(scale(X))
+pd.DataFrame(X_pca)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
@@ -1537,35 +1543,35 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 10-fold CV, with shuffle</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
-<span class="n">k10</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 10-fold CV, with shuffle
+n = len(X_pca)
+k10 = KFold(n, n_folds=10, shuffle=True, random_state=42)
 
-<span class="n">lin_reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">rmse</span> <span class="o">=</span> <span class="p">[]</span>
+lin_reg = LinearRegression()
+rmse = []
 
-<span class="c1"># MSE with only the intercept</span>
-<span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">lin_reg</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k10</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">rmse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
+# MSE with only the intercept
+score = -1 * cross_val_score(lin_reg, np.ones((n,1)), y, cv=k10, scoring=&#39;neg_mean_squared_error&#39;).mean()
+rmse.append(np.sqrt(score))
 
-<span class="c1"># MSE for the 19 principle components</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
-    <span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">lin_reg</span><span class="p">,</span> <span class="n">X_pca</span><span class="p">[:,:</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k10</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">rmse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
+# MSE for the 19 principle components
+for i in np.arange(1, 20):
+    score = -1 * cross_val_score(lin_reg, X_pca[:,:i], y, cv=k10, scoring=&#39;neg_mean_squared_error&#39;).mean()
+    rmse.append(np.sqrt(score))
     
-<span class="n">min_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rmse</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+min_rmse = np.array(rmse).argmin()
     
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="s1">&#39;-D&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="n">markevery</span><span class="o">=</span><span class="p">[</span><span class="n">min_rmse</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;# of PC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;RMSE&#39;</span><span class="p">);</span>
+plt.plot(rmse, &#39;-D&#39;)
+plt.plot(rmse, markevery=[min_rmse], marker=&#39;X&#39;, lw=0, color=&#39;red&#39;)
+plt.xlabel(&#39;# of PC&#39;)
+plt.ylabel(&#39;RMSE&#39;);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># 10-fold CV, with shuffle</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">k10</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -1578,14 +1584,14 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.cumsum(pca.explained_variance_ratio_*100)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;pca&#39; is not defined
@@ -1595,42 +1601,42 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># validation set</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># validation set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=1)
 
-<span class="n">pca2</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
-<span class="n">X_train_pca2</span> <span class="o">=</span> <span class="n">pca2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>
+pca2 = PCA()
+X_train_pca2 = pca2.fit_transform(scale(X_train))
 
-<span class="c1"># 10-fold CV, with shuffle</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train_pca2</span><span class="p">)</span>
-<span class="n">k102</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+# 10-fold CV, with shuffle
+n = len(X_train_pca2)
+k102 = KFold(n, n_folds=10, shuffle=True, random_state=1)
 
-<span class="n">lin_reg2</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">rmse2</span> <span class="o">=</span> <span class="p">[]</span>
+lin_reg2 = LinearRegression()
+rmse2 = []
 
-<span class="c1"># MSE with only the intercept</span>
-<span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">lin_reg2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k102</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">rmse2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
+# MSE with only the intercept
+score = -1 * cross_val_score(lin_reg2, np.ones((n,1)), y_train, cv=k102, scoring=&#39;neg_mean_squared_error&#39;).mean()
+rmse2.append(np.sqrt(score))
 
-<span class="c1"># MSE for the 19 principle components</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
-    <span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">lin_reg2</span><span class="p">,</span> <span class="n">X_train_pca2</span><span class="p">[:,:</span><span class="n">i</span><span class="p">],</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k102</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">rmse2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
+# MSE for the 19 principle components
+for i in np.arange(1, 20):
+    score = -1 * cross_val_score(lin_reg2, X_train_pca2[:,:i], y_train, cv=k102, scoring=&#39;neg_mean_squared_error&#39;).mean()
+    rmse2.append(np.sqrt(score))
 
-<span class="n">min_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rmse2</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+min_rmse = np.array(rmse2).argmin()
     
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rmse2</span><span class="p">,</span> <span class="s1">&#39;-D&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rmse2</span><span class="p">,</span> <span class="n">markevery</span><span class="o">=</span><span class="p">[</span><span class="n">min_rmse</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;# of PC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;RMSE&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">]);</span>
+plt.plot(rmse2, &#39;-D&#39;)
+plt.plot(rmse2, markevery=[min_rmse], marker=&#39;X&#39;, lw=0, color=&#39;red&#39;)
+plt.xlabel(&#39;# of PC&#39;)
+plt.ylabel(&#39;RMSE&#39;)
+plt.xticks([0, 5, 10, 15, 20]);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># validation set</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">pca2</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
@@ -1643,21 +1649,21 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_pca3</span> <span class="o">=</span> <span class="n">pca2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">))[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">]</span>
-<span class="n">X_test_pca3</span> <span class="o">=</span> <span class="n">pca2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_test</span><span class="p">))[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X_train_pca3 = pca2.fit_transform(scale(X_train))[:, :7]
+X_test_pca3 = pca2.fit_transform(scale(X_test))[:, :7]
 
-<span class="n">lin_reg3</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">lin_reg3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_pca3</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">pred_pca3</span> <span class="o">=</span> <span class="n">lin_reg3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_pca3</span><span class="p">)</span>
+lin_reg3 = LinearRegression()
+lin_reg3.fit(X_train_pca3, y_train)
+pred_pca3 = lin_reg3.predict(X_test_pca3)
 
-<span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_pca3</span><span class="p">)</span>
+mean_squared_error(y_test, pred_pca3)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">X_train_pca3</span> <span class="o">=</span> <span class="n">pca2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">))[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">]</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">X_test_pca3</span> <span class="o">=</span> <span class="n">pca2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_test</span><span class="p">))[:,</span> <span class="p">:</span><span class="mi">7</span><span class="p">]</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">lin_reg3</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
@@ -1672,31 +1678,31 @@ title="Print to PDF"
 <h2>Partial Least Squares<a class="headerlink" href="#partial-least-squares" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 10-fold CV, with shuffle</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="n">k10</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 10-fold CV, with shuffle
+n = len(X_train)
+k10 = KFold(n, n_folds=10, shuffle=True, random_state=1)
 
-<span class="n">rmse</span> <span class="o">=</span> <span class="p">[]</span>
+rmse = []
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
-    <span class="n">pls</span> <span class="o">=</span> <span class="n">PLSRegression</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pls</span><span class="p">,</span> <span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k10</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">rmse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">score</span><span class="p">))</span>
+for i in np.arange(1, 20):
+    pls = PLSRegression(n_components=i)
+    score = -1 * cross_val_score(pls, scale(X_train), y_train, cv=k10, scoring=&#39;neg_mean_squared_error&#39;).mean()
+    rmse.append(np.sqrt(score))
     
-<span class="n">min_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rmse</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+min_rmse = np.array(rmse).argmin()
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="s1">&#39;-D&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="n">markevery</span><span class="o">=</span><span class="p">[</span><span class="n">min_rmse</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;# of PC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;RMSE&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">]);</span>
+plt.plot(rmse, &#39;-D&#39;)
+plt.plot(rmse, markevery=[min_rmse], marker=&#39;X&#39;, lw=0, color=&#39;red&#39;)
+plt.xlabel(&#39;# of PC&#39;)
+plt.ylabel(&#39;RMSE&#39;)
+plt.xticks([0, 5, 10, 15, 20]);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># 10-fold CV, with shuffle</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">k10</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1709,17 +1715,17 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pls</span> <span class="o">=</span> <span class="n">PLSRegression</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pls</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pls = PLSRegression(n_components=2)
+pls.fit(scale(X_train), y_train)
 
-<span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+mean_squared_error(y_test, pls.predict(scale(X_test)))
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pls</span> <span class="o">=</span> <span class="n">PLSRegression</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">pls</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>

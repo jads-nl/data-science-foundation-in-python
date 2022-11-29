@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Predict detractors from reviews &#8212; Data Science Foundation in Python</title>
+    <title>Objective &#8212; Data Science Foundation in Python</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1397,96 +1397,150 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#objective">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    Objective
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-preparation">
-   Data preparation
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize-notebook">
+   Initialize notebook
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#select-main-columns">
-     Select main columns
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-dependencies">
+     Import dependencies
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#format-date-columns">
-     Format date columns
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-configuration">
+     Set configuration
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#format-numerical-columns">
-     Format numerical columns
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initialize-spacy-model">
+     Initialize spaCy model
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize-data">
+   Initialize data
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-data-from-source">
+     Read data from source
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-raw-data">
+     Inspect raw data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prepare-data">
+   Prepare data
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-copy-of-the-raw-data">
+     Create copy of the raw data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#drop-irrelevant-columns">
+     Drop irrelevant columns
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#drop-rows-with-null-values">
+     Drop rows with null values
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#drop-invalid-reviews">
+     Drop invalid reviews
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convert-reviewtext-from-bytes-to-string">
+     Convert reviewText from “bytes” to “string”
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#format-avgprice">
+     Format avgPrice
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#format-ordinal-columns">
      Format ordinal columns
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#add-feature-length-of-reviewtext">
+     Add feature: length of reviewText
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-preprocessed-data">
+     Inspect preprocessed data
+    </a>
+   </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#text-pre-processing">
    Text pre-processing
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#filter-reviews-that-are-short-or-in-process">
-     Filter reviews that are short or in process
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-a-subset-of-the-data-to-be-used-for-training">
+     Specify a subset of the data to be used for training
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#add-simple-features">
-     Add simple features
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#tokenize-and-create-document-term-matrix">
      Tokenize and create Document-Term Matrix
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#select-only-those-words-that-occur-twice-or-more">
+     Select only those words that occur twice or more.
+    </a>
+   </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#binary-classification-is-detractor">
-   Binary classification:
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     is_detractor
-    </span>
-   </code>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#binary-classification">
+   Binary classification
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#define-y">
      Define Y
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#train-test-split">
      Train-test split
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#balancedbaggingclassifier-without-dtm">
-     BalancedBaggingClassifier - without DTM
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#balancedbaggingclassifier-using-structured-data">
+     BalancedBaggingClassifier - using structured data
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#balancedbaggingclassifier-with-dtm">
-     BalancedBaggingClassifier - with DTM
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#balancedbaggingclassifier-using-dtm">
+     BalancedBaggingClassifier - using DTM
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#closing-remarks">
-   Closing remarks
-  </a>
  </li>
 </ul>
 
@@ -1497,7 +1551,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Predict detractors from reviews</h1>
+                <h1>Objective</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -1507,96 +1561,150 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#objective">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    Objective
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-preparation">
-   Data preparation
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize-notebook">
+   Initialize notebook
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#select-main-columns">
-     Select main columns
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-dependencies">
+     Import dependencies
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#format-date-columns">
-     Format date columns
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-configuration">
+     Set configuration
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#format-numerical-columns">
-     Format numerical columns
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initialize-spacy-model">
+     Initialize spaCy model
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initialize-data">
+   Initialize data
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-data-from-source">
+     Read data from source
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-raw-data">
+     Inspect raw data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prepare-data">
+   Prepare data
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-copy-of-the-raw-data">
+     Create copy of the raw data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#drop-irrelevant-columns">
+     Drop irrelevant columns
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#drop-rows-with-null-values">
+     Drop rows with null values
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#drop-invalid-reviews">
+     Drop invalid reviews
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convert-reviewtext-from-bytes-to-string">
+     Convert reviewText from “bytes” to “string”
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#format-avgprice">
+     Format avgPrice
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#format-ordinal-columns">
      Format ordinal columns
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#add-feature-length-of-reviewtext">
+     Add feature: length of reviewText
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inspect-preprocessed-data">
+     Inspect preprocessed data
+    </a>
+   </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#text-pre-processing">
    Text pre-processing
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#filter-reviews-that-are-short-or-in-process">
-     Filter reviews that are short or in process
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#specify-a-subset-of-the-data-to-be-used-for-training">
+     Specify a subset of the data to be used for training
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#add-simple-features">
-     Add simple features
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#tokenize-and-create-document-term-matrix">
      Tokenize and create Document-Term Matrix
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#select-only-those-words-that-occur-twice-or-more">
+     Select only those words that occur twice or more.
+    </a>
+   </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#binary-classification-is-detractor">
-   Binary classification:
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     is_detractor
-    </span>
-   </code>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#binary-classification">
+   Binary classification
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#define-y">
      Define Y
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#train-test-split">
      Train-test split
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#balancedbaggingclassifier-without-dtm">
-     BalancedBaggingClassifier - without DTM
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#balancedbaggingclassifier-using-structured-data">
+     BalancedBaggingClassifier - using structured data
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#balancedbaggingclassifier-with-dtm">
-     BalancedBaggingClassifier - with DTM
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#balancedbaggingclassifier-using-dtm">
+     BalancedBaggingClassifier - using DTM
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#closing-remarks">
-   Closing remarks
-  </a>
  </li>
 </ul>
 
@@ -1608,337 +1716,408 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="predict-detractors-from-reviews">
-<h1>Predict detractors from reviews<a class="headerlink" href="#predict-detractors-from-reviews" title="Permalink to this headline">#</a></h1>
-<section id="objective">
-<h2>Objective<a class="headerlink" href="#objective" title="Permalink to this headline">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="objective">
+<h1>Objective<a class="headerlink" href="#objective" title="Permalink to this headline">#</a></h1>
 <p>Predict a ‘detractor’ such that restaurant owner can look-up interesting (negative) feedback and act upon that.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="initialize-notebook">
+<h1>Initialize notebook<a class="headerlink" href="#initialize-notebook" title="Permalink to this headline">#</a></h1>
+<section id="import-dependencies">
+<h2>Import dependencies<a class="headerlink" href="#import-dependencies" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">imblearn.ensemble</span> <span class="kn">import</span> <span class="n">BalancedRandomForestClassifier</span><span class="p">,</span> <span class="n">BalancedBaggingClassifier</span>    
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">pendulum</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">TransformerMixin</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">balanced_accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedShuffleSplit</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">import</span> <span class="nn">spacy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import spacy
 
-
-<span class="c1"># only use 2019 data as example</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;https://github.com/jads-nl/public-lectures/blob/main/nlp/data/dutch-restaurant-reviews-per-year/reviewYear%3D2019/058d741d776d45f18e0ccc51f71173dc.parquet?raw=true&quot;</span><span class="p">)</span>
-
-<span class="c1"># initiate spacy model</span>
-<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;nl_core_news_lg&quot;</span><span class="p">)</span>
+from imblearn.ensemble import BalancedRandomForestClassifier, BalancedBaggingClassifier
+from sklearn.base import TransformerMixin
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.metrics import balanced_accuracy_score
+from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn.tree import DecisionTreeClassifier
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="data-preparation">
-<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">#</a></h2>
-<section id="select-main-columns">
-<h3>Select main columns<a class="headerlink" href="#select-main-columns" title="Permalink to this headline">#</a></h3>
+<section id="set-configuration">
+<h2>Set configuration<a class="headerlink" href="#set-configuration" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;restoId&#39;</span><span class="p">,</span> <span class="s1">&#39;reviewerId&#39;</span><span class="p">,</span> <span class="s1">&#39;reviewerFame&#39;</span><span class="p">,</span> <span class="s1">&#39;reviewerNumReviews&#39;</span><span class="p">,</span> <span class="s1">&#39;reviewText&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Make sure all columns are printed when printing a DataFrame.
+pd.set_option(&quot;display.max_columns&quot;, 50)
+pd.set_option(&#39;display.max_colwidth&#39;, 250)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="format-date-columns">
-<h3>Format date columns<a class="headerlink" href="#format-date-columns" title="Permalink to this headline">#</a></h3>
+<section id="initialize-spacy-model">
+<h2>Initialize spaCy model<a class="headerlink" href="#initialize-spacy-model" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_date</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">pendulum</span><span class="o">.</span><span class="n">from_format</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;D MMM YYYY&quot;</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;nl&quot;</span><span class="p">)</span>
-
-<span class="n">reviews</span><span class="p">[</span><span class="s2">&quot;reviewDate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reviewDate</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">parse_date</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nlp = spacy.load(&quot;nl_core_news_lg&quot;)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="format-numerical-columns">
-<h3>Format numerical columns<a class="headerlink" href="#format-numerical-columns" title="Permalink to this headline">#</a></h3>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="initialize-data">
+<h1>Initialize data<a class="headerlink" href="#initialize-data" title="Permalink to this headline">#</a></h1>
+<section id="read-data-from-source">
+<h2>Read data from source<a class="headerlink" href="#read-data-from-source" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean_price</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
-    <span class="s2">&quot;Remove euro sign and whitespace in price&quot;</span>
-    <span class="k">if</span> <span class="n">string</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data_source = &quot;https://bhciaaablob.blob.core.windows.net/cmotionsnlpblogs/RestoReviewRawdata.csv&quot;
+raw_df = pd.read_csv(filepath_or_buffer=data_source,
+                     decimal=&quot;,&quot;,
+                     dtype={&quot;restoId&quot;: pd.Int64Dtype(),
+                            &quot;restoName&quot;: str,
+                            &quot;tags&quot;: str,
+                            &quot;address&quot;: str,
+                            &quot;scoreTotal&quot;: float,
+                            &quot;avgPrice&quot;: str,
+                            &quot;numReviews&quot;: pd.Int64Dtype(),
+                            &quot;scoreFood&quot;: float,
+                            &quot;scoreService&quot;: float,
+                            &quot;scoreDecor&quot;: float,
+                            &quot;review_id&quot;: pd.Int64Dtype(),
+                            &quot;numreviews2&quot;: pd.Int64Dtype(),
+                            &quot;valueForPriceScore&quot;: str,
+                            &quot;noiseLevelScore&quot;: str,
+                            &quot;waitingTimeScore&quot;: str,
+                            &quot;reviewerId&quot;: str,
+                            &quot;reviewerFame&quot;: str,
+                            &quot;reviewerNumReviews&quot;: pd.Int64Dtype(),
+                            &quot;reviewDate&quot;: str,
+                            &quot;reviewScoreOverall&quot;: float,
+                            &quot;reviewScoreFood&quot;: float,
+                            &quot;reviewScoreService&quot;: float,
+                            &quot;reviewScoreAmbiance&quot;: float,
+                            &quot;reviewText&quot;: str})
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inspect-raw-data">
+<h2>Inspect raw data<a class="headerlink" href="#inspect-raw-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>raw_df.info()
+raw_df.sample(n=3, random_state=42)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="prepare-data">
+<h1>Prepare data<a class="headerlink" href="#prepare-data" title="Permalink to this headline">#</a></h1>
+<section id="create-copy-of-the-raw-data">
+<h2>Create copy of the raw data<a class="headerlink" href="#create-copy-of-the-raw-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>reviews = raw_df.copy()
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="drop-irrelevant-columns">
+<h2>Drop irrelevant columns<a class="headerlink" href="#drop-irrelevant-columns" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&quot;Shape before: {reviews.shape}&quot;)
+
+reviews = reviews.drop(columns=[&#39;restoName&#39;, &#39;tags&#39;, &#39;address&#39;, &#39;review_id&#39;, &#39;reviewDate&#39;])
+
+print(f&quot;Shape after: {reviews.shape}&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="drop-rows-with-null-values">
+<h2>Drop rows with null values<a class="headerlink" href="#drop-rows-with-null-values" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&quot;Shape before: {reviews.shape}&quot;)
+
+reviews = reviews.dropna(axis=&#39;index&#39;)
+
+print(f&quot;Shape after: {reviews.shape}&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="drop-invalid-reviews">
+<h2>Drop invalid reviews<a class="headerlink" href="#drop-invalid-reviews" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def is_invalid_review(review):
+    if (&quot;- Recensie is momenteel in behandeling -&quot; in review) or len(review) &lt;= 3:
+        return True
+    else:
+        return False
 
 
-<span class="n">reviews</span><span class="p">[</span><span class="s2">&quot;avgPrice&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;avgPrice&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">clean_price</span><span class="p">)</span>
+print(f&quot;Shape before: {reviews.shape}&quot;)
+
+reviews = reviews.drop(index=reviews[reviews[&#39;reviewText&#39;].apply(lambda x: is_invalid_review(x))].index)
+
+print(f&quot;Shape after: {reviews.shape}&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="convert-reviewtext-from-bytes-to-string">
+<h2>Convert reviewText from “bytes” to “string”<a class="headerlink" href="#convert-reviewtext-from-bytes-to-string" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def bytes_to_string(bytes):
+    &#39;&#39;&#39;
+    Concat the passed argument with the UTF-8 decode statement and then evaluate the resulting statement.
+    &#39;&#39;&#39;
+    return eval(bytes + &quot;.decode(&#39;utf-8&#39;)&quot;)
 
 
-<span class="c1"># numerical columns have comma as decimal seperator --&gt; cast to floats</span>
-<span class="n">numerical_cols</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;scoreFood&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;scoreService&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;scoreDecor&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;reviewScoreOverall&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;scoreTotal&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numerical_cols</span><span class="p">:</span>
-    <span class="n">reviews</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+reviews[&#39;reviewText&#39;] = reviews[&#39;reviewText&#39;].apply(bytes_to_string)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="format-avgprice">
+<h2>Format avgPrice<a class="headerlink" href="#format-avgprice" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def clean_price(string):
+    &#39;&#39;&#39;
+    Return the last piece of the passed argument, or 0 if argument is null.
+    &#39;&#39;&#39;
+    return float(string.split(&quot; &quot;)[-1])
+
+
+# Remove the euro sign and leading whitespace from the price.
+reviews[&quot;avgPrice&quot;] = reviews[&quot;avgPrice&quot;].apply(clean_price)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="format-ordinal-columns">
-<h3>Format ordinal columns<a class="headerlink" href="#format-ordinal-columns" title="Permalink to this headline">#</a></h3>
+<h2>Format ordinal columns<a class="headerlink" href="#format-ordinal-columns" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">map_scores</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;waitingTimeScore&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;Hoog tempo&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;Kort&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;Redelijk&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s2">&quot;Kan beter&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="s2">&quot;Lang&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;valueForPriceScore&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;Erg gunstig&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;Gunstig&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;Redelijk&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s2">&quot;Precies goed&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="s2">&quot;Kan beter&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;noiseLevelScore&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;Erg rustig&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;Rustig&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;Precies goed&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s2">&quot;Rumoerig&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;reviewerFame&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;Proever&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;Fijnproever&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;Expertproever&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s2">&quot;Meesterproever&quot;</span><span class="p">:</span> <span class="mi">4</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>map_scores = {
+    &quot;waitingTimeScore&quot;: {
+        None: 0,
+        &quot;Hoog tempo&quot;: 1,
+        &quot;Kort&quot;: 2,
+        &quot;Redelijk&quot;: 3,
+        &quot;Kan beter&quot;: 4,
+        &quot;Lang&quot;: 5,
+    },
+    &quot;valueForPriceScore&quot;: {
+        None: 0,
+        &quot;Erg gunstig&quot;: 1,
+        &quot;Gunstig&quot;: 2,
+        &quot;Redelijk&quot;: 3,
+        &quot;Precies goed&quot;: 4,
+        &quot;Kan beter&quot;: 5,
+    },
+    &quot;noiseLevelScore&quot;: {
+        None: 0,
+        &quot;Erg rustig&quot;: 1,
+        &quot;Rustig&quot;: 2,
+        &quot;Precies goed&quot;: 3,
+        &quot;Rumoerig&quot;: 4,
+    },
+    &quot;reviewerFame&quot;: {
+        None: 0,
+        &quot;Proever&quot;: 1,
+        &quot;Fijnproever&quot;: 2,
+        &quot;Expertproever&quot;: 3,
+        &quot;Meesterproever&quot;: 4
+    }
+}
 
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">map_scores</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="n">reviews</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">map_scores</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;Int64&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
+for col in map_scores.keys():
+    reviews[col] = reviews[col].apply(lambda x: map_scores[col].get(x, None)).astype(&quot;Int64&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-feature-length-of-reviewtext">
+<h2>Add feature: length of reviewText<a class="headerlink" href="#add-feature-length-of-reviewtext" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>reviews[&#39;reviewTextLength&#39;] = reviews[&#39;reviewText&#39;].apply(lambda x: len(x)).astype(&quot;Int64&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inspect-preprocessed-data">
+<h2>Inspect preprocessed data<a class="headerlink" href="#inspect-preprocessed-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>reviews.info()
+reviews.sample(n=3, random_state=42)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="text-pre-processing">
-<h2>Text pre-processing<a class="headerlink" href="#text-pre-processing" title="Permalink to this headline">#</a></h2>
-<section id="filter-reviews-that-are-short-or-in-process">
-<h3>Filter reviews that are short or in process<a class="headerlink" href="#filter-reviews-that-are-short-or-in-process" title="Permalink to this headline">#</a></h3>
+<section class="tex2jax_ignore mathjax_ignore" id="text-pre-processing">
+<h1>Text pre-processing<a class="headerlink" href="#text-pre-processing" title="Permalink to this headline">#</a></h1>
+<section id="specify-a-subset-of-the-data-to-be-used-for-training">
+<h2>Specify a subset of the data to be used for training<a class="headerlink" href="#specify-a-subset-of-the-data-to-be-used-for-training" title="Permalink to this headline">#</a></h2>
+<p><span style='color:red'>When using full data, the cells below may take <strong>very long</strong> to complete.</span><br />
+<span style='color:red'>Using <strong>25% of the data</strong> it will take about <strong>15 minutes</strong> to complete on a laptop.</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validate_review</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">review</span> <span class="o">==</span> <span class="s1">&#39;- Recensie is momenteel in behandeling -&#39;</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    
-
-<span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;is_valid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reviews</span><span class="o">.</span><span class="n">reviewText</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">validate_review</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="add-simple-features">
-<h3>Add simple features<a class="headerlink" href="#add-simple-features" title="Permalink to this headline">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;review_char_length_&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reviewText</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>reviews = reviews.sample(frac=0.25, random_state=42)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="tokenize-and-create-document-term-matrix">
-<h3>Tokenize and create Document-Term Matrix<a class="headerlink" href="#tokenize-and-create-document-term-matrix" title="Permalink to this headline">#</a></h3>
-<p>We will use <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/sparse.html">pandas sparse data structures</a> to save memory. Note cell below takes about 9 minutes to complete.</p>
+<h2>Tokenize and create Document-Term Matrix<a class="headerlink" href="#tokenize-and-create-document-term-matrix" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="k">def</span> <span class="nf">tokenize_simple</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Tokenizer returning lowercase tokens with no stop words, no punctuation and no words with encoding errors&quot;&quot;&quot;</span>
-    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">lower_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_stop</span> <span class="ow">or</span> <span class="n">token</span><span class="o">.</span><span class="n">is_punct</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">lower_</span><span class="p">))]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># %%time
+# THIS CELL TAKES ABOUT 12 MINUTES ON A LAPTOP WHEN USING 25% THE DATA.
+
+def tokenize_simple(text):
+    &#39;&#39;&#39;
+    Tokenizer returning lowercase tokens with no stop words, no punctuation and no words with encoding errors.
+    &#39;&#39;&#39;
+    doc = nlp(text)
+    return [token.lower_ for token in doc if not (token.is_stop or token.is_punct or (&quot;\\&quot; in token.lower_))]
 
 
-<span class="c1"># some abbreviations aren&#39;t in spaCy&#39;s default Dutch stopwords list, so we add them</span>
-<span class="n">nlp</span><span class="o">.</span><span class="n">Defaults</span><span class="o">.</span><span class="n">stop_words</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;’n&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">])</span>
+# Some abbreviations aren&#39;t in spaCy&#39;s default Dutch stopwords list, so we add them.
+nlp.Defaults.stop_words.update([&#39;n&#39;, &#39;’n&#39;, &#39;t&#39;])
 
-<span class="n">count_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize_simple</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="n">nlp</span><span class="o">.</span><span class="n">Defaults</span><span class="o">.</span><span class="n">stop_words</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">dtm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">from_spmatrix</span><span class="p">(</span><span class="n">count_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">reviewText</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">count_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
+# Define the CountVectorizer, use n-grams of length 1.
+count_vectorizer = CountVectorizer(tokenizer=tokenize_simple,
+                                   stop_words=nlp.Defaults.stop_words,
+                                   ngram_range=(1, 1))
+
+# Fit the CountVectorizer. The returned Document-Term Matrix is put in a DataFrame.
+dtm = pd.DataFrame.sparse.from_spmatrix(data=count_vectorizer.fit_transform(reviews[&#39;reviewText&#39;]),
+                                        index=reviews[&#39;reviewText&#39;].index,
+                                        columns=count_vectorizer.get_feature_names_out())
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 8min, sys: 116 ms, total: 8min
-Wall time: 8min
-</pre></div>
 </div>
-</div>
-</div>
-<p>We will only keep words in the DTM that occur twice or more over all the reviews. This reduces the width of the DTM.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token_filter</span> <span class="o">=</span> <span class="p">(</span><span class="n">dtm</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">token_filter</span><span class="p">[</span><span class="n">token_filter</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full DTM: </span><span class="si">{</span><span class="n">dtm</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filtered DTM: </span><span class="si">{</span><span class="n">dtm</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">token_filter</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Inspect the tokenization to the original reviewText for some observations.
+display(pd.DataFrame(reviews.head(n=3)[&#39;reviewText&#39;]))
+
+subset = dtm.head(n=3).copy()
+display(subset.loc[:, subset.ne(0).any()])
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full DTM: (47048, 32820)
-Filtered DTM: (47048, 11047)
+</div>
+</section>
+<section id="select-only-those-words-that-occur-twice-or-more">
+<h2>Select only those words that occur twice or more.<a class="headerlink" href="#select-only-those-words-that-occur-twice-or-more" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&quot;Full DTM: {dtm.shape}&quot;)
+dtm = dtm.loc[:, (dtm.sum() &gt; 2)]
+print(f&quot;Filtered DTM: {dtm.shape}&quot;)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="binary-classification-is-detractor">
-<h2>Binary classification: <code class="docutils literal notranslate"><span class="pre">is_detractor</span></code><a class="headerlink" href="#binary-classification-is-detractor" title="Permalink to this headline">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="binary-classification">
+<h1>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">#</a></h1>
 <section id="define-y">
-<h3>Define Y<a class="headerlink" href="#define-y" title="Permalink to this headline">#</a></h3>
+<h2>Define Y<a class="headerlink" href="#define-y" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reviews</span><span class="p">[</span><span class="s2">&quot;is_detractor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reviews</span><span class="o">.</span><span class="n">reviewScoreOverall</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">6</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>reviews[&quot;is_detractor&quot;] = reviews[&#39;reviewScoreOverall&#39;].apply(lambda x: True if x &lt;= 6 else False)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="train-test-split">
-<h3>Train-test split<a class="headerlink" href="#train-test-split" title="Permalink to this headline">#</a></h3>
-<p>(Cell below takes about two minute).</p>
+<h2>Train-test split<a class="headerlink" href="#train-test-split" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">is_valid</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reviewDate&quot;</span><span class="p">,</span> <span class="s2">&quot;reviewText&quot;</span><span class="p">,</span> <span class="s2">&quot;scoreFood&quot;</span><span class="p">,</span> <span class="s2">&quot;scoreService&quot;</span><span class="p">,</span> <span class="s2">&quot;scoreDecor&quot;</span><span class="p">,</span> <span class="s2">&quot;reviewScoreOverall&quot;</span><span class="p">,</span> <span class="s2">&quot;scoreTotal&quot;</span><span class="p">,</span> <span class="s2">&quot;is_detractor&quot;</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">is_valid</span><span class="p">]</span><span class="o">.</span><span class="n">is_detractor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># %%time
+# THIS CELL TAKES ABOUT 1 MINUTE ON A LAPTOP WHEN USING 25% THE DATA.
 
-<span class="n">sss</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">sss</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">,</span> <span class="p">:],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">,</span> <span class="p">:]</span>
-    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
-    <span class="n">dtm_train</span><span class="p">,</span> <span class="n">dtm_test</span> <span class="o">=</span> <span class="n">dtm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">is_valid</span><span class="p">,</span> <span class="n">token_filter</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">,</span> <span class="p">:],</span> <span class="n">dtm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">is_valid</span><span class="p">,</span> <span class="n">token_filter</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">,</span> <span class="p">:]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1min 29s, sys: 64 ms, total: 1min 29s
-Wall time: 1min 29s
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="balancedbaggingclassifier-without-dtm">
-<h3>BalancedBaggingClassifier - without DTM<a class="headerlink" href="#balancedbaggingclassifier-without-dtm" title="Permalink to this headline">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">clf1</span> <span class="o">=</span> <span class="n">BalancedBaggingClassifier</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span>
-                                <span class="n">sampling_strategy</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-                                <span class="n">replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">clf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 458 ms, sys: 8.01 ms, total: 466 ms
-Wall time: 465 ms
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BalancedBaggingClassifier(base_estimator=DecisionTreeClassifier(),
-                          random_state=0)
-</pre></div>
-</div>
-</div>
-</div>
-<p>We will skip fine-tuning the model, our purpose is to compare it with a model that adds text. Using the balanced accuracy to compare, which is defined as the average of recall obtained on each class.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">clf1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.73
+X = reviews.drop(columns=[&#39;reviewText&#39;,&#39;reviewScoreOverall&#39;,&#39;is_detractor&#39;])
+y = reviews[&#39;is_detractor&#39;]
+
+sss = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+for train_index, test_index in sss.split(X, y):
+    X_train, X_test = X.iloc[train_index, :], X.iloc[test_index, :]
+    y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+    X_train_dtm, X_test_dtm = dtm.iloc[train_index, :], dtm.iloc[test_index, :]
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="balancedbaggingclassifier-with-dtm">
-<h3>BalancedBaggingClassifier - with DTM<a class="headerlink" href="#balancedbaggingclassifier-with-dtm" title="Permalink to this headline">#</a></h3>
-<p>(Cell below takes about 50 minutes on Google Colab)</p>
+<section id="balancedbaggingclassifier-using-structured-data">
+<h2>BalancedBaggingClassifier - using structured data<a class="headerlink" href="#balancedbaggingclassifier-using-structured-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">clf2</span> <span class="o">=</span> <span class="n">BalancedBaggingClassifier</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span>
-                                <span class="n">sampling_strategy</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-                                <span class="n">replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">clf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dtm_train</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/dkapitan/.local/lib/python3.9/site-packages/sklearn/utils/validation.py:616: UserWarning: pandas.DataFrame with sparse columns found.It will be converted to a dense numpy array.
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 2min 56s, sys: 1min 19s, total: 4min 16s
-Wall time: 4min 16s
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BalancedBaggingClassifier(base_estimator=DecisionTreeClassifier(),
-                          random_state=0)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>clf1 = BalancedBaggingClassifier(base_estimator=DecisionTreeClassifier(),
+                                 sampling_strategy=&#39;auto&#39;,
+                                 replacement=False,
+                                 random_state=0)
+clf1.fit(X_train, y_train)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">clf2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtm_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/dkapitan/.local/lib/python3.9/site-packages/sklearn/utils/validation.py:616: UserWarning: pandas.DataFrame with sparse columns found.It will be converted to a dense numpy array.
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.83
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>balanced_accuracy_score(y_test, clf1.predict(X_test)).round(3)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section id="closing-remarks">
-<h2>Closing remarks<a class="headerlink" href="#closing-remarks" title="Permalink to this headline">#</a></h2>
-<p>We have illustrated how a simple bag-of-words model can add to the performance of a classifier that uses structured data. We haven’t optimized the modeling at all, but done a simple like-to-like comparison with the same parameters.</p>
-<p>Note that working with text requires more engineering: you need to make decisions about how to store and process the data because it can quickly expand beyond the memory of your (virtual) machine. Even with this simple model, we have used over 700 features from a truncated document-term matrix.</p>
+<section id="balancedbaggingclassifier-using-dtm">
+<h2>BalancedBaggingClassifier - using DTM<a class="headerlink" href="#balancedbaggingclassifier-using-dtm" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>clf2 = BalancedBaggingClassifier(base_estimator=DecisionTreeClassifier(),
+                                 sampling_strategy=&#39;auto&#39;,
+                                 replacement=False,
+                                 random_state=0)
+clf2.fit(X_train_dtm, y_train)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>balanced_accuracy_score(y_test, clf2.predict(X_test_dtm)).round(3)
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 

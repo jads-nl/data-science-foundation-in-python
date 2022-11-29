@@ -1158,7 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../nlp/nlp-pipeline-example.html">
-     Predict detractors from reviews
+     Objective
     </a>
    </li>
    <li class="toctree-l2">
@@ -1472,37 +1472,41 @@ title="Print to PDF"
 <h2>2.3.1 Basic Commands<a class="headerlink" href="#basic-commands" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports and setup</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># imports and setup
+import numpy as np
+from scipy.stats.stats import pearsonr
 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span> <span class="c1"># for 3D plots</span>
+import seaborn as sns
+import matplotlib
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D # for 3D plots
 
-<span class="kn">import</span> <span class="nn">math</span>
+import math
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+import pandas as pd
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span> <span class="c1"># pretty matplotlib plots</span>
+%matplotlib inline
+plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_6803/254558114.py:3: DeprecationWarning: Please use `pearsonr` from the `scipy.stats` namespace, the `scipy.stats.stats` namespace is deprecated.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_3912/254558114.py:3: DeprecationWarning: Please use `pearsonr` from the `scipy.stats` namespace, the `scipy.stats.stats` namespace is deprecated.
   from scipy.stats.stats import pearsonr
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_3912/254558114.py:15: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as &#39;seaborn-v0_8-&lt;style&gt;&#39;. Alternatively, directly use the seaborn API instead.
+  plt.style.use(&#39;seaborn&#39;) # pretty matplotlib plots
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># array creation</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># array creation
+x = np.array([1, 6, 2])
+y = np.array([1, 4, 3])
+len(x), len(y)
 </pre></div>
 </div>
 </div>
@@ -1514,8 +1518,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># array operations</span>
-<span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># array operations
+x + y
 </pre></div>
 </div>
 </div>
@@ -1527,9 +1531,9 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># matrix creation</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
-<span class="n">x</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># matrix creation
+x = np.asmatrix(np.arange(1, 5).reshape(2, 2).transpose())
+x
 </pre></div>
 </div>
 </div>
@@ -1542,8 +1546,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#matrix operations</span>
-<span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#matrix operations
+np.power(x, 2)
 </pre></div>
 </div>
 </div>
@@ -1556,25 +1560,25 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># random normal distribution &amp; correlation</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># random normal distribution &amp; correlation
+x = np.random.normal(size=50)
+y = x + np.random.normal(loc=50, scale=.1, size=50)
+pearsonr(x, y)[0]
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9924599811835623
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9936878443672563
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># random seed and basic statistical functions</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">()),</span> <span class="n">y</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># random seed and basic statistical functions
+np.random.seed(3)
+y = np.random.normal(size=100)
+y.mean(), y.var(), np.sqrt(y.var()), y.std()
 </pre></div>
 </div>
 </div>
@@ -1592,28 +1596,34 @@ title="Print to PDF"
 <h2>2.3.2 Graphics<a class="headerlink" href="#graphics" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = np.random.normal(size=100)
+y = np.random.normal(size=100)
 
-<span class="c1"># seaborn scatterplot</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x axis&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;y axis&#39;</span><span class="p">);</span>
+# seaborn scatterplot
+p = sns.jointplot(x, y, kind=&#39;scatter&#39;)
+p.set_axis_labels(xlabel=&#39;x axis&#39;, ylabel=&#39;y axis&#39;);
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.14/x64/lib/python3.8/site-packages/seaborn/_decorators.py:36: FutureWarning: Pass the following variables as keyword args: x, y. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
-  warnings.warn(
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># seaborn scatterplot</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">p</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x axis&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;y axis&#39;</span><span class="p">);</span>
+
+<span class="ne">TypeError</span>: jointplot() takes from 0 to 1 positional arguments but 2 positional arguments (and 1 keyword-only argument) were given
 </pre></div>
 </div>
-<img alt="../../_images/lab_02.3_introduction_9_1.png" src="../../_images/lab_02.3_introduction_9_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a sequence of numbers</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-<span class="n">x</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># create a sequence of numbers
+x = np.arange(1, 11)
+x
 </pre></div>
 </div>
 </div>
@@ -1625,9 +1635,9 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># linearly spaced numbers</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">x</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># linearly spaced numbers
+x = np.linspace(-np.pi, np.pi, num=50)
+x
 </pre></div>
 </div>
 </div>
@@ -1648,23 +1658,23 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = np.linspace(-np.pi, np.pi, num=50)
+y = x
 
-<span class="c1"># simulating R outer function</span>
-<span class="k">def</span> <span class="nf">pf</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+# simulating R outer function
+def pf(a, b):
+    return math.cos(b) / (1 + a**2)
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+f = np.empty((len(x), len(y)))
  
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
-        <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">pf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+for i in range(len(x)):
+    for j in range(len(y)):
+        f[i,j] = pf(x[i], y[j])
 
         
-<span class="c1"># contour plot</span>
-<span class="n">cp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
+# contour plot
+cp = plt.contour(x, y, f, 45, cmap=&#39;viridis&#39;)
+plt.clabel(cp, inline=1, fontsize=10);
 </pre></div>
 </div>
 </div>
@@ -1674,10 +1684,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># contour 2</span>
-<span class="n">fa</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="n">f</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span><span class="o">/</span><span class="mi">2</span>
-<span class="n">cp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># contour 2
+fa = (f - f.transpose())/2
+cp = plt.contour(x, y, fa, 15, cmap=&#39;viridis&#39;)
+plt.clabel(cp, inline=1, fontsize=10);
 </pre></div>
 </div>
 </div>
@@ -1687,10 +1697,10 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># heatmap</span>
-<span class="n">cp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">();</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># heatmap
+cp = plt.contourf(x, y, fa, 15, cmap=&#39;viridis&#39;)
+plt.clabel(cp, inline=1, fontsize=10)
+plt.colorbar();
 </pre></div>
 </div>
 </div>
@@ -1700,11 +1710,11 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3d perspective</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 3d perspective
+fig = plt.figure()
+ax = fig.add_subplot(111, projection=&#39;3d&#39;)
+ax.plot_wireframe(x, y, fa, cmap=&#39;viridis&#39;)
+ax.view_init(30, 100);
 </pre></div>
 </div>
 </div>
@@ -1717,9 +1727,9 @@ title="Print to PDF"
 <h2>2.3.3 Indexing Data<a class="headerlink" href="#indexing-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># matrix creation (R equivalent of matrix(1:16, 4 ,4))</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
-<span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># matrix creation (R equivalent of matrix(1:16, 4 ,4))
+A = np.asmatrix(np.arange(1, 17).reshape(4, 4).transpose())
+A
 </pre></div>
 </div>
 </div>
@@ -1734,7 +1744,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>A[1, 2]
 </pre></div>
 </div>
 </div>
@@ -1746,8 +1756,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># list selections needs explicit row repetition for multiple columns</span>
-<span class="n">A</span><span class="p">[[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># list selections needs explicit row repetition for multiple columns
+A[[[0, 0], [2, 2]], [1, 3]] 
 </pre></div>
 </div>
 </div>
@@ -1760,8 +1770,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select a range of rows and columns</span>
-<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># select a range of rows and columns
+A[0:3, 1:4]
 </pre></div>
 </div>
 </div>
@@ -1775,8 +1785,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select a range of rows and all columns</span>
-<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># select a range of rows and all columns
+A[0:2,:]
 </pre></div>
 </div>
 </div>
@@ -1789,8 +1799,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select all rows and a range of columns</span>
-<span class="n">A</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># select all rows and a range of columns
+A[:,0:2]
 </pre></div>
 </div>
 </div>
@@ -1805,8 +1815,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shape of the matrix</span>
-<span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># shape of the matrix
+A.shape
 </pre></div>
 </div>
 </div>
@@ -1821,11 +1831,11 @@ title="Print to PDF"
 <h2>2.3.4 Loading Data<a class="headerlink" href="#loading-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read csv data with pandas into dataframe, explicitly setting na_values.</span>
-<span class="c1"># pandas read_xxx functions infer datatypes, headers, dates, etc. </span>
-<span class="c1"># without explicit declarations</span>
-<span class="n">Auto</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../datasets/Auto.csv&#39;</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;?&#39;</span><span class="p">])</span>
-<span class="n">Auto</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># read csv data with pandas into dataframe, explicitly setting na_values.
+# pandas read_xxx functions infer datatypes, headers, dates, etc. 
+# without explicit declarations
+Auto = pd.read_csv(&#39;../datasets/Auto.csv&#39;, na_values=[&#39;?&#39;])
+Auto
 </pre></div>
 </div>
 </div>
@@ -1999,7 +2009,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Auto</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>Auto.shape
 </pre></div>
 </div>
 </div>
@@ -2011,9 +2021,9 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dropping rows (axis-0) where there are NA values (inplace)</span>
-<span class="n">Auto</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Auto</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># dropping rows (axis-0) where there are NA values (inplace)
+Auto.dropna(axis=0, inplace=True)
+Auto.shape
 </pre></div>
 </div>
 </div>
@@ -2025,8 +2035,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get column names of the dataframe</span>
-<span class="nb">list</span><span class="p">(</span><span class="n">Auto</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># get column names of the dataframe
+list(Auto.columns)
 </pre></div>
 </div>
 </div>
@@ -2046,8 +2056,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># seaborn scatterplot</span>
-<span class="n">pl</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;cylinders&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;mpg&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># seaborn scatterplot
+pl = sns.jointplot(x=&#39;cylinders&#39;, y=&#39;mpg&#39;, data=Auto);
 </pre></div>
 </div>
 </div>
@@ -2057,9 +2067,9 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># changing data type of a column into category</span>
-<span class="n">Auto</span><span class="p">[</span><span class="s1">&#39;cylinders&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Auto</span><span class="p">[</span><span class="s1">&#39;cylinders&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
-<span class="n">Auto</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># changing data type of a column into category
+Auto[&#39;cylinders&#39;] = Auto[&#39;cylinders&#39;].astype(&#39;category&#39;)
+Auto
 </pre></div>
 </div>
 </div>
@@ -2233,8 +2243,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># seaborn boxplot implementation</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;cylinders&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;mpg&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">Auto</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># seaborn boxplot implementation
+sns.boxplot(x=&#39;cylinders&#39;, y=&#39;mpg&#39;, data=Auto);
 </pre></div>
 </div>
 </div>
@@ -2244,8 +2254,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># seaborn enhanced histogram with density plot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">Auto</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># seaborn enhanced histogram with density plot
+sns.displot(Auto[&#39;mpg&#39;], bins=15);
 </pre></div>
 </div>
 </div>
@@ -2255,8 +2265,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># seaborn pairplot for selected variables, colored by another</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">Auto</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">,</span> <span class="s1">&#39;displacement&#39;</span><span class="p">,</span> <span class="s1">&#39;horsepower&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="s1">&#39;acceleration&#39;</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;cylinders&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># seaborn pairplot for selected variables, colored by another
+sns.pairplot(Auto, vars=[&#39;mpg&#39;, &#39;displacement&#39;, &#39;horsepower&#39;, &#39;weight&#39;, &#39;acceleration&#39;], hue=&#39;cylinders&#39;);
 </pre></div>
 </div>
 </div>
@@ -2266,8 +2276,8 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># summary statistics for all dataframe columns, including non-numerical ones</span>
-<span class="n">Auto</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># summary statistics for all dataframe columns, including non-numerical ones
+Auto.describe(include=&#39;all&#39;)
 </pre></div>
 </div>
 </div>
@@ -2440,9 +2450,9 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># summary statistics for a single column</span>
-<span class="c1"># wrapped as dataframe for pretty table display in jupyter</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Auto</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># summary statistics for a single column
+# wrapped as dataframe for pretty table display in jupyter
+pd.DataFrame(Auto[&#39;mpg&#39;].describe())
 </pre></div>
 </div>
 </div>
