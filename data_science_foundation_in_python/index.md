@@ -1,6 +1,6 @@
 # Why this JupyterBook?
 
-Whilst teaching data science courses at [Jheronimus Academy of Data Science](https://jads.nl), I often get requests to show _how_ to apply the theory. Given that there is a lot of great content avaialable in the creative commons, I have curated, combined and remixed these into an integrated online curriculum for ease of use.
+Whilst teaching data science courses at [EAISI Academy](https://www.tue.nl/en/research/institutes/eindhoven-artificial-intelligence-systems-institute/ai-education/professional-education/eaisi-academy), I often get requests to show _how_ to apply the theory. Given that there is a lot of great content avaialable in the creative commons, I have curated, combined and remixed these into an integrated online curriculum for ease of use.
 
 This foundational data science curriculum is based on the following textbooks and online courses:
 
